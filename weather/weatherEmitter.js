@@ -9,30 +9,34 @@
     var fireDownDur=10;
     a.fn.weatherEmitter = function (b) {
         this.each(function(){
-            var  c=this,d ,raindown=false,e , f ,g, h , i , j = a(c).data("websnowcanvas"), k =null , l = null, m = null, n =(j&&j.flakes)|| [], o = null, p = a.extend({emitterCounts: 5,flakes:n,speed:1,type:"snow",timer:(j&&j.timer),state:null,rainBottom:150,rainSpace:30}, b);
-            if(j!=null){
-                k = j.canvas.getContext("2d");
-                $.extend(j.config,p,true);
-                j.flakes.length=0;
-                clearInterval(j.config.timer);
-                 j.config.timer=p.timer=setInterval(r,200);
+            var  c=this,d ,raindown=false,e , f ,g, h , i , data = a(c).data("websnowcanvas"),
+                k =null , l = null, m = null, n =data!=null? data.flakes:[],o=null,
+                p = a.extend({emitterCounts: 5,flakes:n,speed:1,type:"snow",state:null,rainBottom:150,rainSpace:30,increaseGap:200}, b);
+            if(data!=null){
+                k = data.canvas.getContext("2d");
+                $.extend(data.config,p,true);
+                clearInterval(data.timer);
+                data.flakes.length=[];
+                data.timer=setInterval(r, data.increaseGap)
                 return;
             }
             function Plugin(){
                 this.canvas=j;
                 this.config=p;
                 this.flakes=n;
-                this.timer=p.timer;
+                this.timer=o;
             }
             function q(c) {
                 j = document.getElementById("websnowjqcan" + d), k = j.getContext("2d"),
-                    l = document.createElement("canvas"), l.style.display="none",document.body.appendChild(l), m = l.getContext("2d"), m.canvas.width = k.canvas.width, m.canvas.height = k.canvas.height, p.timer = setInterval(r, 200), t(), requestAnimationFrame(v,null), a(window).resize(function () {
+                    l = document.createElement("canvas"), l.style.display="none",document.body.appendChild(l), m = l.getContext("2d"),
+                    m.canvas.width = k.canvas.width, m.canvas.height = k.canvas.height,
+                    o= setInterval(r, p.increaseGap), t(), requestAnimationFrame(v,null), a(window).resize(function () {
                     a("#websnowjqcan" + d).offset({top: a(c).offset().top, left: a(c).offset().left})
                 })
-                a(c).data("websnowcanvas",new Plugin());
+                a(c).data("websnowcanvas",data=new Plugin());
             }
             function r() {
-                n[n.length] = new s, n.length == p.emitterCounts && clearInterval(p.timer);
+                n[n.length] = new s, n.length == p.emitterCounts && clearInterval(data.timer);
             }
 
             function s() {

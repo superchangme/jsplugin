@@ -50,17 +50,18 @@
         document.querySelector("textarea").value="johny\nDo you\nLike It"
     })
 function switchWth(val){
-    var speed,emitterCounts;
+    var speed,emitterCounts,increaseGap=200;
     if(val=="rain"){
         speed=50;
         emitterCounts=1000;
+        increaseGap=10;
     }else if(val=="snow"){
         speed=5
         emitterCounts=50;
     }else{
         emitterCounts=5;
     }
-$("#bg").weatherEmitter({type:val,speed:speed,emitterCounts:emitterCounts})
+$("#bg").weatherEmitter({type:val,speed:speed,emitterCounts:emitterCounts,increaseGap:increaseGap})
 }
 </script>
 </html>
