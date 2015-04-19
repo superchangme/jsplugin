@@ -46,11 +46,21 @@
 <script src="weatherEmitter.js"></script>
 <script>
     $(function(){
-        $("#bg").weatherEmitter({type:"fireworks"})
+        $("#bg").weatherEmitter({type:"snow"})
         document.querySelector("textarea").value="johny\nDo you\nLike It"
     })
 function switchWth(val){
-$("#bg").weatherEmitter({type:val})
+    var speed,emitterCounts;
+    if(val=="rain"){
+        speed=50;
+        emitterCounts=1000;
+    }else if(val=="snow"){
+        speed=5
+        emitterCounts=50;
+    }else{
+        emitterCounts=5;
+    }
+$("#bg").weatherEmitter({type:val,speed:speed,emitterCounts:emitterCounts})
 }
 </script>
 </html>

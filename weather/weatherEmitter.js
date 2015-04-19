@@ -14,15 +14,15 @@
                 k = j.canvas.getContext("2d");
                 $.extend(j.config,p,true);
                 j.flakes.length=0;
-                clearInterval(p.timer);
-                o=setInterval(r,200);
+                clearInterval(j.config.timer);
+                j.config.timer=setInterval(r,200);
                 return;
             }
             function Plugin(){
-                p.timer=o;
                 this.canvas=j;
                 this.config=p;
                 this.flakes=n;
+                this.timer=o;
             }
             function q(c) {
                 j = document.getElementById("websnowjqcan" + d), k = j.getContext("2d"),
@@ -32,7 +32,7 @@
                 a(c).data("websnowcanvas",new Plugin());
             }
             function r() {
-                n[n.length] = new s, n.length == p.emitterCounts && clearInterval(o);
+                n[n.length] = new s, n.length == p.emitterCounts && clearInterval(p.timer);
             }
 
             function s() {
@@ -122,14 +122,14 @@
             function t() {
                 k.save(), u();
                 var dx,gr,color;
-                for (var a = 0; a < n.length; a++)
+                for (var a = 0; a < n.length; a++){
                     if(p.type=="snow"){
                         m.beginPath(), m.arc(n[a].x, n[a].y, n[a].width, 0, 2 * Math.PI, !1), m.fillStyle = "#ffffff", m.fill();
                     }else if(p.type=="rain"){
-                       /* m.beginPath(), m.moveTo(n[a].x, n[a].y),m.bezierCurveTo(n[a].x-5*0.15,n[a].y+10*0.15,n[a].x-30*0.15,n[a].y+45*0.15,n[a].x,n[a].y+50*0.15),
-                            m.bezierCurveTo(n[a].x+30*0.15,n[a].y+45*0.15,n[a].x+5*0.15,n[a].y+10*0.15,n[a].x, n[a].y),
-                          */
-                        if(n[a].y>= j.height- p.rainBottom-10&& !n[a].isDown){
+                        /* m.beginPath(), m.moveTo(n[a].x, n[a].y),m.bezierCurveTo(n[a].x-5*0.15,n[a].y+10*0.15,n[a].x-30*0.15,n[a].y+45*0.15,n[a].x,n[a].y+50*0.15),
+                         m.bezierCurveTo(n[a].x+30*0.15,n[a].y+45*0.15,n[a].x+5*0.15,n[a].y+10*0.15,n[a].x, n[a].y),
+                         */
+                        if(n[a].y>= l.height- p.rainBottom-10&& !n[a].isDown){
                             raindown=true;
                             n[a].isDown=true;
                             dismissRain(n[a].x)
@@ -152,14 +152,16 @@
                                 }
                             }
                         }else{
-                             gr = m.createRadialGradient(n[a].x, n[a].y, 0,n[a].x,n[a].y,5);
+                            gr = m.createRadialGradient(n[a].x, n[a].y, 0,n[a].x,n[a].y,5);
                             color=n[a].childs[0].grColor;
                             //gr.addColorStop(0, 'rgba('+color[0]+','+color[1]+','+color[2]+','+n[a].opacity*0.9+')');
                             gr.addColorStop(0.3,'rgba(255,255,255,'+n[a].opacity+')');
                             gr.addColorStop(1,'rgba('+color[0]+','+color[1]+','+color[2]+','+n[a].opacity+')');
                             m.beginPath(), m.fillStyle = gr, m.arc(n[a].x,n[a].y, 5, 2 * Math.PI, !1)/*, m.fillStyle = "#ffffff"*/, m.fill();
                         }
-                     }
+                    }
+                }
+
                     k.drawImage(l, 0, 0, l.width, l.height), k.restore()
             }
 
@@ -181,7 +183,7 @@
                         p.state="rainDown";
                     }
                 }
-                p.timer=requestAnimationFrame(stepsFc,null);
+                requestAnimationFrame(stepsFc,null);
             }
             function u() {
                // if(p.type=="snow"||!raindown){
