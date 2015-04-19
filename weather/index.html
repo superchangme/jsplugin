@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <style>
+        #bg{
+            /*background: url(Desert.jpg) no-repeat;*/
+            background: #000000;
+            height: 100%;
+            position: relative;
+            z-index: 0;
+        }
+        html{
+            height: 100%;
+        }
+        textarea{
+            background: transparent;
+            font-size: 50px;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            color: darkorange;
+            border: none;
+        }
+        canvas{
+            z-index: 10;
+        }
+        body{
+            margin: 0;
+            position: relative;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="bg">
+    <textarea ></textarea>
+</div>
+</body>
+<script src="../../js/jquery-1.11.1.js"></script>
+<script src="weatherEmitter.js"></script>
+<script>
+    $(function(){
+        $("#bg").weatherEmitter({type:"fireworks"})
+        document.querySelector("textarea").value="johny\nDo you\nLike It"
+    })
+</script>
+</html>
