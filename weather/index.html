@@ -37,6 +37,7 @@
     </style>
 </head>
 <body>
+切换效果:<select onchange="switchWth(this.value)"><option value="snow">雪花</option><option value="rain">雨滴</option><option value="fireworks">烟花</option></select>
 <div id="bg">
     <textarea ></textarea>
 </div>
@@ -48,5 +49,8 @@
         $("#bg").weatherEmitter({type:"fireworks"})
         document.querySelector("textarea").value="johny\nDo you\nLike It"
     })
+function switchWth(val){
+$("#bg").weatherEmitter({type:val})
+}
 </script>
 </html>
