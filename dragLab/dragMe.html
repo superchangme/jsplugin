@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="dragArea" style="border: 2px solid #8a2be2;height: 400px;width: 400px;position: relative;margin:50px;">
+    <div style="background: red;height: 100px;width: 100px;" id="drager"></div>
+</div>
+</body>
+<script>
+    var drager=document.getElementById("drager"),isDrag=false,
+            dclass='drag-me',intro='.'+dclass+'{',style="position:absolute;",
+            dtop="top:",left=";left:",oldX,oldY,prevTop=0,prevLeft=0,outro="}",styleEl=document.createElement("style"),rect={top:{max:300},left:{max:300}};
+    styleEl.setAttribute("type", "text/css");
+    drager .classList.add(dclass);
+    drager.addEventListener("mousedown",function(e){
+        oldX= e.clientX;
+        oldY= e.clientY;
+        isDrag=true;
+    })
+    document.addEventListener("mousemove",function(e){
+        if(!isDrag){return;}
+        var dragstyle=intro+style+dtop+ Math.max(Math.min((e.clientY-oldY+prevTop),rect.top.max),0)+'px;'+left+Math.max(Math.min((e.clientX-oldX+prevLeft),rect.left.max),0)+'px'+outro;
+        if(styleEl.styleSheet){// IE
+            styleEl.styleSheet.cssText = dragstyle;
+        } else {// w3c
+            var cssStyle = document.createTextNode(dragstyle);
+            styleEl.appendChild(cssStyle);
+        }
+        styleEl.innerHTML=dragstyle;
+        document.head.appendChild(styleEl)
+    })
+    document.addEventListener("mouseup",function(e){
+        isDrag=false;
+        prevTop=Math.max(Math.min((e.clientY-oldY+prevTop),rect.top.max),0);
+        prevLeft=Math.max(Math.min((e.clientX-oldX+prevLeft),rect.left.max),0);
+    })
+</script>
+</html>
