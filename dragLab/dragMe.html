@@ -21,9 +21,7 @@
         isDrag=true;
     })
     document.addEventListener("mousemove",function(e){
-        if(!isDrag){return;}else{
-            !isDragArea&&(isDragArea=true);
-        }
+        if(!isDrag){return;}
         var dragstyle=intro+style+dtop+ Math.max(Math.min((e.clientY-oldY+prevTop),rect.top.max),0)+'px;'+left+Math.max(Math.min((e.clientX-oldX+prevLeft),rect.left.max),0)+'px'+outro;
         if(styleEl.styleSheet){// IE
             styleEl.styleSheet.cssText = dragstyle;
@@ -35,7 +33,7 @@
         document.head.appendChild(styleEl)
     })
     document.addEventListener("mouseup",function(e){
-        if(!isDragArea){
+        if(!isDrag){
             return;
         }
         isDrag=false;
