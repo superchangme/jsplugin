@@ -2,10 +2,13 @@
  * Created by tom.chang on 2015/4/28.
  */
 
-define(function (){
-var tomLib = {};
+define(['jquery'],function ($){
+var tomLib = {},_=tomLib;
+    //browser support feature obj
+    _.support={};
+
     //css3 style浏览器兼容
-    tomLib.prefixStyle=function(style){
+    _.prefixStyle=function(style){
         var el = document.createElement('div')
         var vendors = 'webkitT,t,,MozT,msT,OT'.split(','),prefix;
         style=style.slice(1);
@@ -135,5 +138,72 @@ var tomLib = {};
         })();
         return reset;
     }
-    return tomLib;
+
+
+    //enhance jquery plugin
+    //from bootstrap
+    $.fn.emulateTransitionEnd = function (duration) {
+        var called = false
+        var $el = this
+        $(this).one('bsTransitionEnd', function () { called = true;})
+        var callback = function () {if (!called) $($el).trigger($.support.transition.end) }
+        setTimeout(callback, duration)
+        return this
+    }
+
+    function transitionEnd() {
+        var el = document.createElement('bootstrap')
+        var transEndEventNames = {
+            WebkitTransition : 'webkitTransitionEnd',
+            MozTransition    : 'transitionend',
+            OTransition      : 'oTransitionEnd otransitionend',
+            transition       : 'transitionend'
+        }
+        for (var name in transEndEventNames) {
+            if (el.style[name] !== undefined) {
+                return { end: transEndEventNames[name] }
+            }
+        }
+        return false // explicit for ie8 (  ._.)
+    }
+    //dom ready 判断
+    $(function () {
+        $.support.transition = transitionEnd()
+
+        if (!$.support.transition) return
+
+        $.event.special.bsTransitionEnd = {
+            bindType: $.support.transition.end,
+            delegateType: $.support.transition.end,
+            handle: function (e) {
+                if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+            }
+        }
+    })
+    return _;
 });
+
+/*
+
+ document.ready = function (callback) {
+ ///兼容FF,Google
+ if (document.addEventListener) {
+ document.addEventListener('DOMContentLoaded', function () {
+ document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+ callback();
+ }, false)
+ }
+ //兼容IE
+ else if (document.attachEvent) {
+ document.attachEvent('onreadytstatechange', function () {
+ if (document.readyState == "complete") {
+ document.detachEvent("onreadystatechange", arguments.callee);
+ callback();
+ }
+ })
+ }
+ else if (document.lastChild == document.body) {
+ callback();
+ }
+ }
+ */

@@ -1,0 +1,56 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    .rotate-box{
+        height: 375px;
+        width: 500px;
+        position: relative;
+    }
+    img{
+        width: 100%;
+
+    }
+    .item{
+        position: absolute;
+        top:0;
+        left:0;
+        right: 0;
+        bottom: 0;
+        webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        transform:rotateY(180deg);
+        -webkit-transform:rotateY(180deg);
+        transition: .6s ease-in-out all;
+        -webkit-transition: .6s ease-in-out all;
+    }
+    .item.active{
+        z-index: 1;
+        display: block;
+        transform:rotateY(0);
+        -webkit-transform:rotateY(0);
+    }
+
+</style>
+
+</head>
+<body>
+<div class="rotate-box">
+    <div class="item active"><img src="../source/img/b.jpg"/></div>
+    <div class="item"><img src="../source/img/c.jpg"/></div>
+</div>
+<button class="btn">switch</button>
+</body>
+<script src="../vendor/require.js" data-main="../vendor/main.js"></script>
+<script>
+    require(["jquery","tomLib"],function($,t){
+        $(".btn").on("click",function(){
+            var curItem = $(".item.active");
+            curItem.siblings().addClass("active").end().removeClass("active");
+        })
+    })
+</script>
+</html>
