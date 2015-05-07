@@ -7,33 +7,47 @@
         height: 375px;
         width: 500px;
         position: relative;
+        -webkit-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-perspective: 800px;
+        -ms-perspective: 800px;
+        perspective: 800px;
     }
     img{
         width: 100%;
 
     }
     .item{
+        display: none;
         position: absolute;
         top:0;
         left:0;
         right: 0;
         bottom: 0;
-        webkit-transform-style: preserve-3d;
-        transform-style: preserve-3d;
+        z-index: 0;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
-        transform:rotateY(180deg);
-        -webkit-transform:rotateY(180deg);
+        transform:rotateY(-180deg);
+        -webkit-transform:rotateY(-180deg);
         transition: .6s ease-in-out all;
         -webkit-transition: .6s ease-in-out all;
     }
     .item.active{
-        z-index: 1;
+        z-index: 2;
         display: block;
         transform:rotateY(0);
         -webkit-transform:rotateY(0);
     }
-
+    .item.move{
+        display: block;
+    }
+    .item.backwards{
+        display: block;
+        z-index: 3;
+        transform:rotateY(180deg);
+        -webkit-transform:rotateY(180deg) ;
+    }
 </style>
 
 </head>
@@ -48,8 +62,22 @@
 <script>
     require(["jquery","tomLib"],function($,t){
         $(document).on("click",".btn,.item.active",function(){
-            var curItem = $(".item.active");
-            curItem.siblings().addClass("active").end().removeClass("active");
+            var curItem = $(".item.active"),next=curItem.siblings(),cls="move";
+            if(curItem.index()>next.index()){
+                cls="backwards move";
+            }
+            next.addClass("move");
+            setTimeout(function(){
+                next.addClass("active");
+            },0);
+            curItem.addClass(cls).removeClass("active");
+            $.support.transition ? next.one("bsTransitionEnd",function(){
+                curItem.removeClass(cls);
+                next.removeClass("move");
+            }).emulateTransitionEnd(600):(function(){
+                curItem.removeClass(cls);
+                next.removeClass("move");
+            });
         })
     })
 </script>
