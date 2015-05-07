@@ -47,7 +47,7 @@
 <script src="../vendor/require.js" data-main="../vendor/main.js"></script>
 <script>
     require(["jquery","tomLib"],function($,t){
-        $(".btn").on("click",function(){
+        $(".btn,.item.active").on("click",function(){
             var curItem = $(".item.active");
             curItem.siblings().addClass("active").end().removeClass("active");
         })
