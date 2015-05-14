@@ -16,5 +16,10 @@
 
     </div>
 </body>
-<script src="../vendor/require.js" data-main="main.js"></script>
+<script src="../vendor/require.js" data-main="../vendor/main.js"></script>
+<script>
+    require(["jquery.eraser","tomRequire/b"],function($,tomb){
+        console.log($.fn.eraser,tomb)
+    })
+</script>
 </html>
