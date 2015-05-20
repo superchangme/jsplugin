@@ -18,8 +18,25 @@
 </body>
 <script src="../vendor/require.js" data-main="../vendor/main.js"></script>
 <script>
-    require(["jquery.eraser","tomRequire/b"],function($,tomb){
-        console.log($.fn.eraser,tomb)
-    })
+    /*require(['jquery-private',"jquery.eraser"],function(){
+        var bg = new Image();
+        bg.src = "../source/img/b.jpg";
+        bg.onload=function(){
+            $("#eraserArea").eraser({bgImage:bg,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(){
+                alert("成功擦除50%")
+            }});
+        }
+    })*/
+//    require(["jquery-private"],function($,eraser){
+        require(["jquery.eraser"],function($){
+            var bg = new Image();
+            bg.src = "../source/img/b.jpg";
+            bg.onload=function(){
+                $("#eraserArea").eraser({bgImage:bg,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(){
+                    alert("成功擦除50%")
+                }});
+            }
+        })
+//    })
 </script>
 </html>

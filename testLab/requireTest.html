@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>require js</title>
+</head>
+<body>
+
+</body>
+<script src="../vendor/require.js" data-main="../vendor/main"></script>
+<script>
+    /*require.config({
+        baseUrl:"../vendor",
+        shim: {
+            'jquery-eraser': ['jquery']
+        },
+        paths: {
+            "jquery": "jquery-2.1.4",
+            "jquery-eraser":"fingerEraser",
+            "underscore": "underscore.min",
+            "backbone": "backbone.min",
+            "tomLib":"tomLib",
+            "zepto":"zepto.min",
+            "tomRequire":"tomRequire"
+        }
+    });*/
+    require(["tomRequire/a"],function(a){
+      console.log(a())
+    })
+</script>
+</html>

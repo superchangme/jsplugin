@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title></title>
+    <style>
+        body{
+            text-align: center;
+        }
+        .loading-box{
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+        .clear{
+            clear: both;
+        }
+        .loading-box:after{
+          content: " ";
+          position: absolute;
+          width: 40px;
+          height: 40px;
+          background: red;
+            left:0;
+            top:0;
+            border-radius: 100%;
+            -webkit-animation:move 2s steps(8) infinite ;
+        }
+
+        @-webkit-keyframes move{
+          0%{
+              transform:translate3d(0,0,0);
+          }
+            100%{
+                transform:translate3d(720px,0,0);
+            }
+        }
+        .dot{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            background: #ccc;
+            margin-right: 50px;
+/*
+            margin:0 40px;
+*/
+            float: left;
+        }
+    </style>
+</head>
+<!--五个点点loading呵呵-->
+<body>
+<div class="loading-box">
+    <div class="dot">
+    </div>
+    <div class="dot">
+    </div>
+    <div class="dot">
+    </div>
+    <div class="dot">
+    </div>
+    <div class="dot">
+    </div>
+    <div class="clear"></div>
+</div>
+
+</body>
+<script src="../vendor/require.js" data-main="../vendor/main.js"></script>
+
+<script>
+    require(["jquery"],function($){
+
+    })
+</script>
+</html>

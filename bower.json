@@ -1,0 +1,15 @@
+{
+  "name": "js_plugins",
+  "version": "0.0.0",
+  "authors": [
+    "superchangme <superchangme@126.com>"
+  ],
+  "description": "tom js plugin",
+  "main": "index.html",
+  "keywords": [
+    "js",
+    "plugin",
+    "effects"
+  ],
+  "license": "MIT"
+}
