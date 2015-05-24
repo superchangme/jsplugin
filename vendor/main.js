@@ -1,4 +1,4 @@
-var baseUrl="/js_plugins"+"/vendor/";
+var baseUrl=+"/vendor/";
 require.config({
     /*模块依赖配置*/
     baseUrl:baseUrl,
