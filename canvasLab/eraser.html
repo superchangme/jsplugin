@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
     <title>橡皮擦效果</title>
-    <style>
-        #eraserArea{
-            height:500px;
-            width: 500px;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css"/>
 </head>
 <body>
-    <div id="eraserArea">
+<div id="eraserArea">
 
-    </div>
+</div>
 </body>
-<script src="../vendor/require.js" data-main="../vendor/main.js"></script>
+<script src="../vendor/require.js" ></script>
+<script src="../vendor/main.js"></script>
 <script>
-    /*require(['jquery-private',"jquery.eraser"],function(){
+    require(["jquery.eraser"],function($){
         var bg = new Image();
         bg.src = "../source/img/b.jpg";
         bg.onload=function(){
@@ -26,17 +22,12 @@
                 alert("成功擦除50%")
             }});
         }
-    })*/
+    })
 //    require(["jquery-private"],function($,eraser){
-        require(["jquery.eraser"],function($){
-            var bg = new Image();
-            bg.src = "../source/img/b.jpg";
-            bg.onload=function(){
-                $("#eraserArea").eraser({bgImage:bg,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(){
-                    alert("成功擦除50%")
-                }});
-            }
-        })
+
+        // called once the DOM is ready
+
+
 //    })
 </script>
 </html>

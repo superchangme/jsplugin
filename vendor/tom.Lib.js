@@ -39,19 +39,18 @@ var tomLib = {},_=tomLib;
      */
 
     tomLib.animateFrame=function(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, isLoopBoo, loopTimes, loopGapTime, callBackFun, stepFuc, waitFrame, waitTime) {
-        var plugin = el.data("plugin"), $list, isInit = plugin ? true : false, isPlay = plugin ? plugin.isPlay : false;
+        var plugin = el.data("plugin"), frameClass,$list, isInit = plugin ? true : false, isPlay = plugin ? plugin.isPlay : false;
         if (isPlay) {
             return;
         }
         if (!isInit) {
             for (var i = 0; i <= lastFrame; i++) {
-                el.append("<div class=\"png-frame p" + (i + 1) + "\"></div>");
+                frameClass="png-frame p" + (i + 1)+((i==0)? " show":"");
+                el.append("<div class='"+frameClass+"'></div>");
             }
-            ;
             $list = el.find(".png-frame");
             el.data("plugin", plugin = new Plugin());
             reset();
-
         } else {
             $list = plugin.list;
         }
@@ -77,6 +76,9 @@ var tomLib = {},_=tomLib;
             plugin.isPlay = true;
             function frameEvent() {
                 plugin.interval = setInterval(function () {
+                    if(plugin.isPlay==false){
+                        return;
+                    }
                     if (waitFrame && (waitFrame == count)) {
                         if (!time) {
                             time = +new Date;
@@ -96,7 +98,6 @@ var tomLib = {},_=tomLib;
                     if (count == lastFrame) {
                         if (loopTimes)loopTimes--;
                         clearInterval(plugin.interval);
-
                         if (isLoopBoo && (loopTimes != 0 || loopTimes == null)) {
                             //循环播放 调用
                             plugin.timeout = setTimeout(function () {
@@ -111,7 +112,7 @@ var tomLib = {},_=tomLib;
                             if (typeof callBackFun == "function") {
                                 callBackFun();
                             }
-                        } else {
+                        } else if(!isLoopBoo) {
                             plugin.isPlay = false;
                         }
                         if (typeof callBackFun == "function" && isLoopBoo == false) {
@@ -133,13 +134,21 @@ var tomLib = {},_=tomLib;
 
                 }, frameGapTime);
             }
-
             frameEvent();
         })();
         return reset;
     }
 
 
+    /*
+     */
+    function parabola(open,leftOrNot,speed,strength,distance){
+
+    }
+    parabola.gender=function(x){
+
+
+    }
     //enhance jquery plugin
     //from bootstrap
     $.fn.emulateTransitionEnd = function (duration) {

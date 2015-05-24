@@ -75,26 +75,43 @@
         var self=this;
         this.ctx.globalCompositeOperation = "source-over";
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
-        var ratio= 1,start=0;
+        var ratio= 1,start= 0,pos,bgScale=this.bgScale||1;
         if(this.bgColor){
             this.ctx.save();
             this.ctx.fillStyle=this.bgColor;
             this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
             this.ctx.restore();
         }
+        console.log(this.bgPos)
+
         if(this.bgImage!=null){
-            if(this.bgImage.width/this.bgImage.height>this.canvas.width/this.canvas.height){
-                ratio=this.bgImage.height/this.canvas.height;
-                start=Math.abs((this.bgImage.width-this.canvas.width*ratio)/2);
-                this.ctx.drawImage(this.bgImage,start,
-                    0,this.bgImage.width-2*start,this.bgImage.height,0,0,this.canvas.width,this.canvas.height);
-            }else if(this.bgImage.width/this.bgImage.height<this.canvas.width/this.canvas.height){
-                ratio=this.bgImage.width/this.canvas.width;
-                start=Math.abs((this.bgImage.height-this.canvas.height*ratio)/2);
-                this.ctx.drawImage(this.bgImage,
-                    0,start,this.bgImage.width,this.bgImage.height-2*start,0,0,this.canvas.width,this.canvas.height);
+            console.log(this.bgPos)
+            if(this.bgPos!=undefined){
+                pos={top:this.bgPos.top||0,left:this.bgPos.left||0}
+                if(pos.left=="center"){
+                    pos.left=(this.canvas.width-this.bgImage.width*bgScale)/2
+                }
+                if(pos.top=="center"){
+                    pos.top=(this.canvas.height-this.bgImage.height*bgScale)/2
+                }
+                this.ctx.drawImage(this.bgImage,0,0,this.bgImage.width,this.bgImage.height,
+                    pos.left,pos.top,this.bgImage.width*bgScale,this.bgImage.height*bgScale)
+            }else if(this.bgCover==true){
+                this.ctx.drawImage(this.bgImage,0,0,this.canvas.width,this.canvas.height)
             }else{
-                this.ctx.drawImage(this.bgImage,0,0,this.canvas.width,this.canvas.height);
+                if(this.bgImage.width/this.bgImage.height>this.canvas.width/this.canvas.height){
+                    ratio=this.bgImage.height/this.canvas.height;
+                    start=Math.abs((this.bgImage.width-this.canvas.width*ratio)/2);
+                    this.ctx.drawImage(this.bgImage,start,
+                        0,this.bgImage.width-2*start,this.bgImage.height,0,0,this.canvas.width,this.canvas.height);
+                }else if(this.bgImage.width/this.bgImage.height<this.canvas.width/this.canvas.height){
+                    ratio=this.bgImage.width/this.canvas.width;
+                    start=Math.abs((this.bgImage.height-this.canvas.height*ratio)/2);
+                    this.ctx.drawImage(this.bgImage,
+                        0,start,this.bgImage.width,this.bgImage.height-2*start,0,0,this.canvas.width,this.canvas.height);
+                }else{
+                    this.ctx.drawImage(this.bgImage,0,0,this.canvas.width,this.canvas.height);
+                }
             }
         }
         this.beforeInit();
@@ -157,7 +174,7 @@
                 console.log(left,dd,area)
                 if(left<1-self.percent){
                     /*  canvas.className = "noOp";*/
-                    self.success.call(self,canvas);
+                    self.success.call(self,canvas,ctx);
                 }else{
                     console.log("剩余非空白区域"+left)
                 }
@@ -226,7 +243,7 @@
                 var imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
                 var dd;
                 if(dd/(imgData.width*imgData.height/(self.density*self.density))<self.percent){
-                    self.success.call(self,canvas);
+                    self.success.call(self,canvas,ctx);
                 }
             },self.interval)
 

@@ -60,7 +60,7 @@
 </body>
 <script src="../vendor/require.js" data-main="../vendor/main.js"></script>
 <script>
-    require(["jquery","tomLib"],function($,t){
+    require(["jquery","../vendor/tom.Lib"],function($,t){
         $(document).on("click",".btn,.item.active",function(){
             var curItem = $(".item.active"),next=curItem.siblings(),cls="move";
             if(curItem.index()>next.index()){

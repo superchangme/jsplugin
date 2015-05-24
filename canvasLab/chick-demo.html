@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>橡皮擦效果</title>
+    <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+<div id="eraserArea">
+
+</div>
+<div class="page">
+<div class="bath-room">
+    <div class="inner">
+        <div class="bathtub"></div>
+        <div class="chick-box">
+            <div class="inner">
+                <div class="chick-frames">
+                </div>
+            </div>
+            <div class="zhiList">
+                    <div class="p1 item">
+                        <div class="x">
+                            <div class="y">
+                                <div class="el"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p2 item">
+                        <div class="x">
+                            <div class="y">
+                                <div class="el"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p3 item">
+                        <div class="x">
+                            <div class="y">
+                                <div class="el"></div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="p4 item">
+                    <div class="x">
+                        <div class="y">
+                            <div class="el"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p5 item">
+                    <div class="x">
+                        <div class="y">
+                            <div class="el"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="count">
+</div>
+</div>
+
+</body>
+<script src="../vendor/require.js" ></script>
+<script src="../vendor/main.js"></script>
+<script>
+    /*require(['jquery-private',"jquery.eraser"],function(){
+        var bg = new Image();
+        bg.src = "../source/img/b.jpg";
+        bg.onload=function(){
+            $("#eraserArea").eraser({bgImage:bg,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(){
+                alert("成功擦除50%")
+            }});
+        }
+    })*/
+//    require(["jquery-private"],function($,eraser){
+
+        // called once the DOM is ready
+        require(["jquery.eraser","tom.Lib","Zepto","Zepto.fx"],function(u,T,Z){
+            var bg = new Image();
+            var $=Z;
+            $(document).on('touchmove',function(e){
+                e.stopPropagation();
+            })
+
+            bg.src = "../source/img/text.png";
+            bg.onload=function(){
+                /*$("#eraserArea").eraser({
+                    bgColor:"rgba(255,255,255,0.38)",bgImage:bg,bgPos:{left:"center",top:0},bgScale:0.5,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(canvas,ctx){
+                        ctx.clearRect(0,0,canvas.width,canvas.height)
+                        alert("成功擦除50%")
+                    }});*/
+            }
+            var chickFrame=$(".chick-frames");
+            T.animateFrame(chickFrame,0,1,1500,false,true,null,500,null,function(count){
+                genderZhi(count);
+            });
+            chickFrame.data("plugin").isPlay=false;
+            setTimeout(function(){
+                chickFrame.data("plugin").isPlay=true;
+            },2000)
+            var zhiList=Z(".zhiList .item"),zhiArr=[];
+            zhiList.each(function(index,item){
+                zhiArr.push({item:$(item),dirX:$(item).find(".x"),dirY:$(item).find(".y"),el:$(item).find(".el")});
+            })
+            var shuffleArr=zhiArr.map(function(o,i){return i}),c_shuffle=shuffleArr.slice(),count=0;
+            $(document).delegate(".zhiList .item","touchstart",function(){
+                $("#count").val(count++)
+                $(this).hide();
+            })
+            function genderZhi(dir){
+                var index=Math.floor(Math.random()*(zhiArr.length)),
+                        sign= 1,signY,moveY,moveX,moveAll,speed= 1,durX=2000,durY=4000,durAll=500;
+                c_shuffle.splice(index,1);
+                if(c_shuffle.length==0){
+                    c_shuffle=shuffleArr.slice();
+                }
+                if(dir==1){
+                    sign=-1;
+                }
+                signY=(Math.random()<0.5?-1:1);
+                moveX=-sign*(Math.random()*10+5)+"rem";
+                moveY=signY*(Math.random()*7+2)+"rem";
+                moveAll=sign*-3+"rem,"+signY*3+"rem,0";
+                speed=1/(Math.random()*2+0.5);
+                durX*=speed;
+                durY*=speed;
+                durAll*=speed;
+                zhiArr[index].item.animate({translate3d:moveAll},durAll,"ease-in")
+                zhiArr[index].dirX.animate({translateX:moveX},durX,"linear")
+                zhiArr[index].dirY.animate({translateY:moveY},durY,"ease-out")
+                zhiArr[index].el.animate({rotate:"1440deg"},durY*2,"ease-in")
+
+                setTimeout(function(){
+                   $([zhiArr[index].item,zhiArr[index].dirX,zhiArr[index].dirY,zhiArr[index].el]).each(function(){
+                       this.attr("style","");
+                   })
+                    zhiArr[index].item.show();
+                },durY+50)
+            }
+        })
+
+
+//    })
+</script>
+</html>

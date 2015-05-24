@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div.demo{
+            margin: 200px;
+        }
+        .x{
+            -webkit-animation:moveX 0.6s linear;
+        }
+        .y{
+            -webkit-animation:moveY 0.6s ease-out;
+        }
+        .el{
+            width: 50px;;
+            height: 50px;
+            background: red;
+        }
+        @-webkit-keyframes moveX {
+            0%{
+                -webkit-transform:translate3d(0,0,0);
+            }
+            100%{
+                -webkit-transform:translate3d(400px,0,0);
+            }
+        }
+        @-webkit-keyframes moveY {
+            0%{
+                -webkit-transform:translate3d(0,0,0);
+            }
+            100%{
+                -webkit-transform:translate3d(0,-100px,0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="demo">
+    <div class="x">
+        <div class="y">
+            <div class="el"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

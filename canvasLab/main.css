@@ -1,0 +1,110 @@
+* {
+  margin: 0;
+}
+html {
+  font-size: 125%;
+}
+html,
+body {
+  height: 100%;
+}
+#eraserArea {
+  height: 100%;
+  width: 100%;
+}
+body {
+  background: url(../source/img/chick_bg.png) 0 0%;
+}
+.png-frame {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: none;
+}
+.png-frame.show {
+  display: block;
+}
+.page {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: lightskyblue;
+}
+.page .bath-room {
+  position: absolute;
+  width: 100%;
+  top: 31.4484127%;
+}
+.page .bath-room .inner {
+  position: relative;
+  width: 15.975rem;
+  margin: 0 auto;
+}
+.page .bathtub {
+  background: url(../source/img/p4_bathtub.png);
+  width: 15.975rem;
+  height: 12.025rem;
+  position: absolute;
+  z-index: 1;
+  top: 3.5rem;
+}
+.page .chick-box {
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+  top: 0;
+}
+.page .chick-box .inner {
+  position: relative;
+  z-index: 3;
+  width: 7.15rem;
+}
+.page .chick-box .chick-frames {
+  width: 6.2rem;
+  height: 6.35rem;
+  position: relative;
+  margin: 0 auto;
+}
+.page .chick-box .chick-frames .png-frame.p1 {
+  background: url(../source/img/p4_chick_left.png);
+}
+.page .chick-box .chick-frames .png-frame.p2 {
+  background: url(../source/img/p4_chick_right.png);
+}
+@-webkit-keyframes moveX {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(200px, 0, 0);
+  }
+}
+@-webkit-keyframes moveY {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -200px, 0);
+  }
+}
+.zhiList {
+  width: 1.85rem;
+  height: 1.375rem;
+  margin-left: -0.925rem;
+  top: 4.23333333rem;
+  z-index: 2;
+  left: 50%;
+  position: absolute;
+}
+.zhiList .item {
+  position: absolute;
+}
+.zhiList .el {
+  background: url(../source/img/p4_zhi.png);
+  width: 1.85rem;
+  height: 1.375rem;
+}
+* {
+  background-size: cover!important;
+}
