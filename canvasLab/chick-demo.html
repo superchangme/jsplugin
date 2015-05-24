@@ -87,9 +87,8 @@
             })
             function genderZhi(dir){
                 var _index=Math.floor(Math.random()*(c_shuffle.length)),index=c_shuffle[_index],
-                        sign= -1,signY,moveY,moveX,moveAll,speed= 1,durX=2000,durY=4000,durAll=100;
+                        sign= -1,signY,moveY,moveX,moveAll,speed,durX=2000,durY=4000,durAll=100,rotate;
                 c_shuffle.splice(_index,1);
-                console.log(_index,index)
                 if(c_shuffle.length==0){
                     c_shuffle=shuffleArr.slice();
                 }
@@ -97,17 +96,18 @@
                     sign=1;
                 }
                 signY=(Math.random()<0.5?-1:1);
-                moveX=-sign*(Math.random()*7+6)+"rem";
+                moveX=-sign*(Math.random()*7+10)+"rem";
                 moveY=signY*(Math.random()*7+2)+"rem";
                 moveAll=sign*-3+"rem,"+signY*3+"rem,0";
                 speed=1/(Math.random()*2+0.5);
                 durX*=speed;
                 durY*=speed;
                 durAll*=speed;
+                rotate=signY*sign*360;
                 zhiArr[index].item.animate({translate3d:moveAll},durAll,"ease-in",function(){
                     zhiArr[index].dirX.animate({translateX:moveX},durX,"linear")
                     zhiArr[index].dirY.animate({translateY:moveY},durY,"ease-out")
-                    zhiArr[index].el.animate({rotate:"1440deg"},durY*2,"ease-in")
+                    zhiArr[index].el.animate({rotate:rotate+"deg"},durY*1.2,"ease-in")
                 })
                 setTimeout(function(){
                     zhiArr[index].item.hide();
