@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        ul{
+          counter-reset: items 0;
+        }
+        li{
+            list-style: none;
+            counter-increment: items;
+        }
+        li:after{
+            content:counter(items);
+        }
+    </style>
+</head>
+<body>
+     <ul>
+         <li>我</li>
+         <li>爱</li>
+         <li>你</li>
+         <li>中</li>
+         <li>国</li>
+     </ul>
+</body>
+</html>

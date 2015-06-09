@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div#demo{
+            background: red;
+            width: 400px;
+            height: 400px;
+            visibility: hidden;
+            -webkit-transition:all 0 0.5s;
+        }
+        div#demo.run{
+            visibility: visible;
+            -webkit-animation:scale 1s  0.5s;
+        }
+        @-webkit-keyframes scale {
+            0%{
+               -webkit-transform:scale(0.5)
+            }
+            100%{
+                -webkit-transform:scale(1)
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="demo"></div>
+<button onclick="change()">点我切换</button>
+</body>
+<script>
+    var demo=document.getElementById("demo")
+    function change(){
+        if(demo.className==""){
+            demo.className="run";
+        }else{
+            demo.className="";
+        }
+    }
+</script>
+</html>

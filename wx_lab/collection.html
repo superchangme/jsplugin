@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+</body>
+<script src="../vendor/require.js" ></script>
+<script src="../vendor/main.js"></script>
+<script>
+    var list ,offset=0;
+    function loadImg(){
+        offset+=1;
+        list[offset].setAttribute("src",list[offset].getAttribute("attr-src"))
+    }
+    function loadImgError(img){
+        offset+=1;
+        list[offset].setAttribute("src",list[offset].getAttribute("attr-src"))
+//        window.open(list[offset].getAttribute("attr-src"))
+        // img.src=img.src;
+    }
+    function loadAllImg(){
+       list=document.querySelectorAll("table img")
+        list[offset].setAttribute("src",list[offset].getAttribute("attr-src"))
+    }
+    require(["jquery","lodash"],function($,_){
+        $.ajax({url:"../source/data.html",dataType:"text",success:function(data){
+            //console.log(data.length)
+
+            var data=JSON.parse(data),data2=[],map={},
+                    table="<table><tr><th>微信昵称</th><th>姓名</th><th>时间</th><th>联系电话</th><th>截图内容</th></tr>";
+            _.each(data,function(item,index){
+                if(map[item.fakeid]!=null){
+                    _.extend(data2[map[item.fakeid]],item)
+                }else{
+                    data2.push(item);
+                    map[item.fakeid]=data2.length-1;
+                }
+            })
+            data2=_.filter(data2,function(item){
+                //icon/emotion/12.gif"
+                var date=item.messTime.replace("星期三","2015-06-3").replace("星期五","2015-06-5").replace("星期四","2015-06-4").replace("昨天","2015-06-7").split(" ");
+
+                item.messTime=+new Date(date[0]+" "+date[1])
+                return item.phone!=null&&item.messImg!=null&&!item.messImg.match(/\/icon\/emotion/)
+            })
+
+            _.each(data2,function(item,index){
+                item.trueName=item.trueName.replace(/[电话|姓名]/g,"")
+               item.messImg="https://mp.weixin.qq.com"+item.messImg/*.replace("small","large")*/
+              // window.open(item.messImg)
+
+                table+="<tr><td>"+item.name+"</td><td>"+item.trueName+"</td><td>"+item.messTime+"</td><td>"+item.phone+"</td><td><img onerror='loadImgError(this)' onload='loadImg(this)' attr-src='"+item.messImg+"'></td></tr>"
+            })
+            table+="</table><style>img{width: 200px;}</style>"
+            document.write(table);
+            //loadAllImg();
+            console.log(JSON.stringify(data2))
+          //  var b=window.open("http://www.baidu.com")
+            $(document).delegate("img","onload",function(){
+                console.log(arguments)
+            })
+        }})
+    })
+</script>
+</html>

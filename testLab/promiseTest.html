@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script src="../vendor/jquery.js"></script>
+<script>
+    var dfd= $.Deferred();
+    var dfd2= $.Deferred();
+    var dfd3= $.Deferred();
+
+    $.when(dfd).then(function(){
+        console.log("dfd2 in")
+        setTimeout(function(){
+            dfd2.resolve();
+        },1000)
+        return dfd2;
+    }).then(function(){
+        console.log("dfd3 in")
+        setTimeout(function(){
+            dfd3.resolve();
+        },0)
+        return dfd3;
+    })
+    dfd3.done(function(){
+        console.log("dfd2 in")
+    }).fail(function(){
+
+    }).progress(function(){
+
+    });
+    function DeferredList(len){
+        this.dfdList=[]
+        var Gdfd= $.Deferred(),dfd;
+        for(var i= 0,l=len;i<l;i++){
+            dfd= new DeferredItem();
+                Gdfd.then(dfd);
+            if(i==0){
+                Gdfd.resolve();
+            }
+            Gdfd=dfd.defer;
+            this.dfdList.push(dfd);
+        }
+    }
+    DeferredList.prototype.getItem=function(index){
+        return this.dfdList[index]
+    }
+    DeferredList.prototype.dealItem=function(start){
+        var beforeDone=true;
+        for(var i= start-1;i>-1;i--){
+             if(this.getItem(i).defer.state()!=="resolved"){
+                 beforeDone=false
+             }
+        }
+        if(beforeDone){
+            this.getItem(start).changeState("filled");
+            this.dealWaitList(start)
+        }else{
+            this.getItem(start).changeState("wait");
+        }
+        return this.getItem(start).cstate;
+    }
+    DeferredList.prototype.dealWaitList=function(start){
+        var list=this.dfdList;
+        for(var i= start+1,l=list.length;i<l;i++){
+            if(this.getItem(i).cstate!=="wait"){
+                return false;
+            }else{
+                this.getItem(i).changeState("filled")
+            }
+        }
+    }
+    function DeferredItem(){
+        this.defer= $.Deferred();
+        this.cstate="unfilled"; //wait filled
+    }
+    DeferredItem.prototype.changeState=function(state){
+        this.cstate=state;
+        if(state==="filled"){
+            this.defer.resolve();
+        }
+    }
+    var deferList=new DeferredList(5);
+    for(var i=0;i<5;i++){
+        (function(index){
+            deferList.getItem(i).defer.done(function(){
+                console.log(index)
+            })
+            setTimeout(function(){
+            },(5-index)*1000)
+        })(i)
+    }
+</script>
+</html>
