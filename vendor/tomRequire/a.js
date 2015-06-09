@@ -4,7 +4,5 @@
  * module a reqire jquery
  */
 define(["jquery"],function($){
-    return function(){
-        console.log($("body"))
-    };
+    return {}
 })

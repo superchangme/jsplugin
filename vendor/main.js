@@ -1,16 +1,27 @@
+var baseUrl="../vendor/";
 require.config({
-    baseUrl:"../vendor/",
     /*模块依赖配置*/
-   shim:{},
-    /*模块路径配置*/
+    baseUrl:baseUrl,
+    shim: {
+        'jquery.ui.core': ['jquery'],
+        'jquery.ui.widget': ['jquery'],
+        'jquery.ui.mouse': ['jquery'],
+        'jquery.ui.slider':['jquery'],
+        "zepto.touch":"Zepto",
+        "zepto.fx":"Zepto"
+    },	 /*模块路径配置*/
     paths: {
     "jquery": "jquery-2.1.4",
     "jquery.eraser":"jquery.eraser",
     "underscore": "underscore.min",
     "backbone": "backbone.min",
-     "tomLib":"tomLib",
+     "Zepto":"zepto.min",
+    "zepto.touch":"zepto.touch",
+    "zepto.fx":"zepto.fx",
+    "tomLib":"tom.Lib",
      "jquery-private":"jquery-private",
      "tom":"tomRequire",
+     "tomTest":"tomRequire"
      "lodash":"lodash"
     }  ,
     /*模块规则配置*/

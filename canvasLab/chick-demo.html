@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>橡皮擦效果</title>
+    <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+<div id="eraserArea">
+
+</div>
+<div class="page">
+<div class="bath-room">
+    <div class="inner">
+        <div class="bathtub"></div>
+        <div class="chick-box">
+            <div class="inner">
+                <div class="chick-frames">
+                </div>
+            </div>
+            <div class="zhiList">
+
+            </div>
+        </div>
+    </div>
+    <input id="count">
+</div>
+</div>
+
+</body>
+<script src="../vendor/require.js" ></script>
+<script src="../vendor/main.js"></script>
+<script>
+    /*require(['jquery-private',"jquery.eraser"],function(){
+        var bg = new Image();
+        bg.src = "../source/img/b.jpg";
+        bg.onload=function(){
+            $("#eraserArea").eraser({bgImage:bg,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(){
+                alert("成功擦除50%")
+            }});
+        }
+    })*/
+//    require(["jquery-private"],function($,eraser){
+
+        // called once the DOM is ready
+        require(["jquery.eraser","tom.Lib","Zepto","zepto.fx"],function(u,T,Z){
+            var bg = new Image();
+            var $=Z;
+            $(document).on('touchmove',function(e){
+                e.stopPropagation();
+            })
+
+            bg.src = "../source/img/text.png";
+            bg.onload=function(){
+                /*$("#eraserArea").eraser({
+                    bgColor:"rgba(255,255,255,0.38)",bgImage:bg,bgPos:{left:"center",top:0},bgScale:0.5,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(canvas,ctx){
+                        ctx.clearRect(0,0,canvas.width,canvas.height)
+                        alert("成功擦除50%")
+                    }});*/
+            }
+            var chickFrame=$(".chick-frames");
+            T.animateFrame(chickFrame,0,1,1000,false,true,null,1,null,function(count){
+                var num=Math.random()<0.5?3:Math.random()<0.8?2:1;
+                for(var i= 0;i<num;i++){
+                    genderZhi(count);
+                }
+            });
+            chickFrame.data("plugin").isPlay=false;
+            setTimeout(function(){
+                chickFrame.data("plugin").isPlay=true;
+            },2000)
+            var zhiTpl='<div class="item"> <div class="x"> <div class=" y "> <div class="el"></div> </div> </div></div>',$list=$("<div></div>");
+            for(var i= 0;i<30;i++){
+                $list.append($(zhiTpl).addClass("p"+i))
+            }
+            console.log($list)
+            $(".zhiList").append($list);
+            var zhiList=$(".zhiList .item"),zhiArr=[];
+            zhiList.each(function(index,item){
+                zhiArr.push({item:$(item),dirX:$(item).find(".x"),dirY:$(item).find(".y"),el:$(item).find(".el")});
+            })
+            var shuffleArr=zhiArr.map(function(o,i){return i}),c_shuffle=shuffleArr.slice(),count=0;
+            $(document).delegate(".zhiList .item","touchstart",function(){
+                $("#count").val(++count)
+                $(this).hide();
+            })
+            function genderZhi(dir){
+                var _index=Math.floor(Math.random()*(c_shuffle.length)),index=c_shuffle[_index],
+                        sign= -1,signY,moveY,moveX,moveAll,speed,durX=2000,durY=4000,durAll=100,rotate;
+                c_shuffle.splice(_index,1);
+                if(c_shuffle.length==0){
+                    c_shuffle=shuffleArr.slice();
+                }
+                if(dir==1){
+                    sign=1;
+                }
+                signY=(Math.random()<0.5?-1:1);
+                moveX=-sign*(Math.random()*7+10)+"rem";
+                moveY=signY*(Math.random()*7+2)+"rem";
+                moveAll=sign*-3+"rem,"+signY*3+"rem,0";
+                speed=1/(Math.random()*2+0.5);
+                durX*=speed;
+                durY*=speed;
+                durAll*=speed;
+                rotate=signY*sign*360;
+                zhiArr[index].item.animate({translate3d:moveAll},durAll,"ease-in",function(){
+                    zhiArr[index].dirX.animate({translateX:moveX},durX,"linear")
+                    zhiArr[index].dirY.animate({translateY:moveY},durY,"ease-out")
+                    zhiArr[index].el.animate({rotate:rotate+"deg"},durY*1.2,"ease-in")
+                })
+                setTimeout(function(){
+                    zhiArr[index].item.hide();
+                    $([zhiArr[index].item,zhiArr[index].dirX,zhiArr[index].dirY,zhiArr[index].el]).each(function(){
+                       this.attr("style","");
+                   });
+                    setTimeout(function(){
+                        zhiArr[index].item.show();
+                    },0)
+                },durY+90)
+            }
+        })
+//    })
+</script>
+</html>
