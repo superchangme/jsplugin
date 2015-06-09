@@ -33,6 +33,7 @@
           </div>
       </div>
 </body>
+<script src="../bower_components/binnng/debug.js/build/debug.min.js"></script>
 <script>
     function prefixStyle(style){
         var el = document.createElement('div')
@@ -49,6 +50,7 @@
         if(window.innerHeight!=winHeight){
             pageScale=window.innerHeight/winHeight;
             page.style[preTransform]="scale("+pageScale+")";
+            debug.log(window.innerHeight)
         }
     })
 </script>
