@@ -16,7 +16,8 @@
 
     </div>
 </body>
-<script src="../vendor/require.js" data-main="../vendor/main.js"></script>
+<script src="../vendor/require.js" ></script>
+<script src="../vendor/main.js"></script>
 <script>
     /*require(['jquery-private',"jquery.eraser"],function(){
         var bg = new Image();
@@ -28,7 +29,7 @@
         }
     })*/
 //    require(["jquery-private"],function($,eraser){
-        require(["jquery.eraser"],function($){
+        require(["jquery.eraser","tom/a"],function($,lib){
             var bg = new Image();
             bg.src = "../source/img/b.jpg";
             bg.onload=function(){
@@ -36,6 +37,7 @@
                     alert("成功擦除50%")
                 }});
             }
+            console.log(lib)
         })
 //    })
 </script>

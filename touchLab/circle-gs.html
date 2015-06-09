@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
     <style>
+
         .circle{
             background: red;
             height: 200px;
@@ -93,8 +94,7 @@
                mygestureArr,
                myCircle=document.getElementById("myCircle"),
                ROTATE = 0,
-               STEP = 5,transform=mylib.prefixStyle("transform");
-                         console.log(transform)
+               STEP = 5,transform=mylib.prefixStyle("transform"),isRotate=false;
        document.addEventListener("touchmove",function(e){
            e.preventDefault();
        })

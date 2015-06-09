@@ -1,5 +1,7 @@
 require.config({
+    baseUrl:"../vendor/",
     /*模块依赖配置*/
+   shim:{},
     /*模块路径配置*/
     paths: {
     "jquery": "jquery-2.1.4",
@@ -8,7 +10,8 @@ require.config({
     "backbone": "backbone.min",
      "tomLib":"tomLib",
      "jquery-private":"jquery-private",
-     "tomRequire":"tomRequire"
+     "tom":"tomRequire",
+     "lodash":"lodash"
     }  ,
     /*模块规则配置*/
     map:{
