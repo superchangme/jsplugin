@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>debug.js - binnng</title>
+	<script type="text/javascript" src="debug.js"></script>
+	<meta  name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+</head>
+<body style="background: #eee">
+	<script type="text/javascript">
+        window.onerror=function(err){
+            console.log(err)
+            debug.error(err);
+        }
+        var nextBirthdayOfTheWeek = function (birthday) {
+            var nday=new Date(birthday.getTime()),mydate=nday.getDate();
+            var myday=nday.getDay(),yearPassed=0;
+            while(true){
+                nday.setFullYear(nday.getFullYear()+1);
+                yearPassed++;
+             /*   if(nday.getDate()!=mydate) {
+                    continue;
+                }*/
+                if(nday.getDay()==myday){
+                    return nday;
+                }
+            }
+        }
+        var output=""
+        for(var i=2000;i<2008;i+=4){
+            if(i%100!=0||i%400==0){
+                var date=new Date("2 29,"+i);
+                output+=date+nextBirthdayOfTheWeek(date)+"<br/>";
+            }
+        }
+        document.write(output);
+
+  /*      debug.success("This is success message:)");
+        debug.error("This is error message:)");
+        debug.log("This is primary message:)");
+        debug.log({a: 1, b: 2});
+        debug.log([1,2,3]);*/
+        function isSantaClausable(obj) {
+                var santaMethods=["sayHoHoHo","distributeGifts","goDownTheChimney"]
+                // TODO
+                for(var i= 0,l=santaMethods.length;i<l;i++){
+                    if(typeof obj[santaMethods[i]] !="function"){
+                        return false;
+                    }
+                }
+                return true;
+        }
+    </script>
+</body>
+</html>
