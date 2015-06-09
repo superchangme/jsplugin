@@ -11,7 +11,9 @@
         html,body{
             height: 100%;
             position: relative;
+            background: darkorange;
         }
+
         #page{
             width: 100%;
             position: absolute;
@@ -19,8 +21,14 @@
             background: darkorange;
             text-align: center;
         }
+        .other{
+            height: 400px;
+            width: 100%;
+            background: greenyellow;
+        }
         .text-frame{
-            position: absolute;
+            height: 50px;
+            background: royalblue;
             width: 100%;
             bottom: 40%;
         }
@@ -28,6 +36,10 @@
 </head>
 <body>
       <div id="page">
+          <div class="other">
+              我是一个高度400px的元素，对于普通安卓高度一般是580px,打开键盘之后我就会被遮挡,
+              紧随其后的input就会强行插入进来或者看不到了（不同安卓不同）
+          </div>
           <div class="text-frame">
               测试输入:<input/>
           </div>
