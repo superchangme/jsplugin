@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+        }
+        html,body{
+            height: 100%;
+            position: relative;
+        }
+        #page{
+            width: 100%;
+            position: absolute;
+            height: 100%;
+            background: darkorange;
+            text-align: center;
+        }
+        .text-frame{
+            position: absolute;
+            width: 100%;
+            bottom: 40%;
+        }
+    </style>
+</head>
+<body>
+      <div id="page">
+          <div class="text-frame">
+              测试输入:<input/>
+          </div>
+      </div>
+</body>
+<script>
+    function prefixStyle(style){
+        var el = document.createElement('div')
+        var vendors = 't,webkitT,MozT,msT,OT'.split(','),prefix;
+        style=style.slice(1);
+        for ( prefix in vendors) {
+            if(el.style[vendors[prefix]+style]!=undefined){
+                return vendors[prefix]+style
+            }
+        }
+    }
+    var winHeight=window.innerHeight,preTransform=prefixStyle("transform"),pageScale= 1,page=document.getElementById("page");
+    window.addEventListener("resize",function(){
+        if(window.innerHeight!=winHeight){
+            pageScale=window.innerHeight/winHeight;
+            page.style[preTransform]="scale("+pageScale+")";
+        }
+    })
+</script>
+</html>
