@@ -73,6 +73,23 @@ body {
 .page .chick-box .chick-frames .png-frame.p2 {
   background: url(../source/img/p4_chick_right.png);
 }
+.page .zhiList {
+  width: 1.85rem;
+  height: 1.375rem;
+  margin-left: -0.925rem;
+  top: 4.23333333rem;
+  z-index: 2;
+  left: 50%;
+  position: absolute;
+}
+.page .zhiList .item {
+  position: absolute;
+}
+.page .zhiList .el {
+  background: url(../source/img/p4_zhi.png);
+  width: 1.85rem;
+  height: 1.375rem;
+}
 @-webkit-keyframes moveX {
   0% {
     -webkit-transform: translate3d(0, 0, 0);
@@ -88,23 +105,6 @@ body {
   100% {
     -webkit-transform: translate3d(0, -200px, 0);
   }
-}
-.zhiList {
-  width: 1.85rem;
-  height: 1.375rem;
-  margin-left: -0.925rem;
-  top: 4.23333333rem;
-  z-index: 2;
-  left: 50%;
-  position: absolute;
-}
-.zhiList .item {
-  position: absolute;
-}
-.zhiList .el {
-  background: url(../source/img/p4_zhi.png);
-  width: 1.85rem;
-  height: 1.375rem;
 }
 * {
   background-size: cover!important;

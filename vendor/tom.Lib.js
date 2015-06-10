@@ -2,8 +2,17 @@
  * Created by tom.chang on 2015/4/28.
  */
 
-define(['jquery'],function ($){
-var tomLib = {},_=tomLib;
+(function(factory){
+    if(typeof define === "function" && define.amd != undefined ){
+        // AMD模式
+        define([ "jquery" ], factory);
+    } else {
+        // 全局模式
+        factory(jQuery)
+    }
+})(function($){
+
+    var tomLib = {};
     //browser support feature obj
     _.support={};
 
@@ -39,7 +48,8 @@ var tomLib = {},_=tomLib;
      */
 
     tomLib.animateFrame=function(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, isLoopBoo, loopTimes, loopGapTime, callBackFun, stepFuc, waitFrame, waitTime) {
-        var plugin = el.data("plugin"), frameClass,$list, isInit = plugin ? true : false, isPlay = plugin ? plugin.isPlay : false;
+        var plugin = el.data("plugin"), frameClass,$list,
+            isInit = plugin ? true : false, isPlay = plugin ? plugin.getPlayState() : false;
         if (isPlay) {
             return;
         }
@@ -50,17 +60,27 @@ var tomLib = {},_=tomLib;
             }
             $list = el.find(".png-frame");
             el.data("plugin", plugin = new Plugin());
-            reset();
         } else {
+            plugin.reset();
             $list = plugin.list;
         }
         function Plugin() {
+            var isPlay = true;
             this.list = $list;
             this.isInit = true;
             this.reset = reset;
             this.interval = null;
             this.timeout = null;
             this.isPlay = true;
+            this.stop = function(){
+                isPlay=false;
+            }
+            this.start = function(){
+                isPlay=true;
+            }
+            this.getPlayState=function(){
+                return isPlay
+            }
         }
 
         function reset() {
@@ -68,15 +88,15 @@ var tomLib = {},_=tomLib;
             $list.filter(function (item, index) {
                 return index > 0
             }).removeClass("show");
+            plugin.start();
             clearTimeout(plugin.timeout);
         }
 
         (function () {
             var count = firstFrame, next, time, prev;
-            plugin.isPlay = true;
             function frameEvent() {
                 plugin.interval = setInterval(function () {
-                    if(plugin.isPlay==false){
+                    if(!plugin.getPlayState()){
                         return;
                     }
                     if (waitFrame && (waitFrame == count)) {
@@ -108,12 +128,12 @@ var tomLib = {},_=tomLib;
                             }, loopGapTime);
                         }
                         if (isLoopBoo && loopTimes == 0) {
-                            plugin.isPlay = false;
+                            plugin.stop();
                             if (typeof callBackFun == "function") {
                                 callBackFun();
                             }
                         } else if(!isLoopBoo) {
-                            plugin.isPlay = false;
+                            plugin.stop();
                         }
                         if (typeof callBackFun == "function" && isLoopBoo == false) {
                             callBackFun();
@@ -136,7 +156,7 @@ var tomLib = {},_=tomLib;
             }
             frameEvent();
         })();
-        return reset;
+        return plugin;
     }
 
 
@@ -189,7 +209,8 @@ var tomLib = {},_=tomLib;
             }
         }
     })
-    return _;
+    window.TomLib=tomLib;
+
 });
 
 /*

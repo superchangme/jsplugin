@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>水平居中-to buddy JOHN</title>
+    <style>
+        *{
+            text-align: center;;
+        }
+        .box{
+            width: 240px;
+            margin: 0 auto;
+        }
+        .grid{
+            width: 100px;
+            height: 100px;
+            margin-bottom: 40px;
+            background: orangered;
+        }
+    </style>
+</head>
+<body>
+<h1>初级table篇</h1>
+<style>
+    .cell{
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        background: orangered;
+    }
+    table,td{
+        border: none;
+        vertical-align: middle;
+    }
+    .demo1{
+        table-layout: fixed;
+        width: 300px;
+    }
+    .demo1 td{
+        text-align: center;
+        height: 120px;
+    }
+</style>
+<table  class="box demo1"  >
+    <tr>
+        <td width="120">
+            <div class=" cell"></div>
+        </td>
+        <td width="120">
+            <div class="cell"></div>
+        </td>
+    </tr>
+    <tr>
+        <td width="120">
+            <div class="cell"></div>
+        </td>
+        <td width="120">
+            <div class="cell"></div>
+        </td>
+    </tr>
+</table>
+<h1>中级inline-block篇</h1>
+<style>
+    .demo2 .grid{
+        margin-right: 40px;
+        display: inline-block;
+    }
+    .demo2 .grid.right{
+        margin-right: 0px;
+    }
+</style>
+<div class="box demo2">
+    <!--不要问为什么我们在一行-->
+    <div class="grid"></div><div class="grid right"></div><div class="grid"></div><div class="grid right"></div>
+</div>
+<h1>高级float篇</h1>
+<style>
+    .demo3:after{
+        content:" ";
+        display: table;
+        clear: both;
+    }
+    .float-left{
+        float: left;
+    }
+    .float-right{
+        float: right;
+        margin-right: 0;
+    }
+</style>
+<div class="box demo3">
+    <div class="grid float-left"></div>
+    <div class="grid float-right"></div>
+    <div class="grid float-left"></div>
+    <div class="grid float-right"></div>
+</div>
+<h1>终极flex-box神级布局篇</h1>
+<style>
+    .demo4{
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .demo4 .grid{
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 100px;
+    }
+</style>
+<div class="box demo4">
+<div>
+    <div class="grid "></div>
+    <div class="grid"></div>
+</div>
+    <div>
+        <div class="grid "></div>
+        <div class="grid"></div>
+    </div>
+
+</div>
+</body>
+</html>

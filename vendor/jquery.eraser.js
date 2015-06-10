@@ -82,8 +82,6 @@
             this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
             this.ctx.restore();
         }
-        console.log(this.bgPos)
-
         if(this.bgImage!=null){
             console.log(this.bgPos)
             if(this.bgPos!=undefined){

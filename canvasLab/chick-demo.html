@@ -44,43 +44,47 @@
 //    require(["jquery-private"],function($,eraser){
 
         // called once the DOM is ready
-        require(["jquery.eraser","tom.Lib","Zepto","zepto.fx"],function(u,T,Z){
-            var bg = new Image();
-            var $=Z;
+        require(["jquery.eraser","tom.Lib","Zepto","zepto.fx"],function(J,T,Z){
+            var $= Z,app=app||{};
             $(document).on('touchmove',function(e){
                 e.stopPropagation();
             })
-
+            var bg = new Image(),$eraser=J("#eraserArea");
             bg.src = "../source/img/text.png";
             bg.onload=function(){
-                /*$("#eraserArea").eraser({
-                    bgColor:"rgba(255,255,255,0.38)",bgImage:bg,bgPos:{left:"center",top:0},bgScale:0.5,percent:0.5,density:4,container:$("#eraserArea")[0],success:function(canvas,ctx){
-                        ctx.clearRect(0,0,canvas.width,canvas.height)
-                        alert("成功擦除50%")
-                    }});*/
+                $eraser.eraser({
+                    bgColor:"rgba(255,255,255,0.38)",bgImage:bg,
+                    bgPos:{left:"center",top:0},bgScale:0.5,percent:0.5,density:4,
+                    container:$eraser[0],success:function(canvas,ctx){
+                        /*ctx.clearRect(0,0,canvas.width,canvas.height)*/
+                        $eraser.animate({opacity:0},600,"swing",function(){
+                            $eraser.hide();
+                            ctx.clearRect(0,0,canvas.width,canvas.height);
+                            app.beginPlay();
+                        })
+                    }});
             }
-            var chickFrame=$(".chick-frames");
-            T.animateFrame(chickFrame,0,1,1000,false,true,null,1,null,function(count){
+            var chickFrame=$(".chick-frames")
+                    ,zhiTpl='<div class="item"> <div class="x"> <div class=" y "> <div class="el"></div> </div> </div></div>',$list=$("<div></div>")
+                    ,zhiList,zhiArr=[],shuffleArr,c_shuffle,
+                    chickMovie;
+            for(var i= 0;i<30;i++){
+                $list.append($(zhiTpl).addClass("p"+i))
+            }
+            $(".zhiList").append($list);
+            zhiList=$(".zhiList .item");
+            zhiList.each(function(index,item){
+                zhiArr.push({item:$(item),dirX:$(item).find(".x"),dirY:$(item).find(".y"),el:$(item).find(".el")});
+            })
+            shuffleArr=zhiArr.map(function(o,i){return i}),c_shuffle=shuffleArr.slice(),count=0;
+            //小鸡左右摆手动画
+            chickMovie=T.animateFrame(chickFrame,0,1,1000,false,true,null,1,null,function(count){
                 var num=Math.random()<0.5?3:Math.random()<0.8?2:1;
                 for(var i= 0;i<num;i++){
                     genderZhi(count);
                 }
             });
-            chickFrame.data("plugin").isPlay=false;
-            setTimeout(function(){
-                chickFrame.data("plugin").isPlay=true;
-            },2000)
-            var zhiTpl='<div class="item"> <div class="x"> <div class=" y "> <div class="el"></div> </div> </div></div>',$list=$("<div></div>");
-            for(var i= 0;i<30;i++){
-                $list.append($(zhiTpl).addClass("p"+i))
-            }
-            console.log($list)
-            $(".zhiList").append($list);
-            var zhiList=$(".zhiList .item"),zhiArr=[];
-            zhiList.each(function(index,item){
-                zhiArr.push({item:$(item),dirX:$(item).find(".x"),dirY:$(item).find(".y"),el:$(item).find(".el")});
-            })
-            var shuffleArr=zhiArr.map(function(o,i){return i}),c_shuffle=shuffleArr.slice(),count=0;
+            chickMovie.stop();
             $(document).delegate(".zhiList .item","touchstart",function(){
                 $("#count").val(++count)
                 $(this).hide();
@@ -118,6 +122,9 @@
                         zhiArr[index].item.show();
                     },0)
                 },durY+90)
+            }
+            app.beginPlay=function(){
+                chickMovie.start();
             }
         })
 //    })
