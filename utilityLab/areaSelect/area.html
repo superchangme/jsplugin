@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>级联下拉菜单</title>
+
+
+</head>
+
+<body>
+<!--header-->
+<div class="">
+    <select id="Province" name="Province" class="form-control">
+    </select>
+    <select id="City" name="City" class="form-control">
+    </select>
+    <select id="County" name="County" class="form-control">
+    </select>
+</div>
+<div class="">
+    <select id="Province1" name="Province" class="form-control">
+    </select>
+    <select id="City1" name="City" class="form-control">
+    </select>
+    <select id="County1" name="County" class="form-control">
+    </select>
+</div>
+<div class="">
+    <select id="Province2" name="Province" class="form-control">
+    </select>
+    <select id="City2" name="City" class="form-control">
+    </select>
+</div>
+</body>
+
+<script type="text/javascript" src="js/area.js"></script>
+<script>
+    new MyArea(["Province","City","County"],null,false); //初始化地区插件 三级第一个为未选择
+    new MyArea(["Province1","City1","County1"],null,true); //初始化地区插件   三级第一个为已选择
+    new MyArea(["Province2","City2"],null,false); //初始化地区插件   二级第一个为未选择
+</script>
+</html>
