@@ -3,6 +3,11 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        body{
+            color: white;
+        }
+    </style>
 </head>
 <body>
        <ul id="messList">
@@ -13,7 +18,10 @@
 
 <script>
     require(['jquery','../vendor/tom.Lib'], function ($,mylib) {
-        var $messList=$("#messList")
+        var $messList=$("#messList");
+        document.addEventListener("touchmove",function(e){
+            e.preventDefault();
+        })
         function startAskMess(){
             $.ajax({
                 timeout:30000,
