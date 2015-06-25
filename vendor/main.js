@@ -21,7 +21,7 @@ require.config({
     "tomLib":"tom.Lib",
      "jquery-private":"jquery-private",
      "tom":"tomRequire",
-     "tomTest":"tomRequire"
+     "tomTest":"tomRequire",
      "lodash":"lodash"
     }  ,
     /*模块规则配置*/

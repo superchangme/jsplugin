@@ -12,7 +12,7 @@
     }
 })(function($){
 
-    var tomLib = {};
+    var _ = {};
     //browser support feature obj
     _.support={};
 
@@ -47,7 +47,7 @@
      *
      */
 
-    tomLib.animateFrame=function(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, isLoopBoo, loopTimes, loopGapTime, callBackFun, stepFuc, waitFrame, waitTime) {
+    _.animateFrame=function(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, isLoopBoo, loopTimes, loopGapTime, callBackFun, stepFuc, waitFrame, waitTime) {
         var plugin = el.data("plugin"), frameClass,$list,
             isInit = plugin ? true : false, isPlay = plugin ? plugin.getPlayState() : false;
         if (isPlay) {
@@ -209,7 +209,7 @@
             }
         }
     })
-    window.TomLib=tomLib;
+    window.tomLib=_;
 
 });
 
