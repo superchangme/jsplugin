@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+       <ul id="messList">
+
+       </ul>
+</body>
+<script data-main="../vendor/main" src="../vendor/require.js"></script>
+
+<script>
+    require(['jquery','../vendor/tom.Lib'], function ($,mylib) {
+        var $messList=$("#messList")
+        function startAskMess(){
+            $.ajax({
+                timeout:30000,
+                dataType:"jsonp",
+                jsonp: 'callback',
+                url:"http://10.4.1.33/test/php/pendingchat/",
+                success:function(data){
+                    $messList.append("<li>"+data.content+"</li>")
+                    startAskMess();
+                }
+            }).fail(startAskMess)
+        }
+        startAskMess();
+    });
+</script>
+</html>

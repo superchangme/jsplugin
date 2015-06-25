@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            height: 100%;
+        }
+        body
+        {
+            height: 100%;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
+        }
+        #tabMod1{
+            position: relative;
+            height: 100%;
+        }
+        .tab{
+            background: #333333;
+            height: 300px;
+
+            overflow: auto;
+            position: absolute;
+            top:30px;
+            left:30px;
+            right: 30px;
+        }
+        .tab-nav{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        li{
+            display: block;
+            float: left;
+            width: 33.3%;
+            list-style: none;
+        }
+        a{
+            display: block;
+            background: #0066cc;
+            border: 1px solid darkgreen;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-module" id="tabMod1">
+        <div class="tab-list">
+            <div id="tab1" class="tab">　对于家长和考生普遍关注的志愿填报是该先选学校还是先选城市或者专业，娄雷建议最好可以先选城市，再选大学和专业。　　娄雷介绍，考生填报志愿前，最先进行的应该是自我定位。考生报考的院校和专业，一定要与自己的分数、性格、家庭经济状况、身体素质等挂钩，再者还要考虑一些细节问题。　　“如果考生毕业后打算回临沂工作，那么如果选择在省外一些南方城市上学的话，很可能毕业回临沂后出现没有校友资源、人脉断层问题，这是选择去外地读书的考生应该考虑的问题。”娄雷认为。　　选好城市去读大学，娄雷认为填报志愿应该确定目标高校的大体区域，既要考虑城市的消费水平，也要考虑该市的就业前景。在关注大城市的同时，那些坐落在小城市的“部委”属院校“性价比”也相当高，不少小城市里特色大学也是不错的选择。　　此外，选好城市和大学，考生选择的专业同样不容忽视。在专业选择时，如何看待热门专业和冷门专业这个问题，娄雷老师告诉广大家长和考生，现在对热门专业和冷门专业的区分，在4年后并不一定适用，而选择与自己以后所呆的城市相容的专业至关重要。　　“比起热门专业，考生和家长更应该关注的是高校的优势学科和硕士、博士授予点，能取得硕士、博士授予点的学科，在教育历史、师资力量和国家级重点实验室方面更具优势。”娄雷说。</div>
+            <div id="tab2" class="tab">2</div>
+            <div id="tab3" class="tab">3</div>
+        </div>
+        <div class="tab-nav">
+            <ul>
+                <li>
+                   <a href="#tab1">1</a>
+                </li>
+                <li>
+                    <a href="#tab2">2</a>
+
+                </li>
+                <li>
+                    <a href="#tab2">3</a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+<script data-main="../vendor/main" src="../vendor/require.js"></script>
+<script>
+    require(['jquery','../vendor/tom.Lib'], function ($,mylib) {
+         var $tabMod=$("#tabMod1"),$tabCntList=$tabMod.find(".tab-list .tab"),$tabNavList=$tabMod.find(".tab-nav a");
+        $tabNavList.on("click",function(e){
+            var href=$(this).attr("href").replace("#",""),$curTab=$tabCntList.filter(function(index,item){
+                if(href==item.id){
+                    return true;
+                };
+            })
+            $curTab.siblings().hide().end().show();
+        })
+
+    });
+</script>
+</html>
