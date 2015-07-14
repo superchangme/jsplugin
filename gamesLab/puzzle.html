@@ -102,7 +102,7 @@
            return newOrder;
        },
         play:function(){
-            if(this.gameStart){
+            if(this.gameStart&&this.isBindSwap==false){
                 this.bindSwap();;
             }
         },
@@ -133,6 +133,7 @@
                        }
                  })
              })
+            this.isBindSwap=true;
         },
         isNeighbour:function(a,b){
             if(a==b){
