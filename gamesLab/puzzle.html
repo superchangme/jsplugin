@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        #main{
+            margin: 0 auto;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        .grid{
+            border: 1px solid white;
+            cursor: pointer;
+        }
+        .grid.hover{
+            border-color:red ;
+            border-width: 2px;
+        }
+        .grid {
+        }
+    </style>
+</head>
+<body>
+      <table id="main" cellpadding="0" cellspacing="0">
+         <tr>
+             <td class="grid grid1"></td>
+             <td class="grid grid2"></td>
+             <td class="grid grid3"></td>
+         </tr>
+          <tr>
+              <td class="grid grid4"></td>
+              <td class="grid grid5"></td>
+              <td class="grid grid6"></td>
+          </tr>
+          <tr>
+              <td class="grid grid7"></td>
+              <td class="grid grid8"></td>
+              <td class="grid grid9"></td>
+          </tr>
+      </table>
+</body>
+<script src="../vendor/lodash.js"></script>
+<script>
+    function myPuzzle(opts){
+        return new this.init(this,opts);
+    }
+    myPuzzle.prototype={
+        Opts:{
+            gridSize:120,
+            gridSpace:2
+        },
+        MainDom:document.getElementById("main"),
+        ChildGrids:document.querySelectorAll("#main .grid"),
+        init:function(myPuzzle,extra){
+                var self=this;
+                this.bgSrcList=[];
+                this.curOrder=[];
+                this.gridList=[].slice.call(myPuzzle.ChildGrids);
+                this.gameStart=false;
+                if(extra.img){
+                    var img=new Image;
+                    img.src=extra.img;
+                    img.onload=function(){
+                        var width,height,position,oWidth,oHeight,master,slave;
+
+                        if(img.naturalHeight>img.naturalWidth){
+                            oHeight=img.naturalHeight/img.naturalWidth*3*myPuzzle.Opts.gridSize
+                            oWidth=3*self.Opts.gridSize
+                        }else{
+                            oWidth=img.naturalWidth/img.naturalHeight*3*myPuzzle.Opts.gridSize
+                            oHeight=3*myPuzzle.Opts.gridSize
+                        }
+                        myPuzzle.MainDom.style.width=oWidth+"px";
+                        myPuzzle.MainDom.style.height=oHeight+"px";
+                        _.each(self.gridList,function(item,index){
+                            position=-(index%3)*(oWidth/3)+"px "+(-Math.floor(index/3)*(oHeight/3))+"px ";
+                            item.style.background="url("+img.src+") "+position+"/"+oWidth+"px no-repeat ";
+                            self.bgSrcList.push("url("+img.src+") "+position+"/"+oWidth+"px no-repeat ");
+                            item.setAttribute("puzzle-row",Math.floor(index/3))
+                            item.setAttribute("puzzle-col",(index%3));
+//                    item.style.height
+                        })
+                        self.start();
+                    }
+                }
+        }
+    };
+    myPuzzle.prototype.init.prototype={
+       shuffle:function(domList,bgSrcList){
+           var domList=[].slice.call(domList);
+           var newOrder=_.shuffle(_.map(new Array(domList.length),function(item,index){return index}));
+           _.each(newOrder,function(item,index){
+               domList[index].style.background=bgSrcList[item];
+               domList[index].setAttribute("index",item);
+           })
+           return newOrder;
+       },
+        play:function(){
+            if(this.gameStart){
+                this.bindSwap();;
+            }
+        },
+        bindSwap:function(){
+            var self=this,isSwap=false,swapNode,temp;
+             _.each(self.gridList,function(item,index){
+                 item.addEventListener("click",function(){
+                     if(isSwap==true){
+                           if(self.isNeighbour(item,swapNode)){
+                               temp=swapNode.style.background;
+                               swapNode.style.background=this.style.background;
+                               this.style.background=temp;
+                               temp=swapNode.getAttribute("index");
+                               swapNode.setAttribute("index",item.getAttribute('index'));
+                               item.setAttribute('index',temp);
+                               temp=null;
+                               swapNode.classList.remove("hover");
+                               isSwap=false;
+                               self.checkGameOver();
+                           }else{
+                               swapNode.classList.remove("hover");
+                               isSwap=false;
+                           }
+                       }else{
+                           isSwap=true;
+                           swapNode=this;
+                           swapNode.classList.add("hover")
+                       }
+                 })
+             })
+        },
+        isNeighbour:function(a,b){
+            if(a==b){
+                return false;
+            }
+            if(Math.abs(a.getAttribute("puzzle-row")- b.getAttribute("puzzle-row"))+Math.abs(a.getAttribute("puzzle-col")- b.getAttribute("puzzle-col"))==1){
+                return true;
+            }
+            return false;
+        } ,
+        checkGameOver:function(){
+            var isOver=true,self=this;
+            _.each(this.gridList,function(item,index){
+                if(item.getAttribute("index")!=index){
+                    isOver=false;
+                }
+            })
+            if(isOver){
+                if(window.confirm("你好机智，终于找到我了，敢再来找一次我吗?")){
+                    self.start();
+                }else{
+                    self.gameStart=false;
+                }
+            }
+        },start:function(){
+            var self=this;
+            self.shuffle(self.gridList,self.bgSrcList);
+            self.gameStart=true;
+            self.play();
+        }
+    }
+    new myPuzzle({img:"Koala.jpg"})
+</script>
+</html>
