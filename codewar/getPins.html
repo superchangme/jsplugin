@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<body>
+     <a href="http://www.codewars.com/kata/the-observed-pin/javascript">click me</a>
+</body>
+<script>
+    var neighbours = {
+        "1":["1", "2", "4"],
+        "2":["1", "2", "3", "5"],
+        "3":["2", "3", "6"],
+        "4":["1", "4", "5", "7"],
+        "5":["2", "4", "5", "6", "8"],
+        "6":["3", "5", "6", "9"],
+        "7":["4", "7", "8"],
+        "8":["0", "5", "7", "8", "9"],
+        "9":["6", "8", "9"],
+        "0":["0", "8"]
+    }
+    function getPins(random,r){
+        var r=r||[],cur,guessArr,_r,random=random+"";
+          //1
+        if(random.length==0){
+            console.log("end",random)
+            return r;
+        }else{
+            console.log("progress",random)
+            _r=[];
+            cur=random[0];
+            guessArr=neighbours[cur]
+            random=random.substring(1);
+            for(var i= 0,l= r.length;i<l;i++){
+                for(var j= 0,gl=guessArr.length;j<gl;j++){
+                    _r.push(r[i]+guessArr[j]);
+                }
+            }
+            if(r.length==0){
+                _r=neighbours[cur].slice()
+            }
+            return getPins(random,_r);
+        }
+    }
+    Array.prototype.shift2=function(){
+        for(var i= 0,l=this.length-1;i<l;i++){
+            this[i]=this[i+1];
+        }
+        delete this[length-1];
+        return this;
+    }
+</script>
+</html>

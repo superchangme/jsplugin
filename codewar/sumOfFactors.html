@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+   <a href="http://www.codewars.com/kata/54d496788776e49e6b00052f/train/javascript">http://www.codewars.com/kata/54d496788776e49e6b00052f/train/javascript</a>
+</body>
+<script>
+    //!!!10 times more productive than the NO.1 Solution
+    //judge is a prime number
+    var MarkedArr={};
+    function isPrime(num){
+        if(MarkedArr[num]!=null){
+            return MarkedArr[num];
+        }
+        var start=Math.abs(Math.floor(num/2));
+        for(var i=2;i<=start;i++){
+            if(isPrime(i)){
+                for(var j = 2*i; j <= num; j += i) {
+                    /*  isPrime.cache[j]={};
+                     isPrime.cache[j].isPrime=false;
+                     isPrime.cache[j].noPrime=i;
+                     isPrime.cache[j].num=j;*/
+                    MarkedArr[num]=false;
+                }
+                if(num%i==0){
+                    /*isPrime.cache[num]={};
+                     isPrime.cache[num].isPrime=false;
+                     isPrime.cache[num].noPrime=i;
+                     isPrime.cache[num].num=num;*/
+                    MarkedArr[num]=false;
+                    return false;
+                }
+            }
+        }
+        MarkedArr[num]=true;
+        /*isPrime.cache[num]={};
+         isPrime.cache[num].isPrime=true;
+         isPrime.cache[num].num=num;*/
+        return true;
+    }
+    //the prime  cache
+    isPrime.cache={};
+    //get primes arr of the number
+    function getPrimesArr(num){
+        if(getPrimesArr.cache[num]!=null){
+            return getPrimesArr.cache[num]
+        }
+        var primeArr=[],_num=absNum=Math.abs(num),start,max=Math.abs(Math.floor(Math.pow(absNum,1/2)))/*,start=Math.abs(Math.floor(Math.pow(absNum,1/2)))*/;
+        for(var i=2;i<=_num&&i<=max;i++){
+            start=_num;
+            while(_num%i==0){
+                _num/=i;
+            }
+            if(start!=_num){
+                primeArr.push(i);
+            }
+           /* if(_num%i==0){
+                _num/=i;
+                start=_num=reducePrime(_num,i);
+                primeArr.push(i);
+            }*/
+        }
+        if(_num>1&&primeArr.indexOf(_num)==-1){
+            primeArr.push(_num)
+        }
+        /*getPrimesArr.cache[num]=primeArr;
+        getPrimesArr.cache[num].num=num;*/
+        return primeArr;
+    }
+    function reducePrime(start,i){
+        while(start%i==0){
+            start/=i;
+        }
+        return start;
+    }
+    //cache primes arr of the number
+    getPrimesArr.cache={};
+    //root fn
+    function sumOfDivided(lst){
+        var result=[],primes= lst
+                .reduce(function(prev,next){
+                    return getuniqueArr(prev.concat(getPrimesArr(next)))
+                },[]),index,temp;
+        return
+        for(var i= 0,l= primes.length;i<l;i++){
+            index=i;
+            for(var j= i;j< l;j++){
+               if(primes[j]<primes[index]){
+                   index=j;
+               }
+            }
+            temp=primes[i];
+            primes[i]=primes[index];
+            primes[index]=temp;
+        }
+        primes.forEach(function(next){
+                    var sum=0;
+                    lst.forEach(function(item){
+                        if(getPrimesArr(item).indexOf(next)>-1){
+                            sum+=item;
+                        }
+                    })
+                    result.push([next,sum]);
+        });
+        return result;
+    }
+    //get unique arr
+    function getuniqueArr(arr){
+        var res = [];
+        var json = {};
+        for(var i = 0; i < arr.length; i++){
+            if(!json[arr[i]]){
+                res.push(arr[i]);
+                json[arr[i]] = 1;
+            }
+        }
+        return res;
+    }
+
+
+
+    function primeFactors(n) {
+        var i = 2,
+                f = [];
+
+        while (i*i <= n) {
+            if (n%i) {
+                i++;
+            } else {
+                n /= i;
+                if (f.indexOf(i) == -1) { f.push(i); }
+            }
+        }
+        if (n>1 && f.indexOf(n) == -1) { f.push(n); }
+
+        return f;
+    }
+ /*   function sumOfDivided(lst) {
+        result = {};
+        for (var i = 0; i < lst.length; i++) {
+            var f = primeFactors(Math.abs(lst[i]));
+            for (var j = 0; j < f.length; j++) {
+                result[f[j]] = (result[f[j]] || 0) + lst[i];
+            }
+        }
+
+        return Object.keys(result).map(function (key) { return [parseInt(key), result[key]]; } );
+    }*/
+   /* function sumOfDivided(lst) {
+        if(lst.length == 0) { return []; }
+        var m = Math.max.apply(null, lst.map(Math.abs)),
+                primes = [],
+                marked = Array(m+1);
+        for(var i = 2; i <= m; ++i) {
+            if(marked[i]) continue;
+            var sum = 0, isMul = false;
+            lst.forEach(function(n) { if(n % i == 0) { sum += n; isMul = true; } });
+            if(isMul) primes.push([i, sum]);
+            for(var j = 2*i; j <= m; j += i) {
+                marked[j] = true;
+            }
+        }
+        return primes;
+    }*/
+    console.time("开始")
+//    console.log(sumOfDivided([10000013]))
+    sumOfDivided([15, 21, 24, 30, 45])
+
+    sumOfDivided([15, 21, 24, 30, -45])
+
+    sumOfDivided([107, 158, 204, 100, 118, 123, 126, 110, 116, 100])
+
+    sumOfDivided([-29804, -4209, -28265, -72769, -31744])
+
+
+    sumOfDivided([1070, 1580, 2040, 1000, 1180, 1230, 1260, 1100, 1160, 1000])
+
+    sumOfDivided([17, 34, 51, 68, 102])
+
+    sumOfDivided([17, -17, 51, -51])
+
+    sumOfDivided([173471])
+    console.timeEnd("开始")
+
+</script>
+</html>

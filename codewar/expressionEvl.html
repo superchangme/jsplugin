@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script>
+    var createOperator = (function() {
+
+        // Use this space to create any shared functions
+
+        return function(name, oper){
+            return function(){
+                this.expressions = [].slice.call(arguments);
+                // assign your eval and toString functions here
+                this.toString=function(){
+                    return this.expressions.reduce(function(a,b,index,arr){
+                       var op=index<arr.length-1?" "+name+" ":"";
+                       if(b instanceof  Value){
+                           return a + b.value+op;
+                       }else{
+                           return a + b.toString()+op;
+                       }
+                    },"");
+                }
+                this.toExp=function(){
+                    return this.expressions.reduce(function(a,b,index,arr){
+                      return  oper(a instanceof  Value ? a.value : a.toExp(),b instanceof  Value ? b.value : b.toExp())
+                    });
+                }
+                this.eval=function(){
+                    return new Value(this.toExp());
+                }
+                //this.eval = ???
+                //this.toString = ???
+            };
+        };
+
+    })();
+    function Value(value){
+        this.value = value || 0;
+    }
+    Value.prototype.valueOf=function(){
+        return this.value
+    }
+    var Add = createOperator("+", function(a,b){ return a + b;});
+    var Sub = createOperator("-", function(a,b){ return a - b;});
+    var Mul = createOperator("*", function(a,b){ return a * b;});
+    var Div = createOperator("/", function(a,b){ return a / b;});
+    var Exp = createOperator("^", function(a,b){ return Math.pow(a,b);});
+    var add=new Add(new Value(10),new Value(10));
+    var sub=new Sub(new Value(12),new Value(12));
+    var add2=new Add(add,sub);
+    var exp = new Add(new Mul(new Value(3),new Value(5)),new Sub(new Mul(new Div(new Value(6),new Value(2)) ,new Exp(new Value(10),new Value(2))), new Value(273)));
+
+</script>
+</html>
