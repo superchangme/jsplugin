@@ -21,13 +21,18 @@
              position: relative;
          }
          .bubble{
-             background: url(../source/img/ass6.png);
              width: 59px;
              height: 59px;
              position: absolute;
              bottom: 0;
              left:0;
          }
+        .bubble i{
+            background: url(../source/img/ass6.png) no-repeat;
+            display: block;
+            width: 59px;
+            height: 59px;
+        }
      </style>
 </head>
 <body>
@@ -40,12 +45,11 @@
     require(["jquery","tom.Lib","zxx.Lib","lodash"],function($,t,z,_){
         var $stage=$("#bubbleBox"),G={w:$stage.width(),h:$stage.height()},temp;
         G.startY=60;
-        G.bubble={w:59,h:59}
-        console.log(G)
+        G.bubble={w:59,h:59,gap:40,stepX:2,stepY:5,stepYAdd:0.1}
         G.bubbleArr=[];
         G.ID=1;
         G.popMax=10;
-        G.tmpl="<div class='bubble'></div>";
+        G.tmpl="<div class='bubble'><i></i></div>";
         G.transform= t.prefixStyle("transform");
         function genderBubble(){
             if(G.bubbleArr.length<G.popMax){
@@ -58,23 +62,39 @@
         }
         function updateRandomPos(el){
            if(!el.speed){
-               el.speed= _.random(1,10);
+               el.speed=_.random(5,10)/10;
+               el.stepX=el.speed* G.bubble.stepX;
+               el.stepY=el.speed* G.bubble.stepY;
+               el.stepY2=G.bubble.stepY;
+               el.rad=0;
+               el.radAdd=Math.random()<0.5?-2:2;
            }
             if(!el.scale){
-                el.scale= _.random(1,10)/10;
+               el.scale= _.random(5,10)/10;
+               el.find("i").css(G.transform,"scale("+el.scale+")")
             }
            if(el.x==null){
-               el.x= _.random(0, G.w- G.bubble.w*el.scale);
+               el.x= _.random(G.bubble.gap-(G.bubble.w-el.scale*G.bubble.w)/2, G.w- G.bubble.w*el.scale-G.bubble.gap);
+               el.x1=el.x-G.bubble.gap;
+               el.x2=el.x+G.bubble.gap;
            }else{
-               el.x+=_.random(-5,5);
-               el.x=Math.min(Math.max(0,el.x), G.w- G.bubble.w*el.scale)
+               if(el.stepY<el.stepY2){
+                   el.stepY+= G.bubble.stepYAdd;
+               }
+               if(el.x+el.stepX>=el.x2||el.x+el.stepX<=el.x1){
+                  el.stepX=-el.stepX;
+                   el.x=(el.x1+el.x2)/2>el.x?el.x1:el.x2;
+               }else{
+                   el.x+=el.stepX;
+               }
+
            }
            if(el.y==null){
                el.y= G.startY
            }else{
-               el.y-=el.speed;
+               el.y-=el.stepY;
            }
-            el.css(G.transform,"scale("+el.scale+") translate3d("+el.x+"px,"+el.y+"px,0");
+            el.css(G.transform," translate3d("+el.x+"px,"+el.y+"px,0) rotate("+(el.rad+=el.radAdd)+"deg)");
         }
         function updateState(){
             var $dom,l=G.bubbleArr.length;
@@ -88,9 +108,11 @@
                     updateRandomPos(G.bubbleArr[i])
                 }
             }
-            genderBubble();
-            z.requestAnimFrame.call(null,updateState) ;
+           z.requestAnimFrame.call(null,updateState) ;
         }
+        setInterval(function(){
+            genderBubble();
+        },500)
         z.requestAnimFrame.call(null,updateState) ;
     })
 </script>
