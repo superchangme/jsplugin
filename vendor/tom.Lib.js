@@ -5,14 +5,17 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define([ "jquery" ], factory);
+        define([], factory);
     } else {
         // 全局模式
-        factory(jQuery)
+        factory(jQuery,window)
     }
-})(function($){
+})(function($,global){
 
     var _ = {};
+    if(global){
+        window.tomLib=_;
+    }
     //browser support feature obj
     _.support={};
 
@@ -171,14 +174,6 @@
     }
     //enhance jquery plugin
     //from bootstrap
-    $.fn.emulateTransitionEnd = function (duration) {
-        var called = false
-        var $el = this
-        $(this).one('bsTransitionEnd', function () { called = true;})
-        var callback = function () {if (!called) $($el).trigger($.support.transition.end) }
-        setTimeout(callback, duration)
-        return this
-    }
 
     function transitionEnd() {
         var el = document.createElement('bootstrap')
@@ -195,22 +190,107 @@
         }
         return false // explicit for ie8 (  ._.)
     }
-    //dom ready 判断
-    $(function () {
-        $.support.transition = transitionEnd()
 
-        if (!$.support.transition) return
-
-        $.event.special.bsTransitionEnd = {
-            bindType: $.support.transition.end,
-            delegateType: $.support.transition.end,
-            handle: function (e) {
-                if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+    //一个异步事件处理队列 实现了当后面事件全部完成时，回滚检查执行之前的未完成等待回调队列
+    (function(){
+        function DeferredList(len,callback){
+            this.dfdList=[];
+            this.$dfdList=[];
+            this.callback=callback;
+            var Gdfd= $.Deferred(),dfd;
+            for(var i= 0,l=len;i<l;i++){
+                dfd= new DeferredItem();
+                Gdfd.then(dfd);
+                if(i==0){
+                    Gdfd.resolve();
+                }
+                Gdfd=dfd.defer;
+                this.dfdList.push(dfd);
+                this.$dfdList.push(dfd.defer);
+            }
+            if(typeof callback==="function"){
+                $.when(this.$dfdList).then(callback)
             }
         }
-    })
-    window.tomLib=_;
+        DeferredList.prototype.getItem=function(index){
+            return this.dfdList[index]
+        }
+        DeferredList.prototype.dealItem=function(start){
+            var beforeDone=true;
+            for(var i= start-1;i>-1;i--){
+                if(this.getItem(i).defer.state()!=="resolved"){
+                    beforeDone=false
+                }
+            }
+            if(beforeDone){
+                this.getItem(start).changeState("filled");
+                this.dealWaitList(start)
+            }else{
+                this.getItem(start).changeState("wait");
+            }
+            return this.getItem(start).cstate;
+        }
+        DeferredList.prototype.dealWaitList=function(start){
+            var list=this.dfdList;
+            for(var i= start+1,l=list.length;i<l;i++){
+                if(this.getItem(i).cstate!=="wait"){
+                    return false;
+                }else{
+                    this.getItem(i).changeState("filled")
+                }
+            }
+        }
+        function DeferredItem(){
+            this.defer= $.Deferred();
+            this.cstate="unfilled"; //wait filled
+        }
+        DeferredItem.prototype.addCallbacks=function(success,fail){
+            this.defer.done(success).fail(fail);
+        }
+        DeferredItem.prototype.changeState=function(state){
+            this.cstate=state;
+            if(state==="filled"){
+                this.defer.resolve();
+            }
+        }
+        _.DeferredList=DeferredList;
+    })();
 
+
+
+    _.getParams=function(names){
+        if(!names){
+            return;
+        }
+        if(typeof names=="string"){
+            names=[names];
+        }
+        if(typeof names.slice !="function"){
+            return
+        }
+        var search=window.location.search.slice(1),list=search.split("&"),length= 0,r=[],temp;
+        for(var j= 0,l=list.length;j<l;j++){
+            temp=list[j].split("=");
+            list[j]={};
+            if(temp.length==2){
+                list[j]["param"]=temp[0]
+                list[j]["value"]=temp[1]
+            }
+        }
+        for(var i= 0,l=names.length;i<l;i++){
+            while(length<list.length){
+                if(list[length]["param"]==names[i]){
+                    r.push(decodeURI(list[length]["value"]));
+                }else if(length==list.length-1&&!r[i]){
+                    r.push(null);
+                }
+                length++;
+            }
+            length=0;
+        }
+        return r
+    }
+    return _;
 });
 
 /*

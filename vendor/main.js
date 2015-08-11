@@ -19,6 +19,7 @@ require.config({
     "zepto.touch":"zepto.touch",
     "zepto.fx":"zepto.fx",
     "tomLib":"tom.Lib",
+        "zxxLib":"zxx.Lib",
      "jquery-private":"jquery-private",
      "tom":"tomRequire",
      "tomTest":"tomRequire",

@@ -3556,11 +3556,9 @@ Data.prototype = {
 		if ( !Data.accepts( owner ) ) {
 			return 0;
 		}
-
 		var descriptor = {},
 			// Check if the owner object already has a cache key
 			unlock = owner[ this.expando ];
-
 		// If not, create one
 		if ( !unlock ) {
 			unlock = Data.uid++;
@@ -3617,7 +3615,6 @@ Data.prototype = {
 		// allowing direct access to the newly created
 		// empty data object. A valid owner object must be provided.
 		var cache = this.cache[ this.key( owner ) ];
-
 		return key === undefined ?
 			cache : cache[ key ];
 	},
@@ -3638,7 +3635,6 @@ Data.prototype = {
 				((key && typeof key === "string") && value === undefined) ) {
 
 			stored = this.get( owner, key );
-
 			return stored !== undefined ?
 				stored : this.get( owner, jQuery.camelCase(key) );
 		}

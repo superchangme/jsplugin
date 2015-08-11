@@ -1,0 +1,97 @@
+<!Doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+     <title>冒泡吧少女</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <style>
+         *{
+             box-sizing: border-box;
+             margin: 0;
+             padding: 0;
+         }
+         body,html{
+             height: 100%;
+             position: relative;
+             overflow: hidden;
+         }
+         #bubbleBox{
+             background: cornflowerblue;
+             height: 100%;
+             position: relative;
+         }
+         .bubble{
+             background: url(../source/img/ass6.png);
+             width: 59px;
+             height: 59px;
+             position: absolute;
+             bottom: 0;
+             left:0;
+         }
+     </style>
+</head>
+<body>
+<div id="bubbleBox">
+
+</div>
+</body>
+<script src="../vendor/require.js" data-main="../vendor/main.js"></script>
+<script>
+    require(["jquery","tom.Lib","zxx.Lib","lodash"],function($,t,z,_){
+        var $stage=$("#bubbleBox"),G={w:$stage.width(),h:$stage.height()},temp;
+        G.startY=60;
+        G.bubble={w:59,h:59}
+        console.log(G)
+        G.bubbleArr=[];
+        G.ID=1;
+        G.popMax=10;
+        G.tmpl="<div class='bubble'></div>";
+        G.transform= t.prefixStyle("transform");
+        function genderBubble(){
+            if(G.bubbleArr.length<G.popMax){
+                temp=$(G.tmpl);
+                temp.attr("id", G.ID++)
+                updateRandomPos(temp);
+                G.bubbleArr.push(temp);
+                $stage.append(temp);
+            }
+        }
+        function updateRandomPos(el){
+           if(!el.speed){
+               el.speed= _.random(1,10);
+           }
+            if(!el.scale){
+                el.scale= _.random(1,10)/10;
+            }
+           if(el.x==null){
+               el.x= _.random(0, G.w- G.bubble.w*el.scale);
+           }else{
+               el.x+=_.random(-5,5);
+               el.x=Math.min(Math.max(0,el.x), G.w- G.bubble.w*el.scale)
+           }
+           if(el.y==null){
+               el.y= G.startY
+           }else{
+               el.y-=el.speed;
+           }
+            el.css(G.transform,"scale("+el.scale+") translate3d("+el.x+"px,"+el.y+"px,0");
+        }
+        function updateState(){
+            var $dom,l=G.bubbleArr.length;
+            for(var i=0;i<l;i++){
+                if(G.bubbleArr[i].y< -G.h-50){
+                    $dom=G.bubbleArr.splice(i,1)[0];
+                    $dom.remove();
+                    i--;
+                    l--;
+                }else{
+                    updateRandomPos(G.bubbleArr[i])
+                }
+            }
+            genderBubble();
+            z.requestAnimFrame.call(null,updateState) ;
+        }
+        z.requestAnimFrame.call(null,updateState) ;
+    })
+</script>
+</html>

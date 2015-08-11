@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <style>
+        #app{
+            position: relative;
+        }
+        canvas{
+            border-right:1px solid red ;
+        }
+        #stepMask{
+            /*position: absolute;*/
+            width: 150px;
+            height: 500px;
+            left:150px;
+            top:0;
+            z-index: 222;
+        }
+        canvas{
+            float:left;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <canvas id="drawCanvas" width="150" height="500"></canvas>
+    <canvas id="drawCanvas2" width="150" height="500"></canvas>
+    <div id="stepMask">
+
+    </div>
+</div>
+<canvas id="resultCanvas" width="300" height="500"></canvas>
+<button id="getResult">click me</button>
+</body>
+<script src="../vendor/require.js"></script>
+<script src="../vendor/main.js"></script>
+<script src="../vendor/testDefine.js"></script>
+<script>
+
+    require(["Zepto","jquery.eraser","tomLib","testDf"],function($,a,tLib,test){
+        console.log(test)
+        console.log(tLib.getParams(["c","a","d","b"]))
+        var img=new Image,resultCanvas=$("#resultCanvas"),ctx=resultCanvas[0].getContext("2d"),heartWidth=300;
+        img.src="../source/img/chick_bg.png";
+        img.onload=function(){
+            $("#drawCanvas").eraser({type:"draw",radius:10,ctxStyle:{filleStyle:"red",strokeStyle:"red"},customCanvas:$("#drawCanvas")[0]})
+            $("#drawCanvas2").eraser({type:"draw",radius:10,ctxStyle:{filleStyle:"red",strokeStyle:"red"},customCanvas:$("#drawCanvas2")[0]})
+        }
+        $("#getResult").on("click",function(){
+            /*var leftHeart=$("#drawCanvas")[0].toDataURL("image/jpeg")
+             var rightHeart= $("#drawCanvas2")[0].toDataURL("image/jpeg")
+             img=new Image;
+             img.src=leftHeart;
+             ctx.drawImage(img,0,0);
+             img=new Image;
+             img.src=rightHeart;
+             ctx.drawImage(img,heartWidth/2,0);*/
+//            $("#drawCanvas2")[0].getContext("2d").putImageData(getCanvasImgData($("#drawCanvas")[0]),0,0)
+            console.log(checkSimilarity($("#drawCanvas")[0],$("#drawCanvas2")[0]))
+            return
+            var myrun=run();
+            function run(){
+                var total=100,filled=0,per;
+                return function(){
+                    per=(++filled)/total;
+                    if(per<=1){
+                        $("#drawCanvas2")[0].getContext("2d").putImageData(getCanvasImgData($("#drawCanvas")[0],per),0,0)
+                        tLib.requestAnimFrame.call(window,myrun)
+                    }else{
+                        console.log(checkSimilarity($("#drawCanvas")[0],$("#drawCanvas2")[0]))
+                    }
+                }
+            }
+            tLib.requestAnimFrame.call(window,myrun)
+        })
+        function getCanvasImgData(canvas,per,type){
+            var per=per|| 1,imgData;
+            switch(type){
+                case "v":
+                case "h":
+                case "a":
+                default:
+                  imgData=canvas.getContext("2d").getImageData(0,0,canvas.width,canvas.height*per);
+            }
+            return imgData
+        }
+        function checkSimilarity(canvas1,canvas2){
+           var data1= canvas1.getContext("2d").getImageData(0,0,canvas1.width,canvas1.height);
+            var data2= canvas2.getContext("2d").getImageData(0,0,canvas2.width,canvas2.height);
+            var data1V2=[],data2V2=[];
+            var len=data1.data.length;
+            var colNum=canvas1.width;
+            var rowNum=-1;
+            var same= 1,notSame= 0,checkIndex=[];
+            var score=50;
+            for(var i=0;i<len;i++){
+                if(i%(colNum*4)==0){
+                    data1V2.push([]);
+                    data2V2.push([]);
+                    rowNum++;
+                }
+                if(i%3==0){
+                    data1V2[rowNum].push(data1.data[i]);
+                    data2V2[rowNum].push(data2.data[i]);
+                }
+            }
+            for(var j= 0;j<rowNum;j++){
+                for(var k=0;k<colNum;k++){
+                    if(!!data1V2[j][k]&&data1V2[j][k]==data2V2[j][colNum-k-1]){
+                        same++;
+//                        score+=0.5;
+                    }else if(!!data1V2[j][k]){
+                        notSame+=0.02;
+//                        score-=0.05;
+                    }
+                }
+            }
+            console.log(same,notSame)
+                return Math.max.call(null,50,Math.min.call(null,100*same/(same+notSame),99.999)).toFixed(2);
+        }
+    })
+</script>
+</html>

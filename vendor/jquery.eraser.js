@@ -13,7 +13,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define([ "jquery" ], factory);
+        define([ "Zepto" ], factory);
     } else {
         // 全局模式
         factory(jQuery)
@@ -118,7 +118,11 @@
         }
         //detach events
         $(document).off(this.namespace);
-
+        if(this.ctxStyle){
+            for(var p in this.ctxStyle){
+                this.ctx[p]=this.ctxStyle[p];
+            }
+        }
         setTimeout(function(){
             self[self["clipMethod"]]();
         },100)
@@ -145,7 +149,7 @@
             clearTimeout(timeout)
             e= e.originalEvent;
             beginDraw=true;
-            if(!isTouch){
+            if(!isTouch&&self.type!="draw"){
                 ctx.globalCompositeOperation = "destination-out";
                 isTouch=true;
             }
@@ -312,7 +316,6 @@
 
     function getAlphaNoZeroNum(imgData,self){
         var dd= 0;
-        console.log(imgData.data.length)
         for(var x=0;x<imgData.width;x+=self.density){
             for(var y=0;y<imgData.height;y+=self.density){
                 // console.log(dd++)

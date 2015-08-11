@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}
+        #allmap{width:100%;height:100%;}
+        p{margin-left:5px; font-size:14px;}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vh8oo9VmhCa05btNZV8I22Q3"></script>
+    <title>添加定位相关控件</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+    // 添加带有定位的导航控件
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+    map.addControl(navigationControl);
+    // 添加定位控件
+    var geolocationControl = new BMap.GeolocationControl();
+    geolocationControl.addEventListener("locationSuccess", function(e){
+        // 定位成功事件
+        var address = '';
+        address += e.addressComponent.province;
+        address += e.addressComponent.city;
+        address += e.addressComponent.district;
+        address += e.addressComponent.street;
+        address += e.addressComponent.streetNumber;
+        console.log(e)
+        alert("当前定位地址为：" + address);
+    });
+    geolocationControl.addEventListener("locationError",function(e){
+        // 定位失败事件
+        alert(e.message);
+    });
+    map.addControl(geolocationControl);
+</script>
+
+/**/BMap._rd._cbk47893 && BMap._rd._cbk47893({"content":{"name":"\u4e49\u4e4c\u5e02","sup_bus":1,"sup_lukuang":1,"sup_subway":0,"type":4,"uid":2217},"current_city":{"code":2217,"geo":".=QuTrPBIvyOUA;","level":12,"name":"\u4e49\u4e4c\u5e02","sup":1,"sup_bus":1,"sup_business_area":0,"sup_lukuang":1,"sup_subway":0,"type":3,"up_cityid":333,"up_province_name":"\u6d59\u6c5f\u7701"},"err_msg":"","hot_city":["\u5317\u4eac\u5e02|131","\u4e0a\u6d77\u5e02|289","\u5e7f\u5dde\u5e02|257","\u6df1\u5733\u5e02|340","\u6210\u90fd\u5e02|75","\u5929\u6d25\u5e02|332","\u5357\u4eac\u5e02|315","\u676d\u5dde\u5e02|179","\u6b66\u6c49\u5e02|218","\u91cd\u5e86\u5e02|132"],"result":{"data_security_filt_res":0,"error":0,"qid":"","time":0,"type":4,"qt":"cen","b":"13352063.94,3371868.3;13355375.95,3378036.3","l":"15","ie":"utf-8","oue":"1","fromproduct":"jsapi","callback":"BMap._rd._cbk47893"},"uii_err":0})
