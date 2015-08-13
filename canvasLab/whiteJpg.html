@@ -21,6 +21,7 @@
 
      <div></div>拖我调节
 <input type="range" max="1" min="0.1" style="width: 200px" step="0.1" value="0.1" id="myRange"/>
+<img id="previewMe"/>
 </body>
 <script src="../vendor/caman.full.js"></script>
 <script src="../vendor/require.js" ></script>
@@ -59,7 +60,7 @@
    var CantonImg;
 
    require(["jquery","tomLib"],function($,T){
-       var img=new Image,canvas=document.getElementById("canvas"),$range=$("#myRange"),$myFile=$("#myFile"),_canvas;
+       var $preview=$("#previewMe"),img=new Image,canvas=document.getElementById("canvas"),$range=$("#myRange"),$myFile=$("#myFile"),_canvas;
        img.src='../source/img/go.jpg';
 
        function canvasImg(val){
@@ -112,13 +113,9 @@
        })
        $myFile.on("change",function(){
            T.cropImage(this.files[0],300,300).then(function(imgSrc){
-               var img=new Image;
-               img.onload=function(){
-                   alert("loaded")
+               console.log(imgSrc)
                    loadImg(imgSrc);
-               }
-               img.src=imgSrc;
-
+               $preview.attr("src",imgSrc)
            })
 
        })
