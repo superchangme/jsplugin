@@ -5,7 +5,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define([], factory);
+        define(["jquery"], factory);
     } else {
         // 全局模式
         factory(jQuery,window)
@@ -289,6 +289,44 @@
             length=0;
         }
         return r
+    }
+    _.cropImage=function(preview,oWidth,oHeight){
+        var temp,defer= $.Deferred();
+        if(typeof preview=="string"){
+            temp=new Image;
+            temp.onload=run;
+            temp.src=preview;
+            preview=temp;
+        }else{
+            run();
+        }
+        console.log(oWidth,oHeight)
+
+        function run(){
+            var iWidth=preview.width,canvas=document.createElement("canvas"),iHeight=preview.height,
+                dWidth,dHeight, x=0,y= 0,factor;
+            oWidth=oWidth||iWidth;
+            oHeight=oHeight||iHeight;
+            canvas.width=oWidth;
+            canvas.height=oHeight;
+            if((oWidth/oHeight)<(iWidth/iHeight)){
+                console.log("填高")
+                factor=oHeight/iHeight;
+                dHeight=oHeight;
+                dWidth=iWidth*factor;
+                x=-(iWidth*factor-oWidth)/2;
+            }else{
+                console.log("填宽")
+                factor=oWidth/iWidth;
+                dWidth=oWidth;
+                dHeight=iHeight*factor;
+                y=-(iHeight*factor-oHeight)/2;
+            }
+            canvas.getContext("2d").drawImage(preview,x,y,dWidth,dHeight);
+            defer.resolve(canvas.toDataURL("image/png"));
+            canvas=null;
+        }
+        return defer.promise();
     }
     return _;
 });

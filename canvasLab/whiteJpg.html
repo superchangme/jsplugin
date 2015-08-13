@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <title></title>
+    <style>
+        body{
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+<input type="file" id="myFile"/>
+     <canvas id="canvas" ></canvas>
+
+     <div></div>拖我调节
+<input type="range" max="1" min="0.1" style="width: 200px" step="0.1" value="0.1" id="myRange"/>
+</body>
+<script src="../vendor/caman.full.js"></script>
+<script src="../vendor/require.js" ></script>
+<script src="../vendor/main.js"></script>
+<script>
+   /* Caman.Filter.register("clip", function (F) {
+        F = Math.abs(F) * 2.55;
+        return this.process("clip", function (G) {
+            if (G.r > 255 - F) {
+                G.r = 255
+            } else {
+                if (G.r < F) {
+                    G.r = 0
+                }
+            }
+            if (G.g > 255 - F) {
+                G.g = 255
+            } else {
+                if (G.g < F) {
+                    G.g = 0
+                }
+            }
+            if (G.b > 255 - F) {
+                G.b = 255
+            } else {
+                if (G.b < F) {
+                    G.b = 0
+                }
+            }
+            return G
+        })
+    });*/
+   var CantonImg;
+
+   require(["jquery","tomLib"],function($,T){
+       var img=new Image,canvas=document.getElementById("canvas"),$range=$("#myRange"),$myFile=$("#myFile"),_canvas;
+       img.src='../source/img/go.jpg';
+
+       function canvasImg(val){
+           var data=canvas.getContext("2d").getImageData(0,0,canvas.width,canvas.height);
+           var len=data.data.length;
+           console.log(data)
+           for(var i=0;i<len;i+=4){
+               if(data.data[i]==0&&data.data[i+1]==0&&data.data[i+2]==0){
+                   //黑色
+               }else if(data.data[i+3]==255){
+                   data.data[i+3]=0;
+               }
+           }
+           canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height)
+           //canvas.getContext("2d").fillStyle="yellow";
+           // canvas.getContext("2d").fill();
+           canvas.getContext("2d").putImageData(data,0,0)
+       }
+
+       function fileToSrc(srcImage){
+           if (window.Blob && srcImage instanceof Blob) {
+               if (!URL) { throw Error("No createObjectURL function found to create blob url"); }
+               return URL.createObjectURL(srcImage);
+           }
+       }
+       function loadImg(img){
+           var defer= $.Deferred();
+           $(canvas).removeAttr("data-caman-id");
+           CantonImg=Caman("#canvas", img,function(){
+              defer.resolve();
+           });
+           Caman.Event.listen(CantonImg,"processComplete", function (job) {
+               if(job.name=="clip"){
+                   setTimeout(function(){
+                       canvasImg(0.5);
+                   },500)
+               }
+           });
+           defer.done(function(){
+               CantonImg.brightness(5).saturation(-100).clip(36).contrast(3).sharpen(6).noise(4).render();
+           })
+
+       }
+       $range.on("change",function(){
+           canvasImg($(this).val())
+       })
+       $myFile.on("change",function(){
+           T.cropImage(fileToSrc(this.files[0]),300,300).then(function(imgSrc){
+               loadImg(imgSrc);
+
+           })
+
+       })
+   })
+
+</script>
+</html>
