@@ -73,9 +73,13 @@
        }
 
        function fileToSrc(srcImage){
-           if (window.Blob && srcImage instanceof Blob) {
-               if (!URL) { throw Error("No createObjectURL function found to create blob url"); }
-               return URL.createObjectURL(srcImage);
+           var t=new FileReader;
+           t.readAsDataURL(srcImage);
+           t.onload=function(){
+               t.result;
+           }
+           t.onerror=function(){
+               alert("read file error")
            }
        }
        function loadImg(img){
@@ -100,9 +104,8 @@
            canvasImg($(this).val())
        })
        $myFile.on("change",function(){
-           T.cropImage(fileToSrc(this.files[0]),300,300).then(function(imgSrc){
+           T.cropImage(this.files[0],300,300).then(function(imgSrc){
                loadImg(imgSrc);
-
            })
 
        })

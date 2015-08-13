@@ -297,6 +297,14 @@
             temp.onload=run;
             temp.src=preview;
             preview=temp;
+        }else if(Object.prototype.toString.call(preview).slice(8,-1)=="File"){
+            temp=new FileReader;
+            temp.readAsDataURL(preview);
+            temp.onload=function(){
+                preview=new Image;
+                preview.src=temp.result;
+                run();
+            };
         }else{
             run();
         }
