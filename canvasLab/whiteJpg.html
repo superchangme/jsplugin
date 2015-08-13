@@ -89,7 +89,6 @@
            var defer= $.Deferred();
            $(canvas).removeAttr("data-caman-id");
            CantonImg=Caman("#canvas", img,function(){
-               alert("defer Ok")
               defer.resolve();
            });
            Caman.Event.listen(CantonImg,"processComplete", function (job) {
@@ -109,9 +108,13 @@
        })
        $myFile.on("change",function(){
            T.cropImage(this.files[0],300,300).then(function(imgSrc){
-               alert(imgSrc.length)
-               alert(imgSrc.slice(0,8))
-               loadImg(imgSrc);
+               var img=new Image;
+               img.onload=function(){
+                   alert("loaded")
+                   loadImg(imgSrc);
+               }
+               img.src=imgSrc;
+
            })
 
        })
