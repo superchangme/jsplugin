@@ -290,6 +290,9 @@
         }
         return r
     }
+    var URL = window.URL && window.URL.createObjectURL ? window.URL :
+        window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
+            null;
     _.cropImage=function(preview,oWidth,oHeight){
         var temp,defer= $.Deferred();
         if(typeof preview=="string"){
@@ -298,13 +301,12 @@
             temp.src=preview;
             preview=temp;
         }else if(Object.prototype.toString.call(preview).slice(8,-1)=="File"){
-            temp=new FileReader;
-            temp.readAsDataURL(preview);
-            temp.onload=function(){
-                preview=new Image;
-                preview.src=temp.result;
+            var img = new Image();
+            img.onload=function(){
+                preview=img;
                 run();
-            };
+            }
+            img.src = URL.createObjectURL(preview);
         }else{
             run();
         }

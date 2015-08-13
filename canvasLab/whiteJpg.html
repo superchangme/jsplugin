@@ -113,8 +113,7 @@
        })
        $myFile.on("change",function(){
            T.cropImage(this.files[0],300,300).then(function(imgSrc){
-               console.log(imgSrc)
-                   loadImg(imgSrc);
+               loadImg(imgSrc);
                $preview.attr("src",imgSrc)
            })
 
