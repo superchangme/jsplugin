@@ -22,6 +22,9 @@
 <script src="../vendor/require.js" ></script>
 <script src="../vendor/main.js"></script>
 <script>
+    window.onerror=function(err){
+        alert(err)
+    }
    /* Caman.Filter.register("clip", function (F) {
         F = Math.abs(F) * 2.55;
         return this.process("clip", function (G) {
@@ -86,13 +89,14 @@
            var defer= $.Deferred();
            $(canvas).removeAttr("data-caman-id");
            CantonImg=Caman("#canvas", img,function(){
+               alert("defer Ok")
               defer.resolve();
            });
            Caman.Event.listen(CantonImg,"processComplete", function (job) {
                if(job.name=="clip"){
                    setTimeout(function(){
                        canvasImg(0.5);
-                   },500)
+                   },3000)
                }
            });
            defer.done(function(){
@@ -105,6 +109,8 @@
        })
        $myFile.on("change",function(){
            T.cropImage(this.files[0],300,300).then(function(imgSrc){
+               alert(imgSrc.length)
+               alert(imgSrc.slice(0,8))
                loadImg(imgSrc);
            })
 
