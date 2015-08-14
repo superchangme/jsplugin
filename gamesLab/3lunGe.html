@@ -2,11 +2,23 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
     <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-      <canvas id="canvas" width="800" height="800"></canvas>
+      <canvas id="canvas" width="320" height="320"></canvas>
 <canvas id="helpCanvas" style="display: none"></canvas>
+<button id="btn1">转1</button>
+      <button id="btn2">转2</button>
+      <button id="btn3">转3</button>
 </body>
 <script src="../vendor/lodash.js"></script>
 <script src="../vendor/jquery-2.1.4.js"></script>
@@ -24,6 +36,7 @@
                 }
             }
         }
+        console.log(opts)
         this.opts=opts;
         this.lineWidth=opts.lineWidth;
         this.pointNum=opts.num||6;
@@ -31,24 +44,22 @@
         this.centerPos=opts.centerPos;
         this.canvas=opts.canvas;
         this.groupName=opts.groupName;
-        console.log(this.groupName)
         this.jcanvas=$(opts.canvas)
+        this.absCenter={x:this.lineWidth+this.radius,y:this.lineWidth+this.radius};
 
-
-        if(!this.centerPos){
-            this.centerPos={x:this.lineWidth,y:this.lineWidth}
+        if(!this.centerPos) {
+            this.centerPos = $.extend({}, this.absCenter)
         }
         if(!this.canvas){
             this.canvas=document.createElement("canvas");
         }
         this.ctx=this.canvas.getContext("2d")
-        this.ctx.fillStyle=this.opts.fillStyle;
-        this.ctx.strokeStyle=this.opts.strokeStyle;
         this.childs=new Array(this.pointNum);
+
         for(var i=0;i<this.pointNum;i++){
              this.childs[i]={};
-             this.childs[i].x=-this.lineWidth*Math.cos(regToRad(i*360/this.pointNum))+this.radius+this.centerPos.x;
-             this.childs[i].y=-this.lineWidth*Math.sin(regToRad(i*360/this.pointNum))+this.radius+this.centerPos.y;
+             this.childs[i].x=-this.lineWidth*Math.cos(regToRad(i*360/this.pointNum))+this.absCenter.x;
+             this.childs[i].y=-this.lineWidth*Math.sin(regToRad(i*360/this.pointNum))+this.absCenter.y;
         }
        /* this.jcanvas.drawArc({
             strokeStyle: '#c33',
@@ -72,34 +83,51 @@
                 radius: this.radius
             });
         }*/
+        this.index=++Lun.prototype.Index;
+
     }
     Lun.prototype.drawChilds=function(){
        var canvas=getHelpCanvas((this.lineWidth+this.radius)*2,(this.lineWidth+this.radius)*2),
                ctx=canvas.ctx,canvas=canvas.canvas;
+        ctx.save();
+        ctx.fillStyle=this.opts.fillStyle[0];
         ctx.beginPath();
-        ctx.arc(this.lineWidth+this.radius,this.lineWidth+this.radius,this.lineWidth,0,Math.PI*2);
+        ctx.arc(this.absCenter.x,this.absCenter.y,this.lineWidth,0,Math.PI*2);
         ctx.stroke();
         ctx.closePath();
         for(var i= 0,l=this.childs.length;i<l;i++){
             ctx.beginPath();
+            ctx.fillStyle=this.opts.fillStyle[i];
             ctx.arc(this.childs[i].x,this.childs[i].y,this.radius,0,Math.PI*2);
             ctx.fill();
             ctx.closePath();
+
         }
+        ctx.restore();
+
         this.jcanvas.drawImage({
             source:  canvas.toDataURL("image/png",1),
             groups:[this.groupName],
             layer:true,
-            name:this.groupName+"_"+i,
-            x: this.centerPos.x, y: this.centerPos.y,
+            name:this.groupName,
+            x: this.centerPos.x-this.lineWidth-this.radius, y: this.centerPos.y-this.lineWidth-this.radius,
+            fromCenter: false,
             width:(this.lineWidth+this.radius)*2,
-            height:(this.lineWidth+this.radius)*2,
+            height:(this.lineWidth+this.radius)*2
         });
     }
     Lun.prototype.rotate=function(){
         console.log('+='+360/this.pointNum)
-        this.jcanvas.animateLayerGroup(this.groupName,{rotate:'+='+360/this.pointNum},1000)
+        this.jcanvas.moveLayer(this.groupName,Lun.prototype.Index ).animateLayerGroup(this.groupName,{rotate:'+='+360/this.pointNum},1000)
     }
+    Lun.prototype.Index=0;
+    Lun.prototype.Lun_MAP=new Array(12)
+    Lun.prototype.getMapDataByIndex=function(childIndex){
+         if(this.index==0){
+
+         }
+    }
+
     function regToRad(reg){
         return Math.PI*2/360*reg;
     }
@@ -111,21 +139,25 @@
     }
     var lun1=new Lun({
        canvas:canvas ,
-        fillStyle:"red",
+        fillStyle:_.shuffle(["red","red","red","yellow","yellow","yellow"]),
         groupName:"lun1"
     }),lun2=new Lun({
         canvas:canvas ,
-        fillStyle:"red",
+        fillStyle:lun1.opts.fillStyle,
         centerPos:{x:lun1.childs[4].x,y:lun1.childs[4].y},
         groupName:"lun2"
     }),lun3=new Lun({
         canvas:canvas ,
-        fillStyle:"red",
+        fillStyle:lun1.opts.fillStyle,
         centerPos:{x:lun1.childs[3].x,y:lun1.childs[3].y},
         groupName:"lun3"
     });
-    lun1.drawChilds()/*
+    lun1.drawChilds()
     lun2.drawChilds()
-    lun3.drawChilds()*/
+    lun3.drawChilds()
+    $("button").on("click",function(){
+        var lun="lun"+$(this).attr("id").match(/\d/)
+        window[lun].rotate();
+    })
 </script>
 </html>
