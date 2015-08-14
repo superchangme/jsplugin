@@ -20,7 +20,7 @@
      <canvas id="canvas" width="300" height="300"></canvas>
 
      <div></div>拖我调节
-<input type="range" max="1" min="0.1" style="width: 200px" step="0.1" value="0.1" id="myRange"/>
+<input type="range" max="250" min="0" style="width: 200px" step="1" value="0" id="myRange"/>
 <img id="previewMe"/>
 </body>
 <script src="../vendor/caman.js"></script>
@@ -67,17 +67,24 @@
    var CantonImg;
 
    require(["jquery","tomLib"],function($,T){
-       var $preview=$("#previewMe"),img=new Image,canvas=document.getElementById("canvas"),$range=$("#myRange"),$myFile=$("#myFile"),_canvas;
-       img.src='../source/img/go.jpg';
+       var $preview=$("#previewMe"),_oData,img=new Image,canvas=document.getElementById("canvas"),$range=$("#myRange"),$myFile=$("#myFile"),_canvas;
 
+       function copyImageData(ctx, src)
+       {
+           var dst = ctx.createImageData(src.width, src.height);
+           dst.data.set(src.data);
+           return dst;
+       }
        function canvasImg(val){
-           var data=canvas.getContext("2d").getImageData(0,0,canvas.width,canvas.height);
+           var data;
+           if(!_oData){
+               _oData=copyImageData(canvas.getContext("2d"),canvas.getContext("2d").getImageData(0,0,canvas.width,canvas.height))
+           }
+           data=copyImageData(canvas.getContext("2d"),_oData);
            var len=data.data.length;
-           console.log(data)
            for(var i=0;i<len;i+=4){
-               if(data.data[i]==0&&data.data[i+1]==0&&data.data[i+2]==0){
+               if(data.data[i]>val&&data.data[i+1]>val&&data.data[i+2]>val){
                    //黑色
-               }else if(data.data[i+3]==255){
                    data.data[i+3]=0;
                }
            }
@@ -106,8 +113,8 @@
            });
            defer.done(function(){
                console.timeEnd("t")
-               CantonImg.brightness(5).saturation(-100).clip(36).contrast(3)/*.sharpen(6)*/.noise(4).render(function(){
-                   canvasImg(0.5);
+               CantonImg.brightness(5).saturation(-100).clip(15).contrast(10)/*.sharpen(6)*/.noise(4).render(function(){
+                   canvasImg(204);
                });
            })
 
@@ -116,6 +123,7 @@
            canvasImg($(this).val())
        })
        $myFile.on("change",function(){
+           _oData=null;
            T.cropImage(this.files[0],300,300).then(function(imgSrc){
                loadImg(imgSrc);
                $preview.attr("src",imgSrc)
