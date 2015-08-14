@@ -256,15 +256,13 @@
        </div>
    </div>
     拖我调节
-<div>透明度<input type="range" max="250" min="0" style="width: 200px" step="1" value="204" class="adjust-input" id="transparent"/></div>
+<div style="display: none">透明度<input type="range" max="250" min="0" style="width: 200px" step="1" value="180" class="adjust-input" id="transparent"/></div>
+值<span id="transparentV"></span>
 <div>
     对比度:<input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="contrast"/>
 </div>
 <div>
     曝光度: <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="exposure"/>
-</div>
-<div>
-    保留比：<input type="range" max="100" min="-100" style="width: 200px" step="1" value="16" class="adjust-input" id="clip"/>
 </div>
 <img id="previewMe"/>
 </body>
@@ -385,8 +383,11 @@
        function filterCanton(){
            if(CantonImg){
                $loading.show()
-               CantonImg.reset();
-               CantonImg.brightness(5).saturation(-100).clip($clip.val()).contrast($contrast.val())/*.sharpen(6)*/.noise(4).exposure($exposure.val()).transparent($transparent.val()).render(function(){
+               CantonImg.revert();
+               $("#transparentV").text($transparent.val())
+               CantonImg.brightness(5).saturation(-100).
+                       contrast(parseFloat($contrast.val()))./*.sharpen(6)*/
+                       exposure(parseFloat($exposure.val())).transparent(parseFloat($transparent.val())).render(function(){
                    $loading.hide()
                });
            }

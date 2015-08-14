@@ -5,19 +5,127 @@
     <title></title>
 </head>
 <body>
-      <canvas id="canvas"></canvas>
+      <canvas id="canvas" width="800" height="800"></canvas>
+<canvas id="helpCanvas" style="display: none"></canvas>
 </body>
+<script src="../vendor/lodash.js"></script>
+<script src="../vendor/jquery-2.1.4.js"></script>
+<script src="../vendor/jcanvas.js"></script>
 <script>
-    var canvas=document.getElementById("canvas");
-    function Lun(num,centerPos){
-        this.lineWidth=30;
-        this.pointNum=num||6;
-        if(!centerPos){
-            centerPos={x:0,y:0}
+    var canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),helpCanvas=document.getElementById("helpCanvas"),helpCtx=helpCanvas.getContext("2d");
+    function Lun(opts){
+        var _opts={num:6,lineWidth:100,centerPos:null};
+        if(!opts){
+            opts=_opts
+        }else{
+            for(var p in _opts){
+                if(!opts[p]){
+                    opts[p]=_opts[p]
+                }
+            }
         }
-        for(var i=0;i<this.pointNum;i++){
+        this.opts=opts;
+        this.lineWidth=opts.lineWidth;
+        this.pointNum=opts.num||6;
+        this.radius=opts.radius||10
+        this.centerPos=opts.centerPos;
+        this.canvas=opts.canvas;
+        this.groupName=opts.groupName;
+        console.log(this.groupName)
+        this.jcanvas=$(opts.canvas)
 
+
+        if(!this.centerPos){
+            this.centerPos={x:this.lineWidth,y:this.lineWidth}
         }
+        if(!this.canvas){
+            this.canvas=document.createElement("canvas");
+        }
+        this.ctx=this.canvas.getContext("2d")
+        this.ctx.fillStyle=this.opts.fillStyle;
+        this.ctx.strokeStyle=this.opts.strokeStyle;
+        this.childs=new Array(this.pointNum);
+        for(var i=0;i<this.pointNum;i++){
+             this.childs[i]={};
+             this.childs[i].x=-this.lineWidth*Math.cos(regToRad(i*360/this.pointNum))+this.radius+this.centerPos.x;
+             this.childs[i].y=-this.lineWidth*Math.sin(regToRad(i*360/this.pointNum))+this.radius+this.centerPos.y;
+        }
+       /* this.jcanvas.drawArc({
+            strokeStyle: '#c33',
+            groups:[this.groupName],
+            layer:true,
+            name:this.groupName+"_bg",
+            x: this.centerPos.x+this.radius, y: this.centerPos.y+this.radius,
+            radius: this.lineWidth,
+            width:(this.lineWidth+this.radius)*2,
+            height:(this.lineWidth+this.radius)*2
+        });
+        for(var i= 0,l=this.childs.length;i<l;i++){
+            this.jcanvas.drawArc({
+                fillStyle: '#c33',
+                groups:[this.groupName],
+                layer:true,
+                name:this.groupName+"_"+i,
+                x: this.childs[i].x, y: this.childs[i].y,
+                width:(this.lineWidth+this.radius)*2,
+                height:(this.lineWidth+this.radius)*2,
+                radius: this.radius
+            });
+        }*/
     }
+    Lun.prototype.drawChilds=function(){
+       var canvas=getHelpCanvas((this.lineWidth+this.radius)*2,(this.lineWidth+this.radius)*2),
+               ctx=canvas.ctx,canvas=canvas.canvas;
+        ctx.beginPath();
+        ctx.arc(this.lineWidth+this.radius,this.lineWidth+this.radius,this.lineWidth,0,Math.PI*2);
+        ctx.stroke();
+        ctx.closePath();
+        for(var i= 0,l=this.childs.length;i<l;i++){
+            ctx.beginPath();
+            ctx.arc(this.childs[i].x,this.childs[i].y,this.radius,0,Math.PI*2);
+            ctx.fill();
+            ctx.closePath();
+        }
+        this.jcanvas.drawImage({
+            source:  canvas.toDataURL("image/png",1),
+            groups:[this.groupName],
+            layer:true,
+            name:this.groupName+"_"+i,
+            x: this.centerPos.x, y: this.centerPos.y,
+            width:(this.lineWidth+this.radius)*2,
+            height:(this.lineWidth+this.radius)*2,
+        });
+    }
+    Lun.prototype.rotate=function(){
+        console.log('+='+360/this.pointNum)
+        this.jcanvas.animateLayerGroup(this.groupName,{rotate:'+='+360/this.pointNum},1000)
+    }
+    function regToRad(reg){
+        return Math.PI*2/360*reg;
+    }
+    function getHelpCanvas(width,height){
+        helpCtx.clearRect(0,0,helpCanvas.width,helpCanvas.height)
+        helpCanvas.width=width;
+        helpCanvas.height=height;
+        return {ctx:helpCtx,canvas:helpCanvas}
+    }
+    var lun1=new Lun({
+       canvas:canvas ,
+        fillStyle:"red",
+        groupName:"lun1"
+    }),lun2=new Lun({
+        canvas:canvas ,
+        fillStyle:"red",
+        centerPos:{x:lun1.childs[4].x,y:lun1.childs[4].y},
+        groupName:"lun2"
+    }),lun3=new Lun({
+        canvas:canvas ,
+        fillStyle:"red",
+        centerPos:{x:lun1.childs[3].x,y:lun1.childs[3].y},
+        groupName:"lun3"
+    });
+    lun1.drawChilds()/*
+    lun2.drawChilds()
+    lun3.drawChilds()*/
 </script>
 </html>
