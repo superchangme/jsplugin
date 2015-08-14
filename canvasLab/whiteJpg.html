@@ -232,7 +232,7 @@
     </style>
 </head>
 <body>
-<input type="file" id="myFile"/>
+<input type="file" id="myFile" accept="image/*"/>
    <div class="canvas">
        <canvas id="canvas" width="300" height="300"></canvas>
        <div class="loading">
@@ -264,7 +264,7 @@
     曝光度: <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="exposure"/>
 </div>
 <div>
-    保留比：<input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="clip"/>
+    保留比：<input type="range" max="100" min="-100" style="width: 200px" step="1" value="16" class="adjust-input" id="clip"/>
 </div>
 <img id="previewMe"/>
 </body>
@@ -325,7 +325,7 @@
    var CantonImg;
 
    require(["jquery","tomLib"],function($,T){
-       var $preview=$("#previewMe"),$loading=$(".loading"),$contrast=$("#contrast"),$exposure=$("#exposure"),_oData,img=new Image,canvas=document.getElementById("canvas"),$transparent=$("#transparent"),$myFile=$("#myFile"),_canvas;
+       var $preview=$("#previewMe"),$loading=$(".loading"),$clip=$("#clip"),$contrast=$("#contrast"),$exposure=$("#exposure"),_oData,img=new Image,canvas=document.getElementById("canvas"),$transparent=$("#transparent"),$myFile=$("#myFile"),_canvas;
        if(window.CanvasPixelArray) {
            CanvasPixelArray.prototype.set = function(arr) {
                var l=this.length, i=0;
@@ -386,7 +386,7 @@
            if(CantonImg){
                $loading.show()
                CantonImg.revert();
-               CantonImg.brightness(5).saturation(-100).clip(15).contrast($contrast.val())/*.sharpen(6)*/.noise(4).exposure($exposure.val()).transparent($transparent.val()).render(function(){
+               CantonImg.brightness(5).saturation(-100).clip($clip.val()).contrast($contrast.val())/*.sharpen(6)*/.noise(4).exposure($exposure.val()).transparent($transparent.val()).render(function(){
                    $loading.hide()
                });
            }
