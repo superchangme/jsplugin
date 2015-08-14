@@ -68,7 +68,15 @@
 
    require(["jquery","tomLib"],function($,T){
        var $preview=$("#previewMe"),_oData,img=new Image,canvas=document.getElementById("canvas"),$range=$("#myRange"),$myFile=$("#myFile"),_canvas;
+       if(window.CanvasPixelArray) {
+           CanvasPixelArray.prototype.set = function(arr) {
+               var l=this.length, i=0;
 
+               for(;i<l;i++) {
+                   this[i] = arr[i];
+               }
+           };
+       }
        function copyImageData(ctx, src)
        {
            var dst = ctx.createImageData(src.width, src.height);
