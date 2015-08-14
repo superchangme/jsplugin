@@ -387,7 +387,7 @@
                $("#transparentV").text($transparent.val())
                CantonImg.brightness(5).saturation(-100).
                        contrast(parseFloat($contrast.val()))./*.sharpen(6)*/
-                       exposure(parseFloat($exposure.val())).transparent(parseFloat($transparent.val())).render(function(){
+                       exposure(parseFloat($exposure.val()))/*.transparent(parseFloat($transparent.val()))*/.render(function(){
                    $loading.hide()
                });
            }
