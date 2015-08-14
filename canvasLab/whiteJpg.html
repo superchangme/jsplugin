@@ -396,7 +396,7 @@
        $(".adjust-input").on("change",filterCanton)
        $myFile.on("change",function(){
            _oData=null;
-           T.cropImage(this.files[0],100,100).then(function(imgSrc){
+           T.cropImage(this.files[0],240,240).then(function(imgSrc){
                loadImg(imgSrc);
                $preview.attr("src",imgSrc)
            })
