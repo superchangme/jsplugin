@@ -385,7 +385,7 @@
        function filterCanton(){
            if(CantonImg){
                $loading.show()
-               CantonImg.revert();
+               CantonImg.reset();
                CantonImg.brightness(5).saturation(-100).clip($clip.val()).contrast($contrast.val())/*.sharpen(6)*/.noise(4).exposure($exposure.val()).transparent($transparent.val()).render(function(){
                    $loading.hide()
                });

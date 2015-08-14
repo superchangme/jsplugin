@@ -5,12 +5,19 @@
     <title></title>
 </head>
 <body>
-
+      <canvas id="canvas"></canvas>
 </body>
 <script>
-    function Lun(){
+    var canvas=document.getElementById("canvas");
+    function Lun(num,centerPos){
         this.lineWidth=30;
-        this.point
+        this.pointNum=num||6;
+        if(!centerPos){
+            centerPos={x:0,y:0}
+        }
+        for(var i=0;i<this.pointNum;i++){
+
+        }
     }
 </script>
 </html>
