@@ -9,18 +9,263 @@
         body{
             background: yellow;
         }
+        .canvas{
+            width: 300px;
+            height: 300px;
+            position: relative;
+        }
         canvas{
             width: 300px;
             height: 300px;
+        }
+        * {
+            box-sizing: border-box;
+        }
+
+        .small2 {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+        }
+
+        .small1 {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        .loading{
+            position: absolute;
+            height: 100px;
+            width: 100px;
+            top: 50%;
+            left: 50%;
+            display: none;
+            -webkit-transform-origin: center;
+            -webkit-transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .bigcon {
+            position: absolute;
+            height: 95px;
+            width: 95px;
+            top: 50%;
+            left: 50%;
+            -webkit-transform-origin: center;
+            -webkit-transform: translate(-50%, -50%) rotate(-45deg);
+            background-color: transparent;
+            animation: bigcon 2s infinite linear;
+            animation-delay: 0.25s;
+            -wekbkit-animation: bigcon 2s infinite linear;
+            -webkit-animation-delay: 0.25s;
+        }
+
+        .ball {
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .small {
+            width: 25px;
+            height: 25px;
+            animation: small 2s infinite ease;
+            -webkit-animation: small 2s infinite ease;
+            box-shadow: 0px 2px rgba(0,0,0,0.3);
+            background-color: #46b9ff;
+        }
+
+        .small:nth-child(1) {
+            top: 0%;
+            left: 0%;
+        }
+
+        .small:nth-child(2) {
+            top: 0%;
+            right: 0%;
+        }
+
+        .small:nth-child(3) {
+            right: 0%;
+            bottom: 0%;
+        }
+
+        .small:nth-child(4) {
+            bottom: 0%;
+            left: 0%;
+        }
+
+        .big {
+            width: 20px;
+            height: 20px;
+            border-radius: 15px;
+            box-shadow:0px 0px 10px #54f7f8, 0px 0px 20px #54f7f8, 0px 0px 30px #54f7f8, 0px 0px 50px #54f7f8, 0px 0px 60px #54f7f8 ;
+            z-index: 1;
+            background-color: #54f7f8;
+            transform-origin: 50px 50px;
+            -webkit-transform-origin: 50px 50px;
+            animation: bigball 2s infinite linear;
+            -webkit-animation: bigball 2s infinite linear;
+        }
+
+        .smallball1{
+            animation-delay: -1.75s;
+            -webkit-animation-delay: -1.75s;
+        }
+        .smallball6{
+            animation-delay: -1.5s;
+            -webkit-animation-delay: -1.5s;
+
+        }
+        .smallball2{
+            animation-delay: -1.25s;
+            -webkit-animation-delay: -1.25s;
+
+        }
+        .smallball7{
+            animation-delay: -1s;                 -webkit-animation-delay: -1s;
+
+        }
+        .smallball3{
+            animation-delay: -0.75s;                -webkit-animation-delay: -.75s;
+
+        }
+        .smallball8{
+            animation-delay: -0.5s;             -webkit-animation-delay: -.5s;
+
+        }
+        .smallball4{
+            animation-delay: -0.25s;                    -webkit-animation-delay: -0.25s;
+
+        }
+        .smallball5{
+            animation-delay: -0s;                -webkit-animation-delay: -0s;
+
+        }
+
+        @keyframes bigcon {
+            0% {
+                -webkit-transform-origin: center;
+                -webkit-transform: translate(-50%, -50%) rotate(45deg);
+            }
+            100% {
+                -webkit-transform-origin: center;
+                -webkit-transform: translate(-50%, -50%) rotate(405deg);
+            }
+        }
+        @-webkit-keyframes bigcon {
+            0% {
+                -webkit-transform-origin: center;
+                -webkit-transform: translate(-50%, -50%) rotate(45deg);
+            }
+            100% {
+                -webkit-transform-origin: center;
+                -webkit-transform: translate(-50%, -50%) rotate(405deg);
+            }
+        }
+
+        @keyframes small {
+            0% {
+                -webkit-transform: scale(1);
+                background-color: #46b9ff;
+            }
+            10% {
+                -webkit-transform: scale(1.3);
+                background-color: #54f7f8;
+            }
+            15% {
+                -webkit-transform: scale(1);
+            }
+            25%{
+                -webkit-transform: scale(1);
+                background-color: #46b9ff;
+            }
+            100%{
+                -webkit-transform: scale(1);
+                background-color: #46b9ff;
+            }
+        }
+        @-webkit-keyframes small {
+            0% {
+                -webkit-transform: scale(1);
+                background-color: #46b9ff;
+            }
+            10% {
+                -webkit-transform: scale(1.3);
+                background-color: #54f7f8;
+            }
+            15% {
+                -webkit-transform: scale(1);
+            }
+            25%{
+                -webkit-transform: scale(1);
+                background-color: #46b9ff;
+            }
+            100%{
+                -webkit-transform: scale(1);
+                background-color: #46b9ff;
+            }
+        }
+        @-webkit-keyframes  bigball{
+            0%{
+                transform:rotate(0deg);
+                -webkit-transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(360deg);
+                -webkit-transform:rotate(360deg);
+            }
+        }
+        @keyframes  bigball{
+            0%{
+                transform:rotate(0deg);
+                -webkit-transform:rotate(0deg);
+            }
+            100%{
+                transform:rotate(360deg);
+                -webkit-transform:rotate(360deg);
+            }
         }
     </style>
 </head>
 <body>
 <input type="file" id="myFile"/>
-     <canvas id="canvas" width="300" height="300"></canvas>
+   <div class="canvas">
+       <canvas id="canvas" width="300" height="300"></canvas>
+       <div class="loading">
+           <div class="small1">
+               <div class="small ball smallball1"></div>
+               <div class="small ball smallball2"></div>
+               <div class="small ball smallball3"></div>
+               <div class="small ball smallball4"></div>
+           </div>
 
-     <div></div>拖我调节
-<input type="range" max="250" min="0" style="width: 200px" step="1" value="0" id="myRange"/>
+           <div class="small2">
+               <div class="small ball smallball5"></div>
+               <div class="small ball smallball6"></div>
+               <div class="small ball smallball7"></div>
+               <div class="small ball smallball8"></div>
+           </div>
+
+           <div class="bigcon">
+               <div class="big ball"></div>
+           </div>
+       </div>
+   </div>
+    拖我调节
+<div>透明度<input type="range" max="250" min="0" style="width: 200px" step="1" value="204" class="adjust-input" id="transparent"/></div>
+<div>
+    对比度:<input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="contrast"/>
+</div>
+<div>
+    曝光度: <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="exposure"/>
+</div>
+<div>
+    保留比：<input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="clip"/>
+</div>
 <img id="previewMe"/>
 </body>
 <script src="../vendor/caman.js"></script>
@@ -33,6 +278,19 @@
         }
         amt /= 100;
         return this.processKernel("Sharpen", [0, -amt, 0, -amt, 4 * amt + 1, -amt, 0, -amt, 0]);
+    });
+    Caman.Filter.register("transparent", function (adjust) {
+        // Pre-calculate some values that will be used
+
+        // Our process function that will be called for each pixel.
+        // Note that we pass the name of the filter as the first argument.
+        return this.process("transparent", function (rgba) {
+            if(rgba.r>adjust&&rgba.g>adjust&&rgba.b>adjust){
+                rgba.a=0;
+            }
+            // Return the modified RGB values
+            return rgba;
+        });
     });
     window.onerror=function(err){
         alert(err)
@@ -67,7 +325,7 @@
    var CantonImg;
 
    require(["jquery","tomLib"],function($,T){
-       var $preview=$("#previewMe"),_oData,img=new Image,canvas=document.getElementById("canvas"),$range=$("#myRange"),$myFile=$("#myFile"),_canvas;
+       var $preview=$("#previewMe"),$loading=$(".loading"),$contrast=$("#contrast"),$exposure=$("#exposure"),_oData,img=new Image,canvas=document.getElementById("canvas"),$transparent=$("#transparent"),$myFile=$("#myFile"),_canvas;
        if(window.CanvasPixelArray) {
            CanvasPixelArray.prototype.set = function(arr) {
                var l=this.length, i=0;
@@ -121,15 +379,20 @@
            });
            defer.done(function(){
                console.timeEnd("t")
-               CantonImg.brightness(5).saturation(-100).clip(15).contrast(10)/*.sharpen(6)*/.noise(4).render(function(){
-                   canvasImg(204);
-               });
+               filterCanton();
            })
+       }
+       function filterCanton(){
+           if(CantonImg){
+               $loading.show()
+               CantonImg.revert();
+               CantonImg.brightness(5).saturation(-100).clip(15).contrast($contrast.val())/*.sharpen(6)*/.noise(4).exposure($exposure.val()).transparent($transparent.val()).render(function(){
+                   $loading.hide()
+               });
+           }
 
        }
-       $range.on("change",function(){
-           canvasImg($(this).val())
-       })
+       $(".adjust-input").on("change",filterCanton)
        $myFile.on("change",function(){
            _oData=null;
            T.cropImage(this.files[0],300,300).then(function(imgSrc){
