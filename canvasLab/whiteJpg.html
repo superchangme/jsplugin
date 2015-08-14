@@ -23,10 +23,17 @@
 <input type="range" max="1" min="0.1" style="width: 200px" step="0.1" value="0.1" id="myRange"/>
 <img id="previewMe"/>
 </body>
-<script src="../vendor/caman.full.js"></script>
+<script src="../vendor/caman.js"></script>
 <script src="../vendor/require.js" ></script>
 <script src="../vendor/main.js"></script>
 <script>
+    Caman.Filter.register("sharpen", function(amt) {
+        if (amt == null) {
+            amt = 100;
+        }
+        amt /= 100;
+        return this.processKernel("Sharpen", [0, -amt, 0, -amt, 4 * amt + 1, -amt, 0, -amt, 0]);
+    });
     window.onerror=function(err){
         alert(err)
     }
@@ -94,17 +101,14 @@
            var defer= $.Deferred();
            $(canvas).removeAttr("data-caman-id");
            CantonImg=Caman("#canvas", img,function(){
+               console.time("t")
               defer.resolve();
            });
-           Caman.Event.listen(CantonImg,"processComplete", function (job) {
-               if(job.name=="clip"){
-                   setTimeout(function(){
-                       canvasImg(0.5);
-                   },500)
-               }
-           });
            defer.done(function(){
-               CantonImg.brightness(5).saturation(-100).clip(36).contrast(3).sharpen(6).noise(4).render();
+               console.timeEnd("t")
+               CantonImg.brightness(5).saturation(-100).clip(36).contrast(3)/*.sharpen(6)*/.noise(4).render(function(){
+                   canvasImg(0.5);
+               });
            })
 
        }
