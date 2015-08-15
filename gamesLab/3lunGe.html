@@ -9,24 +9,38 @@
         *{
             margin: 0;
             padding: 0;
-            font-size: 20px;
+            font-size: 30px;
+            text-align: center;
         }
+        button{
+            margin: 10px;
+            padding: 5px 7px;
+        }
+        button#btnBt{
+            background: darkred;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
       <canvas id="canvas" width="320" height="320"></canvas>
 <canvas id="helpCanvas" style="display: none"></canvas>
-<button id="btn1">转1</button>
-      <button id="btn2">转2</button>
-      <button id="btn3">转3</button>
+<div style="text-align: center">
+    <button id="btn1">转1</button>
+    <button id="btn2">转2</button>
+    <button id="btn3">转3</button>
+</div>
+<button id="btnBt">我是变态</button>
 </body>
 <script src="../vendor/lodash.js"></script>
 <script src="../vendor/jquery-2.1.4.js"></script>
 <script src="../vendor/jcanvas.js"></script>
 <script>
     var canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),helpCanvas=document.getElementById("helpCanvas"),helpCtx=helpCanvas.getContext("2d");
+    Lun.fn=Lun.prototype;
     function Lun(opts){
-        var _opts={num:6,lineWidth:100,centerPos:null};
+        var _opts={num:6,lineWidth:100,centerPos:null,fillStyle:new Array(6)};
         if(!opts){
             opts=_opts
         }else{
@@ -36,7 +50,6 @@
                 }
             }
         }
-        console.log(opts)
         this.opts=opts;
         this.lineWidth=opts.lineWidth;
         this.pointNum=opts.num||6;
@@ -83,10 +96,10 @@
                 radius: this.radius
             });
         }*/
-        this.index=++Lun.prototype.Index;
-
+        this.index=Lun.fn.Index++;
     }
-    Lun.prototype.drawChilds=function(){
+    Lun.fn.drawChilds=function(){
+        this.setFillStyle();
        var canvas=getHelpCanvas((this.lineWidth+this.radius)*2,(this.lineWidth+this.radius)*2),
                ctx=canvas.ctx,canvas=canvas.canvas;
         ctx.save();
@@ -101,11 +114,19 @@
             ctx.arc(this.childs[i].x,this.childs[i].y,this.radius,0,Math.PI*2);
             ctx.fill();
             ctx.closePath();
-
         }
         ctx.restore();
-
-        this.jcanvas.drawImage({
+    /*    this.jcanvas.drawText({
+            x:this.centerPos.x-this.radius,
+            y:this.centerPos.y-this.radius,
+            text:this.groupName,
+            layer:true,
+            groups:["text"],
+            fillStyle:"blue",
+            fontSize: '20px',
+            fontFamily: 'Verdana, sans-serif'
+        })*/
+        this.jcanvas.removeLayer(this.groupName).drawImage({
             source:  canvas.toDataURL("image/png",1),
             groups:[this.groupName],
             layer:true,
@@ -114,20 +135,134 @@
             fromCenter: false,
             width:(this.lineWidth+this.radius)*2,
             height:(this.lineWidth+this.radius)*2
-        });
+        }).drawLayers();
     }
-    Lun.prototype.rotate=function(){
-        console.log('+='+360/this.pointNum)
-        this.jcanvas.moveLayer(this.groupName,Lun.prototype.Index ).animateLayerGroup(this.groupName,{rotate:'+='+360/this.pointNum},1000)
+    Lun.fn.rotate=function(){
+        var self=this,last;
+        if(!Lun.fn.lock){
+            Lun.fn.lock=true;
+            last=this.opts.fillStyle.pop();
+            this.opts.fillStyle.unshift(last);
+            this.setFillStyle(true);
+            _.each(LunArr,function(item){
+                if(item.groupName!=self.groupName){
+                    item.drawChilds();
+                }
+            })
+            this.jcanvas.moveLayer(this.groupName,Lun.fn.Index ).animateLayerGroup(this.groupName,{rotate:'+='+360/this.pointNum},1000,function(){
+                Lun.fn.lock=false;
+                Lun.fn.checkOver();
+            })
+        }
     }
-    Lun.prototype.Index=0;
-    Lun.prototype.Lun_MAP=new Array(12)
-    Lun.prototype.getMapDataByIndex=function(childIndex){
+    Lun.fn.Index=0;
+    Lun.fn.Lun_MAP=(function(){
+        var map=[],row= 0, o,col= 0,matchArr=['01','03','05','10','12','14','16','21','23','25','32','34'];
+        for(var i=0;i<28;i++){
+            if(i!=0&&i%7==0){
+                row+=1;
+                col=0;
+            }
+            if(matchArr.indexOf(row+''+col)>-1){
+                o={};
+                o.row=row;
+                o.col=col;
+                map.push(o)
+            }
+            col++;
+        }
+        return map
+    })()
+    Lun.fn.getMapDataByIndex=function(childIndex){
          if(this.index==0){
 
          }
     }
-
+    Lun.fn.ColorArr=["red",'yellow']
+    Lun.fn.setFillStyle=function(reset){
+        var row= 0,col= 0,l=this.childs.length,_row,_col,mapOne;
+        if(this.opts.rowOffset){
+            row+=this.opts.rowOffset
+        }
+        if(this.opts.colOffset){
+            col+=this.opts.colOffset;
+        }
+      for(var i= 0;i<l;i++){
+          if(i==0||i==3){
+              _row=row+1;
+              _col=col;
+              if(i==3){
+                  _col+=4;
+              }
+          }
+          if(i==1||i==2){
+              _row=row;
+              _col=col+1;
+              if(i==2){
+                  _col+=2;
+              }
+          }
+          if(i==4||i==5){
+              _row=row+2;
+              _col=col+1;
+              if(i==4){
+                  _col+=2;
+              }
+          }
+//          console.log(this.groupName,_row,_col)
+          mapOne=_.findWhere(this.Lun_MAP,{row:_row,col:_col});
+//          console.log(_row,_col,this.opts.fillStyle,i)
+              if(reset){
+                  mapOne.fillStyle=this.opts.fillStyle[i];
+              }else{
+                  if(mapOne.fillStyle){
+                      this.opts.fillStyle[i]=mapOne.fillStyle;
+                  }else{
+                      if(!this.opts.fillStyle[i]){
+                          var styleArr= _.chain(this.opts.fillStyle).filter(function(val){
+                              return val
+                          }).partition(function(val){
+                              return val==Lun.fn.ColorArr[0]
+                          }).value()
+                          this.opts.fillStyle[i]=styleArr[0].length>styleArr[1].length?styleArr[1][0]||Lun.fn.ColorArr.filter(function(item){
+                             return item!= styleArr[0][0]
+                          })[0]:_.sample(Lun.fn.ColorArr)
+                      }
+                      mapOne.fillStyle=this.opts.fillStyle[i];
+                  }
+              }
+      }
+    }
+    Lun.fn.checkOver=function(){
+        if(_.chain(Lun.fn.Check_MAP).pluck('fillStyle').every(function(item,index,arr){
+                return arr[0]==item;
+        }).value()){
+            if(window.confirm("Bingo You Win,try it again?")){
+                resetGame();
+            }
+        }
+    }
+    Lun.fn.Check_MAP=(function(){
+        var matchArr=['03','12','14','21','23','25'];
+       return  _.chain(Lun.prototype.Lun_MAP).filter(function(item){
+            return matchArr.indexOf(item.row+''+item.col)>-1
+        }).value();
+    })();
+    function resetGame(){
+        if(isBt){
+            lun1.opts.fillStyle= _.shuffle(Lun.fn.ColorArr)
+        }else{
+            lun1.opts.fillStyle= _.shuffle(Lun.fn.ColorArr).concat(_.shuffle(Lun.fn.ColorArr.concat(Lun.fn.ColorArr)));
+        }
+        lun2.opts.fillStyle=new Array(6);
+        lun3.opts.fillStyle=new Array(6);
+        _.each(Lun.fn.Lun_MAP,function(item){
+            item.fillStyle=null
+        })
+        lun1.drawChilds()
+        lun2.drawChilds()
+        lun3.drawChilds()
+    }
     function regToRad(reg){
         return Math.PI*2/360*reg;
     }
@@ -139,25 +274,44 @@
     }
     var lun1=new Lun({
        canvas:canvas ,
-        fillStyle:_.shuffle(["red","red","red","yellow","yellow","yellow"]),
+        fillStyle:_.shuffle(Lun.fn.ColorArr).concat(_.shuffle(Lun.fn.ColorArr.concat(Lun.fn.ColorArr))),
         groupName:"lun1"
     }),lun2=new Lun({
         canvas:canvas ,
-        fillStyle:lun1.opts.fillStyle,
+        rowOffset:1,
+        colOffset:1,
         centerPos:{x:lun1.childs[4].x,y:lun1.childs[4].y},
         groupName:"lun2"
     }),lun3=new Lun({
         canvas:canvas ,
-        fillStyle:lun1.opts.fillStyle,
+        colOffset:2,
         centerPos:{x:lun1.childs[3].x,y:lun1.childs[3].y},
         groupName:"lun3"
     });
+
     lun1.drawChilds()
     lun2.drawChilds()
     lun3.drawChilds()
+    var LunArr=[lun1,lun2,lun3],BTArr=["red",'yellow','green','blue','purple','black'],isBt=false
     $("button").on("click",function(){
-        var lun="lun"+$(this).attr("id").match(/\d/)
-        window[lun].rotate();
+        var lunid=$(this).attr("id").match(/\d/)
+        if(lunid){
+            window["lun"+lunid].rotate();
+        }
+
+    })
+    Lun.fn._ColorArr=Lun.fn.ColorArr.slice()
+
+    $("#btnBt").on("click",function(){
+        isBt=!isBt;
+        if(isBt){
+            $(this).html("我错了")
+            Lun.fn.ColorArr=BTArr
+        }else{
+            $(this).html("我是变态")
+            Lun.fn.ColorArr=Lun.fn._ColorArr.slice();
+        }
+        resetGame();
     })
 </script>
 </html>

@@ -58,6 +58,9 @@
         }
     }
     var winHeight=window.innerHeight,preTransform=prefixStyle("transform"),pageScale= 1,page=document.getElementById("page");
+    if(window.innerHeight<1008){
+        $(".swiper-slide").animate({scale:window.innerHeight/1008},0)
+    }
     window.addEventListener("resize",function(){
 //        if(window.innerHeight!=winHeight){
             pageScale=window.innerHeight/winHeight;

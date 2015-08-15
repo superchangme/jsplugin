@@ -310,8 +310,6 @@
         }else{
             run();
         }
-        console.log(oWidth,oHeight)
-
         function run(){
             var iWidth=preview.width,canvas=document.createElement("canvas"),iHeight=preview.height,
                 dWidth,dHeight, x=0,y= 0,factor;
