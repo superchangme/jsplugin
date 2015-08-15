@@ -113,9 +113,9 @@
         this.setFillStyle();
        var canvas=getHelpCanvas((this.lineWidth+this.radius)*2,(this.lineWidth+this.radius)*2),
                ctx=canvas.ctx,canvas=canvas.canvas;
-        ctx.lineWidth=10;
+        ctx.lineWidth=6;
         ctx.save();
-        ctx.strokeStyle="#fff";
+        ctx.strokeStyle="rgba(255,255,255,0.618)";
         ctx.beginPath();
         ctx.arc(this.absCenter.x,this.absCenter.y,this.lineWidth,0,Math.PI*2);
         ctx.stroke();
