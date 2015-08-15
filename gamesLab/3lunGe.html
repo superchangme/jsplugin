@@ -31,7 +31,7 @@
     </style>
 </head>
 <body>
-      <canvas id="canvas" width="320" height="320"></canvas>
+      <canvas id="canvas" width="640" height="640" style="width: 320px;height: 320px;"></canvas>
 <canvas id="helpCanvas" style="display: none"></canvas>
 <div style="text-align: center">
     <button id="btn1">转1</button>
@@ -47,7 +47,7 @@
     var canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),helpCanvas=document.getElementById("helpCanvas"),helpCtx=helpCanvas.getContext("2d");
     Lun.fn=Lun.prototype;
     function Lun(opts){
-        var _opts={num:6,lineWidth:100,centerPos:null,fillStyle:new Array(6)};
+        var _opts={num:6,lineWidth:200,centerPos:null,fillStyle:new Array(6)};
         if(!opts){
             opts=_opts
         }else{
@@ -60,7 +60,7 @@
         this.opts=opts;
         this.lineWidth=opts.lineWidth;
         this.pointNum=opts.num||6;
-        this.radius=opts.radius||10
+        this.radius=opts.radius||20
         this.centerPos=opts.centerPos;
         this.canvas=opts.canvas;
         this.groupName=opts.groupName;
@@ -109,6 +109,7 @@
         this.setFillStyle();
        var canvas=getHelpCanvas((this.lineWidth+this.radius)*2,(this.lineWidth+this.radius)*2),
                ctx=canvas.ctx,canvas=canvas.canvas;
+        ctx.lineWidth=10;
         ctx.save();
         ctx.strokeStyle="#fff";
         ctx.beginPath();
@@ -134,11 +135,11 @@
             fontFamily: 'Verdana, sans-serif'
         })*/
         this.jcanvas.removeLayer(this.groupName).drawImage({
-            source:  canvas.toDataURL("image/png",1),
+            source:  canvas.toDataURL("image/png"),
             groups:[this.groupName],
             layer:true,
             name:this.groupName,
-            x: this.centerPos.x-this.lineWidth-this.radius, y: this.centerPos.y-this.lineWidth-this.radius,
+            x: (this.centerPos.x-this.lineWidth-this.radius), y: (this.centerPos.y-this.lineWidth-this.radius),
             fromCenter: false,
             width:(this.lineWidth+this.radius)*2,
             height:(this.lineWidth+this.radius)*2
