@@ -6,6 +6,13 @@
 
     <title></title>
     <style>
+        body{
+            background: url(http://pic3.bbzhi.com/yingshibizhi/zhizhuxia3/movie_oumei_261363_3.jpg) no-repeat center;
+            background-size: cover;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
         *{
             margin: 0;
             padding: 0;
@@ -103,7 +110,7 @@
        var canvas=getHelpCanvas((this.lineWidth+this.radius)*2,(this.lineWidth+this.radius)*2),
                ctx=canvas.ctx,canvas=canvas.canvas;
         ctx.save();
-        ctx.fillStyle=this.opts.fillStyle[0];
+        ctx.strokeStyle="#fff";
         ctx.beginPath();
         ctx.arc(this.absCenter.x,this.absCenter.y,this.lineWidth,0,Math.PI*2);
         ctx.stroke();
@@ -308,7 +315,7 @@
             $(this).html("我错了")
             Lun.fn.ColorArr=BTArr
         }else{
-            $(this).html("我是变态")
+            $(this).html("我要变态")
             Lun.fn.ColorArr=Lun.fn._ColorArr.slice();
         }
         resetGame();
