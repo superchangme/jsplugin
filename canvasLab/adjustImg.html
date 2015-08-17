@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            position: relative;
+        }
+        .app{
+            height: 100%;
+            position: absolute;
+            display: none;
+            top:0;
+            left:0;
+            right:0;
+            bottom: 0;
+        }
+        .bar{
+            height: 30px;
+        }
+        .main{
+           position: absolute;
+            top:30px;
+            bottom: 0;
+            left:0;
+            right: 0;
+        }
+        .upload-mask{
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            z-index: 2;
+        }
+        .bar{
+            background: darkslategrey;
+        }
+        .photo-canvas{
+            width: 260px;
+            height: 260px;
+            position: absolute;
+            top:50%;
+            left:50%;
+            border: 1px solid white;
+            -webkit-transform: translate3d(-50%,-50%,0);
+            transform: translate3d(-50%,-50%,0);
+            z-index: 3;
+        }
+        #preview{
+            min-height:260px ;
+            min-width: 260px;
+            max-width: 280px;
+            max-height: 400px;
+            display: block;
+            z-index: 1;
+        }
+        .preview-box{
+            position: absolute;
+            top:50%;
+            left:50%;
+            -webkit-transform: translate3d(-50%,-50%,0);
+            transform: translate3d(-50%,-50%,0);
+        }
+        body{
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="file"/>
+     <img id="previewResult"/>
+<div class="app" id="uploadPage">
+  <div class="bar"><a id="getFile">使用</a></div>
+    <div class="main">
+        <canvas class="upload-mask">
+
+        </canvas>
+        <div class="preview-box">
+            <img id="preview"/>
+        </div>
+        <canvas class="photo-canvas">
+
+        </canvas>
+    </div>
+</div>
+</body>
+<script src="../vendor/require.js" ></script>
+<script src="../vendor/main.js"></script>
+<script>
+    var myCrop;
+    require(["jquery","tomLib"],function($,_){
+        document.addEventListener("touchmove",function(e){
+            e.preventDefault();
+        })
+        var $file=$("#file"),$previewResult=$("#previewResult"),$getFile=$("#getFile"),$preview=$("#preview"),$uploadPage=$("#uploadPage"),$mask=$(".upload-mask"),maskCtx=$mask[0].getContext("2d");
+        myCrop=_.cropImage({
+            bindFile:$file,
+            canvas:$(".photo-canvas")[0],
+            cropWidth:260,
+            cropHeight:260,
+            bindPreview:$preview,
+            oninit:function(){
+
+            },
+            onchange:function(){
+                $file.after($file.clone()).remove();
+            },
+            onLoad:function(data){
+                $preview.attr("src",data.originSrc);
+            }
+        });
+        $getFile.on("click",function(){
+            $uploadPage.hide();
+            $previewResult.attr("src",myCrop.getCropFile())
+        })
+        $file.on("click",function(){
+            $uploadPage.show();
+        }).one("click",function(){
+            $mask.prop({width:$mask.width(),height:$mask.height()})
+            maskCtx.fillStyle="rgba(0,0,0,0.7)";
+            maskCtx.fillRect(0,0,$mask.width(),$mask.height());
+            maskCtx.fill();
+            maskCtx.clearRect(($mask.width()-260)/2,($mask.height()-260)/2,260,260)
+        })
+    })
+</script>
+</html>

@@ -293,28 +293,61 @@
     var URL = window.URL && window.URL.createObjectURL ? window.URL :
         window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
             null;
-    _.cropImage=function(preview,oWidth,oHeight){
-        var temp,defer= $.Deferred();
-        if(typeof preview=="string"){
-            temp=new Image;
-            temp.onload=run;
-            temp.src=preview;
-            preview=temp;
-        }else if(Object.prototype.toString.call(preview).slice(8,-1)=="File"){
-            var img = new Image();
-            img.onload=function(){
-                preview=img;
-                run();
+    _.cropImage=function(opts){
+        var hastouch = "ontouchstart" in window?true:false,
+            tapstart = hastouch?"touchstart":"mousedown",
+            tapmove = hastouch?"touchmove":"mousemove",
+            tapend = hastouch?"touchend":"mouseup";
+        opts= $.extend({
+            cropWidth:260,
+            cropHeight:260,
+            container:document.body,
+            canvas:document.createElement("canvas"),
+            success:function(o){
+              // o.originSrc o.cropSrc
+            },
+            onChange:function(o){
+              //o.cropSrc
+            },
+            onLoad:function(o){
+                //o.originSrc
             }
-            img.src = URL.createObjectURL(preview);
-        }else{
-            run();
+        },opts)
+        var G={preview:null,moveX:0,moveY:0},transform= _.prefixStyle("transform"),
+            canvas=opts.canvas,ctx=canvas.getContext('2d'), _x, _y,_scale,offset=$(canvas).offset(),$bindPreview=opts.bindPreview||$();
+
+        if(opts.bindFile){
+            if(typeof opts.bindFile=="string"){
+                var temp;
+                temp=new Image;
+                temp.onload=getCropFile.bind(null,temp);
+                temp.src=opts.bindFile;
+                G.preview=temp;
+            }else if($(opts.bindFile).is("input[type=file]")){
+                opts.bindFile.on("change",function(){
+                    if(this.files){
+                        var temp,preview=this.files[0],defer=$.Deferred();
+                        var img = new Image();
+                        img.onload=function(){
+                            G.preview=img;
+                            opts.onLoad({originSrc:img.src})
+                        }
+                        img.src = URL.createObjectURL(preview);
+                    }
+                })
+            }else{
+                G.preview=opts.bindFile;
+                getCropFile();
+            }
         }
-        function run(){
-            var iWidth=preview.width,canvas=document.createElement("canvas"),iHeight=preview.height,
+
+        function getCropFile(){
+            var iWidth=G.preview.width,iHeight=G.preview.height,
                 dWidth,dHeight, x=0,y= 0,factor;
-            oWidth=oWidth||iWidth;
-            oHeight=oHeight||iHeight;
+            var oWidth=opts.cropHeight;
+            var oHeight=opts.cropWidth;
+            ctx.save();
+            ctx.clearRect(0,0,canvas.width,canvas.height)
             canvas.width=oWidth;
             canvas.height=oHeight;
             if((oWidth/oHeight)<(iWidth/iHeight)){
@@ -330,11 +363,29 @@
                 dHeight=iHeight*factor;
                 y=-(iHeight*factor-oHeight)/2;
             }
-            canvas.getContext("2d").drawImage(preview,x,y,dWidth,dHeight);
-            defer.resolve(canvas.toDataURL("image/png"));
-            canvas=null;
+            ctx.translate(G.moveX, G.moveY);
+            ctx.drawImage(G.preview,x,y,dWidth,dHeight);
+            ctx.restore();
+            return canvas.toDataURL("image/png");
         }
-        return defer.promise();
+        $(canvas).on(tapstart,function(e){
+            e= e.originalEvent;
+            var left=hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
+            var top= hastouch?e.targetTouches[0].clientY-offset.top:e.clientX-offset.top;
+            _x=left;
+            _y=top;
+        })
+        $(canvas).on(tapmove,function(e){
+            e= e.originalEvent;
+            var left=hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
+            var top= hastouch?e.targetTouches[0].clientY-offset.top:e.clientX-offset.top;
+            G.moveX+=left-_x;
+            G.moveY+=top-_y;
+            $bindPreview.css(transform,"translate3d("+G.moveX+'px,'+G.moveY+"px,0)")
+            _x=left;
+            _y=top;
+        })
+        return  {getCropFile:getCropFile};
     }
     return _;
 });
@@ -363,3 +414,5 @@
  }
  }
  */
+
+
