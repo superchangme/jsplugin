@@ -325,6 +325,8 @@
                 G.preview=temp;
             }else if($(opts.bindFile).is("input[type=file]")){
                 opts.bindFile.on("change",function(){
+                    $bindPreview.attr("src",'');
+                    ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files){
                         var temp,preview=this.files[0],defer=$.Deferred();
                         var img = new Image();
