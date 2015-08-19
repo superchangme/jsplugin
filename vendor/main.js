@@ -3,15 +3,15 @@ require.config({
     /*模块依赖配置*/
     baseUrl:baseUrl,
     shim: {
-        'jquery.ui.core': ['jquery'],
-        'jquery.ui.widget': ['jquery'],
-        'jquery.ui.mouse': ['jquery'],
-        'jquery.ui.slider':['jquery'],
+        'jquery.ui.core': ['jQuery'],
+        'jquery.ui.widget': ['jQuery'],
+        'jquery.ui.mouse': ['jQuery'],
+        'jquery.ui.slider':['jQuery'],
         "zepto.touch":"Zepto",
         "zepto.fx":"Zepto"
     },	 /*模块路径配置*/
     paths: {
-    "jquery": "jquery-2.1.4",
+    "jQuery": "jquery-2.1.4",
     "jquery.eraser":"jquery.eraser",
     "underscore": "underscore.min",
     "backbone": "backbone.min",
@@ -23,7 +23,8 @@ require.config({
      "jquery-private":"jquery-private",
      "tom":"tomRequire",
      "tomTest":"tomRequire",
-     "lodash":"lodash"
+     "lodash":"lodash",
+        "jcanvas":"jcanvas"
     }  ,
     /*模块规则配置*/
     map:{
@@ -32,7 +33,7 @@ require.config({
             'tomLib':'tomLib'
         },
         "jquery-private":{
-            "jquery":"jquery"
+            "jQuery":"jQuery"
         }
     }
 });

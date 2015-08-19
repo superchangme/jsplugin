@@ -113,9 +113,6 @@
             oninit:function(){
 
             },
-            onchange:function(){
-                $file.after($file.clone()).remove();
-            },
             onLoad:function(data){
                 $preview.attr("src",data.originSrc);
             }
@@ -124,9 +121,11 @@
             $uploadPage.hide();
             $previewResult.attr("src",myCrop.getCropFile())
         })
-        $file.on("click",function(){
+        $(document).delegate("#file","click",function(){
             $uploadPage.show();
-        }).one("click",function(){
+        })
+        $file.one("click",function(){
+            $uploadPage.show();
             $mask.prop({width:$mask.width(),height:$mask.height()})
             maskCtx.fillStyle="rgba(0,0,0,0.7)";
             maskCtx.fillRect(0,0,$mask.width(),$mask.height());

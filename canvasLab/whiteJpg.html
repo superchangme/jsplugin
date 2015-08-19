@@ -322,7 +322,7 @@
     });*/
    var CantonImg;
 
-   require(["jquery","tomLib"],function($,T){
+   require(["jquery","tomLib","jcanvas"],function($,T){
        var $preview=$("#previewMe"),$loading=$(".loading"),$clip=$("#clip"),$contrast=$("#contrast"),$exposure=$("#exposure"),_oData,img=new Image,canvas=document.getElementById("canvas"),$transparent=$("#transparent"),$myFile=$("#myFile"),_canvas;
        if(window.CanvasPixelArray) {
            CanvasPixelArray.prototype.set = function(arr) {

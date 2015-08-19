@@ -313,6 +313,7 @@
                 //o.originSrc
             }
         },opts)
+
         var G={preview:null,moveX:0,moveY:0},transform= _.prefixStyle("transform"),
             canvas=opts.canvas,ctx=canvas.getContext('2d'), _x, _y,_scale,offset=$(canvas).offset(),$bindPreview=opts.bindPreview||$();
 
@@ -324,8 +325,10 @@
                 temp.src=opts.bindFile;
                 G.preview=temp;
             }else if($(opts.bindFile).is("input[type=file]")){
-                opts.bindFile.on("change",function(){
-                    $bindPreview.attr("src",'');
+                opts.bindFile.attr("cropId", ++_.cropImage.id);
+                $(document).delegate("[cropId="+_.cropImage.id+"]","change",function(){
+                    $bindPreview.prop("src",'');
+                    console.log("in")
                     ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files){
                         var temp,preview=this.files[0],defer=$.Deferred();
@@ -336,6 +339,7 @@
                         }
                         img.src = URL.createObjectURL(preview);
                     }
+                    opts.bindFile.after(opts.bindFile.clone()).remove();
                 })
             }else{
                 G.preview=opts.bindFile;
@@ -389,6 +393,7 @@
         })
         return  {getCropFile:getCropFile};
     }
+    _.cropImage.id=0;
     return _;
 });
 
