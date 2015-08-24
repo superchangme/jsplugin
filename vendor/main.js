@@ -1,4 +1,4 @@
-var baseUrl="../vendor/";
+var baseUrl="../../vendor/";
 require.config({
     /*模块依赖配置*/
     baseUrl:baseUrl,
@@ -24,12 +24,17 @@ require.config({
      "tom":"tomRequire",
      "tomTest":"tomRequire",
      "lodash":"lodash",
-        "jcanvas":"jcanvas"
+        "jcanvas":"jcanvas",
+        "hammer":"Hammer/hammer.min",
+        "hammer.fake":"Hammer/hammer.fakemultitouch",
+        "hammer.showtouch":"Hammer/hammer.showtouches",
+        "tomPlugin":"plugins/tom-jqplugins",
+        'Caman':"caman.full"
     }  ,
     /*模块规则配置*/
     map:{
         '*': {
-            'jquery': 'jquery-private',
+            'jQuery': 'jquery-private',
             'tomLib':'tomLib'
         },
         "jquery-private":{

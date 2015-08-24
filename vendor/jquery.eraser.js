@@ -13,7 +13,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define([ "Zepto" ], factory);
+        define([ "jQuery" ], factory);
     } else {
         // 全局模式
         factory(jQuery)
@@ -60,6 +60,7 @@
         bgImage:null,  //dom: image
         bgColor:null,
         interval:100,
+        noneedCalc:null,
         checkPng:false,
         namespace:".eraser",
         alphaNoZeroNum:0,
@@ -74,7 +75,8 @@
     Eraser.prototype.init=function(){
         var self=this;
         this.ctx.globalCompositeOperation = "source-over";
-        this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        //this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+        this.isStop=false;
         var ratio= 1,start= 0,pos,bgScale=this.bgScale||1;
         if(this.bgColor){
             this.ctx.save();
@@ -83,7 +85,6 @@
             this.ctx.restore();
         }
         if(this.bgImage!=null){
-            console.log(this.bgPos)
             if(this.bgPos!=undefined){
                 pos={top:this.bgPos.top||0,left:this.bgPos.left||0}
                 if(pos.left=="center"){
@@ -128,7 +129,12 @@
         },100)
     }
 
-
+    Eraser.prototype.stop=function(){
+        this.isStop=true;
+    }
+    Eraser.prototype.start=function(){
+        this.isStop=false;
+    }
 //通过修改globalCompositeOperation来达到擦除的效果
     Eraser.prototype.tapClip=function(){
         var hastouch = "ontouchstart" in window?true:false,
@@ -144,46 +150,55 @@
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.lineWidth = self.radius*2;
-
         $(document).delegate("#"+id,tapstart+np , function(e){
             clearTimeout(timeout)
+            ctx.save();
+            if(self.isStop){
+                return;
+            }
             e= e.originalEvent;
             beginDraw=true;
-            if(!isTouch&&self.type!="draw"){
+            if(self.every||(!isTouch&&self.type!="draw")){
                 ctx.globalCompositeOperation = "destination-out";
                 isTouch=true;
             }
-            if(!offset){
+            //if(!offset){
                 offset=canvas.getBoundingClientRect();
-            }
+            //}
             x1 = hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
             y1 = hastouch?e.targetTouches[0].clientY-offset.top:e.clientY-offset.top;
-            ctx.beginPath();
+            /*ctx.beginPath();
             ctx.arc(x1,y1,self.radius,0,2*Math.PI);
             ctx.fill();
+            ctx.closePath();*/
         })
         $(document).delegate("#"+id, tapmove+np,tapmoveHandler);
         $(document).delegate("#"+id,tapend+np, function(){
             beginDraw =false;
-            timeout = setTimeout(function(){
-                var imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
-                var dd = getAlphaNoZeroNum(imgData,self);
-                var area=imgData.width*imgData.height;
-                if(self.checkPng){
-                    area=self.alphaNoZeroNum;
-                }
-                var left=dd/(area/(self.density*self.density));
-                console.log(left,dd,area)
-                if(left<1-self.percent){
-                    /*  canvas.className = "noOp";*/
-                    self.success.call(self,canvas,ctx);
-                }else{
-                    console.log("剩余非空白区域"+left)
-                }
-            },self.interval)
+            if(!self.noneedCalc){
+                timeout = setTimeout(function(){
+                    var imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+                    var dd = getAlphaNoZeroNum(imgData,self);
+                    var area=imgData.width*imgData.height;
+                    if(self.checkPng){
+                        area=self.alphaNoZeroNum;
+                    }
+                    var left=dd/(area/(self.density*self.density));
+                    if(left<1-self.percent){
+                        /*  canvas.className = "noOp";*/
+                        self.success.call(self,canvas,ctx);
+                    }else{
+                        console.log("剩余非空白区域"+left)
+                    }
+                },self.interval)
+            }
+            if(self.touchEndCb){
+                self.touchEndCb.call(self);
+            }
+            ctx.restore();
         });
         function tapmoveHandler(e){
-            if(!beginDraw){
+            if(!beginDraw||self.isStop){
                 return;
             }
             clearTimeout(timeout)
@@ -195,6 +210,7 @@
             ctx.moveTo(x1,y1);
             ctx.lineTo(x2,y2);
             ctx.stroke();
+            ctx.closePath();
             /*$(canvas).drawLine({
              rounded: true,
              strokeStyle: '#000',
@@ -237,18 +253,19 @@
         $(canvas).on(tapmove , tapmoveHandler);
         $(canvas).on(tapend , function(){
             // canvas.removeEventListener(tapmove , tapmoveHandler);
-            setTimeout(function(){
-                ctx.fillStyle="white";
-                ctx.fillRect(0,0,1,1);
-                ctx.fillStyle="black";
-                ctx.fillRect(1,1,2,2);
-                var imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
-                var dd;
-                if(dd/(imgData.width*imgData.height/(self.density*self.density))<self.percent){
-                    self.success.call(self,canvas,ctx);
-                }
-            },self.interval)
-
+            if(self.noneedCalc){
+                setTimeout(function(){
+                    ctx.fillStyle="white";
+                    ctx.fillRect(0,0,1,1);
+                    ctx.fillStyle="black";
+                    ctx.fillRect(1,1,2,2);
+                    var imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+                    var dd;
+                    if(dd/(imgData.width*imgData.height/(self.density*self.density))<self.percent){
+                        self.success.call(self,canvas,ctx);
+                    }
+                },self.interval)
+            }
         });
 
 

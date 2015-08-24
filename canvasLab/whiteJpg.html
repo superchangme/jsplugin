@@ -323,7 +323,7 @@
    var CantonImg;
 
    require(["jquery","tomLib","jcanvas"],function($,T){
-       var $preview=$("#previewMe"),$loading=$(".loading"),$clip=$("#clip"),$contrast=$("#contrast"),$exposure=$("#exposure"),_oData,img=new Image,canvas=document.getElementById("canvas"),$transparent=$("#transparent"),$myFile=$("#myFile"),_canvas;
+       var cropObj,$preview=$("#previewMe"),$loading=$(".loading"),$clip=$("#clip"),$contrast=$("#contrast"),$exposure=$("#exposure"),_oData,img=new Image,canvas=document.getElementById("canvas"),$transparent=$("#transparent"),$myFile=$("#myFile"),_canvas;
        if(window.CanvasPixelArray) {
            CanvasPixelArray.prototype.set = function(arr) {
                var l=this.length, i=0;
@@ -394,14 +394,19 @@
 
        }
        $(".adjust-input").on("change",filterCanton)
-       $myFile.on("change",function(){
-           _oData=null;
-           T.cropImage(this.files[0],240,240).then(function(imgSrc){
-               loadImg(imgSrc);
-               $preview.attr("src",imgSrc)
-           })
+       cropObj=T.cropImage({
+           bindFile:$myFile,
+           cropWidth:260,
+           cropHeight:260,
+           oninit:function(){
 
-       })
+           },
+           onLoad:function(data){
+               var src=cropObj.getCropFile()
+               loadImg(src);
+               $preview.attr("src",src)
+           }
+       });
    })
 
 </script>
