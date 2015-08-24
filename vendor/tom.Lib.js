@@ -328,7 +328,6 @@
                 opts.bindFile.attr("cropId", ++_.cropImage.id);
                 $(document).delegate("[cropId="+_.cropImage.id+"]","change",function(){
                     $bindPreview.prop("src",'');
-                    console.log("in")
                     ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files){
                         var temp,preview=this.files[0],defer=$.Deferred();
@@ -346,31 +345,34 @@
                 getCropFile();
             }
         }
-
-        function getCropFile(){
+        function getCropInfo(){
             var iWidth=G.preview.width,iHeight=G.preview.height,
-                dWidth,dHeight, x=0,y= 0,factor;
+                dWidth,dHeight, x=0,y= 0,scale;
             var oWidth=opts.cropHeight;
             var oHeight=opts.cropWidth;
-            ctx.save();
             ctx.clearRect(0,0,canvas.width,canvas.height)
             canvas.width=oWidth;
             canvas.height=oHeight;
             if((oWidth/oHeight)<(iWidth/iHeight)){
                 console.log("填高")
-                factor=oHeight/iHeight;
+                scale=oHeight/iHeight;
                 dHeight=oHeight;
-                dWidth=iWidth*factor;
-                x=-(iWidth*factor-oWidth)/2;
+                dWidth=iWidth*scale;
+                x=-(iWidth*scale-oWidth)/2;
             }else{
                 console.log("填宽")
-                factor=oWidth/iWidth;
+                scale=oWidth/iWidth;
                 dWidth=oWidth;
-                dHeight=iHeight*factor;
-                y=-(iHeight*factor-oHeight)/2;
+                dHeight=iHeight*scale;
+                y=-(iHeight*scale-oHeight)/2;
             }
+            return {x:x,y:y,dWidth:dWidth,dHeight:dHeight,scale:scale}
+        }
+        function getCropFile(){
+            var o=getCropInfo();
+            ctx.save();
             ctx.translate(G.moveX, G.moveY);
-            ctx.drawImage(G.preview,x,y,dWidth,dHeight);
+            ctx.drawImage(G.preview, o.x, o.y, o.dWidth, o.dHeight);
             ctx.restore();
             return canvas.toDataURL("image/png");
         }
@@ -391,7 +393,7 @@
             _x=left;
             _y=top;
         })
-        return  {getCropFile:getCropFile};
+        return  {getCropFile:getCropFile,getCropInfo:getCropInfo};
     }
     _.cropImage.id=0;
     return _;
