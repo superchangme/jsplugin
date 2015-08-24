@@ -1,4 +1,12 @@
-(function(Hammer) {
+(function(factory){
+    if(typeof define === "function" && define.amd != undefined ){
+        // AMD模式
+        define([ "hammer","jQuery"] , factory);
+    } else {
+        // 全局模式
+        factory(Hammer,jQuery)
+    }
+})(function(Hammer,$) {
     /**
      * enable multitouch on the desktop by pressing the shiftkey
      * the other touch goes in the opposite direction so the center keeps at its place
@@ -73,4 +81,4 @@
         };
     };
 
-})(window.Hammer);
+});

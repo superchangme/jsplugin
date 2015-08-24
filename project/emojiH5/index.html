@@ -6,6 +6,7 @@
 
     <title></title>
     <style>
+
         .photoFrame{
             background-position: center;
             width: 260px;
@@ -17,17 +18,17 @@
 <body>
 <input type="file" accept="image/*;capture=camrea" id="photo"/>
 <button id="filterBtn">滤镜</button>
+<button id="backUserMoveBtn">返回拖拽</button>
+
+<button id="beginEraser">开始橡皮擦</button>
 <button id="backFilterBtn">返回滤镜</button>
-<div class="photoFrame">
+
+<div class="photoFrame" >
     <canvas id="photoCanvas" width="260" height="260"></canvas>
+    <canvas id="filterCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
+    <canvas id="eraserCanvas" width="260" height="260"  style="height:260px;width: 260px;"></canvas>
 </div>
 
-<div class="photoFrame">
-    <canvas id="filterCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
-</div>
-<div class="photoFrame">
-    <canvas id="eraserCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
-</div>
 <div>
     对比度:<input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="contrast"/>
 </div>
@@ -73,7 +74,7 @@
            photoArr:{
              uploadSrc:'',
              dragSrc:'',
-            filterSrc:''
+             filterSrc:''
            },
            $eraserCanvas:$("#eraserCanvas"),
           $photoFrame:$(".photoFrame"),
@@ -88,11 +89,21 @@
            LOCK_PAGE:false,
            //btns
            $backFilterBtn:$("#backFilterBtn"),
+           $beginEraser:$("#beginEraser"),
+           $backUserMoveBtn:$("#backUserMoveBtn"),
            eraserRadius:30,
            //functions
+           stopUserMove:function(){
+               G.$photoCanvas.hammer('stop')
+               G.stopMove=true;
+           },
+           startUserMove:function(){
+               G.$photoCanvas.hammer('start').removeLayer("filter").removeLayer("mask").drawLayers();
+               G.stopMove=false;
+           },
            startErase:function(){
+               G.stopUserMove();
                G.originSrc=G.$photoCanvas[0].toDataURL("image/png");
-               G.$photoCanvas.hammer('stop');
                G.eraseCtx.lineWidth= G.eraserRadius;
                G.eraseCtx.globalCompositeOperation="source-over";
                var img=new Image;
@@ -102,9 +113,13 @@
                    G.$eraserCanvas.eraser("start");
                }
                img.src= G.originSrc;
-               G.stopMove=true;
           },resetErase:function(){
                drawPhoto(0,0,1);
+           },
+           resetPhotoConfig:function(){
+               G.photoParam.x=0;
+               G.photoParam.y=0;
+               G.photoParam.scale=0;
            }
        }
        G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
@@ -140,6 +155,7 @@
                oninit:function(){
                },
                onLoad:function(data){
+                   G.resetPhotoConfig();
                    G.originSrc=data.originSrc;
                    var work=new WorkMan("初始化照片");
                    work.done(function(){
@@ -156,21 +172,20 @@
            //加载滤镜
            //step
            $("#filterBtn").on("click",function(){
-               loadFIiter(G.$photoCanvas[0].toDataURL("image/png"))
+               loadFilter(G.$photoCanvas[0].toDataURL("image/png"))
            })
            //step eraser
            G.$eraserCanvas.eraser({customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
-
            }}).eraser('stop')
            //btns bind
            G.$backFilterBtn.on("click",function(){
-               var ctx=  G.$filterCanvas[0].getContext("2d"),img=new Image;
-               ctx.clearRect(0,0,G.pWidth, G.pHeight);
-               ctx.globalCompositeOperation='source-over'
-               img.onload=function(){
-                   ctx.drawImage(img, 0, 0)
-               }
-               img.src= G.photoArr.filterSrc;
+              drawPhoto(0,0,1);
+           })
+           G.$beginEraser.on("click",function(){
+               G.startErase();
+           })
+           G.$backUserMoveBtn.on("click",function(){
+               G.startUserMove();
            })
        }
 
@@ -202,7 +217,7 @@
            G.initX=x||0;
            G.initY=y||0;
            G.scale=scale||1;
-           G.$photoCanvas.removeLayer("photo").restoreCanvas().hammer('reset').drawImage(
+           G.$photoCanvas.removeLayer("mask").restoreCanvas().hammer('reset').drawImage(
                    {
                        source: G. originSrc,
                        groups:['emojiGroup'],
@@ -216,7 +231,38 @@
                    }
            )
        }
-       function loadFIiter(img){
+       function drawFilter(cb){
+             drawMask();
+             G.$photoCanvas.removeLayer("filter").restoreCanvas().drawImage(
+                     {
+                         source: G. originSrc,
+                         groups:['emojiGroup'],
+                         layer:true,
+                         name:'filter',
+                         fromCenter: false,
+                         width: G.photoParam.width,
+                         height: G.photoParam.height,
+                         load:function(){
+                             if(typeof cb=="function"){
+                                 cb()
+                             }
+                         }
+                     }
+             )
+       }
+       function drawMask(){
+           G.$photoCanvas.drawRect({
+               fillStyle: '#fff',
+               x: 0, y: 0,
+               layer:true,
+               name:"mask",
+               groups:['emojiGroup'],
+               width: G.pWidth*(window.devicePixelRatio||1),
+               height: G.pHeight*(window.devicePixelRatio||1)
+           })
+       }
+//drawMaskLayer
+       function loadFilter(img){
            var defer= $.Deferred();
            G.$filterCanvas.removeAttr("data-caman-id");
            G.filterPhoto=Caman("#"+G.$filterCanvas.prop("id"), img,function(){
@@ -231,6 +277,7 @@
        //滤镜
        function filterCanton(){
            if(G.filterPhoto){
+               G.stopUserMove();
 //               G.$loading.show()
                G.filterPhoto.revert();
 //               $("#transparentV").text($transparent.val())
@@ -238,11 +285,12 @@
                        contrast(parseFloat(G.$contrast.val()))./*.sharpen(6)*/
                        exposure(parseFloat(G.$exposure.val())).transparent(180).render(function(){
 //                           G.$loading.hide()
-                                G. originSrc= G.$filterCanvas[0].toDataURL("image/png")
-                           drawPhoto(0,0,1);
+                            G. originSrc= G.$filterCanvas[0].toDataURL("image/png")
+                           drawFilter(function(){
+                               G.$photoCanvas.animateLayer("filter",{},0)
+                           });
                        });
            }
-
        }
        //initialize
        init();

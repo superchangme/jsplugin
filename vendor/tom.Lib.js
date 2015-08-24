@@ -5,7 +5,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define(["jquery"], factory);
+        define(["jquery",'hammer','tomPlugin'], factory);
     } else {
         // 全局模式
         factory(jQuery,window)
@@ -295,9 +295,10 @@
             null;
     _.cropImage=function(opts){
         var hastouch = "ontouchstart" in window?true:false,
-            tapstart = hastouch?"touchstart":"mousedown",
-            tapmove = hastouch?"touchmove":"mousemove",
-            tapend = hastouch?"touchend":"mouseup";
+            tapstart = "touchstart mousedown",
+            tapmove = "touchmove mousemove",
+            tapend = "touchend mouseup";
+        console.log()
         opts= $.extend({
             cropWidth:260,
             cropHeight:260,
@@ -314,8 +315,8 @@
             }
         },opts)
 
-        var G={preview:null,moveX:0,moveY:0},transform= _.prefixStyle("transform"),
-            canvas=opts.canvas,ctx=canvas.getContext('2d'), _x, _y,_scale,offset=$(canvas).offset(),$bindPreview=opts.bindPreview||$();
+        var G={preview:null,moveX:0,moveY:0,scale:1},transform= _.prefixStyle("transform"),
+            canvas=opts.canvas,ctx=canvas.getContext('2d'), _x, _y,_scale,offset=$(canvas).offset(),$bindPreview=opts.bindPreview||$(),canMove;
 
         if(opts.bindFile){
             if(typeof opts.bindFile=="string"){
@@ -326,6 +327,7 @@
                 G.preview=temp;
             }else if($(opts.bindFile).is("input[type=file]")){
                 opts.bindFile.attr("cropId", ++_.cropImage.id);
+                setCropStyle({x:0,y:0,scale:1})
                 $(document).delegate("[cropId="+_.cropImage.id+"]","change",function(){
                     $bindPreview.prop("src",'');
                     ctx.clearRect(0,0,canvas.width,canvas.height)
@@ -334,7 +336,9 @@
                         var img = new Image();
                         img.onload=function(){
                             G.preview=img;
-                            opts.onLoad({originSrc:img.src})
+                            var o=getCropInfo();
+                            $bindPreview.prop("style",'')
+                            opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight})
                         }
                         img.src = URL.createObjectURL(preview);
                     }
@@ -366,34 +370,51 @@
                 dHeight=iHeight*scale;
                 y=-(iHeight*scale-oHeight)/2;
             }
-            return {x:x,y:y,dWidth:dWidth,dHeight:dHeight,scale:scale}
+            return {x:x,y:y,dWidth:dWidth,dHeight:dHeight,scale:scale,iWidth:iWidth,iHeight:iHeight}
         }
         function getCropFile(){
             var o=getCropInfo();
             ctx.save();
-            ctx.translate(G.moveX, G.moveY);
-            ctx.drawImage(G.preview, o.x, o.y, o.dWidth, o.dHeight);
+            console.log(canvas.width,canvas.height)
+            ctx.translate(G.moveX/ G.scale+canvas.width/2*(1- G.scale), G.moveY/ G.scale+canvas.height/2*(1- G.scale));
+            ctx.drawImage(G.preview, o.x*G.scale, o.y*G.scale, o.dWidth* G.scale, o.dHeight* G.scale);
+            //,0,0,G.preview.width*G.scale, G.preview.height*G.scale);//,0,0, G.preview.width*G.scale, G.preview.height*G.scale);
             ctx.restore();
             return canvas.toDataURL("image/png");
         }
-        $(canvas).on(tapstart,function(e){
-            e= e.originalEvent;
-            var left=hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
-            var top= hastouch?e.targetTouches[0].clientY-offset.top:e.clientX-offset.top;
-            _x=left;
-            _y=top;
-        })
-        $(canvas).on(tapmove,function(e){
-            e= e.originalEvent;
-            var left=hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
-            var top= hastouch?e.targetTouches[0].clientY-offset.top:e.clientX-offset.top;
-            G.moveX+=left-_x;
-            G.moveY+=top-_y;
-            $bindPreview.css(transform,"translate3d("+G.moveX+'px,'+G.moveY+"px,0)")
-            _x=left;
-            _y=top;
-        })
-        return  {getCropFile:getCropFile,getCropInfo:getCropInfo};
+        if(!opts.useHammer){
+            $(document).on(tapend,function(e) {
+                canMove=false;
+            });
+            $(canvas).on(tapstart,function(e){
+                canMove=true;
+                e= e.originalEvent;
+                offset=$(canvas).offset();
+                var left=hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
+                var top= hastouch?e.targetTouches[0].clientY-offset.top:e.clientY-offset.top;
+                _x=left;
+                _y=top;
+            })
+            $(canvas).on(tapmove,function(e){
+                if(!canMove){
+                    return
+                }
+                e= e.originalEvent;
+                var left=hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
+                var top= hastouch?e.targetTouches[0].clientY-offset.top:e.clientY-offset.top;
+                G.moveX+=left-_x;
+                G.moveY+=top-_y;
+                $bindPreview.css(transform,"translate3d("+G.moveX+'px,'+G.moveY+"px,0)")
+                _x=left;
+                _y=top;
+            })
+        }
+        function setCropStyle(o){
+            G.scale= o.scale;
+            G.moveX= o.x;
+            G.moveY= o.y
+        }
+        return  {getCropFile:getCropFile,getCropInfo:getCropInfo,setCropStyle:setCropStyle};
     }
     _.cropImage.id=0;
     return _;

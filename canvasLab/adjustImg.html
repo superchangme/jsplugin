@@ -15,6 +15,9 @@
             height: 100%;
         }
         body{
+            background: skyblue;
+        }
+        body{
             height: 100%;
             position: relative;
         }
@@ -29,6 +32,8 @@
         }
         .bar{
             height: 30px;
+            position: relative;
+            z-index: 999;
         }
         .main{
            position: absolute;
@@ -52,18 +57,20 @@
             position: absolute;
             top:50%;
             left:50%;
-            border: 1px solid white;
+            border: 1px solid black;
             -webkit-transform: translate3d(-50%,-50%,0);
             transform: translate3d(-50%,-50%,0);
             z-index: 3;
         }
         #preview{
-            min-height:260px ;
-            min-width: 260px;
-            max-width: 280px;
+            max-width: 400px;
             max-height: 400px;
             display: block;
             z-index: 1;
+        }
+        #previewResult{
+            background: #fff;
+            border: 1px solid black;
         }
         .preview-box{
             position: absolute;
@@ -99,26 +106,36 @@
 <script src="../vendor/main.js"></script>
 <script>
     var myCrop;
-    require(["jquery","tomLib"],function($,_){
+    require(["jQuery",'hammer','tomPlugin',"tomLib",'hammer.fake','hammer.showtouch'],function($,hammer,plugin,T){
         document.addEventListener("touchmove",function(e){
             e.preventDefault();
         })
-        var $file=$("#file"),$previewResult=$("#previewResult"),$getFile=$("#getFile"),$preview=$("#preview"),$uploadPage=$("#uploadPage"),$mask=$(".upload-mask"),maskCtx=$mask[0].getContext("2d");
-        myCrop=_.cropImage({
+        var $file=$("#file"),previewStyle={x:0,y:0,scale:1},transform= T.prefixStyle("transform"),$previewResult=$("#previewResult"),$getFile=$("#getFile"),$preview=$("#preview"),$uploadPage=$("#uploadPage"),$mask=$(".upload-mask"),maskCtx=$mask[0].getContext("2d");
+
+        myCrop=T.cropImage({
             bindFile:$file,
             canvas:$(".photo-canvas")[0],
             cropWidth:260,
             cropHeight:260,
             bindPreview:$preview,
+            useHammer:true,
             oninit:function(){
 
             },
             onLoad:function(data){
-                $preview.attr("src",data.originSrc);
+                $preview.attr("src",data.originSrc).css({width:data.width,height:data.height});
+                $(".photo-canvas").hammer('reset');
             }
         });
+        $(".photo-canvas").hammer({
+            gestureCb:function(o){
+                $.extend(previewStyle,o);
+                $preview.css(transform,"translate3d("+ previewStyle.x+'px,'+ previewStyle.y+"px,0) scale("+previewStyle.scale+")")
+            }
+        })
         $getFile.on("click",function(){
             $uploadPage.hide();
+            myCrop.setCropStyle(previewStyle)
             $previewResult.attr("src",myCrop.getCropFile())
         })
         $(document).delegate("#file","click",function(){
