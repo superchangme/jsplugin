@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <title></title>
+    <style>
+        .photoFrame{
+            background-position: center;
+            width: 260px;
+            height: 260px;
+            background-size: 100%!important;
+        }
+    </style>
+</head>
+<body>
+<input type="file" accept="image/*;capture=camrea" id="photo"/>
+<button id="filterBtn">滤镜</button>
+<button id="backFilterBtn">返回滤镜</button>
+<div class="photoFrame">
+    <canvas id="photoCanvas" width="260" height="260"></canvas>
+</div>
+
+<div class="photoFrame">
+    <canvas id="filterCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
+</div>
+<div class="photoFrame">
+    <canvas id="eraserCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
+</div>
+<div>
+    对比度:<input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="contrast"/>
+</div>
+<div>
+    曝光度: <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="exposure"/>
+</div>
+<ul id="emoji-tpl-list">
+    <li>
+        <img src="emoji-tpl-1.png"/>
+    </li>
+</ul>
+</body>
+<script src="../../vendor/require.js" ></script>
+<script src="../../vendor/main.js"></script>
+<script>
+    var G;
+   require(["jQuery",'tomLib','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser'],function($,T){
+       Caman.Filter.register("transparent", function (adjust) {
+           // Pre-calculate some values that will be used
+
+           // Our process function that will be called for each pixel.
+           // Note that we pass the name of the filter as the first argument.
+           return this.process("transparent", function (rgba) {
+               if(rgba.r>adjust&&rgba.g>adjust&&rgba.b>adjust){
+                   rgba.a=0;
+               }
+               // Return the modified RGB values
+               return rgba;
+           });
+       });
+        //step1 上传图片
+       G={
+           emojiList:$("#emoji-tpl-list"),
+           filterPhoto:null,
+           pWidth:260,
+           pHeight:260,
+           initX:0,initY:0,
+           photoParam:{
+               scale:1,
+               x:0,
+               y:0
+           },
+           photoArr:{
+             uploadSrc:'',
+             dragSrc:'',
+            filterSrc:''
+           },
+           $eraserCanvas:$("#eraserCanvas"),
+          $photoFrame:$(".photoFrame"),
+           $photoCanvas:$("#photoCanvas"),
+           $filterCanvas:$("#filterCanvas"),
+           photoCrop:null,
+           currentLayer:'photo',
+           Eraser:null,
+           //inputs
+           $contrast:$("#contrast"),
+           $exposure:$("#exposure"),
+           LOCK_PAGE:false,
+           //btns
+           $backFilterBtn:$("#backFilterBtn"),
+           eraserRadius:30,
+           //functions
+           startErase:function(){
+               G.originSrc=G.$photoCanvas[0].toDataURL("image/png");
+               G.$photoCanvas.hammer('stop');
+               G.eraseCtx.lineWidth= G.eraserRadius;
+               G.eraseCtx.globalCompositeOperation="source-over";
+               var img=new Image;
+               G.eraseCtx.clearRect(0,0, G.pWidth, G.pHeight)
+               img.onload=function(){
+                   G.eraseCtx.drawImage(img,0,0)
+                   G.$eraserCanvas.eraser("start");
+               }
+               img.src= G.originSrc;
+               G.stopMove=true;
+          },resetErase:function(){
+               drawPhoto(0,0,1);
+           }
+       }
+       G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
+       G.photoCtx=G.$photoCanvas[0].getContext("2d");
+       //step0
+       function init(){
+           G.emojiList.delegate("img","click",function(){
+               G.$photoFrame.css("background","url("+this.src+")")
+               /*G.$photoCanvas.drawImage({
+                   source:  this,
+                   groups:['emojiGroup'],
+                   layer:true,
+                   name:'emoji',
+                   x:0,y:0,
+                   fromCenter:0
+               }).moveLayer('emoji',0)*/
+           })
+           G.$photoCanvas.detectPixelRatio().hammer({
+               gestureCb:function(o){
+                   if(G.stopMove){return}
+                   if(o.x!=null){
+                       o.x+= G.initX;
+                       o.y+= G.initY;
+                   }
+                   $.extend(G.photoParam, o)
+                   G.$photoCanvas.animateLayer(G.currentLayer,G.photoParam,0)
+               }
+           });
+           G.photoCrop= T.cropImage({
+               bindFile:$("#photo"),
+               cropWidth:260,
+               cropHeight:260,
+               oninit:function(){
+               },
+               onLoad:function(data){
+                   G.originSrc=data.originSrc;
+                   var work=new WorkMan("初始化照片");
+                   work.done(function(){
+                       //
+                   })
+                   var imInfo=G.photoCrop.getCropInfo()
+                   G.photoParam.width=imInfo.dWidth;
+                   G.photoParam.height=imInfo.dHeight;
+                   drawPhoto(imInfo.x,imInfo.y)
+               }
+           });
+
+           $(".adjust-input").on("change",filterCanton)
+           //加载滤镜
+           //step
+           $("#filterBtn").on("click",function(){
+               loadFIiter(G.$photoCanvas[0].toDataURL("image/png"))
+           })
+           //step eraser
+           G.$eraserCanvas.eraser({customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
+
+           }}).eraser('stop')
+           //btns bind
+           G.$backFilterBtn.on("click",function(){
+               var ctx=  G.$filterCanvas[0].getContext("2d"),img=new Image;
+               ctx.clearRect(0,0,G.pWidth, G.pHeight);
+               ctx.globalCompositeOperation='source-over'
+               img.onload=function(){
+                   ctx.drawImage(img, 0, 0)
+               }
+               img.src= G.photoArr.filterSrc;
+           })
+       }
+
+    //step2
+
+       function WorkMan(tips,cb,errcb){
+           LOCK_PAGE=true;
+           var work= $.Deferred(),tips=tips||"";
+//           waitLoad.addClass("open");
+           work.done(function(data){
+               LOCK_PAGE=false;
+               if(typeof cb==="function"){cb(data);}
+//               waitLoad.removeClass("open");
+           });
+           work.fail(function(err){
+               if(typeof errcb=="function"){
+                   errcb(err);
+               }
+               else{
+                   alert('小乐星开了个小差，再试一次吧!')
+               }
+               LOCK_PAGE=false;
+//               waitLoad.removeClass("open");
+           } );
+           return work;
+       }
+//draw photo
+       function drawPhoto(x,y,scale,noLayer){
+           G.initX=x||0;
+           G.initY=y||0;
+           G.scale=scale||1;
+           G.$photoCanvas.removeLayer("photo").restoreCanvas().hammer('reset').drawImage(
+                   {
+                       source: G. originSrc,
+                       groups:['emojiGroup'],
+                       layer:!noLayer,
+                       name:'photo',
+                       x: x,
+                       y: y,
+                       fromCenter: false,
+                       width: G.photoParam.width,
+                       height: G.photoParam.height
+                   }
+           )
+       }
+       function loadFIiter(img){
+           var defer= $.Deferred();
+           G.$filterCanvas.removeAttr("data-caman-id");
+           G.filterPhoto=Caman("#"+G.$filterCanvas.prop("id"), img,function(){
+               console.time("t")
+               defer.resolve();
+           });
+           defer.done(function(){
+               console.timeEnd("t")
+               filterCanton();
+           })
+       }
+       //滤镜
+       function filterCanton(){
+           if(G.filterPhoto){
+//               G.$loading.show()
+               G.filterPhoto.revert();
+//               $("#transparentV").text($transparent.val())
+               G.filterPhoto.brightness(5).saturation(-100).
+                       contrast(parseFloat(G.$contrast.val()))./*.sharpen(6)*/
+                       exposure(parseFloat(G.$exposure.val())).transparent(180).render(function(){
+//                           G.$loading.hide()
+                                G. originSrc= G.$filterCanvas[0].toDataURL("image/png")
+                           drawPhoto(0,0,1);
+                       });
+           }
+
+       }
+       //initialize
+       init();
+   })
+</script>
+</html>
