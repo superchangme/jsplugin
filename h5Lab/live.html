@@ -16,7 +16,9 @@ alert(err)
             window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
                     null;
     var getMedia=navigator.webkitGetUserMedia? navigator.webkitGetUserMedia: navigator.getUserMedia ?navigator.getUserMedia:function(){}
-       var video=document.getElementById("video"),videoObj={video:true,audio:true};
+       var video=document.getElementById("video"),videoObj={video:true,audio:true},errBack = function(error) {
+			console.log("Video capture error: ", error.code); 
+		};
 if(navigator.getUserMedia) { // Standard
 		navigator.getUserMedia(videoObj, function(stream) {
 			video.src = stream;
