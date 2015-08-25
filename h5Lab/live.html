@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>摄像头直播</title>
+</head>
+<body>
+      <video autoplay id="video" width="300" height="600"></video>
+</body>
+<script>
+    var URL = window.URL && window.URL.createObjectURL ? window.URL :
+            window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
+                    null;
+    var getMedia=navigator.webkitGetUserMedia? navigator.webkitGetUserMedia: navigator.getUserMedia ?navigator.getUserMedia:function(){}
+       var video=document.getElementById("video");
+    getMedia("video",function(stream){
+           video.src=URL(stream)
+    },function(err){
+        //
+    })
+</script>
+</html>
