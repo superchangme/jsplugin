@@ -3,7 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-
+    <link rel="stylesheet" href="../css/page-common.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css"/>
     <title></title>
     <style>
         *{
@@ -31,7 +32,9 @@
             bottom: 0;
         }
         .bar{
-            height: 30px;
+            height: 50px;
+            padding: 10px;
+            line-height: 30px;
             position: relative;
             z-index: 999;
         }
@@ -49,6 +52,7 @@
             z-index: 2;
         }
         .bar{
+            color: white;
             background: darkslategrey;
         }
         .photo-canvas{
@@ -82,13 +86,24 @@
         body{
             overflow: hidden;
         }
+        #getFile{
+            color: #fef4e9;
+            border: solid 1px #da7c0c;
+            background: #f78d1d;
+            vertical-align: middle;
+            padding: 6px 5px;
+            line-height: 1;
+            background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+            background: -moz-linear-gradient(top, #faa51a, #f47a20);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+        }
     </style>
 </head>
 <body>
     <input type="file" id="file"/>
      <img id="previewResult"/>
 <div class="app" id="uploadPage">
-  <div class="bar"><a id="getFile">使用</a></div>
+  <div class="bar"><a class="back pull-left" id="closeCrop"><i class="fa fa-reply"></i></a><a id="getFile" class="pull-right">使用</a></div>
     <div class="main">
         <canvas class="upload-mask">
 
@@ -140,6 +155,13 @@
         })
         $(document).delegate("#file","click",function(){
             $uploadPage.show();
+        }).delegate("#closeCrop","click",function(){
+            $uploadPage.hide();
+            $(".photo-canvas").hammer('reset');
+            previewStyle={scale:1,x:0,y:0};
+            myCrop.setCropStyle(previewStyle)
+            $previewResult.attr("src",'');
+            $preview.attr("src",'')
         })
         $file.one("click",function(){
             $uploadPage.show();
