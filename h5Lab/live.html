@@ -17,7 +17,7 @@ alert(err)
                     null;
     var getMedia=navigator.webkitGetUserMedia? navigator.webkitGetUserMedia: navigator.getUserMedia ?navigator.getUserMedia:function(){}
        var video=document.getElementById("video");
-    getMedia("video",function(stream){
+    getMedia(video,function(stream){
            video.src=URL(stream)
     },function(err){
         //
