@@ -12,7 +12,7 @@ alert(1)
 window.onerror=function(err){
 alert(err)
 }
-    var URL = window.URL && window.URL.createObjectURL ? window.URL :
+    var appURL = window.URL && window.URL.createObjectURL ? window.URL :
             window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
                     null;
     var getMedia=navigator.webkitGetUserMedia? navigator.webkitGetUserMedia: navigator.getUserMedia ?navigator.getUserMedia:function(){}
@@ -26,13 +26,13 @@ if(navigator.getUserMedia) { // Standard
 		}, errBack);
 	} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
 		navigator.webkitGetUserMedia(videoObj, function(stream){
-			video.src = URL(stream);
+			video.src = appURL(stream);
 			video.play();
 		}, errBack);
 	}
 	else if(navigator.mozGetUserMedia) { // Firefox-prefixed
 		navigator.mozGetUserMedia(videoObj, function(stream){
-			video.src = URL(stream);
+			video.src = appURL(stream);
 			video.play();
 		}, errBack);
 	}
