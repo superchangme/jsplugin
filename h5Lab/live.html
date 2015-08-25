@@ -16,7 +16,7 @@ alert(err)
             window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
                     null;
     var getMedia=navigator.webkitGetUserMedia? navigator.webkitGetUserMedia: navigator.getUserMedia ?navigator.getUserMedia:function(){}
-       var videoObj=document.getElementById("video");
+       var video=document.getElementById("video"),videoObj={video:true,audio:true};
 if(navigator.getUserMedia) { // Standard
 		navigator.getUserMedia(videoObj, function(stream) {
 			video.src = stream;
