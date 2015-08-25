@@ -8,6 +8,10 @@
       <video autoplay id="video" width="300" height="600"></video>
 </body>
 <script>
+alert(1)
+window.onerror=function(err){
+alert(err)
+}
     var URL = window.URL && window.URL.createObjectURL ? window.URL :
             window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
                     null;
