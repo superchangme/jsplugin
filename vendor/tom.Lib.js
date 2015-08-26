@@ -375,7 +375,7 @@
         function getCropFile(){
             var o=getCropInfo();
             ctx.save();
-            ctx.translate(G.moveX/ G.scale, G.moveY/ G.scale);
+            ctx.translate(G.moveX, G.moveY);
             ctx.drawImage(G.preview,canvas.width/2-o.dWidth/2*G.scale,canvas.height/2-o.dHeight/2*G.scale, o.dWidth* G.scale, o.dHeight* G.scale);
             //,0,0,G.preview.width*G.scale, G.preview.height*G.scale);//,0,0, G.preview.width*G.scale, G.preview.height*G.scale);
             ctx.restore();
