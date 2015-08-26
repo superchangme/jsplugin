@@ -315,7 +315,7 @@
             }
         },opts)
 
-        var G={preview:null,moveX:0,moveY:0,scale:1},transform= _.prefixStyle("transform"),
+        var G={preview:null,moveX:0,moveY:0,scale:1,rotate:0},transform= _.prefixStyle("transform"),
             canvas=opts.canvas,ctx=canvas.getContext('2d'), _x, _y,_scale,offset=$(canvas).offset(),$bindPreview=opts.bindPreview||$(),canMove;
 
         if(opts.bindFile){
@@ -373,10 +373,24 @@
             return {x:x,y:y,dWidth:dWidth,dHeight:dHeight,scale:scale,iWidth:iWidth,iHeight:iHeight}
         }
         function getCropFile(){
-            var o=getCropInfo();
+            var o=getCropInfo(), x=-o.dWidth/2*G.scale+ G.x,y=-o.dHeight/2*G.scale+ G.y;
             ctx.save();
-            ctx.translate(G.moveX, G.moveY);
-            ctx.drawImage(G.preview,canvas.width/2-o.dWidth/2*G.scale,canvas.height/2-o.dHeight/2*G.scale, o.dWidth* G.scale, o.dHeight* G.scale);
+            ctx.translate(canvas.width/2,canvas.height/2);
+            ctx.rotate(Math.PI*G.rotate/180)
+            if(G.rotate==90){
+                x=-o.dWidth/2*G.scale+ G.y;
+                y=-o.dHeight/2*G.scale- G.x;
+            }else if(G.rotate==180){
+                x=-o.dWidth/2*G.scale-G.x;
+                y=-o.dHeight/2*G.scale-G.y;
+            }else if(G.rotate==270){
+                x=-o.dWidth/2*G.scale-G.y;
+                y=-o.dHeight/2*G.scale+G.x;
+            }
+            console.log(G.preview,-o.dWidth/2*G.scale+ G.x,-o.dHeight/2*G.scale+ G.y, o.dWidth* G.scale, o.dHeight* G.scale)
+            ctx.drawImage(G.preview,x,y, o.dWidth* G.scale, o.dHeight* G.scale);
+
+            //ctx.drawImage(G.preview,canvas.width/2-o.dWidth/2*G.scale-o.dWidth/2*G.scale,canvas.height/2-o.dHeight/2*G.scale-o.dHeight/2*G.scale, o.dWidth* G.scale, o.dHeight* G.scale);
             //,0,0,G.preview.width*G.scale, G.preview.height*G.scale);//,0,0, G.preview.width*G.scale, G.preview.height*G.scale);
             ctx.restore();
             return canvas.toDataURL("image/png");
@@ -409,9 +423,7 @@
             })
         }
         function setCropStyle(o){
-            G.scale= o.scale;
-            G.moveX= o.x;
-            G.moveY= o.y
+            $.extend(G,o)
         }
         return  {getCropFile:getCropFile,getCropInfo:getCropInfo,setCropStyle:setCropStyle};
     }

@@ -97,6 +97,11 @@
             background: -moz-linear-gradient(top, #faa51a, #f47a20);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
         }
+        #rotate{
+            position: absolute;
+            z-index: 5;
+            bottom: 30px;
+        }
     </style>
 </head>
 <body>
@@ -114,6 +119,7 @@
         <canvas class="photo-canvas">
 
         </canvas>
+        <button id="rotate">rotate</button>
     </div>
 </div>
 </body>
@@ -125,7 +131,7 @@
         document.addEventListener("touchmove",function(e){
             e.preventDefault();
         })
-        var $file=$("#file"),previewStyle={x:0,y:0,scale:1},transform= T.prefixStyle("transform"),$previewResult=$("#previewResult"),$getFile=$("#getFile"),$preview=$("#preview"),$uploadPage=$("#uploadPage"),$mask=$(".upload-mask"),maskCtx=$mask[0].getContext("2d");
+        var $rotate=$("#rotate"),$file=$("#file"),previewStyle={x:0,y:0,scale:1,rotate:0},transform= T.prefixStyle("transform"),$previewResult=$("#previewResult"),$getFile=$("#getFile"),$preview=$("#preview"),$uploadPage=$("#uploadPage"),$mask=$(".upload-mask"),maskCtx=$mask[0].getContext("2d");
 
         myCrop=T.cropImage({
             bindFile:$file,
@@ -145,7 +151,7 @@
         $(".photo-canvas").hammer({
             gestureCb:function(o){
                 $.extend(previewStyle,o);
-                $preview.css(transform,"translate3d("+ previewStyle.x+'px,'+ previewStyle.y+"px,0) scale("+previewStyle.scale+")")
+                $preview.css(transform,"translate3d("+ previewStyle.x+'px,'+ previewStyle.y+"px,0) rotate("+previewStyle.rotate+"deg) scale("+previewStyle.scale+")")
             }
         })
         $getFile.on("click",function(){
@@ -158,7 +164,7 @@
         }).delegate("#closeCrop","click",function(){
             $uploadPage.hide();
             $(".photo-canvas").hammer('reset');
-            previewStyle={scale:1,x:0,y:0};
+            previewStyle={scale:1,x:0,y:0,rotate:0};
             myCrop.setCropStyle(previewStyle)
             $previewResult.attr("src",'');
             $preview.attr("src",'')
@@ -170,6 +176,16 @@
             maskCtx.fillRect(0,0,$mask.width(),$mask.height());
             maskCtx.fill();
             maskCtx.clearRect(($mask.width()-260)/2,($mask.height()-260)/2,260,260)
+        })
+        $rotate.on("click",function(){
+            previewStyle.rotate+=90
+            if(previewStyle.rotate>360){
+                previewStyle=90
+            }
+            myCrop.setCropStyle(previewStyle)
+
+            $preview.css(transform,"translate3d("+ previewStyle.x+'px,'+ previewStyle.y+"px,0) rotate("+previewStyle.rotate+"deg) scale("+previewStyle.scale+")")
+
         })
     })
 </script>
