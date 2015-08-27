@@ -1,7 +1,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define(["jQuery","hammer",'hammer.fake','hammer.showtouch' ], factory);
+        define(["jquery","hammer",'hammer.fake','hammer.showtouch' ], factory);
     } else {
         // 全局模式
         factory()
@@ -26,14 +26,14 @@
         function Plugin(opt){
             return this.each(function(){
                 var $this=$(this);
-                if($this.is("canvas")){
+                //if($this.is("canvas")){
                     var data = $this.data("tom.hammer");
                     var opts = $.extend({},Myhammer.DEFAULTS,$this.data(),typeof opt=="object" &&opt)
                     if(!data) $this.data("tom.hammer",(data=new Myhammer(this,opts)))
                     if(typeof opts=="string") data[opts]()
-                }else{
+              /*  }else{
                     console.log("need a  canvas element")
-                }
+                }*/
             })
         }
         Myhammer.DEFAULTS={

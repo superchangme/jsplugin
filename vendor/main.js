@@ -1,17 +1,17 @@
-var baseUrl="../vendor/";
+var baseUrl="../../vendor/";
 require.config({
     /*模块依赖配置*/
     baseUrl:baseUrl,
     shim: {
-        'jquery.ui.core': ['jQuery'],
-        'jquery.ui.widget': ['jQuery'],
-        'jquery.ui.mouse': ['jQuery'],
-        'jquery.ui.slider':['jQuery'],
+        'jquery.ui.core': ['jquery'],
+        'jquery.ui.widget': ['jquery'],
+        'jquery.ui.mouse': ['jquery'],
+        'jquery.ui.slider':['jquery'],
         "zepto.touch":"Zepto",
         "zepto.fx":"Zepto"
     },	 /*模块路径配置*/
     paths: {
-    "jQuery": "jquery-2.1.4",
+    "jquery": "jquery-2.1.4",
     "jquery.eraser":"jquery.eraser",
     "underscore": "underscore.min",
     "backbone": "backbone.min",
@@ -29,16 +29,18 @@ require.config({
         "hammer.fake":"Hammer/hammer.fakemultitouch",
         "hammer.showtouch":"Hammer/hammer.showtouches",
         "tomPlugin":"plugins/tom-jqplugins",
-        'Caman':"caman.full"
+        'Caman':"caman.full",
+        'slider':"rangeslider.js-1.3.3/rangeslider.min",
+        "iscroll-lite":"iscroll-lite"
     }  ,
     /*模块规则配置*/
     map:{
         '*': {
-            'jQuery': 'jquery-private',
+            'jquery': 'jquery-private',
             'tomLib':'tomLib'
         },
         "jquery-private":{
-            "jQuery":"jQuery"
+            "jquery":"jquery"
         }
     }
 });

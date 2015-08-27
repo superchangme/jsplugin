@@ -13,7 +13,7 @@
             };
     } else if(typeof define === "function" && define.amd != undefined ){
         // AMDģʽ
-        define([ "jQuery" ], factory);
+        define([ "jquery" ], factory);
     } else{
         factory( jQuery, global );
     }

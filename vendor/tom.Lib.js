@@ -446,6 +446,51 @@
         return  {getCropFile:getCropFile,getCropInfo:getCropInfo,setCropStyle:setCropStyle};
     }
     _.cropImage.id=0;
+
+
+//组动画   循环替换一组元素的class 实现循环式替换动画效果，frameClass可以是一组不同的，也可以是同一个
+
+    /**
+     *
+     * @param group
+     * @param frameClass
+     * @param duration
+     * @param gap
+     * @param startIndex
+     * @param totalTimes
+     * @returns {number}
+     */
+
+    _.animateGroup=function(opts){
+
+        //group,frameClass,duration,gap,startIndex,loopTimes,cb
+        var animArr=opts.group,reset,duration=opts.duration+(opts.gap|| 0),curEl=animArr.eq(0),index=opts.startIndex||0;
+        function run(){
+            curEl.addClass(opts.frameClass[index]||opts.frameClass[0])
+        }
+        setTimeout(function(){
+            run();
+            reset=setInterval(function(){
+                if(opts.classSwitch!==false){
+                    curEl.removeClass(opts.frameClass[index]||opts.frameClass[0]);
+                }
+                index++;
+                if(index>animArr.length-1){
+                    opts.loopTimes--;
+                    index=0;
+                }
+                curEl=animArr.eq(index);
+                if(opts.loopTimes==null||opts.loopTimes!=0){
+                    run();
+                }
+                if(opts.loopTimes==0){
+                    clearInterval(reset);
+                    typeof opts.callback=="function"&&opts.callback();
+                }
+            },duration+70);
+        },opts.waitTime||0)
+        return reset;
+    }
     return _;
 });
 

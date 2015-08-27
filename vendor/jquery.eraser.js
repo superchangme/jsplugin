@@ -13,7 +13,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define([ "jQuery" ], factory);
+        define([ "jquery" ], factory);
     } else {
         // 全局模式
         factory(jQuery)
@@ -56,6 +56,7 @@
     Eraser.ID = 0;
     Eraser.DEFAULTS = {
         container:document.body,
+        bindContainer:false,
         customCanvas:false,
         bgImage:null,  //dom: image
         bgColor:null,
@@ -138,19 +139,19 @@
 //通过修改globalCompositeOperation来达到擦除的效果
     Eraser.prototype.tapClip=function(){
         var hastouch = "ontouchstart" in window?true:false,
-            tapstart = hastouch?"touchstart":"mousedown",
-            tapmove = hastouch?"touchmove":"mousemove",
-            tapend = hastouch?"touchend":"mouseup",
+            tapstart = "touchstart mousedown",
+            tapmove = "touchmove mousemove",
+            tapend = "touchend mouseup",
             self = this,x1,y1,timeout,
             canvas=self.canvas,
             np=self.namespace,
             isTouch=false,
             ctx=self.ctx,beginDraw=false;
-        var offset,id=$(canvas).prop("id");
+        var offset,id=$(canvas).prop("id"),el=this.bindContainer?$(this.container):"#"+id;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
         ctx.lineWidth = self.radius*2;
-        $(document).delegate("#"+id,tapstart+np , function(e){
+        $(document).delegate(el,tapstart , function(e){
             clearTimeout(timeout)
             ctx.save();
             if(self.isStop){
@@ -172,8 +173,11 @@
             ctx.fill();
             ctx.closePath();*/
         })
-        $(document).delegate("#"+id, tapmove+np,tapmoveHandler);
-        $(document).delegate("#"+id,tapend+np, function(){
+        $(document).delegate(el, tapmove,tapmoveHandler);
+        $(document).delegate(el,tapend, function(){
+            if(!beginDraw||self.isStop){
+                return;
+            }
             beginDraw =false;
             if(!self.noneedCalc){
                 timeout = setTimeout(function(){

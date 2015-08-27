@@ -1,0 +1,142 @@
+@import "page-common";
+@import "animate";
+@import "rangeslider";
+a{
+  text-decoration: none;
+}
+html,body{
+  height: 100%;
+}
+body{
+  position: relative;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+.app-wrap{
+  position: relative;
+  height: 100%;
+  overflow:hidden;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.photoFrame{
+  background-position: center;
+  width: 260px;
+  height: 260px;
+  background-size: 100%!important;
+}
+.main-box{
+  position: absolute;
+  width: 100%;
+  top:0;
+  bottom:400px;
+  padding: 20px;
+  background:#f0f0f0 ;
+}
+.main-inner{
+    border: 1px
+    #DDDDDD solid;
+    border-radius: 6px;
+  background: white;
+  width: 100%;
+  height: 100%;
+}
+.op-box{
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  height: 300px;
+}
+.op-bar{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: #222222;
+}
+.scroller {
+  position: absolute;
+  z-index: 1;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  height: 100%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+#emoji-tpl-list{
+  white-space: nowrap;
+  padding: 0 15px;
+  img{
+    width: 200px;
+  }
+  ul.step-tip.tip-now{
+    .animation(flash 0.7s)
+  }
+}
+.verticalAlign{ vertical-align:middle; display:inline-block; height:100%; width:1px; margin-left:-1px;}
+#emoji-tpl-list li{
+  display: inline-block;
+  margin: 0 16px;
+}
+.photo-input-box{
+  width: 147px;
+  height: 120px;
+  position: absolute;
+  z-index: 2;
+}
+.photo-input-mask{
+    background: url(../img/ico_camrea.png);
+  width: 147px;
+  height: 120px;
+  &.tip-now{
+    .animation(pulse 0.7s);
+  }
+}
+#photoInput{
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+}
+.op-bar{
+  padding: 20px;
+}
+.btn-label{
+  color: white;
+  cursor: pointer;
+  vertical-align: middle;
+  height: 60px;
+  line-height: 60px;
+text-align: center;
+}
+.btn-label[disbabled]{
+  color: #666666;
+}
+.btn-yellow{
+  cursor: pointer;
+  border-radius: 6px;
+  background: #FEC600;
+  display: inline-block;
+  width: 120px;
+  height: 60px;
+  line-height: 60px;
+  color: #222222;
+  vertical-align: middle;
+  text-align: center;
+}
+.step[data-step]:not(:first-child){
+  display: none;
+}
+.photoFrame{
+  width: 400px;
+  height: 400px;
+  *{
+  .b-full;
+    .full-p;
+  }
+  .photo-cover{
+
+  }
+}

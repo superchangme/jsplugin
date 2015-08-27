@@ -2,53 +2,139 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="viewport" id="eqMobileViewport" content="width=640,initial-scale=1,user-scalable=no" />
 
-    <title></title>
-    <style>
-
-        .photoFrame{
-            background-position: center;
-            width: 260px;
-            height: 260px;
-            background-size: 100%!important;
+    <title>选择表情</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script>
+        window.addEventListener("load",resetMeta)
+        //            window.addEventListener("resize",resetMeta)
+        function resetMeta(){
+            var g=window.innerWidth,h=window.innerHeight,k;
+            (g/h)>=320/504?k=h/1008:k=g/640;
+            document.getElementById("eqMobileViewport").setAttribute("content","width=320,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
         }
-    </style>
+    </script>
 </head>
 <body>
-<input type="file" accept="image/*;capture=camrea" id="photo"/>
-<button id="filterBtn">滤镜</button>
-<button id="backUserMoveBtn">返回拖拽</button>
+<div class="app-wrap">
+   <div style="display: none">
+       <input type="file" accept="image/*;capture=camrea" />
+       <button id="filterBtn">滤镜</button>
+       <button id="backUserMoveBtn">返回拖拽</button>
 
-<button id="beginEraser">开始橡皮擦</button>
-<button id="backFilterBtn">返回滤镜</button>
+       <button id="beginEraser">开始橡皮擦</button>
+       <button id="backFilterBtn">返回滤镜</button>
 
-<div class="photoFrame" >
-    <canvas id="photoCanvas" width="260" height="260"></canvas>
-    <canvas id="filterCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
-    <canvas id="eraserCanvas" width="260" height="260"  style="height:260px;width: 260px;"></canvas>
-</div>
+       <div class="photoFrame" >
+       <!--    <canvas id="photoCanvas" width="260" height="260"></canvas>
+           <canvas id="filterCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
+           <canvas id="eraserCanvas" width="260" height="260"  style="height:260px;width: 260px;"></canvas>-->
+       </div>
+       <ul>
+           <li>
+               <img src="img/emoji1_thumb.png"/>
+           </li>
+       </ul>
+   </div>
+    <div class="main-box">
+        <div class="main-inner">
+               <div class="photo-input-box centerXY">
+                   <div class="photo-input-mask step-tip">
+                       <input type="file"   accept="image/*;capture=camrea" id="photoInput"/>
+                   </div>
+               </div>
+              <div class="photoFrame centerXY" id="photoFrame">
+                  <div class="photo-bg" id="emojiBg"></div>
 
-<div>
-    对比度:<input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="contrast"/>
+                  <canvas id="photoCanvas" width="400" height="400"></canvas>
+                      <canvas id="filterCanvas" width="400" height="400" data-caman-hidpi-disabled style="display: none"></canvas>
+                      <canvas id="eraserCanvas" width="400" height="400"  style="display: none"></canvas>
+                  <div class="photo-cover" id="emojiCover"></div>
+
+              </div>
+        </div>
+    </div>
+    <div class="op-box">
+        <div class="step" data-step="choose-emoji" id="emoji-tpl-list">
+            <div class="scroller">
+                <ul class="inline vm step-tip">
+                    <li>
+                        <img src="img/emoji1_thumb.png"/>
+                    </li>
+                    <li>
+                        <img src="img/emoji1_thumb.png"/>
+                    </li>
+                    <li>
+                        <img src="img/emoji1_thumb.png"/>
+                    </li>
+                    <li>
+                        <img src="img/emoji1_thumb.png"/>
+                    </li>
+                    <li>
+                        <img src="img/emoji1_thumb.png"/>
+                    </li>
+                </ul>
+                <div class="verticalAlign"></div>
+             </div>
+        </div>
+        <div class="step" data-step="filter-emoji" >
+            <div>
+                对比度:
+                <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="contrast"  data-rangeslider/>
+            </div>
+            <div>
+                曝光度: <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="exposure" data-rangeslider/>
+            </div>
+        </div>
+        <div class="step" data-step="erase-emoji" >
+            <a class="btn-label back-step">上一步</a>
+            <a class="btn-yellow pull-right next-step">下一步</a>
+        </div>
+        <div class="step" data-step="text-emoji" >
+            <a class="btn-label back-step" >上一步</a>
+            <a class="btn-yellow pull-right next-step">完成</a>
+        </div>
+        <div class="step" data-step="confirm-emoji" >
+            <a class="btn-label back-step" >上一步</a>
+            <a class="btn-yellow pull-right next-step">确认添加</a>
+        </div>
+    </div>
+    <div class="op-bar">
+        <div class="step" data-step="choose-emoji" >
+            <a class="btn-label back-step" disabled>重拍</a>
+            <a class="btn-yellow pull-right next-step">下一步</a>
+        </div>
+        <div class="step" data-step="filter-emoji" >
+            <a class="btn-label back-step" >上一步</a>
+            <a class="btn-yellow pull-right next-step">下一步</a>
+        </div>
+        <div class="step" data-step="erase-emoji" >
+            <a class="btn-label back-step">上一步</a>
+            <a class="btn-yellow pull-right next-step">下一步</a>
+        </div>
+        <div class="step" data-step="text-emoji" >
+            <a class="btn-label back-step" >上一步</a>
+            <a class="btn-yellow pull-right next-step">完成</a>
+        </div>
+        <div class="step" data-step="confirm-emoji" >
+            <a class="btn-label back-step" >上一步</a>
+            <a class="btn-yellow pull-right next-step">确认添加</a>
+        </div>
+    </div>
 </div>
-<div>
-    曝光度: <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="exposure"/>
-</div>
-<ul id="emoji-tpl-list">
-    <li>
-        <img src="emoji-tpl-1.png"/>
-    </li>
-</ul>
 </body>
 <script src="../../vendor/require.js" ></script>
 <script src="../../vendor/main.js"></script>
 <script>
-    var G;
-   require(["jQuery",'tomLib','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser'],function($,T){
+    document.addEventListener("touchmove",function(e){
+            e.preventDefault();
+    })
+    var G,jquery;
+   require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser','slider'],function($,T,IScroll){
+       jquery=$;
        Caman.Filter.register("transparent", function (adjust) {
            // Pre-calculate some values that will be used
-
            // Our process function that will be called for each pixel.
            // Note that we pass the name of the filter as the first argument.
            return this.process("transparent", function (rgba) {
@@ -61,11 +147,23 @@
        });
         //step1 上传图片
        G={
-           emojiList:$("#emoji-tpl-list"),
            filterPhoto:null,
-           pWidth:260,
-           pHeight:260,
+           pWidth:400,
+           pHeight:400,
            initX:0,initY:0,
+           emoji:{
+             background:null,
+             photo:null
+           },
+
+           btns:{
+               $nextStepBtn:$("a.next-step"),
+               $backStepBtn:$("a.back-step")
+           },
+           stepLock:true,
+           steps:$('[data-step]'),
+           currentStep:"choose-emoji",
+           currentStepDom:$("[data-step=choose-emoji]"),
            photoParam:{
                scale:1,
                x:0,
@@ -76,10 +174,15 @@
              dragSrc:'',
              filterSrc:''
            },
+           $emojiList:$("#emoji-tpl-list"),
            $eraserCanvas:$("#eraserCanvas"),
-          $photoFrame:$(".photoFrame"),
+           $photoFrame:$("#photoFrame"),
            $photoCanvas:$("#photoCanvas"),
            $filterCanvas:$("#filterCanvas"),
+           $emojiCover:$("#emojiCover"),
+           $emojiBg:$("#emojiBg"),
+           $photoInput:$("#photoInput"),
+           $uploadMask:$(".photo-input-box"),
            photoCrop:null,
            currentLayer:'photo',
            Eraser:null,
@@ -94,40 +197,126 @@
            eraserRadius:30,
            //functions
            stopUserMove:function(){
-               G.$photoCanvas.hammer('stop')
+               G.$photoFrame.hammer('stop')
                G.stopMove=true;
            },
            startUserMove:function(){
-               G.$photoCanvas.hammer('start').removeLayer("filter").removeLayer("mask").drawLayers();
+               G.$photoFrame.hammer('start');
+               G.$photoCanvas.removeLayer("filter").removeLayer("mask").drawLayers();
                G.stopMove=false;
            },
-           startErase:function(){
+           startErase:function(cb){
                G.stopUserMove();
-               G.originSrc=G.$photoCanvas[0].toDataURL("image/png");
+               G.emoji.photo=G.$photoCanvas[0].toDataURL("image/png");
                G.eraseCtx.lineWidth= G.eraserRadius;
                G.eraseCtx.globalCompositeOperation="source-over";
                var img=new Image;
-               G.eraseCtx.clearRect(0,0, G.pWidth, G.pHeight)
+               G.eraseCtx.clearRect(0,0, G.pWidth, G.pHeight);
                img.onload=function(){
+                   G.$photoCanvas.hide();
+                   G.$eraserCanvas.show();
                    G.eraseCtx.drawImage(img,0,0)
                    G.$eraserCanvas.eraser("start");
+                   if(cb){cb()}
                }
-               img.src= G.originSrc;
+               img.src= G.emoji.photo;
           },resetErase:function(){
-               drawPhoto(0,0,1);
+               drawPhoto(0,0,1,null,function(){
+                   G.$photoCanvas.show();
+                   G.$eraserCanvas.hide();
+               });
            },
            resetPhotoConfig:function(){
                G.photoParam.x=0;
                G.photoParam.y=0;
-               G.photoParam.scale=0;
+               G.photoParam.scale=1;
+           },
+           scroll:{
+               $emojiListScroll:null
            }
        }
        G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
        G.photoCtx=G.$photoCanvas[0].getContext("2d");
        //step0
        function init(){
-           G.emojiList.delegate("img","click",function(){
-               G.$photoFrame.css("background","url("+this.src+")")
+           G.btns.$nextStepBtn.on("click",function(){
+               if(G.isBusyWork){
+                   return
+               }
+               var work;
+               if($(this).is("[disabled]")){
+                   return;
+               }
+               if(checkIsLock()){
+                   showTips();
+                   return;
+               }
+               switch(G.currentStep){
+                   case "choose-emoji":
+                       work=new WorkMan("加载滤镜效果",updateStep);
+                       loadFilter(G.$photoCanvas[0].toDataURL("image/png"),work);
+                       break;
+                   case "filter-emoji":
+                       G.startErase(updateStep);
+                       break;
+               }
+           })
+           //soga step
+           G.btns.$backStepBtn.on("click",function(){
+               if(G.isBusyWork){
+                   return
+               }
+               var work;
+               if(checkIsLock()){
+                     return;
+               }
+               switch(G.currentStep){
+                   case "choose-emoji":
+                       G.$photoCanvas.removeLayer("photo").drawLayers();
+                       G.$uploadMask.show();
+                       break;
+                   case "filter-emoji":
+                       updateStep(true);
+                       G.startUserMove();
+                       break;
+                   case "erase-emoji":
+                       updateStep(true);
+                       G.$eraserCanvas.eraser("stop");
+                       G.$photoCanvas.show();
+                       G.$eraserCanvas.hide();
+                       break;
+               }
+           });
+           G.scroll.$emojiListScroll=new IScroll('#emoji-tpl-list', {
+               //click:iScrollClick(),
+               preventDefault:false,
+               preventDefaultException:{tagName:/^(INPUT|TEXTAREA|BUTTON|SELECT|A)/},
+               scrollbars: true,
+               mouseWheel: true,
+               scrollX: true, scrollY: false,
+               interactiveScrollbars: true,
+               shrinkScrollbars: 'scale',
+               fadeScrollbars: true
+           });
+           //上传按钮点击提示
+
+           G.$photoInput.on("click",function(e){
+               if(!G.emoji.background){
+                   e.preventDefault();
+               }
+           })
+           G.$uploadMask.on("click",function(){
+               if(!G.emoji.background){
+                   showTips(G.$emojiList.find(".step-tip"))
+               }
+           })
+           G.$emojiList.delegate("img","click",function(){
+               G.$photoInput.removeAttr("disabled")
+               G.$emojiList.find(".step-tip").addClass("ok")
+               G.emoji.mask=this.src.replace("thumb","mask");
+               G.emoji.background=this.src.replace("thumb","bg")
+               G.$emojiCover.css("background","url("+G.emoji.mask+")")
+               G.$emojiBg.css("background","url("+G.emoji.background+")")
                /*G.$photoCanvas.drawImage({
                    source:  this,
                    groups:['emojiGroup'],
@@ -137,7 +326,7 @@
                    fromCenter:0
                }).moveLayer('emoji',0)*/
            })
-           G.$photoCanvas.detectPixelRatio().hammer({
+           G.$photoFrame.hammer({
                gestureCb:function(o){
                    if(G.stopMove){return}
                    if(o.x!=null){
@@ -149,22 +338,23 @@
                }
            });
            G.photoCrop= T.cropImage({
-               bindFile:$("#photo"),
-               cropWidth:260,
-               cropHeight:260,
+               bindFile:$("#photoInput"),
+               cropWidth: G.pWidth,
+               cropHeight: G.pHeight,
                oninit:function(){
                },
                onLoad:function(data){
+                   G.$uploadMask.hide();
+                   G.btns.$backStepBtn.removeAttr("disabled")
                    G.resetPhotoConfig();
-                   G.originSrc=data.originSrc;
+                   G.emoji.photo=data.originSrc;
                    var work=new WorkMan("初始化照片");
-                   work.done(function(){
-                       //
-                   })
                    var imInfo=G.photoCrop.getCropInfo()
                    G.photoParam.width=imInfo.dWidth;
                    G.photoParam.height=imInfo.dHeight;
-                   drawPhoto(imInfo.x,imInfo.y)
+                   drawPhoto(imInfo.x,imInfo.y,null,null,function(){
+                       work.resolve();
+                   })
                }
            });
 
@@ -175,7 +365,7 @@
                loadFilter(G.$photoCanvas[0].toDataURL("image/png"))
            })
            //step eraser
-           G.$eraserCanvas.eraser({customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
+           G.$eraserCanvas.eraser({container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
            }}).eraser('stop')
            //btns bind
            G.$backFilterBtn.on("click",function(){
@@ -192,11 +382,11 @@
     //step2
 
        function WorkMan(tips,cb,errcb){
-           LOCK_PAGE=true;
+           G.isBusyWork=true;
            var work= $.Deferred(),tips=tips||"";
 //           waitLoad.addClass("open");
            work.done(function(data){
-               LOCK_PAGE=false;
+               G.isBusyWork=false;
                if(typeof cb==="function"){cb(data);}
 //               waitLoad.removeClass("open");
            });
@@ -205,21 +395,21 @@
                    errcb(err);
                }
                else{
-                   alert('小乐星开了个小差，再试一次吧!')
+                   alert('出错咯，再试一次吧!')
                }
-               LOCK_PAGE=false;
+               G.isBusyWork=false;
 //               waitLoad.removeClass("open");
            } );
            return work;
        }
 //draw photo
-       function drawPhoto(x,y,scale,noLayer){
+       function drawPhoto(x,y,scale,noLayer,cb){
            G.initX=x||0;
            G.initY=y||0;
            G.scale=scale||1;
-           G.$photoCanvas.removeLayer("mask").restoreCanvas().hammer('reset').drawImage(
+           G.$photoCanvas.removeLayer("mask").drawImage(
                    {
-                       source: G. originSrc,
+                       source: G.emoji.photo,
                        groups:['emojiGroup'],
                        layer:!noLayer,
                        name:'photo',
@@ -227,15 +417,21 @@
                        y: y,
                        fromCenter: false,
                        width: G.photoParam.width,
-                       height: G.photoParam.height
+                       height: G.photoParam.height ,
+                       load:function(){
+                           if(cb){
+                               cb();
+                           }
+                       }
                    }
-           )
+           ).restoreCanvas();
+           G.$photoFrame.hammer('reset')
        }
        function drawFilter(cb){
              drawMask();
-             G.$photoCanvas.removeLayer("filter").restoreCanvas().drawImage(
+             G.$photoCanvas.removeLayer("filter").drawImage(
                      {
-                         source: G. originSrc,
+                         source: G. filterSrc,
                          groups:['emojiGroup'],
                          layer:true,
                          name:'filter',
@@ -248,7 +444,7 @@
                              }
                          }
                      }
-             )
+             ).restoreCanvas()
        }
        function drawMask(){
            G.$photoCanvas.drawRect({
@@ -257,12 +453,12 @@
                layer:true,
                name:"mask",
                groups:['emojiGroup'],
-               width: G.pWidth*(window.devicePixelRatio||1),
-               height: G.pHeight*(window.devicePixelRatio||1)
-           })
+               width: G.pWidth*2,
+               height: G.pHeight*2
+           }).restoreCanvas()
        }
 //drawMaskLayer
-       function loadFilter(img){
+       function loadFilter(img,work){
            var defer= $.Deferred();
            G.$filterCanvas.removeAttr("data-caman-id");
            G.filterPhoto=Caman("#"+G.$filterCanvas.prop("id"), img,function(){
@@ -271,11 +467,11 @@
            });
            defer.done(function(){
                console.timeEnd("t")
-               filterCanton();
+               filterCanton(work);
            })
        }
        //滤镜
-       function filterCanton(){
+       function filterCanton(work){
            if(G.filterPhoto){
                G.stopUserMove();
 //               G.$loading.show()
@@ -285,15 +481,65 @@
                        contrast(parseFloat(G.$contrast.val()))./*.sharpen(6)*/
                        exposure(parseFloat(G.$exposure.val())).transparent(180).render(function(){
 //                           G.$loading.hide()
-                            G. originSrc= G.$filterCanvas[0].toDataURL("image/png")
+                            G. filterSrc= G.$filterCanvas[0].toDataURL("image/png")
                            drawFilter(function(){
-                               G.$photoCanvas.animateLayer("filter",{},0)
+                               G.$photoCanvas.animateLayer("filter",{},0);
+                               if(work&&typeof work.resolve=="function"){
+                                   work.resolve();
+                               }
                            });
                        });
            }
        }
+       //前进后退
+       function updateStep(isBack){
+           if(isBack){
+               G.currentStepDom=G.currentStepDom.hide().prev(".step").show();
+           }else{
+               G.currentStepDom=G.currentStepDom.hide().next(".step").show();
+           }
+           G.currentStep=G.currentStepDom.data("step");
+       }
+       function checkIsLock(){
+           switch (G.currentStep){
+               case "choose-emoji":
+                   if(G.emoji.photo&& G.emoji.background){
+                       G.stepLock=false;
+                   }
+                   break;
+           }
+           return G.stepLock;
+       }
+       function showTips(dom){
+           dom=dom||G.currentStepDom.find(".step-tip:not(.ok)");
+           var delay=0;
+           dom.each(function(index,item){
+               T.animateGroup({group: $(item),waitTime:delay,frameClass:["tip-now"],duration:1000,loopTimes:1})
+               delay+=700;
+           })
+       }
        //initialize
        init();
+       $("[data-rangeslider]").rangeslider({
+
+           // Deactivate the feature detection
+           polyfill: false,
+
+           // Callback function
+           onInit: function() {},
+
+           // Callback function
+           onSlide: function(position, value) {
+               console.log('onSlide');
+               console.log('position: ' + position, 'value: ' + value);
+           },
+
+           // Callback function
+           onSlideEnd: function(position, value) {
+               console.log('onSlideEnd');
+               console.log('position: ' + position, 'value: ' + value);
+           }
+       });
    })
 </script>
 </html>

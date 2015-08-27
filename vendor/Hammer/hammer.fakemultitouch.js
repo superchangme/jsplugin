@@ -1,7 +1,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define([ "hammer","jQuery"] , factory);
+        define([ "hammer","jquery"] , factory);
     } else {
         // 全局模式
         factory(Hammer,jQuery)
