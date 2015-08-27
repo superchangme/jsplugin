@@ -300,24 +300,27 @@
             tapend = "touchend mouseup";
         console.log()
         opts= $.extend({
+            enableRatio:true,
             cropWidth:260,
             cropHeight:260,
             container:document.body,
             canvas:document.createElement("canvas"),
             success:function(o){
-              // o.originSrc o.cropSrc
+                // o.originSrc o.cropSrc
             },
             onChange:function(o){
-              //o.cropSrc
+                //o.cropSrc
             },
             onLoad:function(o){
                 //o.originSrc
             }
         },opts)
-
-        var G={preview:null,moveX:0,moveY:0,scale:1,rotate:0},transform= _.prefixStyle("transform"),
+        opts.devicePixelRatio=opts.enableRatio?window.devicePixelRatio:1;
+        var G={preview:null,moveX:0,moveY:0,scale:1,rotate:0,ratio:opts.devicePixelRatio},transform= _.prefixStyle("transform"),
             canvas=opts.canvas,ctx=canvas.getContext('2d'), _x, _y,_scale,offset=$(canvas).offset(),$bindPreview=opts.bindPreview||$(),canMove;
-
+        $(canvas).prop({width:opts.cropWidth*opts.devicePixelRatio,height:opts.cropHeight*opts.devicePixelRatio}).css({
+            width:opts.cropWidth,height:opts.cropHeight
+        })
         if(opts.bindFile){
             if(typeof opts.bindFile=="string"){
                 var temp;
@@ -338,7 +341,7 @@
                             G.preview=img;
                             var o=getCropInfo();
                             $bindPreview.prop("style",'')
-                            opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight})
+                            opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio})
                         }
                         img.src = URL.createObjectURL(preview);
                     }
@@ -352,11 +355,9 @@
         function getCropInfo(){
             var iWidth=G.preview.width,iHeight=G.preview.height,
                 dWidth,dHeight, x=0,y= 0,scale;
-            var oWidth=opts.cropHeight;
-            var oHeight=opts.cropWidth;
+            var oWidth=opts.cropWidth*opts.devicePixelRatio;
+            var oHeight=opts.cropHeight*opts.devicePixelRatio;
             ctx.clearRect(0,0,canvas.width,canvas.height)
-            canvas.width=oWidth;
-            canvas.height=oHeight;
             if((oWidth/oHeight)<(iWidth/iHeight)){
                 console.log("填高")
                 scale=oHeight/iHeight;
@@ -372,9 +373,20 @@
             }
             return {x:x,y:y,dWidth:dWidth,dHeight:dHeight,scale:scale,iWidth:iWidth,iHeight:iHeight}
         }
-        function getCropFile(){
-            var o=getCropInfo(), x=-o.dWidth/2*G.scale+ G.x,y=-o.dHeight/2*G.scale+ G.y;
+        function getCropFile(option){
+            var o=getCropInfo(), x=-o.dWidth/2*G.scale+ G.x,y=-o.dHeight/2*G.scale+ G.y,result;
+            option=option||{};
+            if(option.lowDpi&&opts.enableRatio){
+                o.dHeight/=opts.devicePixelRatio;
+                o.dWidth/=opts.devicePixelRatio;
+                canvas.width/=opts.devicePixelRatio;
+                canvas.height/=opts.devicePixelRatio;
+            }
             ctx.save();
+            if(option.background){
+                ctx.fillStyle=option.background;
+                ctx.fillRect(0,0,canvas.width,canvas.height)
+            }
             ctx.translate(canvas.width/2,canvas.height/2);
             ctx.rotate(Math.PI*G.rotate/180)
             if(G.rotate==90){
@@ -387,13 +399,16 @@
                 x=-o.dWidth/2*G.scale-G.y;
                 y=-o.dHeight/2*G.scale+G.x;
             }
-            console.log(G.preview,-o.dWidth/2*G.scale+ G.x,-o.dHeight/2*G.scale+ G.y, o.dWidth* G.scale, o.dHeight* G.scale)
+            //console.log(G.preview,-o.dWidth/2*G.scale+ G.x,-o.dHeight/2*G.scale+ G.y, o.dWidth* G.scale, o.dHeight* G.scale)
             ctx.drawImage(G.preview,x,y, o.dWidth* G.scale, o.dHeight* G.scale);
-
-            //ctx.drawImage(G.preview,canvas.width/2-o.dWidth/2*G.scale-o.dWidth/2*G.scale,canvas.height/2-o.dHeight/2*G.scale-o.dHeight/2*G.scale, o.dWidth* G.scale, o.dHeight* G.scale);
             //,0,0,G.preview.width*G.scale, G.preview.height*G.scale);//,0,0, G.preview.width*G.scale, G.preview.height*G.scale);
             ctx.restore();
-            return canvas.toDataURL("image/png");
+            result=canvas.toDataURL("image/"+option.type?option.type:'png');
+            if(option.lowDpi&&opts.enableRatio){
+                canvas.width*=opts.devicePixelRatio;
+                canvas.height*=opts.devicePixelRatio;
+            }
+            return result;
         }
         if(!opts.useHammer){
             $(document).on(tapend,function(e) {
@@ -421,6 +436,9 @@
                 _x=left;
                 _y=top;
             })
+        }
+        function getRotateInfo(){
+
         }
         function setCropStyle(o){
             $.extend(G,o)
