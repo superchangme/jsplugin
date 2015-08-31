@@ -38,7 +38,7 @@
        </ul>
    </div>
     <div class="main-box">
-        <div class="main-inner">
+        <div class="main-inner" id="photoInnerBox">
             <!--upload box-->
                    <div class="photo-input-box centerXY" data-step="choose-emoji">
                        <div class="photo-input-mask step-tip">
@@ -47,12 +47,14 @@
                    </div>
             <!--main photo frame box-->
                   <div class="photoFrame centerXY" id="photoFrame">
-                      <div class="photo-bg" id="emojiBg"></div>
-                      <canvas id="photoCanvas"  ></canvas>
+                      <div class="full-p frame-inner">
+                          <div class="photo-bg" id="emojiBg"></div>
+                          <canvas id="photoCanvas"  ></canvas>
                           <canvas id="filterCanvas"  data-caman-hidpi-disabled style="display: none"></canvas>
                           <canvas id="eraserCanvas"   style="display: none"></canvas>
-                      <div class="photo-cover" id="emojiCover"></div>
-                      <canvas id="resultCanvas"   style="display: none;"></canvas>
+                          <div class="photo-cover" id="emojiCover"></div>
+                          <canvas id="resultCanvas"   style="display: none;"></canvas>
+                      </div>
                   </div>
                  <!--steps list-->
                 <div class="step main-step" data-step="text-emoji" >
@@ -151,11 +153,12 @@
     </div>
 </div>
 </body>
-<script  data-main="app" src="../../vendor/require.js" ></script>
-<!--<script   src="../../vendor/main.js" ></script>-->
-
+<script>
+    var baseUrl="../../vendor/";
+</script>
 <script>
     var uploadUrl='http://127.0.0.1/test/upload.php';
+    var APP={version:0.3};
     function sendFile(data){
         var form = new FormData();
         form.append("filetype", data.filetype);
@@ -166,8 +169,11 @@
         xhrForm.send(form);
     }
     document.addEventListener("touchmove",function(e){
-            e.preventDefault();
+        e.preventDefault();
     })
-
 </script>
+<script  data-main="app" src="require.js" ></script>
+<!--<script  src="../../vendor/require.js" ></script>
+<script   src="../../vendor/main.js" ></script>
+<script src="../../vendor/app.js"></script>-->
 </html>

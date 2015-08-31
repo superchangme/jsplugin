@@ -371,6 +371,9 @@ th {
 .clearfix:after {
   clear: both;
 }
+.visible {
+  visibility: visible!important;
+}
 .dib_vt {
   display: inline-block;
   width: 0;
@@ -2764,8 +2767,10 @@ body {
   display: none;
 }
 .photoFrame {
-  width: 100%;
-  height: 100%;
+  /*width: 100%;
+  height: 100%;*/
+  width: 400px;
+  height: 400px;
 }
 .photoFrame * {
   background-repeat: no-repeat !important;

@@ -5,12 +5,12 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define(["jquery",'megapix-image','hammer','tomPlugin'], factory);
+        define(["jquery",'megapix-image'], factory);
     } else {
         // 全局模式
-        factory(jQuery,true)
+        factory(jQuery,MegaPixImage,true)
     }
-})(function($,noGlobal){
+})(function($,MegaPixImage,noGlobal){
     var _ = {};
 
     if(noGlobal===true){

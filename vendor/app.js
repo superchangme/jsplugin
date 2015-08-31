@@ -1,5 +1,4 @@
-
-var G,jquery;
+var APP=APP||{},jquery;
 require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser','slider'],function($,T,IScroll){
     jquery=$;
     Caman.Filter.register("transparent", function (adjust) {
@@ -14,12 +13,14 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             return rgba;
         });
     });
+    var G=APP;
     //step1 上传图片
     G={
         filterPhoto:null,
         pWidth:$("#photoFrame").width(),
         pHeight:$("#photoFrame").width(),
         initX:0,initY:0,
+        transform: T.prefixStyle("transform"),
         emoji:{
             background:null,
             photo:null,
@@ -111,7 +112,10 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             emojiTextScroll:null
         }
     }
-    G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth})
+    G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth});
+    if($("#photoInnerBox").width()>400){
+        G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+($("#photoInnerBox").width()/400)+")").addClass("visible")
+    }
     G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
     G.photoCtx=G.$photoCanvas[0].getContext("2d");
     //step0
