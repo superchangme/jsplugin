@@ -2678,13 +2678,10 @@ body {
   -webkit-animation: flash 0.7s;
   animation: flash 0.7s;
 }
-<<<<<<< HEAD
 .textarea-bg.tip-now {
   -webkit-animation: flash 0.7s;
   animation: flash 0.7s;
 }
-=======
->>>>>>> 9308fe18ff959d615aabbc8fb32c9ae657651c7f
 .verticalAlign {
   vertical-align: middle;
   display: inline-block;
@@ -2735,11 +2732,7 @@ body {
   border-radius: 6px;
   background: #FEC600;
   display: inline-block;
-<<<<<<< HEAD
   padding: 0 18px;
-=======
-  width: 120px;
->>>>>>> 9308fe18ff959d615aabbc8fb32c9ae657651c7f
   height: 60px;
   line-height: 60px;
   color: #222222;
@@ -2822,10 +2815,7 @@ textarea {
   text-align: center;
   height: 100%;
   border: none;
-<<<<<<< HEAD
   overflow: hidden;
-=======
->>>>>>> 9308fe18ff959d615aabbc8fb32c9ae657651c7f
 }
 .main-step {
   bottom: 0;
@@ -2834,11 +2824,7 @@ textarea {
 }
 .main-step .textarea-bg {
   border: 4px dashed #fec600;
-<<<<<<< HEAD
   height: 130px;
-=======
-  height: 120px;
->>>>>>> 9308fe18ff959d615aabbc8fb32c9ae657651c7f
   width: 430px;
   margin: 0 auto;
 }
