@@ -138,13 +138,13 @@
             if(pos!=undefined){
                 pos={top:pos.top||0,left:pos.left||0}
                 if(pos.left=="center"){
-                    pos.left=(this.viewWidth-img.width/this.deviceRatio)/2
+                    pos.left=(this.viewWidth-img.width*bgScale/this.deviceRatio)/2
                 }
                 if(pos.top=="center"){
-                    pos.top=(this.viewHeight-img.height/this.deviceRatio)/2
+                    pos.top=(this.viewHeight-img.height*bgScale/this.deviceRatio)/2
                 }
                 this.ctx.drawImage(img,0,0,img.width,img.height,
-                    pos.left,pos.top,img.width/this.deviceRatio,img.height/this.deviceRatio)
+                    pos.left,pos.top,img.width/this.deviceRatio*bgScale,img.height/this.deviceRatio*bgScale)
             }else if(isCover==true){
                 this.ctx.drawImage(img,0,0,this.viewWidth,this.viewHeight)
             }else{
