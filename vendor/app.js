@@ -1,3 +1,4 @@
+
 var G,jquery;
 require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser','slider'],function($,T,IScroll){
     jquery=$;
@@ -16,8 +17,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
     //step1 上传图片
     G={
         filterPhoto:null,
-        pWidth:400,
-        pHeight:400,
+        pWidth:$("#photoFrame").width(),
+        pHeight:$("#photoFrame").width(),
         initX:0,initY:0,
         emoji:{
             background:null,
@@ -103,12 +104,14 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             G.photoParam.x=0;
             G.photoParam.y=0;
             G.photoParam.scale=1;
+            G.photoParam.rotate=0;
         },
         scroll:{
             emojiListScroll:null,
             emojiTextScroll:null
         }
     }
+    G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth})
     G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
     G.photoCtx=G.$photoCanvas[0].getContext("2d");
     //step0
@@ -246,6 +249,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
              fromCenter:0
              }).moveLayer('emoji',0)*/
         })
+        G.$emojiList.find("li:eq(0) img").trigger("click")
         G.$emojiTextList.delegate(".item","click",function(){
             var val=$.trim($(this).find(".v-table-cell").html().replace("<br>","\n"));
             G.$emojiTextArea.val(val)
@@ -271,6 +275,9 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 G.$photoCanvas.animateLayer(G.currentLayer,G.photoParam,0)
             }
         });
+        $(document).one("moveInput",function(){
+            G.$photoInput.appendTo(G.currentStepDom.find(".back-step"));
+        })
         G.photoCrop= T.cropImage({
             bindFile:$("#photoInput"),
             cropWidth: G.pWidth/window.devicePixelRatio,
@@ -280,6 +287,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             onLoad:function(data){
                 updateStep("drag-emoji")
                 G.$uploadMask.hide().addClass("wait");
+                $(document).trigger("moveInput");
                 G.btns.$backStepBtn.removeAttr("disabled")
                 G.resetPhotoConfig();
                 G.emoji.photo=data.originSrc;
@@ -391,8 +399,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 fromCenter:true,
                 fontSize: G.$emojiTextArea.css("font-size"),
                 fontFamily:G.$emojiTextArea.css("font-family") ,
-                x:200,y:345,
-                width:400,height:120,maxWidth: 400,lineHeight:"1.2"
+                x: G.pWidth/2,y: G.pHeight-60,
+                width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
             }
         ).drawLayers();
     }

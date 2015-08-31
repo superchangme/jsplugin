@@ -2735,6 +2735,19 @@ body {
 .btn-label[disabled] {
   color: #666666;
 }
+.btn-label[disabled] input {
+  display: none;
+}
+[data-step=choose-emoji] a.back-step {
+  position: relative;
+}
+[data-step=choose-emoji] a.back-step input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px!important;
+  height: 150px!important;
+}
 .btn-yellow {
   cursor: pointer;
   border-radius: 6px;
