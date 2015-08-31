@@ -27,7 +27,11 @@
         }
         this.element = element;
         if(!this.customCanvas){
-            this.canvas = $(element).find("canvas.eraser")[0];
+            if($(element).is("canvas")){
+                this.canvas=element;
+            }else{
+                this.canvas = $(element).find("canvas.eraser")[0];
+            }
         }else{
             this.canvas= this.customCanvas;
         }
@@ -337,7 +341,7 @@
 
     function getAlphaNoZeroNum(imgData,self){
         var dd= 0;
-        for(var x=0;x<imgData.width;x+=self.density){
+        for(var x=0;x<imgData.width;x+=1){
             for(var y=0;y<imgData.height;y+=self.density){
                 // console.log(dd++)
                 if(imgData.data[x*imgData.width*4+y*4+3] >0){

@@ -82,7 +82,9 @@ body{
   ul.step-tip.tip-now{
     .animation(flash 0.7s)
   }
-
+}
+.textarea-bg.tip-now{
+  .animation(flash 0.7s)
 }
 .verticalAlign{ vertical-align:middle; display:inline-block; height:100%; width:1px; margin-left:-1px;}
 #emoji-tpl-list li{
@@ -127,8 +129,8 @@ text-align: center;
   border-radius: 6px;
   background: #FEC600;
   display: inline-block;
-  width: 120px;
-  height: 60px;
+  padding:0 18px;
+    height: 60px;
   line-height: 60px;
   color: #222222;
   vertical-align: middle;
@@ -208,6 +210,7 @@ textarea{
   text-align: center;
   height: 100%;
   border: none;
+  overflow: hidden;
 }
 .main-step{
   bottom: 0;
@@ -215,7 +218,7 @@ textarea{
   position: absolute;
   .textarea-bg{
     border:4px dashed #fec600;
-    height: 120px;
+    height: 130px;
     width: 430px;
     margin: 0 auto;
   }

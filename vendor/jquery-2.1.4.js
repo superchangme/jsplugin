@@ -2827,7 +2827,6 @@ var rootjQuery,
 			this.selector = selector.selector;
 			this.context = selector.context;
 		}
-
 		return jQuery.makeArray( selector, this );
 	};
 

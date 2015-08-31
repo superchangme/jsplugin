@@ -40,7 +40,7 @@
     <div class="main-box">
         <div class="main-inner">
             <!--upload box-->
-                   <div class="photo-input-box centerXY">
+                   <div class="photo-input-box centerXY" data-step="choose-emoji">
                        <div class="photo-input-mask step-tip">
                            <input type="file"   accept="image/*;capture=camrea" id="photoInput"/>
                        </div>
@@ -48,15 +48,16 @@
             <!--main photo frame box-->
                   <div class="photoFrame centerXY" id="photoFrame">
                       <div class="photo-bg" id="emojiBg"></div>
-                      <canvas id="photoCanvas" width="400" height="400"></canvas>
+                      <canvas id="photoCanvas" width="400" height="400" ></canvas>
                           <canvas id="filterCanvas" width="400" height="400" data-caman-hidpi-disabled style="display: none"></canvas>
                           <canvas id="eraserCanvas" width="400" height="400"  style="display: none"></canvas>
-                      <canvas id="resultCanvas" width="400" height="520"  style="display: none;height:520px"></canvas>
                       <div class="photo-cover" id="emojiCover"></div>
+                      <canvas id="resultCanvas" width="400" height="400"  style="display: none;"></canvas>
+
                   </div>
                  <!--steps list-->
                 <div class="step main-step" data-step="text-emoji" >
-                    <div class="textarea-bg">
+                    <div class="textarea-bg step-tip">
                               <textarea id="emojiTextArea">
 
                     </textarea>
@@ -120,8 +121,7 @@
                         </div>
                         <div class="item-box">
                             <div class="item">哎哟卧操！</div>
-                            <div class="item">孩子，你需要
-                                治疗</div>
+                            <div class="item">孩子，你需要治疗</div>
                         </div>
                         <div class="item-box">
                             <div class="item">呵呵呵</div>
@@ -132,8 +132,6 @@
                 </div>
         </div>
         <div class="step" data-step="confirm-emoji" >
-            <a class="btn-label back-step" >上一步</a>
-            <a class="btn-yellow pull-right next-step">确认添加</a>
         </div>
 
     </div>
@@ -164,7 +162,7 @@
 <script src="../../vendor/require.js" ></script>
 <script src="../../vendor/main.js"></script>
 <script>
-    var uploadUrl='http://127.0.0.1/tom/test.php';
+    var uploadUrl='http://127.0.0.1/test/upload.php';
     function sendFile(data){
         var form = new FormData();
         form.append("filetype", data.filetype);
@@ -303,10 +301,10 @@
                if($(this).is("[disabled]")){
                    return;
                }
-             /*  if(checkIsLock()){
+               if(checkIsLock()){
                    showTips();
                    return;
-               }*/
+               }
                switch(G.currentStep){
                    case "choose-emoji":
 //                       updateStep('text-emoji');
@@ -317,8 +315,9 @@
                        G.startErase(updateStep.bind(null,'erase-emoji'));
                        break;
                    case "erase-emoji":
-                       G.emoji.photoWithErase=G.$photoCanvas[0].toDataURL("image/png");
+                       G.emoji.photoWithErase=G.$eraserCanvas[0].toDataURL("image/png");
                        updateStep('text-emoji');
+                       G.stepLock=true;
                        G.$eraserCanvas.eraser("stop");
                        break;
                    case 'text-emoji':
@@ -331,7 +330,7 @@
                        });
                        break;
                    case 'confirm-emoji':
-                       sendFile({imageData:G.$photoCanvas[0].toDataURL("image/png").substring(22),filetype:"png"});
+                       sendFile({imageData:G.$resultCanvas[0].toDataURL("image/png").substring(22),filetype:"png"});
                }
            })
            //soga step
@@ -339,14 +338,16 @@
                if(G.isBusyWork){
                    return
                }
-               var work;
-               if(checkIsLock()){
-                     return;
+               if($(this).is("[disabled]")){
+                   return;
                }
+               G.stepLock=false;
                switch(G.currentStep){
                    case "choose-emoji":
-                       G.$photoCanvas.removeLayer("photo").drawLayers();
+                       $(this).attr("disabled",true);
+                       G.$photoCanvas.removeLayers();
                        G.$uploadMask.show();
+                       G.emoji.photo='';
                        break;
                    case "filter-emoji":
                        updateStep('choose-emoji');
@@ -363,14 +364,18 @@
                        G.startErase();
                        break;
                    case 'confirm-emoji' :
+                       G.emoji.text='';
+                       G.$emojiTextArea.val('');
+                       G.stepLock=true;
+                       G.$eraserCanvas.show();
+                       G.$resultCanvas.hide();
                        updateStep('text-emoji');
                        break;
-
                }
            });
            G.scroll.emojiListScroll=new IScroll('#emoji-tpl-list', {
                //click:iScrollClick(),
-               preventDefault:false,
+                preventDefault:false,
                preventDefaultException:{tagName:/^(INPUT|TEXTAREA|BUTTON|SELECT|A)/},
                scrollbars: true,
                mouseWheel: true,
@@ -445,12 +450,13 @@
            });
            G.photoCrop= T.cropImage({
                bindFile:$("#photoInput"),
-               cropWidth: G.pWidth,
-               cropHeight: G.pHeight,
+               cropWidth: G.pWidth/window.devicePixelRatio,
+               cropHeight: G.pHeight/window.devicePixelRatio,
                oninit:function(){
                },
                onLoad:function(data){
-                   G.$uploadMask.hide();
+                   updateStep("drag-emoji")
+                   G.$uploadMask.hide().addClass("wait");
                    G.btns.$backStepBtn.removeAttr("disabled")
                    G.resetPhotoConfig();
                    G.emoji.photo=data.originSrc;
@@ -528,19 +534,19 @@
        }
        //draw result
        function drawResult(cb){
-           G.$resultCanvas.removeLayers().
-                   drawImage({
+           G.$resultCanvas.removeLayers()  .
+                 drawImage({
                        source: G.emoji.background,
                        layer:true,
                        name:"photoBg",
                        x:0,y:0,width: G.pWidth,
-                       height: G.pWidth , fromCenter:false
+                       height: G.pHeight , fromCenter:false
                    }).drawImage({
                        source: G.emoji.photoWithErase,
                        layer:true,
                        name:"photo",
                        x:0,y:0,width: G.pWidth,
-                       height: G.pWidth , fromCenter:false,load:function(){
+                       height: G.pHeight , fromCenter:false,load:function(){
                            if(cb){
                                cb();
                            }
@@ -551,18 +557,19 @@
                        layer:true,
                        name:"photoMask",
                        x:0,y:0,width: G.pWidth,
-                       height: G.pWidth , fromCenter:false
+                       height: G.pHeight , fromCenter:false
                    }).drawText(
                    {
-                       text: G.$emojiTextArea.val(),
+                       text: G.emoji.text,
                        layer:true,
                        name:"text",
                        fillStyle: '#000',
                        fontStyle: 'bold',
+                       fromCenter:true,
                        fontSize: G.$emojiTextArea.css("font-size"),
                        fontFamily:G.$emojiTextArea.css("font-family") ,
-                       x:200,y:400+60,
-                       width:400,height:120,maxWidth: 400,lineHeight:getLineNum(G.$emojiTextArea,2).lineNum*60+'px'
+                       x:200,y:345,
+                       width:400,height:120,maxWidth: 400,lineHeight:"1.2"
                    }
            ).drawLayers();
        }
@@ -599,9 +606,10 @@
                          groups:['emojiGroup'],
                          layer:true,
                          name:'filter',
+                         x:0,y:0,
                          fromCenter: false,
-                         width: G.photoParam.width,
-                         height: G.photoParam.height,
+                         width: G.pWidth,
+                         height: G.pHeight,
                          load:function(){
                              if(typeof cb=="function"){
                                  cb()
@@ -645,7 +653,7 @@
                        contrast(parseFloat(G.$contrast.val()))./*.sharpen(6)*/
                        exposure(parseFloat(G.$exposure.val())).transparent(180).render(function(){
 //                           G.$loading.hide()
-                            G. filterSrc= G.$filterCanvas[0].toDataURL("image/png")
+                           G.filterSrc= G.$filterCanvas[0].toDataURL("image/png")
                            drawFilter(function(){
                                G.$photoCanvas.animateLayer("filter",{},0);
                                if(work&&typeof work.resolve=="function"){
@@ -657,12 +665,30 @@
        }
        //前进后退
        function updateStep(step){
+           var title;
+           if(step!="drag-emoji"){
                G.currentStepDom.hide();
-           G.currentStepDom= G.steps.filter('[data-step='+step+']').show();
-           G.currentStep=step;
-           for(var scrollName in G.scroll){
-               G.scroll[scrollName].refresh();
+               G.currentStepDom= G.steps.filter('[data-step='+step+']:not(.wait)').show();
+               G.currentStep=step;
+               for(var scrollName in G.scroll){
+                   G.scroll[scrollName].refresh();
+               }
            }
+             switch(step){
+                 case "choose-emoji":
+                     title='选择表情';break;
+                 case "drag-emoji":
+                     title="调整位置";break;
+                 case "filter-emoji":
+                     title="加滤镜";break;
+                 case 'erase-emoji':
+                     title='擦一擦';break;
+                 case 'text-emoji':
+                     title='添加文字';break;
+                 case 'confirm-emoji':
+                     title='确认提交';break;
+             }
+           document.title=title;
        }
        function checkIsLock(){
            switch (G.currentStep){
@@ -671,11 +697,22 @@
                        G.stepLock=false;
                    }
                    break;
+               case "text-emoji":
+                   if(G.emoji.text){
+                       G.stepLock=false;
+                   }
+                   break;
            }
            return G.stepLock;
        }
        function showTips(dom){
-           dom=dom||G.currentStepDom.find(".step-tip:not(.ok)");
+           dom=dom||[]
+           if(dom.length==0){
+               G.currentStepDom.each(function(){
+                   dom=$.makeArray(dom,$(this).find(".step-tip:not(.ok)"))
+               })
+           }
+
            var delay=0;
            dom.each(function(index,item){
                T.animateGroup({group: $(item),waitTime:delay,frameClass:["tip-now"],duration:1000,loopTimes:1})
@@ -694,20 +731,20 @@
 
            // Callback function
            onSlide: function(position, value) {
-               console.log('onSlide');
-               console.log('position: ' + position, 'value: ' + value);
+//               console.log('onSlide');
+//               console.log('position: ' + position, 'value: ' + value);
            },
 
            // Callback function
            onSlideEnd: function(position, value) {
-               console.log('onSlideEnd');
-               console.log('position: ' + position, 'value: ' + value);
+              // console.log('onSlideEnd');
+               //console.log('position: ' + position, 'value: ' + value);
            }
        });
 
        function getLineNum(dom,lineNum){
            var text=$(dom).val(),lineHeight=$(dom).css("line-height"),width=$(dom).width(),fontSize=$(dom).css("font-size"),fontFa=$(dom).css("font-family");;
-              var $text=$("<div style='position: absolute;height:0;width: 0;'><div></div></div>"),textnum;
+              var $text=$("<div style='position: absolute;height:0;width: 0;'><div></div></div>"),textnum= 1,temp="",$textarea;
            $text.find("div").css({
                position:"relative",
                opacity: 0,
@@ -718,9 +755,18 @@
                width:width
            });
            $text.appendTo($("body"))
-           $text.find("div").html(text)
-            textnum=Math.ceil($text.find("div").height()/parseInt(lineHeight));
+           $textarea=$text.find("div");
+           for(var i= 0,l=text.length;i<l;i++){
+               temp+=text[i];
+               $textarea.html(temp)
+                if(Math.ceil($textarea.height()/parseInt(lineHeight))>textnum){
+                    textnum+=1;
+                    temp=temp.replace(/(.$)/,"\n$1")
+                }
+           }
+//            textnum=Math.ceil($text.find("div").height()/parseInt(lineHeight));
            $text.remove();
+           G.emoji.text=temp;
             return {limit:textnum >lineNum,lineNum:textnum}
        }
        /*function getLineNum(text,num,line) {
