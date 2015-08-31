@@ -1,0 +1,167 @@
+/*step1*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: arial, sans-serif;
+  font-size: 100%;
+  background-color: lightsteelblue;
+  color: #fff;
+}
+h2,
+p {
+  font-size: 100%;
+  font-weight: normal;
+}
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+ul,
+li {
+  list-style: none;
+}
+ul {
+  padding: 0 10% ;
+  width: 100%;
+  font-size: 0;
+}
+ul li {
+  /*����ֽ�ڰ�����ʾ������ʹ��floatʵ��Ч��*/
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  margin: 1em 1em 3em;
+  font-size: 16px;
+}
+ul a {
+  /*ʹ��box-shadow������ӰЧ��*/
+  -moz-box-shadow: 5px 5px 7px rgba(111, 111, 111, 0.5);
+  -webkit-box-shadow: 5px 5px 7px rgba(111, 111, 111, 0.5);
+  box-shadow: 5px 5px 7px rgba(111, 111, 111, 0.5);
+  /*ʹ��transform�е�rotate������תЧ��*/
+  -webkit-transform: rotate(-6deg);
+  -o-transform: rotate(-6deg);
+  -moz-transform: rotate(-6deg);
+  -ms-transform: rotate(-6deg);
+  transform: rotate(-6deg);
+  /*ʹ��transition��transform���Ա仯����������*/
+  -moz-transition: -moz-transform 0.15s linear;
+  -webkit-transition: -webkit-transform 0.15s linear;
+  -o-transition: -o-transform 0.15s linear;
+  -ms-transition: -ms-transform 0.15s linear;
+  transition: transform .15s linear;
+  /*Ϊ�����Ľ�ֽЧ���趨һ������ֵ*/
+  position: relative;
+  /*ʵ��һ���ķ��εı�ǩֽЧ��*/
+  display: inline-block;
+  height: 10em;
+  width: 10em;
+  font-size: 18px;
+  text-decoration: none;
+  color: #050587;
+  background-color: white;
+  padding: 40px 1em 1em;
+}
+/*ʹ��CSS3α��ѡ�����е�":before"������ֽЧ��*/
+ul a:before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  margin-left: -8px;
+  width: 18px;
+  height: 18px;
+  z-index: 2;
+  background-color: #3B7CA7;
+  border-radius: 100%;
+}
+/*ʹ��CSS3α��ѡ�����е�":before"��������Ч��*/
+ul a:after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  margin-left: -11px;
+  width: 22px;
+  height: 22px;
+  background-color: #5BAFC6;
+  border-radius: 100%;
+  border: 1px solid #142C7E;
+  box-shadow: 2px 2px 2px #A3AAB4;
+}
+ul .label {
+  position: absolute;
+  top: -20px;
+  left: 20%;
+  width: 110px;
+  height: 40px;
+  background-color: white;
+  border-left: 1px dashed rgba(0, 0, 0, 0.1);
+  border-right: 1px dashed rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+}
+/*step2*/
+ul p {
+  font-family: 'Mr Bedfort', cursive;
+  font-size: 180%;
+}
+ul h2 {
+  font-family: 'Eater', cursive;
+  font-size: 140%;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-top: 5px;
+}
+/*step3*/
+/*����2��4��6��8...2n���ı�ǩ�ı���תֵ�ͱ���ɫ*/
+ul li:nth-child(even) a {
+  -webkit-transform: rotate(4deg);
+  -o-transform: rotate(4deg);
+  -moz-transform: rotate(4deg);
+  -ms-transform: rotate(4deg);
+  transform: rotate(4deg);
+  position: relative;
+  top: 5px;
+}
+/*����3��6��9...3n���ı�ǩ�ı���תֵ�ͱ���ɫ*/
+ul li:nth-child(3n) a {
+  -webkit-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+  position: relative;
+  top: -5px;
+}
+/*����5,10,15...5n���ı�ǩ�ı���תֵ�ͱ���ɫ*/
+ul li:nth-child(5n) a {
+  -webkit-transform: rotate(5deg);
+  -o-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+  -ms-transform: rotate(5deg);
+  transform: rotate(5deg);
+  position: relative;
+  top: -10px;
+}
+/*�ı���Ӧ�Ľ�ֽɫ*/
+/*step4*/
+ul li a:hover,
+ul li a:focus {
+  /*�ı���ӰЧ��*/
+  -moz-box-shadow: 10px 10px 7px rgba(111, 111, 111, 0.5);
+  -webkit-box-shadow: 10px 10px 7px rgba(111, 111, 111, 0.5);
+  box-shadow: 10px 10px 7px rgba(111, 111, 111, 0.5);
+  /*ʹ��transform�е�scale����ǩֽ�Ŵ�*/
+  -moz-transform: scale(1.25);
+  -webkit-transform: scale(1.25);
+  -o-transform: scale(1.25);
+  -ms-transform: scale(1.25);
+  transform: scale(1.25);
+  position: relative;
+  z-index: 5;
+}

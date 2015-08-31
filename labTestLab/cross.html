@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+<script>
+    function loadFrame(src,cb){
+        var isFirst=false;
+        var frame=document.createElement("iframe");
+        var selfSrc='about:blank';
+        var loaded=false
+        frame.style.display='none';
+        document.body.appendChild(frame)
+        frame.addEventListener("load",function(){
+            isFirst=true;
+            if(loaded==false){
+                loaded=true;
+//                console.log(frameWindow)
+                frame.contentWindow.location.href=selfSrc;
+            }else{
+                cb.call(null,frame.contentWindow.name)
+                document.body.removeChild(frame)
+            }
+        })
+        frame.src=src;
+    }
+    loadFrame("http://127.0.0.1/test/upload.php",function(data){
+        console.log(data)
+    })
+</script>
+</html>
