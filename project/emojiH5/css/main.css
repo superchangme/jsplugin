@@ -377,6 +377,12 @@ th {
   height: 100%;
   vertical-align: top;
 }
+.dib_vm {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+}
 .vb {
   vertical-align: bottom;
 }
@@ -2783,27 +2789,32 @@ body {
   margin: 20px;
 }
 #emoji-text-list .item-row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  white-space: nowrap;
+  /*   display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;*/
 }
 #emoji-text-list .item-box {
-  display: flex;
   width: 220px;
   margin-right: 10px;
-  flex-flow: column nowrap;
+  /*    display: flex;
+    flex-flow: column nowrap;*/
 }
 #emoji-text-list .item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /*    display: flex;
+    justify-content: center;
+    align-items: center;*/
+  width: 220px;
+  margin-right: 10px;
+  height: 120px;
   position: relative;
+  vertical-align: top;
+  display: inline-block;
   border-radius: 6px;
   background-color: #000;
   text-align: center;
   margin-bottom: 10px;
   white-space: normal;
-  height: 120px;
 }
 textarea {
   background: white;

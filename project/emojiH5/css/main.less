@@ -177,27 +177,32 @@ text-align: center;
 #emoji-text-list{
   margin: 20px;
   .item-row{
-    display: flex;
+    white-space: nowrap;
+ /*   display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap;*/
   }
   .item-box{
-    display: flex;
     width: 220px;
     margin-right: 10px;
-    flex-flow: column nowrap;
+/*    display: flex;
+    flex-flow: column nowrap;*/
   }
   .item{
-    display: flex;
+/*    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;*/
+    width: 220px;
+    margin-right: 10px;
+    height: 120px;
     position: relative;
+    vertical-align: top;
+    display: inline-block;
     border-radius: 6px;
     background-color: #000;
     text-align: center;
     margin-bottom: 10px;
     white-space: normal;
-    height: 120px;
   }
 }
 textarea{
