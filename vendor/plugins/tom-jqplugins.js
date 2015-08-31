@@ -1,7 +1,7 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define(["jquery","hammer",'hammer.fake','hammer.showtouch' ], factory);
+        define(["jquery","hammer",'hammer.fake','hammer.showtouch','megapix-image' ], factory);
     } else {
         // 全局模式
         factory()
@@ -73,7 +73,7 @@
                     case 'transform':
                         rotation = last_rotation + ev.gesture.rotation;
                         scale = Math.max(0, Math.min(last_scale * ev.gesture.scale, 10));
-                        opts.gestureCb.call(self,{scale:scale})
+                        opts.gestureCb.call(self,{scale:scale,rotate:rotation})
                         break;
                     case 'dragend':
                         lastPosX = posX;

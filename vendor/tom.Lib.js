@@ -5,17 +5,13 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define(["jquery",'hammer','tomPlugin'], factory);
+        define(["jquery",'megapix-image','hammer','tomPlugin'], factory);
     } else {
         // 全局模式
         factory(jQuery,window)
     }
-})(function($,global){
-
+})(function($,MegaPixImage){
     var _ = {};
-    if(global){
-        window.tomLib=_;
-    }
     //browser support feature obj
     _.support={};
 
@@ -335,15 +331,18 @@
                     $bindPreview.prop("src",'');
                     ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files){
-                        var temp,preview=this.files[0],defer=$.Deferred();
+                        var temp,mega,preview=this.files[0],defer=$.Deferred();
                         var img = new Image();
-                        img.onload=function(){
+                        img.tagName="img";
+                        mega=new MegaPixImage(preview);
+                        mega.render(img,{ maxWidth: 1024, maxHeight: 1024,quality:1 },function(){
                             G.preview=img;
                             var o=getCropInfo();
                             $bindPreview.prop("style",'')
                             opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio})
-                        }
-                        img.src = URL.createObjectURL(preview);
+                        })
+                        //img.src = URL.createObjectURL(preview);
+                    //    { maxWidth: 1024, maxHeight: 1024,quality:0.5 }
                     }
                     opts.bindFile.after(opts.bindFile.clone()).remove();
                 })

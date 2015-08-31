@@ -6,8 +6,8 @@
             name: 'app'
         }
     ],
-    include:"app.js",
-    fileExclusionRegExp: /^(r|build)\.js$/,
+    include:["app.js"],
+    //fileExclusionRegExp: /^(r|build|(?!app))\.js$/,
     paths: {
         "jquery": "jquery-2.1.4",
         "jquery.eraser":"jquery.eraser",

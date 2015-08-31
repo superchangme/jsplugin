@@ -13,7 +13,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             return rgba;
         });
     });
-    //step1 ÉÏ´«Í¼Æ¬
+    //step1 ä¸Šä¼ å›¾ç‰‡
     G={
         filterPhoto:null,
         pWidth:400,
@@ -131,7 +131,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             switch(G.currentStep){
                 case "choose-emoji":
 //                       updateStep('text-emoji');
-                    work=new WorkMan("¼ÓÔØÂË¾µĞ§¹û",updateStep.bind(null,'filter-emoji'));
+                    work=new WorkMan("åŠ è½½æ»¤é•œæ•ˆæœ",updateStep.bind(null,'filter-emoji'));
                     loadFilter(G.$photoCanvas[0].toDataURL("image/png"),work);
                     break;
                 case "filter-emoji":
@@ -145,7 +145,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     break;
                 case 'text-emoji':
                     updateStep('confirm-emoji');
-                    work=new WorkMan("Éú³É×îÖÕĞ§¹û",updateStep.bind(null,'confirm-emoji'));
+                    work=new WorkMan("ç”Ÿæˆæœ€ç»ˆæ•ˆæœ",updateStep.bind(null,'confirm-emoji'));
                     drawResult(function(){
                         work.resolve();
                         G.$resultCanvas.show();
@@ -168,7 +168,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             switch(G.currentStep){
                 case "choose-emoji":
                     $(this).attr("disabled",true);
-                    G.$photoCanvas.removeLayers();
+                    G.$photoCanvas.removeLayers().drawLayers();
                     G.$uploadMask.show();
                     G.emoji.photo='';
                     break;
@@ -218,7 +218,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             shrinkScrollbars: 'scale',
             fadeScrollbars: true
         });
-        //ÉÏ´«°´Å¥µã»÷ÌáÊ¾
+        //ä¸Šä¼ æŒ‰é’®ç‚¹å‡»æç¤º
 
         G.$photoInput.on("click",function(e){
             if(!G.emoji.background){
@@ -247,7 +247,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
              }).moveLayer('emoji',0)*/
         })
         G.$emojiTextList.delegate(".item","click",function(){
-            var val=$.trim($(this).html().replace("<br>","\n"));
+            var val=$.trim($(this).find(".v-table-cell").html().replace("<br>","\n"));
             G.$emojiTextArea.val(val)
             var r=getLineNum(G.$emojiTextArea,2),oldVal=$(this).data("oldVal");
             if(r.limit){
@@ -283,7 +283,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 G.btns.$backStepBtn.removeAttr("disabled")
                 G.resetPhotoConfig();
                 G.emoji.photo=data.originSrc;
-                var work=new WorkMan("³õÊ¼»¯ÕÕÆ¬");
+                var work=new WorkMan("åˆå§‹åŒ–ç…§ç‰‡");
                 var imInfo=G.photoCrop.getCropInfo()
                 G.photoParam.width=imInfo.dWidth;
                 G.photoParam.height=imInfo.dHeight;
@@ -294,7 +294,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         });
 
         $(".adjust-input").on("change",filterCanton)
-        //¼ÓÔØÂË¾µ
+        //åŠ è½½æ»¤é•œ
         //step
         $("#filterBtn").on("click",function(){
             loadFilter(G.$photoCanvas[0].toDataURL("image/png"))
@@ -348,7 +348,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 errcb(err);
             }
             else{
-                alert('³ö´í¿©£¬ÔÙÊÔÒ»´Î°É!')
+                alert('å‡ºé”™å’¯ï¼Œå†è¯•ä¸€æ¬¡å§!')
             }
             G.isBusyWork=false;
 //               waitLoad.removeClass("open");
@@ -465,7 +465,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             filterCanton(work);
         })
     }
-    //ÂË¾µ
+    //æ»¤é•œ
     function filterCanton(work){
         if(G.filterPhoto){
             G.stopUserMove();
@@ -486,7 +486,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 });
         }
     }
-    //Ç°½øºóÍË
+    //å‰è¿›åé€€
     function updateStep(step){
         var title;
         if(step!="drag-emoji"){
@@ -499,17 +499,17 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         }
         switch(step){
             case "choose-emoji":
-                title='Ñ¡Ôñ±íÇé';break;
+                title='é€‰æ‹©è¡¨æƒ…';break;
             case "drag-emoji":
-                title="µ÷ÕûÎ»ÖÃ";break;
+                title="è°ƒæ•´ä½ç½®";break;
             case "filter-emoji":
-                title="¼ÓÂË¾µ";break;
+                title="åŠ æ»¤é•œ";break;
             case 'erase-emoji':
-                title='²ÁÒ»²Á';break;
+                title='æ“¦ä¸€æ“¦';break;
             case 'text-emoji':
-                title='Ìí¼ÓÎÄ×Ö';break;
+                title='æ·»åŠ æ–‡å­—';break;
             case 'confirm-emoji':
-                title='È·ÈÏÌá½»';break;
+                title='ç¡®è®¤æäº¤';break;
         }
         document.title=title;
     }
