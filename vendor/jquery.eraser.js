@@ -13,13 +13,15 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define([ "jquery" ], factory);
+        define([ "jquery",'tomLib' ], factory);
     } else {
         // 全局模式
-        factory(jQuery)
+        factory(jQuery,true)
     }
-})(function($){
-
+})(function($,noGlobal){
+    if(noGlobal===true){
+        var tomLib=window.tomLib
+    }
     // 这里才是插件真正的构造函数
     var Eraser=function(element,options){
         for(var i in options){
@@ -46,10 +48,19 @@
             this.canvas.className = "eraser";
         }
 
+
         if(!this.customCanvas){
             this.canvas.width = this.container.clientWidth;
             this.canvas.height = this.container.clientHeight;
         }
+        if(this.container){
+            this.viewHeight = this.container.clientHeight;
+            this.viewWidth = this.container.clientWidth;
+        }else{
+            this.viewHeight=this.canvas.width;
+            this.viewWidth=this.canvas.height;
+        }
+
         if(this.canvas.tagName!="CANVAS" && !typeof  this.canvas.getContext=="function"){
             console.log("浏览器不支持canvas或者传入了错误的canvas对象");
             return;
@@ -67,6 +78,7 @@
         interval:100,
         noneedCalc:null,
         checkPng:false,
+        deviceRatio:window.devicePixelRatio||1,
         namespace:".eraser",
         alphaNoZeroNum:0,
         beforeInit:function(){console.log("初始化开始")},
@@ -78,44 +90,31 @@
     };
 
     Eraser.prototype.init=function(){
-        var self=this;
+        var self=this,deferList;
         this.ctx.globalCompositeOperation = "source-over";
         //this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
         this.isStop=false;
-        var ratio= 1,start= 0,pos,bgScale=this.bgScale||1;
-        if(this.bgColor){
+        if (this.bgColor) {
             this.ctx.save();
-            this.ctx.fillStyle=this.bgColor;
-            this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+            this.ctx.fillStyle = this.bgColor;
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.restore();
         }
-        if(this.bgImage!=null){
-            if(this.bgPos!=undefined){
-                pos={top:this.bgPos.top||0,left:this.bgPos.left||0}
-                if(pos.left=="center"){
-                    pos.left=(this.canvas.width-this.bgImage.width*bgScale)/2
-                }
-                if(pos.top=="center"){
-                    pos.top=(this.canvas.height-this.bgImage.height*bgScale)/2
-                }
-                this.ctx.drawImage(this.bgImage,0,0,this.bgImage.width,this.bgImage.height,
-                    pos.left,pos.top,this.bgImage.width*bgScale,this.bgImage.height*bgScale)
-            }else if(this.bgCover==true){
-                this.ctx.drawImage(this.bgImage,0,0,this.canvas.width,this.canvas.height)
-            }else{
-                if(this.bgImage.width/this.bgImage.height>this.canvas.width/this.canvas.height){
-                    ratio=this.bgImage.height/this.canvas.height;
-                    start=Math.abs((this.bgImage.width-this.canvas.width*ratio)/2);
-                    this.ctx.drawImage(this.bgImage,start,
-                        0,this.bgImage.width-2*start,this.bgImage.height,0,0,this.canvas.width,this.canvas.height);
-                }else if(this.bgImage.width/this.bgImage.height<this.canvas.width/this.canvas.height){
-                    ratio=this.bgImage.width/this.canvas.width;
-                    start=Math.abs((this.bgImage.height-this.canvas.height*ratio)/2);
-                    this.ctx.drawImage(this.bgImage,
-                        0,start,this.bgImage.width,this.bgImage.height-2*start,0,0,this.canvas.width,this.canvas.height);
-                }else{
-                    this.ctx.drawImage(this.bgImage,0,0,this.canvas.width,this.canvas.height);
-                }
+        if (this.imgList) {
+            deferList=new tomLib.DeferredList(this.imgList.length);
+            var imgList=[],img;
+            for (var i = 0,l=this.imgList.length; i < l; i++){
+                (function(index){
+                    img=new Image();
+                    img.onload=function(){
+                        deferList.dealItem(index);
+                    }
+                    img.src=self.imgList[index].imgSrc;
+                    imgList.push(img);
+                    deferList.getItem(index).addCallbacks(function(){
+                        self.addImage(imgList[index],self.imgList[index].bgPos,self.imgList[index].bgScale,self.imgList[index].isCover)
+                    })
+                })(i);
             }
         }
         this.beforeInit();
@@ -133,7 +132,38 @@
             self[self["clipMethod"]]();
         },100)
     }
-
+    Eraser.prototype.addImage=function(img,pos,scale,isCover){
+        var ratio = 1, start = 0, bgScale = scale || 1;
+        if(img!=null){
+            if(pos!=undefined){
+                pos={top:pos.top||0,left:pos.left||0}
+                if(pos.left=="center"){
+                    pos.left=(this.viewWidth-img.width/this.deviceRatio)/2
+                }
+                if(pos.top=="center"){
+                    pos.top=(this.viewHeight-img.height/this.deviceRatio)/2
+                }
+                this.ctx.drawImage(img,0,0,img.width,img.height,
+                    pos.left,pos.top,img.width/this.deviceRatio,img.height/this.deviceRatio)
+            }else if(isCover==true){
+                this.ctx.drawImage(img,0,0,this.viewWidth,this.viewHeight)
+            }else{
+                if(img.width/img.height>this.canvas.width/this.canvas.height){
+                    ratio=img.height/this.viewHeight;
+                    start=Math.abs((img.width-this.viewWidth*ratio)/2);
+                    this.ctx.drawImage(img,start,
+                        0,img.width-2*start,img.height,0,0,this.viewWidth,this.viewHeight);
+                }else if(img.width/img.height<this.canvas.width/this.canvas.height){
+                    ratio=img.width/this.viewWidth;
+                    start=Math.abs((img.height-this.viewHeight*ratio)/2);
+                    this.ctx.drawImage(img,
+                        0,start,img.width,img.height-2*start,0,0,this.viewWidth,this.viewHeight);
+                }else{
+                    this.ctx.drawImage(img,0,0,this.viewWidth,this.viewHeight);
+                }
+            }
+        }
+    }
     Eraser.prototype.stop=function(){
         this.isStop=true;
     }
@@ -317,7 +347,6 @@
     }
 
 
-    var old = $.fn.eraser;
     $.fn.eraser = function (option, value) {
         return this.each(function () {
             var $this=$(this);
@@ -328,11 +357,14 @@
             if (action) data[action](value)
         })
     }
+
     $.fn.eraser.Constructor = Eraser
 
 
     // MODAL NO CONFLICT
     // =================
+
+    var old = $.fn.eraser;
 
     $.fn.eraser.noConflict = function () {
         $.fn.eraser = old

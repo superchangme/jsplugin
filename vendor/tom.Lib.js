@@ -8,10 +8,14 @@
         define(["jquery",'megapix-image','hammer','tomPlugin'], factory);
     } else {
         // 全局模式
-        factory(jQuery,window)
+        factory(jQuery,true)
     }
-})(function($,MegaPixImage){
+})(function($,noGlobal){
     var _ = {};
+
+    if(noGlobal===true){
+        var MegaPixImage=window.MegaPixImage
+    }
     //browser support feature obj
     _.support={};
 
@@ -490,6 +494,11 @@
         },opts.waitTime||0)
         return reset;
     }
+
+    if (noGlobal===true ) {
+        window.tomLib =  _;
+    }
+
     return _;
 });
 
