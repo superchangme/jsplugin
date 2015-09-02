@@ -298,7 +298,6 @@
             tapstart = "touchstart mousedown",
             tapmove = "touchmove mousemove",
             tapend = "touchend mouseup";
-        console.log()
         opts= $.extend({
             enableRatio:true,
             cropWidth:260,
@@ -341,14 +340,16 @@
                             if(one==true){
                                 mega=new MegaPixImage(img);
                                 mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
-                                    setTimeout(function(){
+                                    var fuckCbimg=new Image;
+                                    fuckCbimg.onload=function(){
                                         G.preview=img;
                                         var o=getCropInfo();
                                         $bindPreview.prop("style",'')
                                         opts.onLoad({
                                             originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
                                             ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
-                                    },0)
+                                    }
+                                    fuckCbimg.src=img.src;
                                 })
                                 one=false;
                             }
