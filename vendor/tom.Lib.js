@@ -338,8 +338,10 @@
                         var temp,tcanvas=document.createElement("canvas"),mega,preview=this.files[0];
                                 mega=new MegaPixImage(this.files[0]);
                                 mega.render(tcanvas,{ maxWidth: 1024, maxHeight: 1024,quality:1 },function(){
+                                    alert("in cb")
                                     var img=new Image;
                                     img.src=tcanvas.toDataURL("image/jpg",1);
+                                    alert(img.src);
                                     G.preview=img;
                                     tcanvas=null;
                                     var o=getCropInfo();
