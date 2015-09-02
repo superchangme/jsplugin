@@ -2,41 +2,13 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" id="eqMobileViewport" content="width=640,initial-scale=1,user-scalable=no" />
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title>选择表情</title>
     <link rel="stylesheet" href="css/main.css">
-    <script>
-        window.addEventListener("load",resetMeta)
-        //            window.addEventListener("resize",resetMeta)
-        function resetMeta(){
-            var g=window.innerWidth,h=window.innerHeight,k;
-            (g/h)>=320/504?k=h/1008:k=g/640;
-            document.getElementById("eqMobileViewport").setAttribute("content","width=320,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
-        }
-    </script>
 </head>
 <body>
 <div class="app-wrap">
-   <div style="display: none">
-       <input type="file" accept="image/*;capture=camrea" />
-       <button id="filterBtn">滤镜</button>
-       <button id="backUserMoveBtn">返回拖拽</button>
-
-       <button id="beginEraser">开始橡皮擦</button>
-       <button id="backFilterBtn">返回滤镜</button>
-
-       <div class="photoFrame" >
-       <!--    <canvas id="photoCanvas" width="260" height="260"></canvas>
-           <canvas id="filterCanvas" width="260" height="260" data-caman-hidpi-disabled style="height:260px;width: 260px;"></canvas>
-           <canvas id="eraserCanvas" width="260" height="260"  style="height:260px;width: 260px;"></canvas>-->
-       </div>
-       <ul>
-           <li>
-               <img src="img/emoji1_thumb.png"/>
-           </li>
-       </ul>
-   </div>
     <div class="main-box">
         <div class="main-inner" id="photoInnerBox">
             <!--upload box-->
@@ -71,22 +43,32 @@
             <div class="scroller">
                 <ul class="inline vm step-tip">
                     <li>
-                        <img src="img/emoji1_thumb.png"/>
+                        <img src="img/emoji_thumb_01.png"/>
                     </li>
                     <li>
-                        <img src="img/emoji1_thumb.png"/>
+                        <img src="img/emoji_thumb_02.png"/>
                     </li>
                     <li>
-                        <img src="img/emoji1_thumb.png"/>
+                        <img src="img/emoji_thumb_03.png"/>
+                    </li> <li data-bg="true">
+                    <img src="img/emoji_thumb_04.png"/>
+                </li>
+                    <li>
+                        <img src="img/emoji_thumb_05.png"/>
                     </li>
                     <li>
-                        <img src="img/emoji1_thumb.png"/>
+                        <img src="img/emoji_thumb_06.png"/>
                     </li>
                     <li>
-                        <img src="img/emoji1_thumb.png"/>
+                        <img src="img/emoji_thumb_07.png"/>
+                    </li>
+                    <li>
+                        <img src="img/emoji_thumb_08.png"/>
+                    </li>
+                    <li>
+                        <img src="img/emoji_thumb_09.png"/>
                     </li>
                 </ul>
-                <div class="verticalAlign"></div>
              </div>
         </div>
         <div class="step" data-step="filter-emoji" >
@@ -158,11 +140,12 @@
 </script>
 <script>
     var uploadUrl='http://127.0.0.1/test/upload.php';
-    var APP={version:0.3};
+    var APP={version:0.1};
     function sendFile(data){
+        //data.imageData ---表情图片地址base64   data.filetype---图片后缀名
         var form = new FormData();
         form.append("filetype", data.filetype);
-        form.append("imageData", data.imageData);
+        form.append("imageData", data.imageData.substring(22));
         var xhrForm = new XMLHttpRequest();
         xhrForm.open("POST", uploadUrl);
         xhrForm.setRequestHeader("Access-Control-Allow-Origin","*");
@@ -172,8 +155,8 @@
         e.preventDefault();
     })
 </script>
-<script  data-main="app" src="require.js" ></script>
-<!--<script  src="../../vendor/require.js" ></script>
+<!--<script  data-main="app" src="require.js" ></script>-->
+<script  src="../../vendor/require.js" ></script>
 <script   src="../../vendor/main.js" ></script>
-<script src="../../vendor/app.js"></script>-->
+<script src="../../vendor/app.js"></script>
 </html>

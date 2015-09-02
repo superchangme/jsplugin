@@ -6,8 +6,10 @@
             name: 'app'
         }
     ],
+    removeCombined:true,
     include:["app.js"],
-    //fileExclusionRegExp: /^(r|build|(?!app))\.js$/,
+    exclude: ['vendor/**','css/**','img/**'],
+    fileExclusionRegExp: /^(r|build|(?!app))\.js$/,
     paths: {
         "jquery": "jquery-2.1.4",
         "jquery.eraser":"jquery.eraser",

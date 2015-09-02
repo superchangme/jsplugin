@@ -336,15 +336,23 @@
                     ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files){
                         var temp,mega,preview=this.files[0],defer=$.Deferred();
-                        var img = new Image();
-                        img.tagName="img";
-                        mega=new MegaPixImage(preview);
-                        mega.render(img,{ maxWidth: 1024, maxHeight: 1024,quality:1 },function(){
-                            G.preview=img;
-                            var o=getCropInfo();
-                            $bindPreview.prop("style",'')
-                            opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio})
-                        })
+                        var img = new Image,one=true;
+                        img.onload=function(){
+                            if(one==true){
+                                mega=new MegaPixImage(img);
+                                mega.render(img,{ maxWidth: 1024, maxHeight: 1024,quality:1 },function(){
+                                    G.preview=img;
+                                    var o=getCropInfo();
+                                    $bindPreview.prop("style",'')
+                                    opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio})
+                                })
+                                one=false;
+                            }
+
+                        }
+                        img.src=URL.createObjectURL(preview);
+
+
                         //img.src = URL.createObjectURL(preview);
                     //    { maxWidth: 1024, maxHeight: 1024,quality:0.5 }
                     }
