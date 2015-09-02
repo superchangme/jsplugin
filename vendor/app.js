@@ -7,6 +7,120 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         (g/h)>=320/504?k=h/1008:k=g/640;
         document.getElementById("eqMobileViewport").setAttribute("content","width=320,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
     }
+    var G=APP ;
+    //step1 上传图片
+    $.extend(G,{
+        filterPhoto:null,
+        pWidth:$("#photoFrame").width(),
+        pHeight:$("#photoFrame").width(),
+        initX:0,initY:0,
+        transform: T.prefixStyle("transform"),
+        emoji:{
+            background:null,
+            photo:null,
+            photoWithErase:null
+        },
+
+        btns:{
+            $nextStepBtn:$("a.next-step"),
+            $backStepBtn:$("a.back-step") ,
+            $resetEraser:$("#resetEraser")
+        },
+        stepLock:true,
+        steps:$('[data-step]'),
+        currentStep:"choose-emoji",
+        currentStepDom:$("[data-step=choose-emoji]"),
+        photoParam:{
+            scale:1,
+            x:0,
+            y:0
+        },
+        photoArr:{
+            uploadSrc:'',
+            dragSrc:'',
+            filterSrc:''
+        },
+        $emojiTextArea :$("#emojiTextArea"),
+        $emojiTextList:$("#emoji-text-list"),
+        $emojiList:$("#emoji-tpl-list"),
+        $eraserCanvas:$("#eraserCanvas"),
+        $resultCanvas:$("#resultCanvas"),
+        $photoFrame:$("#photoFrame"),
+        $photoCanvas:$("#photoCanvas"),
+        $filterCanvas:$("#filterCanvas"),
+        $emojiCover:$("#emojiCover"),
+        $emojiBg:$("#emojiBg"),
+        $photoInput:$("#photoInput"),
+        $uploadMask:$(".photo-input-box"),
+        photoCrop:null,
+        currentLayer:'photo',
+        Eraser:null,
+        //inputs
+        $contrast:$("#contrast"),
+        $exposure:$("#exposure"),
+        LOCK_PAGE:false,
+        //btns
+        $backFilterBtn:$("#backFilterBtn"),
+        $beginEraser:$("#beginEraser"),
+        $backUserMoveBtn:$("#backUserMoveBtn"),
+        eraserRadius:30,
+        //functions
+        stopUserMove:function(){
+            G.$photoFrame.hammer('stop')
+            G.stopMove=true;
+        },
+        startUserMove:function(){
+            G.$photoFrame.hammer('start');
+            G.$photoCanvas.removeLayer("filter").removeLayer("mask").drawLayers();
+            G.stopMove=false;
+        },
+        startErase:function(cb){
+            G.stopUserMove();
+            G.emoji.photo=G.$photoCanvas[0].toDataURL("image/png");
+            G.eraseCtx.lineWidth= G.eraserRadius;
+            G.eraseCtx.globalCompositeOperation="source-over";
+            var img=new Image;
+            G.eraseCtx.clearRect(0,0, G.pWidth, G.pHeight);
+            img.onload=function(){
+                G.$photoCanvas.hide();
+                G.$eraserCanvas.show();
+                G.eraseCtx.drawImage(img,0,0)
+                G.$eraserCanvas.eraser("start");
+                if(cb){cb()}
+            }
+            img.src= G.emoji.photo;
+        },resetErase:function(){
+            drawPhoto(0,0,1,null,function(){
+                G.$photoCanvas.show();
+                G.$eraserCanvas.hide();
+            });
+        },
+        resetPhotoConfig:function(){
+            G.photoParam.x=0;
+            G.photoParam.y=0;
+            G.photoParam.scale=1;
+            G.photoParam.rotate=0;
+        },
+        scroll:{
+            emojiListScroll:null,
+            emojiTextScroll:null
+        }
+    })
+    $(window).on("load",function(){
+        var img=new Image;
+        G.$emojiList.find("img").each(function(){
+            var img=new Image,img2=new Image;
+            var mask=this.src.replace("thumb","mask");
+            var bg= this.src.replace("thumb","bg");
+            img.src=mask;
+            if($(this).parent("li").data("bg")) {
+                img.src=bg;
+            }
+
+        })
+        img=null
+    })
+
     $(function(){
         resetMeta();
         Caman.Filter.register("transparent", function (adjust) {
@@ -21,105 +135,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 return rgba;
             });
         });
-        var G=APP ;
-        //step1 上传图片
-        $.extend(G,{
-            filterPhoto:null,
-            pWidth:$("#photoFrame").width(),
-            pHeight:$("#photoFrame").width(),
-            initX:0,initY:0,
-            transform: T.prefixStyle("transform"),
-            emoji:{
-                background:null,
-                photo:null,
-                photoWithErase:null
-            },
 
-            btns:{
-                $nextStepBtn:$("a.next-step"),
-                $backStepBtn:$("a.back-step") ,
-                $resetEraser:$("#resetEraser")
-            },
-            stepLock:true,
-            steps:$('[data-step]'),
-            currentStep:"choose-emoji",
-            currentStepDom:$("[data-step=choose-emoji]"),
-            photoParam:{
-                scale:1,
-                x:0,
-                y:0
-            },
-            photoArr:{
-                uploadSrc:'',
-                dragSrc:'',
-                filterSrc:''
-            },
-            $emojiTextArea :$("#emojiTextArea"),
-            $emojiTextList:$("#emoji-text-list"),
-            $emojiList:$("#emoji-tpl-list"),
-            $eraserCanvas:$("#eraserCanvas"),
-            $resultCanvas:$("#resultCanvas"),
-            $photoFrame:$("#photoFrame"),
-            $photoCanvas:$("#photoCanvas"),
-            $filterCanvas:$("#filterCanvas"),
-            $emojiCover:$("#emojiCover"),
-            $emojiBg:$("#emojiBg"),
-            $photoInput:$("#photoInput"),
-            $uploadMask:$(".photo-input-box"),
-            photoCrop:null,
-            currentLayer:'photo',
-            Eraser:null,
-            //inputs
-            $contrast:$("#contrast"),
-            $exposure:$("#exposure"),
-            LOCK_PAGE:false,
-            //btns
-            $backFilterBtn:$("#backFilterBtn"),
-            $beginEraser:$("#beginEraser"),
-            $backUserMoveBtn:$("#backUserMoveBtn"),
-            eraserRadius:30,
-            //functions
-            stopUserMove:function(){
-                G.$photoFrame.hammer('stop')
-                G.stopMove=true;
-            },
-            startUserMove:function(){
-                G.$photoFrame.hammer('start');
-                G.$photoCanvas.removeLayer("filter").removeLayer("mask").drawLayers();
-                G.stopMove=false;
-            },
-            startErase:function(cb){
-                G.stopUserMove();
-                G.emoji.photo=G.$photoCanvas[0].toDataURL("image/png");
-                G.eraseCtx.lineWidth= G.eraserRadius;
-                G.eraseCtx.globalCompositeOperation="source-over";
-                var img=new Image;
-                G.eraseCtx.clearRect(0,0, G.pWidth, G.pHeight);
-                img.onload=function(){
-                    G.$photoCanvas.hide();
-                    G.$eraserCanvas.show();
-                    G.eraseCtx.drawImage(img,0,0)
-                    G.$eraserCanvas.eraser("start");
-                    if(cb){cb()}
-                }
-                img.src= G.emoji.photo;
-            },resetErase:function(){
-                drawPhoto(0,0,1,null,function(){
-                    G.$photoCanvas.show();
-                    G.$eraserCanvas.hide();
-                });
-            },
-            resetPhotoConfig:function(){
-                G.photoParam.x=0;
-                G.photoParam.y=0;
-                G.photoParam.scale=1;
-                G.photoParam.rotate=0;
-            },
-            scroll:{
-                emojiListScroll:null,
-                emojiTextScroll:null
-            }
-        })
         G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth});
         if(originHeight>=504){
             G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+(Math.min(600,$("#photoInnerBox").width())/400)+")").addClass("visible")

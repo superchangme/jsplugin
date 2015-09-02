@@ -340,12 +340,9 @@
                         img.onload=function(){
                             if(one==true){
                                 mega=new MegaPixImage(img);
-                                alert("dd")
                                 mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
                                     G.preview=img;
                                   setTimeout(function(){
-                                      alert(mega.srcImage.naturalWidth+"yuanshi")
-                                      alert(img.naturalWidth+"zhuanhuan")
                                       var o=getCropInfo();
                                       $bindPreview.prop("style",'')
                                       opts.onLoad({
