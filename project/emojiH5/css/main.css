@@ -2684,7 +2684,7 @@ body {
   position: absolute;
 }
 #emoji-tpl-list img {
-  width: 200px;
+  height: 200px;
 }
 #emoji-tpl-list ul.step-tip.tip-now {
   -webkit-animation: flash 0.7s;
