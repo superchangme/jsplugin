@@ -165,8 +165,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 switch(G.currentStep){
                     case "choose-emoji":
 //                       updateStep('text-emoji');
-                        work=new WorkMan("加载滤镜效果",updateStep.bind(null,'text-emoji'));
-
+                        work=new WorkMan("加载滤镜效果",updateStep.bind(null,'filter-emoji'));
                         loadFilter(G.$photoCanvas[0].toDataURL("image/png"),work);
                         break;
                     case "filter-emoji":
