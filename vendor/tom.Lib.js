@@ -341,7 +341,8 @@
                             if(one==true){
                                 mega=new MegaPixImage(img);
                                 mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
-                                    alert("in cb")
+                                    document.write(img.src)
+                                    $('body').css("word-break",'break-all')
                                     G.preview=img;
                                     var o=getCropInfo();
                                     $bindPreview.prop("style",'')
