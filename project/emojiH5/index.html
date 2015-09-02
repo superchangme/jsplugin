@@ -154,6 +154,9 @@
     document.addEventListener("touchmove",function(e){
         e.preventDefault();
     })
+    window.onerror=function(err){
+        alert(err)
+    }
 </script>
 <script  data-main="app" src="require.js" ></script>
 <!--<script  src="../../vendor/require.js" ></script>
