@@ -2637,6 +2637,7 @@ body {
 .main-inner {
   /*border: 1px
     #DDDDDD solid;*/
+  overflow: hidden;
   border-radius: 6px;
   background: white;
   position: relative;

@@ -337,7 +337,7 @@
                         var temp,mega,preview=this.files[0],img=new Image;
                                 EXIF.getData(preview, function() {
                                     mega=new MegaPixImage(preview);
-                                    mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1,orientation: EXIF.pretty(this).Orientation||1},function(){
+                                    mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1,orientation: EXIF.getTag(this,'Orientation')||1},function(){
                                         var fuckCbimg=new Image;
                                         fuckCbimg.onload=function(){
                                             G.preview=img;
