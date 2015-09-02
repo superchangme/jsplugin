@@ -5,7 +5,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
     function resetMeta(){
         var g=window.innerWidth,h=window.innerHeight,k;
         (g/h)>=320/504?k=h/1008:k=g/640;
-        document.getElementById("eqMobileViewport").setAttribute("content","width=320,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+        document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
     }
     var G=APP ;
     //step1 上传图片
@@ -542,9 +542,6 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     exposure(parseFloat(G.$exposure.val())).transparent(180).render(function(){
 //                           G.$loading.hide()
                         G.filterSrc= G.$filterCanvas[0].toDataURL("image/png")
-                        var img=new Image;
-                        img.src=G.$filterCanvas[0].toDataURL("image/png");
-                        document.body.appendChild(img)
                         drawFilter(function(){
                             G.$photoCanvas.animateLayer("filter",{},0);
                             if(work&&typeof work.resolve=="function"){
