@@ -5,6 +5,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
     function resetMeta(){
         var g=window.innerWidth,h=window.innerHeight,k;
         (g/h)>=320/504?k=h/1008:k=g/640;
+        console.log(k)
         document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
     }
     var G=APP ;
