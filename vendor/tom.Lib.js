@@ -340,13 +340,16 @@
                         img.onload=function(){
                             if(one==true){
                                 mega=new MegaPixImage(img);
+                                alert("dd")
                                 mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
                                     G.preview=img;
-                                    var o=getCropInfo();
-                                    $bindPreview.prop("style",'')
-                                    opts.onLoad({
-                                        originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
-                                    ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
+                                  setTimeout(function(){
+                                      var o=getCropInfo();
+                                      $bindPreview.prop("style",'')
+                                      opts.onLoad({
+                                          originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
+                                          ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
+                                  },0)
                                 })
                                 one=false;
                             }
