@@ -187,7 +187,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     case "choose-emoji":
                         $(this).attr("disabled",true);
                         G.$photoCanvas.removeLayers().drawLayers();
-                        G.$uploadMask.show();
+                        //G.$uploadMask.show();
                         G.emoji.photo='';
                         break;
                     case "filter-emoji":
@@ -309,6 +309,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 oninit:function(){
                 },
                 onLoad:function(data){
+                    alert("hehe")
                     updateStep("drag-emoji")
                     G.$uploadMask.hide().addClass("wait");
                     $(document).trigger("moveInput");
@@ -319,6 +320,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     var imInfo=G.photoCrop.getCropInfo()
                     G.photoParam.width=imInfo.dWidth;
                     G.photoParam.height=imInfo.dHeight;
+                    alert(JSON.stringify(imInfo))
                     drawPhoto(imInfo.x,imInfo.y,null,null,function(){
                         work.resolve();
                     })

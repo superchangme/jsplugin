@@ -341,9 +341,6 @@
                             if(one==true){
                                 mega=new MegaPixImage(img);
                                 mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
-                                   var tt=new Image;
-                                    tt.src=img.src
-                                    $('body').html(tt)
                                     G.preview=img;
                                     var o=getCropInfo();
                                     $bindPreview.prop("style",'')
