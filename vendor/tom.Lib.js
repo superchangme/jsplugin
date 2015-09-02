@@ -341,14 +341,14 @@
                             if(one==true){
                                 mega=new MegaPixImage(img);
                                 mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
-                                    G.preview=img;
-                                  setTimeout(function(){
-                                      var o=getCropInfo();
-                                      $bindPreview.prop("style",'')
-                                      opts.onLoad({
-                                          originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
-                                          ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
-                                  },0)
+                                    setTimeout(function(){
+                                        G.preview=img;
+                                        var o=getCropInfo();
+                                        $bindPreview.prop("style",'')
+                                        opts.onLoad({
+                                            originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
+                                            ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
+                                    },0)
                                 })
                                 one=false;
                             }
@@ -370,8 +370,6 @@
         function getCropInfo(){
             var iWidth=G.preview.naturalWidth,iHeight=G.preview.naturalHeight,
                 dWidth,dHeight, x=0,y= 0,scale;
-            alert(iWidth)
-            alert(iHeight)
             var oWidth=opts.cropWidth*opts.devicePixelRatio;
             var oHeight=opts.cropHeight*opts.devicePixelRatio;
             ctx.clearRect(0,0,canvas.width,canvas.height)
