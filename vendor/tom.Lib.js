@@ -344,7 +344,9 @@
                                     G.preview=img;
                                     var o=getCropInfo();
                                     $bindPreview.prop("style",'')
-                                    opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio})
+                                    opts.onLoad({
+                                        originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
+                                    ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
                                 })
                                 one=false;
                             }
@@ -364,8 +366,10 @@
             }
         }
         function getCropInfo(){
-            var iWidth=G.preview.width,iHeight=G.preview.height,
+            var iWidth=G.preview.naturalWidth,iHeight=G.preview.naturalHeight,
                 dWidth,dHeight, x=0,y= 0,scale;
+            alert(iWidth)
+            alert(iHeight)
             var oWidth=opts.cropWidth*opts.devicePixelRatio;
             var oHeight=opts.cropHeight*opts.devicePixelRatio;
             ctx.clearRect(0,0,canvas.width,canvas.height)

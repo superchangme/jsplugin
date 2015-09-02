@@ -309,7 +309,6 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 oninit:function(){
                 },
                 onLoad:function(data){
-                    alert("hehe")
                     updateStep("drag-emoji")
                     G.$uploadMask.hide().addClass("wait");
                     $(document).trigger("moveInput");
@@ -317,11 +316,12 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     G.resetPhotoConfig();
                     G.emoji.photo=data.originSrc;
                     var work=new WorkMan("初始化照片");
-                    var imInfo=G.photoCrop.getCropInfo()
+                    G.photoParam.width=data.dWidth;
+                    G.photoParam.height=data.dHeight;
+            /*        var imInfo=G.photoCrop.getCropInfo()
                     G.photoParam.width=imInfo.dWidth;
-                    G.photoParam.height=imInfo.dHeight;
-                    alert(JSON.stringify(imInfo))
-                    drawPhoto(imInfo.x,imInfo.y,null,null,function(){
+                    G.photoParam.height=imInfo.dHeight;*/
+                    drawPhoto(data.x,data.y,null,null,function(){
                         work.resolve();
                     })
                 }
@@ -436,6 +436,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         }
 //draw photo
         function drawPhoto(x,y,scale,noLayer,cb){
+            console.log(arguments)
             G.initX=x||0;
             G.initY=y||0;
             G.scale=scale||1;
