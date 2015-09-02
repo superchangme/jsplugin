@@ -122,7 +122,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         })
         G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth});
         if(originHeight>=504){
-            G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+($("#photoInnerBox").width()/400)+")").addClass("visible")
+            G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+(Math.min(600,$("#photoInnerBox").width())/400)+")").addClass("visible")
         }
 
         G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
