@@ -11,6 +11,7 @@ require.config({
         "zepto.fx":"Zepto"
     },	 /*模块路径配置*/
     paths: {
+        "exif-js":"exif",
     "jquery": "jquery-2.1.4",
     "jquery.eraser":"jquery.eraser",
     "underscore": "underscore.min",

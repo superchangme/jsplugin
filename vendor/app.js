@@ -40,6 +40,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             dragSrc:'',
             filterSrc:''
         },
+        $hiddenOnInputDom:$(".op-box,.op-bar"),
         $emojiTextArea :$("#emojiTextArea"),
         $emojiTextList:$("#emoji-text-list"),
         $emojiList:$("#emoji-tpl-list"),
@@ -138,7 +139,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
 
         G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth});
         if(originHeight>=504){
-            G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+(Math.min(600,$("#photoInnerBox").width())/400)+")").addClass("visible")
+            G.photoScale=(Math.min(600,$("#photoInnerBox").width())/400);
+            G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+G.photoScale+")").addClass("visible")
         }
 
         G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
@@ -163,7 +165,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 switch(G.currentStep){
                     case "choose-emoji":
 //                       updateStep('text-emoji');
-                        work=new WorkMan("加载滤镜效果",updateStep.bind(null,'filter-emoji'));
+                        work=new WorkMan("加载滤镜效果",updateStep.bind(null,'text-emoji'));
 
                         loadFilter(G.$photoCanvas[0].toDataURL("image/png"),work);
                         break;
@@ -350,7 +352,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 loadFilter(G.$photoCanvas[0].toDataURL("image/png"))
             })
             //step eraser
-            G.$eraserCanvas.eraser({radius:15,container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
+            G.$eraserCanvas.eraser({scaleCanvas: G.photoScale,radius:15,container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
             }}).eraser('stop')
             //btns bind
             G.$backFilterBtn.on("click",function(){
@@ -379,6 +381,12 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         $(this).css("line-height",'');
                     }
                 }
+            })
+            G.$emojiTextArea.on("focus",function(){
+                G.$hiddenOnInputDom.hide();
+            });
+            G.$emojiTextArea.on("blur",function(){
+                G.$hiddenOnInputDom.show();
             })
         }
 
@@ -452,7 +460,6 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         }
 //draw photo
         function drawPhoto(x,y,scale,noLayer,cb){
-            console.log(arguments)
             G.initX=x||0;
             G.initY=y||0;
             G.scale=scale||1;

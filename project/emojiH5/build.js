@@ -12,6 +12,7 @@
     fileExclusionRegExp: /^(r|build|(?!app))\.js$/,
     paths: {
         "jquery": "jquery-2.1.4",
+        "exif-js":"exif",
         "jquery.eraser":"jquery.eraser",
         "tomLib":"tom.Lib",
         "jquery-private":"jquery-private",

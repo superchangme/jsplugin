@@ -5,12 +5,12 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define(["jquery",'megapix-image'], factory);
+        define(["jquery",'megapix-image','exif-js'], factory);
     } else {
         // 全局模式
-        factory(jQuery,MegaPixImage,true)
+        factory(jQuery,MegaPixImage,EXIF,true)
     }
-})(function($,MegaPixImage,noGlobal){
+})(function($,MegaPixImage,EXIF,noGlobal){
     var _ = {};
 
     if(noGlobal===true){
@@ -334,30 +334,22 @@
                     $bindPreview.prop("src",'');
                     ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files){
-                        var temp,mega,preview=this.files[0];
-                        var img = new Image,one=true;
-                        img.onload=function(){
-                            if(one==true){
-                                mega=new MegaPixImage(img);
-                                mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
-                                    var fuckCbimg=new Image;
-                                    fuckCbimg.onload=function(){
-                                        G.preview=img;
-                                        var o=getCropInfo();
-                                        $bindPreview.prop("style",'')
-                                        opts.onLoad({
-                                            originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
-                                            ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
-                                    }
-                                    fuckCbimg.src=img.src;
-                                })
-                                one=false;
-                            }
-
-                        }
-                        img.src=URL.createObjectURL(preview);
-
-
+                        var temp,mega,preview=this.files[0],img=new Image;
+                                EXIF.getData(preview, function() {
+                                    mega=new MegaPixImage(preview);
+                                    mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1,orientation: EXIF.pretty(this).Orientation||1},function(){
+                                        var fuckCbimg=new Image;
+                                        fuckCbimg.onload=function(){
+                                            G.preview=img;
+                                            var o=getCropInfo();
+                                            $bindPreview.prop("style",'')
+                                            opts.onLoad({
+                                                originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
+                                                ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
+                                        }
+                                        fuckCbimg.src=img.src;
+                                    })
+                                });
                         //img.src = URL.createObjectURL(preview);
                     //    { maxWidth: 1024, maxHeight: 1024,quality:0.5 }
                     }

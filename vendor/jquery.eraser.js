@@ -76,6 +76,7 @@
         bgImage:null,  //dom: image
         bgColor:null,
         interval:100,
+        scaleCanvas:1,
         noneedCalc:null,
         checkPng:false,
         deviceRatio:window.devicePixelRatio||1,
@@ -200,8 +201,10 @@
             //if(!offset){
                 offset=canvas.getBoundingClientRect();
             //}
-            x1 = hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
-            y1 = hastouch?e.targetTouches[0].clientY-offset.top:e.clientY-offset.top;
+            x1 = hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-(offset.left-(canvas.width/2)*(self.scaleCanvas-1));
+            y1 = hastouch?e.targetTouches[0].clientY-offset.top:e.clientY-(offset.top-(canvas.height/2)*(self.scaleCanvas-1));
+            x1/=self.scaleCanvas;
+            y1/=self.scaleCanvas;
             /*ctx.beginPath();
             ctx.arc(x1,y1,self.radius,0,2*Math.PI);
             ctx.fill();
@@ -242,8 +245,10 @@
             clearTimeout(timeout)
             e.preventDefault();
             e= e.originalEvent;
-            var x2 = hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-offset.left;
-            var y2 = hastouch?e.targetTouches[0].clientY-offset.top:e.clientY-offset.top;
+            var x2 = hastouch?e.targetTouches[0].clientX-offset.left:e.clientX-(offset.left-(canvas.width/2)*(self.scaleCanvas-1));
+            var y2 = hastouch?e.targetTouches[0].clientY-offset.top:e.clientY-(offset.top-(canvas.height/2)*(self.scaleCanvas-1));
+            x2/=self.scaleCanvas;
+            y2/=self.scaleCanvas;
             ctx.beginPath();
             ctx.moveTo(x1,y1);
             ctx.lineTo(x2,y2);
@@ -329,7 +334,6 @@
             ctx.clip()
             ctx.clearRect(0,0,canvas.width,canvas.height);
             ctx.restore();
-
             ctx.save()
             ctx.beginPath()
             ctx.moveTo(x3,y3);
