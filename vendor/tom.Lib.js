@@ -342,6 +342,7 @@
                                 mega=new MegaPixImage(img);
                                 mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1 },function(){
                                     document.write(img.src)
+                                    alert(img.src.length)
                                     $('body').css("word-break",'break-all')
                                     G.preview=img;
                                     var o=getCropInfo();
