@@ -5,16 +5,16 @@
 (function(factory){
     if(typeof define === "function" && define.amd != undefined ){
         // AMD模式
-        define(["jquery",'hammer','tomPlugin'], factory);
+        define(["jquery",'megapix-image','exif-js'], factory);
     } else {
         // 全局模式
-        factory(jQuery,window)
+        factory(jQuery,MegaPixImage,EXIF,true)
     }
-})(function($,global){
-
+})(function($,MegaPixImage,EXIF,noGlobal){
     var _ = {};
-    if(global){
-        window.tomLib=_;
+
+    if(noGlobal===true){
+        var MegaPixImage=window.MegaPixImage
     }
     //browser support feature obj
     _.support={};
@@ -298,7 +298,6 @@
             tapstart = "touchstart mousedown",
             tapmove = "touchmove mousemove",
             tapend = "touchend mouseup";
-        console.log()
         opts= $.extend({
             enableRatio:true,
             cropWidth:260,
@@ -335,15 +334,24 @@
                     $bindPreview.prop("src",'');
                     ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files){
-                        var temp,preview=this.files[0],defer=$.Deferred();
-                        var img = new Image();
-                        img.onload=function(){
-                            G.preview=img;
-                            var o=getCropInfo();
-                            $bindPreview.prop("style",'')
-                            opts.onLoad({originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio})
-                        }
-                        img.src = URL.createObjectURL(preview);
+                        var temp,mega,preview=this.files[0],img=new Image;
+                                EXIF.getData(preview, function() {
+                                    mega=new MegaPixImage(preview);
+                                    mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1,orientation: EXIF.getTag(this,'Orientation')||1},function(){
+                                        var fuckCbimg=new Image;
+                                        fuckCbimg.onload=function(){
+                                            G.preview=img;
+                                            var o=getCropInfo();
+                                            $bindPreview.prop("style",'')
+                                            opts.onLoad({
+                                                originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
+                                                ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
+                                        }
+                                        fuckCbimg.src=img.src;
+                                    })
+                                });
+                        //img.src = URL.createObjectURL(preview);
+                    //    { maxWidth: 1024, maxHeight: 1024,quality:0.5 }
                     }
                     opts.bindFile.after(opts.bindFile.clone()).remove();
                 })
@@ -353,7 +361,7 @@
             }
         }
         function getCropInfo(){
-            var iWidth=G.preview.width,iHeight=G.preview.height,
+            var iWidth=G.preview.naturalWidth,iHeight=G.preview.naturalHeight,
                 dWidth,dHeight, x=0,y= 0,scale;
             var oWidth=opts.cropWidth*opts.devicePixelRatio;
             var oHeight=opts.cropHeight*opts.devicePixelRatio;
@@ -491,6 +499,11 @@
         },opts.waitTime||0)
         return reset;
     }
+
+    if (noGlobal===true ) {
+        window.tomLib =  _;
+    }
+
     return _;
 });
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            overflow: hidden;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+<script src="../vendor/jquery-2.1.4.js" ></script>
+<script src="../vendor/tom.Lib.js"></script>
+<script src="../vendor/jquery.eraser.js"></script>
+<script>
+    var imgFolder="../source/img/"
+           $("body").eraser({
+                imgList:[
+                    {
+                        imgSrc:imgFolder+"image.jpg"
+                    },
+                    {
+                        imgSrc:imgFolder+"go.jpg",
+                        bgPos: {left: "center", top: 60}
+                    },
+                    {
+                        imgSrc:imgFolder+"go.jpg",
+                        bgPos: {left: "center", top: 200},
+                        bgScale:2
+                    }
+                ]
+           })
+</script>
+</html>

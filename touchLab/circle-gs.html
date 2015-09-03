@@ -88,7 +88,8 @@
 </body>
 <script data-main="../vendor/main" src="../vendor/require.js"></script>
 <script>
-   require(['jquery','../vendor/tom.Lib'], function ($,mylib){
+   require(['jQuery','../vendor/tom.Lib'], function ($,mylib){
+       console.log('sss')
        var circleGestureArr=["top","right","bottom","left"],
                antiArr=circleGestureArr.slice().reverse(),
                mygestureArr,

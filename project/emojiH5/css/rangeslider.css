@@ -31,10 +31,7 @@
   touch-action: pan-y;
   -ms-touch-action: pan-y;
   background-size: 100%;
-  /*  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
-  background-image: -moz-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
-  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
-  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));*/
+  
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;

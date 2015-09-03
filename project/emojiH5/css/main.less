@@ -32,17 +32,20 @@ body{
   width: 100%;
   top:0;
   bottom:400px;
-  padding: 20px;
+  padding: 10px 20px;
   background:#f0f0f0 ;
 }
 .main-inner{
-    border: 1px
-    #DDDDDD solid;
+    /*border: 1px
+    #DDDDDD solid;*/
+  overflow: hidden;
     border-radius: 6px;
   background: white;
   position: relative;
   width: 100%;
-  height: 100%;
+  padding: 50% 0;
+  height: 0;
+  box-sizing: content-box;
 }
 .op-box{
   position: absolute;
@@ -77,7 +80,7 @@ body{
   background: #f0f0f0;
   .full-p;
   img{
-    width: 200px;
+    height: 200px;
   }
   ul.step-tip.tip-now{
     .animation(flash 0.7s)
@@ -101,6 +104,8 @@ body{
     background: url(../img/ico_camrea.png);
   width: 147px;
   height: 120px;
+  top: -50px;
+  position: relative;
   &.tip-now{
     .animation(pulse 0.7s);
   }
@@ -123,6 +128,19 @@ text-align: center;
 }
 .btn-label[disabled]{
   color: #666666;
+  input{
+    display: none;
+  }
+}
+[data-step=choose-emoji] a.back-step{
+  position: relative;
+  input{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 150px!important;
+    height: 150px!important;
+  }
 }
 .btn-yellow{
   cursor: pointer;
@@ -140,6 +158,8 @@ text-align: center;
   display: none;
 }
 .photoFrame{
+  /*width: 100%;
+  height: 100%;*/
   width: 400px;
   height: 400px;
   *{
@@ -177,27 +197,32 @@ text-align: center;
 #emoji-text-list{
   margin: 20px;
   .item-row{
-    display: flex;
+    white-space: nowrap;
+ /*   display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap;*/
   }
   .item-box{
-    display: flex;
     width: 220px;
     margin-right: 10px;
-    flex-flow: column nowrap;
+/*    display: flex;
+    flex-flow: column nowrap;*/
   }
   .item{
-    display: flex;
+/*    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;*/
+    width: 220px;
+    margin-right: 10px;
+    height: 120px;
     position: relative;
+    vertical-align: top;
+    display: inline-block;
     border-radius: 6px;
     background-color: #000;
     text-align: center;
     margin-bottom: 10px;
     white-space: normal;
-    height: 120px;
   }
 }
 textarea{
@@ -213,7 +238,7 @@ textarea{
   overflow: hidden;
 }
 .main-step{
-  bottom: 0;
+  bottom: 6px;
   width: 100%;
   position: absolute;
   .textarea-bg{
@@ -221,5 +246,19 @@ textarea{
     height: 130px;
     width: 430px;
     margin: 0 auto;
+  }
+}
+
+body.result{
+  background: black;
+  .op-box{
+    background: black;
+  }
+  .main-box{
+   background: black;
+  }
+  .main-inner{
+    background: white;
+    .centerXY;
   }
 }

@@ -1,4 +1,4 @@
-var baseUrl="../../vendor/";
+var baseUrl=baseUrl||"../vendor/";
 require.config({
     /*模块依赖配置*/
     baseUrl:baseUrl,
@@ -11,6 +11,7 @@ require.config({
         "zepto.fx":"Zepto"
     },	 /*模块路径配置*/
     paths: {
+        "exif-js":"exif",
     "jquery": "jquery-2.1.4",
     "jquery.eraser":"jquery.eraser",
     "underscore": "underscore.min",
@@ -31,7 +32,8 @@ require.config({
         "tomPlugin":"plugins/tom-jqplugins",
         'Caman':"caman.full",
         'slider':"rangeslider.js-1.3.3/rangeslider.min",
-        "iscroll-lite":"iscroll-lite"
+        "iscroll-lite":"iscroll-lite",
+        "megapix-image":"megapix-image"
     }  ,
     /*模块规则配置*/
     map:{

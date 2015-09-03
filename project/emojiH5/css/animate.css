@@ -1091,38 +1091,6 @@
     transform: perspective(400px);
   }
 }
-/*//arrow-up
-@-webkit-keyframes arrowUp {
-    0% {
-        opacity: 1;
-        -webkit-transform: translate3d(0px, 40px, 0);
-        transform: translate3d(0px, 40px, 0);
-    }
-    60% {
-        opacity: 1;
-        -webkit-transform: translate3d(0, -10px, 0);
-        transform: translate3d(0, -10px, 0);
-    }
-    100% {
-        opacity: 0;
-        -webkit-transform: translate3d(0px, -15px, 0);
-        transform: translate3d(0px, -15px, 0);
-    }
-}
-@keyframes arrowUp {
-    0% {
-        opacity: 1;
-        transform: translate3d(0px, 40px, 0);
-    }
-    60% {
-        opacity: 1;
-        transform: translate3d(0, -10px, 0);
-    }
-    100% {
-        opacity: 0;
-        transform: translate3d(0px, -15px, 0);
-    }
-}*/
 @-webkit-keyframes flowerIn {
   0% {
     opacity: 0;
