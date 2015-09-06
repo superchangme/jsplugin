@@ -476,27 +476,34 @@
         function run(){
             curEl.addClass(opts.frameClass[index]||opts.frameClass[0])
         }
-        setTimeout(function(){
-            run();
-            reset=setInterval(function(){
-                if(opts.classSwitch!==false){
-                    curEl.removeClass(opts.frameClass[index]||opts.frameClass[0]);
-                }
-                index++;
-                if(index>animArr.length-1){
-                    opts.loopTimes--;
-                    index=0;
-                }
-                curEl=animArr.eq(index);
-                if(opts.loopTimes==null||opts.loopTimes!=0){
-                    run();
-                }
-                if(opts.loopTimes==0){
-                    clearInterval(reset);
-                    typeof opts.callback=="function"&&opts.callback();
-                }
-            },duration+70);
-        },opts.waitTime||0)
+        if(!opts.waitTime){
+           go();
+        }else{
+            setTimeout(function(){
+                go();
+            },opts.waitTime)
+        }
+    function go() {
+        run();
+        reset = setInterval(function () {
+            if (opts.classSwitch !== false) {
+                curEl.removeClass(opts.frameClass[index] || opts.frameClass[0]);
+            }
+            index++;
+            if (index > animArr.length - 1) {
+                opts.loopTimes--;
+                index = 0;
+            }
+            curEl = animArr.eq(index);
+            if (opts.loopTimes == null || opts.loopTimes != 0) {
+                run();
+            }
+            if (opts.loopTimes == 0) {
+                clearInterval(reset);
+                typeof opts.callback == "function" && opts.callback();
+            }
+        }, duration + 70);
+    }
         return reset;
     }
 

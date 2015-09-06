@@ -2,6 +2,7 @@ var APP=APP||{},jquery;
 require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser','slider'],function($,T,IScroll){
     jquery=$;
     var originHeight=window.innerHeight;
+    var waitLoad=$(".loading")
     function resetMeta(){
         var g=window.innerWidth,h=window.innerHeight,k;
         (g/h)>=320/504?k=h/1008:k=g/640;
@@ -47,6 +48,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         $emojiList:$("#emoji-tpl-list"),
         $eraserCanvas:$("#eraserCanvas"),
         $resultCanvas:$("#resultCanvas"),
+        $resultImg:$("#resultImg"),
         $photoFrame:$("#photoFrame"),
         $photoCanvas:$("#photoCanvas"),
         $filterCanvas:$("#filterCanvas"),
@@ -109,6 +111,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         }
     })
     $(window).on("load",function(){
+        $(".app-wrap").addClass("in")
+        $(".loading").addClass("hidden")
         var img=new Image;
         G.$emojiList.find("img").each(function(){
             var img=new Image,img2=new Image;
@@ -184,7 +188,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         drawResult(function(){
                             work.resolve();
                             $(document.body).addClass("result")
-                            G.$resultCanvas.show();
+                            G.$resultImg.attr("src",G.$resultCanvas[0].toDataURL('image/png'));
+                            G.$resultImg.show();
                             G.$photoCanvas.hide();
                         });
                         break;
@@ -231,7 +236,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         G.$emojiTextArea.val('');
                         G.stepLock=true;
                         G.$eraserCanvas.show();
-                        G.$resultCanvas.hide();
+                        //G.$resultCanvas.hide();
+                        G.$resultImg.hide();
                         updateStep('text-emoji');
                         break;
                 }
@@ -395,11 +401,11 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         function WorkMan(tips,cb,errcb){
             G.isBusyWork=true;
             var work= $.Deferred(),tips=tips||"";
-//           waitLoad.addClass("open");
+           waitLoad.removeClass("hidden");
             work.done(function(data){
                 G.isBusyWork=false;
                 if(typeof cb==="function"){cb(data);}
-//               waitLoad.removeClass("open");
+               waitLoad.addClass("hidden");
             });
             work.fail(function(err){
                 if(typeof errcb=="function"){
@@ -432,9 +438,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     name:"photo",
                     x:0,y:0,width: G.pWidth,
                     height: G.pHeight , fromCenter:false,load:function(){
-                        if(cb){
-                            cb();
-                        }
+
                     }
                 }).
                 drawImage({
@@ -457,6 +461,9 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
                 }
             ).drawLayers();
+            if(cb){
+                cb();
+            }
         }
 //draw photo
         function drawPhoto(x,y,scale,noLayer,cb){
@@ -601,7 +608,6 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     dom=$.makeArray(dom,$(this).find(".step-tip:not(.ok)"))
                 })
             }
-
             var delay=0;
             dom.each(function(index,item){
                 T.animateGroup({group: $(item),waitTime:delay,frameClass:["tip-now"],duration:1000,loopTimes:1})
