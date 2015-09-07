@@ -2724,9 +2724,11 @@ body {
   animation: pulse 0.7s;
 }
 #photoInput {
+  top: 0;
+  left: 0;
+  position: absolute;
   height: 100%;
   width: 100%;
-  position: relative;
   z-index: 3;
   opacity: 0;
 }
