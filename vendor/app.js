@@ -12,6 +12,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
     var G=APP ;
     //step1 上传图片
     $.extend(G,{
+        photoBg:$("#photoBg")[0],
+        defaultPhotoSrc:"img/emoji_photo_0.png",
         filterPhoto:null,
         pWidth:$("#photoFrame").width(),
         pHeight:$("#photoFrame").width(),
@@ -130,6 +132,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         if(originHeight>=504){
             G.photoScale=(Math.min(600,$("#photoInnerBox").width())/400);
             G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+G.photoScale+")").addClass("visible")
+            G.$uploadMask.find(".photo-input-mask").css(G.transform,"scale("+G.photoScale+")")
         }
 
         G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
@@ -276,6 +279,11 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     G.$emojiBg.css("background",'');
                     G.emoji.background=null;
                 }
+                if($(this).parent("li").data("photo")){
+                    G.photoBg.src=this.src.replace("thumb","photo");
+                }else{
+                    G.photoBg.src=G.defaultPhotoSrc;
+                }
                 /*G.$photoCanvas.drawImage({
                  source:  this,
                  groups:['emojiGroup'],
@@ -388,18 +396,23 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 $(".loading").addClass("hidden").removeClass('first')
                 var img=new Image;
                 G.$emojiList.find("img").each(function(){
-                    var img=new Image,img2=new Image;
                     var mask=this.src.replace("thumb","mask");
                     var bg= this.src.replace("thumb","bg");
+                    var photo= this.src.replace("thumb","photo");
                     img.src=mask;
                     if($(this).parent("li").data("bg")) {
                         img.src=bg;
                     }
-
+                    if($(this).parent("li").data("photo")) {
+                        img.src=photo;
+                    }
                 })
+                img.src= G.defaultPhotoSrc;
                 img=null
-            })()
+            })();
+
         }
+
 
         //step2
 
@@ -434,10 +447,13 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     layer:true,
                     name:"photoBg",
                     x:0,y:0,width: G.pWidth,
-                    height: G.pHeight , fromCenter:false
+                    height: G.pHeight , fromCenter:false ,load:function(){
+                            drawExceptBg(cb);
+                        }
                 });
-            }
+            }else{
                 drawExceptBg(cb);
+            }
         }
 
         function drawExceptBg(cb){
@@ -452,24 +468,27 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         layer:true,
                         name:"photoMask",
                         x:0,y:0,width: G.pWidth,
-                        height: G.pHeight , fromCenter:false })
-                    G.$resultCanvas.drawText(
-                        {
-                            text: G.emoji.text,
-                            layer:true,
-                            name:"text",
-                            fillStyle: '#000',
-                            fontStyle: 'bold',
-                            fromCenter:true,
-                            fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
-                            fontFamily:G.$emojiTextArea.css("font-family") ,
-                            x: G.pWidth/2,y: G.pHeight-55,
-                            width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
+                        height: G.pHeight , fromCenter:false,load:function(){
+                            G.$resultCanvas.drawText(
+                                {
+                                    text: G.emoji.text,
+                                    layer:true,
+                                    name:"text",
+                                    fillStyle: '#000',
+                                    fontStyle: 'bold',
+                                    fromCenter:true,
+                                    fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
+                                    fontFamily:G.$emojiTextArea.css("font-family") ,
+                                    x: G.pWidth/2,y: G.pHeight-55,
+                                    width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
+                                }
+                            );
+                            if(cb){
+                                cb();
+                            }
                         }
-                    );
-                    if(cb){
-                        cb();
-                    }
+                    })
+
                 }
             })
         }
