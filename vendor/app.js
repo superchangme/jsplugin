@@ -110,22 +110,6 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             emojiTextScroll:null
         }
     })
-    $(window).on("load",function(){
-        $(".app-wrap").addClass("in")
-        $(".loading").addClass("hidden")
-        var img=new Image;
-        G.$emojiList.find("img").each(function(){
-            var img=new Image,img2=new Image;
-            var mask=this.src.replace("thumb","mask");
-            var bg= this.src.replace("thumb","bg");
-            img.src=mask;
-            if($(this).parent("li").data("bg")) {
-                img.src=bg;
-            }
-
-        })
-        img=null
-    })
 
     $(function(){
         resetMeta();
@@ -174,7 +158,11 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         loadFilter(G.$photoCanvas[0].toDataURL("image/png"),work);
                         break;
                     case "filter-emoji":
-                        G.startErase(updateStep.bind(null,'erase-emoji'));
+                        work=new WorkMan("添加橡皮擦");
+                        G.startErase(function(){
+                            updateStep('erase-emoji');
+                            work.resolve();
+                        });
                         break;
                     case "erase-emoji":
                         G.emoji.photoWithErase=G.$eraserCanvas[0].toDataURL("image/png");
@@ -394,6 +382,23 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             G.$emojiTextArea.on("blur",function(){
                 G.$hiddenOnInputDom.show();
             })
+
+            ;(function(){
+                $(".app-wrap").addClass("in")
+                $(".loading").addClass("hidden").removeClass('first')
+                var img=new Image;
+                G.$emojiList.find("img").each(function(){
+                    var img=new Image,img2=new Image;
+                    var mask=this.src.replace("thumb","mask");
+                    var bg= this.src.replace("thumb","bg");
+                    img.src=mask;
+                    if($(this).parent("li").data("bg")) {
+                        img.src=bg;
+                    }
+
+                })
+                img=null
+            })()
         }
 
         //step2
@@ -422,48 +427,51 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         //draw result
         function drawResult(cb){
             G.$resultCanvas.removeLayers() ;
-        if(G.emoji.background){
-            G.$resultCanvas.
-            drawImage({
-                source: G.emoji.background,
-                layer:true,
-                name:"photoBg",
-                x:0,y:0,width: G.pWidth,
-                height: G.pHeight , fromCenter:false
-            });
-        }
-            G.$resultCanvas. drawImage({
-                    source: G.emoji.photoWithErase,
-                    layer:true,
-                    name:"photo",
-                    x:0,y:0,width: G.pWidth,
-                    height: G.pHeight , fromCenter:false,load:function(){
-
-                    }
-                }).
+            if(G.emoji.background){
+                G.$resultCanvas.
                 drawImage({
-                    source: G.emoji.mask,
+                    source: G.emoji.background,
                     layer:true,
-                    name:"photoMask",
+                    name:"photoBg",
                     x:0,y:0,width: G.pWidth,
                     height: G.pHeight , fromCenter:false
-                }).drawText(
-                {
-                    text: G.emoji.text,
-                    layer:true,
-                    name:"text",
-                    fillStyle: '#000',
-                    fontStyle: 'bold',
-                    fromCenter:true,
-                    fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
-                    fontFamily:G.$emojiTextArea.css("font-family") ,
-                    x: G.pWidth/2,y: G.pHeight-55,
-                    width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
-                }
-            ).drawLayers();
-            if(cb){
-                cb();
+                });
             }
+                drawExceptBg(cb);
+        }
+
+        function drawExceptBg(cb){
+            G.$resultCanvas. drawImage({
+                source: G.emoji.photoWithErase,
+                layer:true,
+                name:"photo",
+                x:0,y:0,width: G.pWidth,
+                height: G.pHeight , fromCenter:false,load:function(){
+                    G.$resultCanvas.drawImage({
+                        source: G.emoji.mask,
+                        layer:true,
+                        name:"photoMask",
+                        x:0,y:0,width: G.pWidth,
+                        height: G.pHeight , fromCenter:false })
+                    G.$resultCanvas.drawText(
+                        {
+                            text: G.emoji.text,
+                            layer:true,
+                            name:"text",
+                            fillStyle: '#000',
+                            fontStyle: 'bold',
+                            fromCenter:true,
+                            fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
+                            fontFamily:G.$emojiTextArea.css("font-family") ,
+                            x: G.pWidth/2,y: G.pHeight-55,
+                            width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
+                        }
+                    );
+                    if(cb){
+                        cb();
+                    }
+                }
+            })
         }
 //draw photo
         function drawPhoto(x,y,scale,noLayer,cb){
