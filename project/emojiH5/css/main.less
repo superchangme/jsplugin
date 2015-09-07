@@ -265,23 +265,35 @@ body.result{
     .centerXY;
   }
 }
+.loading.first{
+  background: #222222;
+}
 .loading{
-  background: rgba(255,255,255, 0.35);  .full-p;
+  background: rgba(34,34,34, 0.8);  .full-p;
   z-index: 999;
 }
 .spinner {
-  width: 50px;
-  height: 60px;
+  width: 120px;
+  height: 120px;
   text-align: center;
   font-size: 10px;
   .centerXY;
+
+  .loading_img{
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: relative;
+    background: url(../img/loading.png);
+    .animation(loading 2s infinite)
+}
 }
 
 .spinner > div {
+  display: none;
   background-color: #67CF22;
   height: 100%;
   width: 6px;
-  display: inline-block;
 
   -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
   animation: stretchdelay 1.2s infinite ease-in-out;
@@ -320,4 +332,16 @@ body.result{
        transform: scaleY(1.0);
        -webkit-transform: scaleY(1.0);
      }
+}
+@-webkit-keyframes  loading {
+      100%{
+        -webkit-transform:rotate(360deg);
+        transform:rotate(360deg);
+      }
+}
+@keyframes  loading {
+  100%{
+    -webkit-transform:rotate(360deg);
+    transform:rotate(360deg);
+  }
 }
