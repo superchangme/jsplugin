@@ -2726,6 +2726,8 @@ body {
 #photoInput {
   height: 100%;
   width: 100%;
+  position: relative;
+  z-index: 3;
   opacity: 0;
 }
 .op-bar {
