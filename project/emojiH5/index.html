@@ -25,6 +25,7 @@
             <!--upload box-->
                    <div class="photo-input-box centerXY" data-step="choose-emoji">
                        <div class="photo-input-mask step-tip">
+                           <img id='photoBg' />
                            <input type="file"   accept="image/*;capture=camrea" id="photoInput"/>
                        </div>
                    </div>
@@ -57,7 +58,7 @@
                     <li>
                         <img src="img/emoji_thumb_01.png"/>
                     </li>
-                    <li>
+                    <li data-photo="true">
                         <img src="img/emoji_thumb_02.png"/>
                     </li>
                     <li>
@@ -68,16 +69,16 @@
                     <li>
                         <img src="img/emoji_thumb_05.png"/>
                     </li>
-                    <li>
+                    <li data-photo="true">
                         <img src="img/emoji_thumb_06.png"/>
                     </li>
-                    <li>
+                    <li data-photo="true">
                         <img src="img/emoji_thumb_07.png"/>
                     </li>
-                    <li>
+                    <li data-photo="true">
                         <img src="img/emoji_thumb_08.png"/>
                     </li>
-                    <li>
+                    <li data-photo="true">
                         <img src="img/emoji_thumb_09.png"/>
                     </li>
                 </ul>
@@ -170,8 +171,8 @@
 
 </script>
 <script   src="require.js" ></script>
-<script src="app.js"></script>
-<!--<script  src="../../vendor/require.js" ></script>
+<!--<script src="app.js"></script>-->
+<script  src="../../vendor/require.js" ></script>
 <script   src="../../vendor/main.js" ></script>
-<script src="../../vendor/app.js"></script>-->
+<script src="../../vendor/app.js"></script>
 </html>
