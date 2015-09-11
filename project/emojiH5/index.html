@@ -87,8 +87,8 @@
         </div>
         <div class="step" data-step="filter-emoji" >
             <div class="range-bar">
-                <div class="info-line clearfix"><span class="pull-left">对比度</span><span  class="output pull-right">0</span> </div>
-                <input type="range" max="100" min="-100" style="width: 200px" step="1" value="60" class="adjust-input" id="contrast"  data-rangeslider/>
+                <div class="info-line clearfix"><span class="pull-left">对比度</span><span  class="output pull-right">60</span> </div>
+                <input type="range" max="80" min="0" style="width: 200px" step="20" value="60" class="adjust-input" id="contrast"  data-rangeslider/>
             </div>
             <div class="range-bar">
                 <div class="info-line clearfix"><span class="pull-left">曝光度</span><span  class="output pull-right">0</span></div>
@@ -157,13 +157,15 @@
     var APP={version:0.1};
     function sendFile(data){
         //data.imageData ---表情图片地址base64   data.filetype---图片后缀名
-        var form = new FormData();
+        //调用app 接口imageready
+        imageReady(data.imageData);//imageData:base64
+        /*var form = new FormData();
         form.append("filetype", data.filetype);
         form.append("imageData", data.imageData.substring(22));
         var xhrForm = new XMLHttpRequest();
         xhrForm.open("POST", uploadUrl);
         xhrForm.setRequestHeader("Access-Control-Allow-Origin","*");
-        xhrForm.send(form);
+        xhrForm.send(form);*/
     }
     document.addEventListener("touchmove",function(e){
         e.preventDefault();

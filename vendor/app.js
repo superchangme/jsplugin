@@ -409,6 +409,9 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 })
                 img.src= G.defaultPhotoSrc;
                 img=null
+                for(var scrollName in G.scroll){
+                    G.scroll[scrollName].refresh();
+                }
             })();
 
         }
@@ -603,9 +606,9 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 case "drag-emoji":
                     title="调整位置";break;
                 case "filter-emoji":
-                    title="加滤镜";break;
+                    title=" 滤镜调节";break;
                 case 'erase-emoji':
-                    title='擦一擦';break;
+                    title='把多余的擦掉';break;
                 case 'text-emoji':
                     title='添加文字';break;
                 case 'confirm-emoji':

@@ -19,6 +19,8 @@
             if(loaded==false){
                 loaded=true;
 //                console.log(frameWindow)
+//                cb.call(null,frame.contentWindow.name)
+
                 frame.contentWindow.location.href=selfSrc;
             }else{
                 cb.call(null,frame.contentWindow.name)
@@ -27,7 +29,7 @@
         })
         frame.src=src;
     }
-    loadFrame("http://127.0.0.1/test/upload.php",function(data){
+    loadFrame("http://10.4.1.252/tom/cross.php",function(data){
         console.log(data)
     })
 </script>
