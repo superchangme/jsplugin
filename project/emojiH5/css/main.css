@@ -2971,7 +2971,7 @@ body.result .main-inner {
   left: 0;
   top: 0;
   position: absolute;
-  z-index: 999;
+  z-index: 9999;
 }
 .spinner {
   width: 120px;

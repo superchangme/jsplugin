@@ -333,7 +333,7 @@
                 $(document).delegate("[cropId="+_.cropImage.id+"]","change",function(){
                     $bindPreview.prop("src",'');
                     ctx.clearRect(0,0,canvas.width,canvas.height)
-                    if(this.files){
+                    if(this.files&&this.files.length){
                         var temp,mega,preview=this.files[0],img=new Image;
                                 EXIF.getData(preview, function() {
                                     mega=new MegaPixImage(preview);
