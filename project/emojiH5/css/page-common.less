@@ -11,7 +11,9 @@
 }
 .dib_vt{display:inline-block; width:0; height:100%; vertical-align:top;}
 .dib_vm{display:inline-block; width:0; height:100%; vertical-align:middle;}
-
+.pd10{
+  padding: 5px 0;
+}
 .vb{
   vertical-align: bottom;
 }
@@ -373,7 +375,31 @@ img{
     background: url(../img/ico-slide.png) 0 0 /100% no-repeat;
   }
 }
-
+.modal{
+  .full-p;
+  z-index: 999;
+  background: rgba(0,0,0,0.9);
+  &:before{
+    content:"";
+    display: block;
+    .full-p;
+  }
+  &.modal1{
+    &:before{
+      background: url(../img/modal1_bg.png) center 37px no-repeat;
+    }
+  }
+  &.modal2{
+    &:before{
+      background: url(../img/modal2_bg.png) center no-repeat;
+    }
+  }
+  &.modal3{
+    &:before{
+      background: url(../img/modal3_bg.png) center no-repeat;
+    }
+  }
+}
 
 .modal-dialog{
     height: 100%;
@@ -469,7 +495,7 @@ img{
 .fade.in{
   visibility: visible;
   opacity: 1;
-  z-index: 10;
+  z-index: 999;
 }
 .steps{
   [class^=step]{
@@ -763,4 +789,43 @@ img{
     .centerXY;
   }
 
+}
+.close.pointy::Before, .close.pointy::after {
+  width: 200%;
+  left: -50%;
+  height: 4px;
+  margin-top: -2px;
+}
+.close::before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.close::before, .close::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  margin-top: -1px;
+  background: #666666;
+}
+.close::after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.close {
+  position: absolute;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  top: 40px;
+  right: 40px;
 }

@@ -20,6 +20,9 @@
     </div>
 </div>
 <div class="app-wrap fade">
+    <div class="modal modal1 fade"><a class="close thick pointy"></a></div>
+    <div class="modal modal2 fade"><a class="close thick pointy"></a></div>
+    <div class="modal modal3 fade"><a class="close thick pointy"></a></div>
     <div class="main-box ">
         <div class="main-inner" id="photoInnerBox">
             <!--upload box-->
@@ -43,10 +46,14 @@
                   </div>
                  <!--steps list-->
                 <div class="step main-step" data-step="text-emoji" >
-                    <div class="textarea-bg step-tip">
-                              <textarea id="emojiTextArea">
-
+                    <div data-text-step="default">
+                        <div class="textarea-bg step-tip">
+                              <textarea id="emojiTextArea" placeholder="添加文字">
                     </textarea>
+                        </div>
+                    </div>
+                    <div data-text-step="move-text">
+
                     </div>
                 </div>
             </div>
@@ -86,13 +93,28 @@
              </div>
         </div>
         <div class="step" data-step="filter-emoji" >
-            <div class="range-bar">
+          <!--  <div class="range-bar">
                 <div class="info-line clearfix"><span class="pull-left">对比度</span><span  class="output pull-right">60</span> </div>
                 <input type="range" max="80" min="0" style="width: 200px" step="20" value="60" class="adjust-input" id="contrast"  data-rangeslider/>
+            </div>-->
+            <div class="range-bar fix-radio">
+                <input type="range" class='hidden' max="80" min="20" style="width: 200px" step="20" value="20" class="hidden" id="contrast"  />
+                <div class="radio-box in" data-val="20">
+                    低对比
+                </div>
+                <div class="radio-box"  data-val="40">
+                    中对比
+                </div>
+                <div class="radio-box"  data-val="60">
+                    高对比
+                </div>
+                <div class="radio-box"  data-val="80">
+                    强对比
+                </div>
             </div>
             <div class="range-bar">
-                <div class="info-line clearfix"><span class="pull-left">曝光度</span><span  class="output pull-right">0</span></div>
-        <input type="range" max="100" min="-100" style="width: 200px" step="1" value="0" class="adjust-input" id="exposure" data-rangeslider/>
+                <div class="info-line clearfix"><span class="pull-left">暗</span><span  class=" pull-right">亮</span></div>
+        <input type="range" max="0" min="-100" style="width: 200px" step="1" value="-50" class="adjust-input" id="exposure" data-rangeslider/>
             </div>
         </div>
         <div class="step" data-step="erase-emoji">
@@ -104,42 +126,51 @@
                 <input type="range" max="100" min="10" style="width: 200px" step="10" value="30" class="adjust-input" id="eraserRange"  data-rangeslider/>
             </div>
         </div>
-
         <div class="step" data-step="text-emoji" id="emoji-text-list">
-                <div class="scroller">
-                    <div class="item-row vm step-tip">
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>卧勒个槽！</div></div></div>
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>年轻人，你的思想很危险啊！</div></div></div>
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>么么哒～</div></div></div>
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>去你表妹！</div></div></div>
-                    </div>
-                    <div  class="item-row vm step-tip">
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>哎哟卧操！</div></div></div>
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>孩子，你需要治疗</div></div></div>
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>呵呵呵</div></div></div>
-                        <div class="item"><div class='v-table'><div class='v-table-cell'>我是女神我怕谁</div></div></div>
+                <div data-text-step="default">
+                    <div class="scroller">
+                        <div class="item-row vm step-tip">
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>卧勒个槽！</div></div></div>
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>年轻人，你的思想很危险啊！</div></div></div>
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>么么哒～</div></div></div>
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>去你表妹！</div></div></div>
+                        </div>
+                        <div  class="item-row vm step-tip">
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>哎哟卧操！</div></div></div>
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>孩子，你需要治疗</div></div></div>
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>呵呵呵</div></div></div>
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>我是女神我怕谁</div></div></div>
+                        </div>
                     </div>
                 </div>
+            <div data-text-step="move-text" style="display: none">
+                <div class="centerXY">
+                    <a data-switch="default" class="pd5">重新编辑文字</a>
+                </div>
+            </div>
         </div>
         <div class="step" data-step="confirm-emoji" >
         </div>
-
     </div>
     <div class="op-bar">
-        <div class="step" data-step="choose-emoji" >
+        <div class="step" data-step="choose-emoji" data-modal=".modal1">
             <a class="btn-label back-step" disabled>重拍</a>
+            <a class="btn-tip" data-modal=".modal1"></a>
             <a class="btn-yellow pull-right next-step">下一步</a>
         </div>
-        <div class="step" data-step="filter-emoji" >
+        <div class="step" data-step="filter-emoji"  data-modal=".modal2">
             <a class="btn-label back-step" >上一步</a>
+            <a class="btn-tip" data-modal=".modal2"></a>
             <a class="btn-yellow pull-right next-step">下一步</a>
         </div>
-        <div class="step" data-step="erase-emoji" >
+        <div class="step" data-step="erase-emoji" data-modal=".modal3">
             <a class="btn-label back-step">上一步</a>
+            <a class="btn-tip" data-modal=".modal3"></a>
             <a class="btn-yellow pull-right next-step">下一步</a>
         </div>
         <div class="step" data-step="text-emoji" >
             <a class="btn-label back-step" >上一步</a>
+            <a class="move-text centerXY" data-switch="move-text" style="display: none">移动文字</a>
             <a class="btn-yellow pull-right next-step">完成</a>
         </div>
         <div class="step" data-step="confirm-emoji" >
@@ -173,8 +204,8 @@
 
 </script>
 <script   src="require.js" ></script>
-<script src="app.js"></script>
-<!--<script  src="../../vendor/require.js" ></script>
+<!--<script src="app.js"></script>-->
+<script  src="../../vendor/require.js" ></script>
 <script   src="../../vendor/main.js" ></script>
-<script src="../../vendor/app.js"></script>-->
+<script src="../../vendor/app.js"></script>
 </html>

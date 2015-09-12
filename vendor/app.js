@@ -39,11 +39,17 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             x:0,
             y:0
         },
+        textParam:{
+          scale:1,
+            x:null,
+            y:0
+        },
         photoArr:{
             uploadSrc:'',
             dragSrc:'',
             filterSrc:''
         },
+        textStep:'',
         $hiddenOnInputDom:$(".op-box,.op-bar"),
         $emojiTextArea :$("#emojiTextArea"),
         $emojiTextList:$("#emoji-text-list"),
@@ -115,6 +121,19 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
 
     $(function(){
         resetMeta();
+        $(".btn-tip").on("click",function(){
+            var modal=$(this).data("modal-dom");
+            if(modal){
+                modal.addClass("in")
+            }else{
+                modal=$($(this).data("modal"));
+                modal.addClass("in")
+                $(this).data("modal-dom",modal)
+            }
+        })
+        $(".modal .close").on("click",function(){
+            $(this).parent().removeClass("in")
+        })
         Caman.Filter.register("transparent", function (adjust) {
             // Pre-calculate some values that will be used
             // Our process function that will be called for each pixel.
@@ -179,9 +198,11 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         drawResult(function(){
                             work.resolve();
                             $(document.body).addClass("result")
+                            G.$resultImg.show()
                             G.$resultImg.attr("src",G.$resultCanvas[0].toDataURL('image/png'));
                             G.$resultImg.show();
                             G.$photoCanvas.hide();
+                            setcookie("emojiModalTip","yes")
                         });
                         break;
                     case 'confirm-emoji':
@@ -219,14 +240,15 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         break;
                     case 'text-emoji':
                         updateStep('erase-emoji');
+                        G.$eraserCanvas.show();
                         G.startErase();
                         break;
                     case 'confirm-emoji' :
                         $(document.body).removeClass("result")
-                        G.emoji.text='';
-                        G.$emojiTextArea.val('');
-                        G.stepLock=true;
-                        G.$eraserCanvas.show();
+                        //G.emoji.text='';
+                        //G.$emojiTextArea.val('');
+                        //G.stepLock=true;
+                        //G.$eraserCanvas.show();
                         //G.$resultCanvas.hide();
                         G.$resultImg.hide();
                         updateStep('text-emoji');
@@ -307,6 +329,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         G.$emojiTextArea.css("line-height",'');
                     }
                 }
+                G.$emojiTextArea.trigger("change")
             });
             G.$photoFrame.hammer({
                 gestureCb:function(o){
@@ -319,6 +342,16 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     G.$photoCanvas.animateLayer(G.currentLayer,G.photoParam,0)
                 }
             });
+            G.$resultCanvas.hammer({
+               gestureCb:function(o){
+                   if(o.x!=null){
+                       o.x+= G.textX;
+                       o.y+= G.textY;
+                   }
+                   $.extend(G.textParam, o)
+                   G.$resultCanvas.animateLayer("text",G.textParam,0)
+               }
+            })
             $(document).one("moveInput",function(){
                 G.$photoInput.appendTo(G.currentStepDom.find(".back-step"));
             })
@@ -346,12 +379,38 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     })
                 }
             });
-
+            $(".radio-box").on("click",function(){
+                $(this).addClass("in").siblings().removeClass("in")
+                G.$contrast.val($(this).data("val"));
+                filterCanton();
+            })
             $(".adjust-input").on("change",filterCanton)
             //加载滤镜
             //step
             $("#filterBtn").on("click",function(){
                 loadFilter(G.$photoCanvas[0].toDataURL("image/png"))
+            })
+            $('[data-switch]').on("click",function(){
+                var type=$(this).data('switch'),step=$("[data-text-step="+type+']');
+                if(type== G.textStep){
+                    return;
+                }
+                step.show();
+                step.siblings("[data-text-step]").hide();
+                if(type=="default"){
+                    G.$resultCanvas.hide()
+                    G.$photoCanvas.show();
+                    G.textStep='default'
+                    G.textParam={scale:1,x:null,y:0};
+                }else{
+                    work=new WorkMan("拖拽文字");
+                    G.textStep='move-text'
+                    drawResult(function(){
+                        work.resolve();
+                        G.$resultCanvas.show()
+                        G.$photoCanvas.hide();
+                    });
+                }
             })
             //step eraser
             G.$eraserCanvas.eraser({scaleCanvas: G.photoScale,radius:15,container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
@@ -373,6 +432,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 }
             })
             $(document).on("input","#emojiTextArea",function(){
+
                 var r=getLineNum(this,2),oldVal=$(this).data("oldVal");
                 if(r.limit){
                     $(this).val(oldVal)
@@ -384,11 +444,17 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     }
                 }
             })
+
             G.$emojiTextArea.on("focus",function(){
                 G.$hiddenOnInputDom.hide();
-            });
-            G.$emojiTextArea.on("blur",function(){
+            }).on("blur",function(){
                 G.$hiddenOnInputDom.show();
+            }).on("change",function(){
+                if($(this).val()==""){
+                    $('[data-switch=move-text]').hide();
+                }else{
+                    $('[data-switch=move-text]').show();
+                }
             })
 
             ;(function(){
@@ -441,8 +507,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             return work;
         }
         //draw result
-        function drawResult(cb){
-            G.$resultCanvas.removeLayers() ;
+        function drawResult(cb,final){
+            G.$resultCanvas.removeLayers()[0].getContext("2d").clearRect(0,0, G.pWidth, G.pHeight) ;
             if(G.emoji.background){
                 G.$resultCanvas.
                 drawImage({
@@ -451,7 +517,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     name:"photoBg",
                     x:0,y:0,width: G.pWidth,
                     height: G.pHeight , fromCenter:false ,load:function(){
-                            drawExceptBg(cb);
+                                drawExceptBg(cb);
                         }
                 });
             }else{
@@ -460,37 +526,51 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         }
 
         function drawExceptBg(cb){
+            var one=false,two=false
             G.$resultCanvas. drawImage({
                 source: G.emoji.photoWithErase,
                 layer:true,
                 name:"photo",
                 x:0,y:0,width: G.pWidth,
                 height: G.pHeight , fromCenter:false,load:function(){
-                    G.$resultCanvas.drawImage({
-                        source: G.emoji.mask,
-                        layer:true,
-                        name:"photoMask",
-                        x:0,y:0,width: G.pWidth,
-                        height: G.pHeight , fromCenter:false,load:function(){
-                            G.$resultCanvas.drawText(
-                                {
-                                    text: G.emoji.text,
-                                    layer:true,
-                                    name:"text",
-                                    fillStyle: '#000',
-                                    fontStyle: 'bold',
-                                    fromCenter:true,
-                                    fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
-                                    fontFamily:G.$emojiTextArea.css("font-family") ,
-                                    x: G.pWidth/2,y: G.pHeight-55,
-                                    width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
-                                }
-                            );
-                            if(cb){
-                                cb();
+                    if(one==false){
+                        one=true;
+                        G.$resultCanvas.drawImage({
+                            source: G.emoji.mask,
+                            layer:true,
+                            name:"photoMask",
+                            x:0,y:0,width: G.pWidth,
+                            height: G.pHeight , fromCenter:false,load:function(){
+                             if(two==false){
+                                 two=true;
+                                 if(G.textParam.x==null){
+                                     G.textX=G.pWidth/2;
+                                     G.textY=G.pHeight-55;
+                                     G.textParam.x= G.textX;
+                                     G.textParam.y= G.textY;
+                                 }
+                                 G.$resultCanvas.drawText(
+                                     {
+                                         text: G.emoji.text,
+                                         layer:true,
+                                         name:"text",
+                                         scale: G.textParam.scale,
+                                         fillStyle: '#000',
+                                         fontStyle: 'bold',
+                                         fromCenter:true,
+                                         fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
+                                         fontFamily:G.$emojiTextArea.css("font-family") ,
+                                         x: G.textParam.x ,y: G.textParam.y,
+                                         width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
+                                     }
+                                 );
+                                 if(cb){
+                                     cb();
+                                 }
+                             }
                             }
-                        }
-                    })
+                        })
+                    }
 
                 }
             })
@@ -594,11 +674,22 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             var title;
             if(step!="drag-emoji"){
                 G.currentStepDom.hide();
+                G.currentStepDom.removeClass("in")
                 G.currentStepDom= G.steps.filter('[data-step='+step+']:not(.wait)').show();
                 G.currentStep=step;
+                if(step!='choose-emoji'){
+                    G.currentStepDom.addClass("in")
+                }
                 for(var scrollName in G.scroll){
                     G.scroll[scrollName].refresh();
                 }
+            }else{
+                G.currentStepDom.addClass("in")
+            }
+            needTipStep=G.currentStepDom.filter('.in[data-modal]:not(.tiped)')
+            if(needTipStep.length&&!getcookie("emojiModalTip")){
+               $(needTipStep.data("modal")).addClass("in");
+                needTipStep.addClass("tiped")
             }
             switch(step){
                 case "choose-emoji":
@@ -712,3 +803,28 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
     })
 
 })
+
+function setcookie(name,value){
+    var Days = 30;
+    var exp  = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+}
+
+
+function getcookie(name){
+    var arr = document.cookie.match(new RegExp("(^| )"+name+"=([^;]*)(;|$)"));
+    if(arr != null){
+        return (arr[2]);
+    }else{
+        return "";
+    }
+}
+
+
+function delcookie(name){
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}

@@ -11,7 +11,7 @@ html,body{
 body{
   position: relative;
   overflow: hidden;
-  background: #f0f0f0;
+  background: black;
 }
 .app-wrap{
   position: relative;
@@ -349,4 +349,39 @@ body.result{
     -webkit-transform:rotate(360deg);
     transform:rotate(360deg);
   }
+}
+.btn-tip{
+  background: url(../img/help.png) 10px 10px no-repeat;
+  width: 60px;
+  height: 60px;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 23px;
+  margin-left: -30px;
+}
+.radio-box{
+    border-radius: 6px;
+    background-color: rgb( 0, 0, 0 );
+    width: 130px;
+    height: 100px;
+  display: inline-block;
+  color: #bfbfbf;
+  font-size: 24px;
+  line-height: 100px;
+  &.in{
+    border: 2px solid #fec600;
+  }
+}
+.radio-box+.radio-box{
+  margin-left: 20px;
+}
+.fix-radio{
+  text-align: center;
+  padding: 0;
+}
+.move-text{
+  color: white;
+  padding: 5px 0;
+  display: block;
 }
