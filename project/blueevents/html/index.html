@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+    <title></title>
+    <link rel="stylesheet" href="../css/style-promo.css"/>
+    <style>
+        html, body {
+            /*height: 100%;*/
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            /*overflow: hidden;*/
+            background-color: #070709;
+        }
+        body{
+         /*   position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;*/
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #070709;
+        }
+        .loading__inner{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -83px;
+            margin-top: -40px;
+            width: 166px;
+            height: 60px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            background-color: #070709;
+        }
+
+        .loading__img {
+            width: 166px;
+            height: 20px;
+        }
+        .loading-num{
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 20px;
+        }
+         .loading-num img{
+               vertical-align: middle;
+             margin-right: 5px;;
+         }
+    </style>
+</head>
+<body>
+<img src="../img/wx_share.jpg" style="display: none"/>
+<div class="loading hidden">
+    <div class="loading__inner">
+        <div class="loading__img"></div>
+        <div class="loading-num"><span> 0%</span></div>
+    </div>
+</div>
+  <div class="outer">
+      <!--容器-->
+      <div class="wrap" >
+          <section class="screen screen1" >
+                <div class="abs">
+                    <div class="center fade p1-text text"></div>
+                </div>
+              <div class="abs "><div class="center fade p1-ready"></div></div>
+              <div class="abs"> <a class="fade btn-go btn" data-swipe="next"></a></div>
+              <div class="abs step" id="videoBox">
+                  <div class="finger-tip-1 center"></div>
+                  <div id="WxMomentVideo" class=" center">
+                  </div>
+                  <div class="caption"><div  id="captionText"></div></div>
+              </div>
+              <button id="start">测试音频</button>
+
+          </section>
+      </div>
+  </div>
+<script >
+/*    window.onerror=function(err){
+        alert(err)
+    }*/
+    var uploadUrl="../php/main.php?a=saveform";
+    var collectShareUrl="../php/main.php?a=share";
+    var visitUrl='../php/main.php?a=visit'
+    var app={
+        video:"123",
+        audioSrc:"../media/test.mp3",
+        text:"测试2,一男子汤母通过不同用户名在各大婚恋网站上结识异性，并依靠有“泡妞神器”之称的蓝鸟，在三个月内和八位异性先后确立了情侣关系。本以为可以继续共享齐人之福，然而他在国庆黄金周期间在某一景点游玩时，意外地遇上这八位女友。景点人潮汹涌，费大鹏逃跑不遂，惨遭围殴。事后，他哭着表示：都是蓝鸟的锅，这车太酷炫，把女生迷得不要不要的，她们与我交往完全是为了接近我的车。最重要的是，国庆千万不要去景点。",
+        picTimeArr:["96"],
+        picUrlArr:[]
+    }
+</script>
+<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>
+<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<!-- build:js ../js/lib.js -->
+<script type="text/javascript" src="../js/zepto.fx.js"></script>
+<script type="text/javascript" src="../js/zepto.data.js"></script>
+<script type="text/javascript" src="../js/fastclick.js"></script>
+<script  type="text/javascript" src="../js/getWXSDK.js"></script>
+<script  type="text/javascript"  src="../js/main.js"></script>
+</body>
+</html>
