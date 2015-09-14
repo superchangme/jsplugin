@@ -135,7 +135,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             }
         })
         $(".modal").on("click",function(){
-            $(this).parent().removeClass("in")
+            $(this).removeClass("in")
         })
         Caman.Filter.register("transparent", function (adjust) {
             // Pre-calculate some values that will be used
