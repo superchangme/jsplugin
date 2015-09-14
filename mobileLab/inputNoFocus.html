@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
+
+    <title></title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+        }
+        html,body{
+            height: 100%;
+            background: rgba(0,0,0,0.35);
+            overflow: hidden;
+        }
+        #showInput span{
+            line-height: 40px;
+            height: 40px;
+            float: left;
+            width: 40px;
+            color: green;
+            border: 1px solid red;
+            border-right:none ;
+        }
+        #showInput{
+            float:left;
+            height: 40px;
+        }
+        #showInput{
+        }
+        .maskBox{
+            padding: 20px 25px;
+            background: #eee;
+            display: inline-block;
+        }
+        .v-table{
+            height: 100%;
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+            text-align: center;
+        }
+        .v-table-cell{
+            vertical-align: middle;
+            display: table-cell;
+            text-align: center;
+        }
+        .left-box{
+            float: left;
+            left: 50%;
+            position: relative;
+            height: 100%;
+        }
+        .left-inner{
+            position: relative;
+            right: 50%;
+            height: 100%;
+        }
+        #myInput{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left:0;
+            top:0;
+            opacity: 0;
+        }
+        .border-box{
+            position: relative;
+            height: 100%;
+        }
+        .border-box:after{
+            content: " ";
+            display: block;
+              position: absolute;
+            left: 100%;
+            top:0;
+            height: 100%;
+            width: 1px;
+        }
+        .border-box.red-bord:after{
+             background: red;
+        }
+        .clearfix{
+            clear: both;
+        }
+        .abs{
+            position: absolute;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+<h1 style="margin: 30px auto;text-align: center">无光标输入</h1>
+<div class=" v-table abs">
+<div class="v-table-cell ">
+    <div class="maskBox">
+        <div id="showInput" class="left-box">
+            <div class="left-inner">
+                <div class="border-box red-bord">
+                    <span></span><span></span><span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+</div>
+    <input type="text" id="myInput"/>
+</body>
+<script>
+    var showInputArr=document.querySelectorAll("#showInput span")
+    myInput.addEventListener("input",function(){
+        var start=this.value.length-1;
+        if(start>=0){
+            if(this.value.length<=6){
+                showInputArr[start].innerText=this.value.slice(start,start+1)
+                if(start<showInputArr.length-1){
+                    for(var i=start+1;i<showInputArr.length;i++){
+                        showInputArr[i].innerText='';
+                    }
+                }
+            }else{
+                this.value=this.value.slice(0,6)
+            }
+        }else{
+            showInputArr[0].innerText='';
+        }
+    })
+    myInput.focus();
+</script>
+</html>
