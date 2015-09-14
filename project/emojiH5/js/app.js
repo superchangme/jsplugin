@@ -14,7 +14,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
     //step1 上传图片
     $.extend(G,{
         photoBg:$("#photoBg")[0],
-        defaultPhotoSrc:"img/emoji_photo_0.png",
+        defaultPhotoSrc:"../img/emoji_photo_0.png",
         filterPhoto:null,
         pWidth:$("#photoFrame").width(),
         pHeight:$("#photoFrame").width(),
