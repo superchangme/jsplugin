@@ -412,7 +412,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 step.siblings("[data-text-step]").hide();
                 if(type=="default"){
                     G.$resultCanvas.hide()
-                    G.$photoCanvas.show();
+                    G.$eraserCanvas.show();
                     G.textStep='default'
                     G.textParam={scale:1,x:null,y:0,rotate:0};
                     G.$resultCanvas.hammer('reset')
@@ -422,7 +422,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                     drawResult(function(){
                         work.resolve();
                         G.$resultCanvas.show()
-                        G.$photoCanvas.hide();
+                        G.$eraserCanvas.hide();
                     });
                 }
             })
