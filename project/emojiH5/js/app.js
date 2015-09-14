@@ -41,7 +41,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             y:0
         },
         textParam:{
-          scale:1,
+            scale:1,
             x:null,
             y:0,
             rotate:0
@@ -183,7 +183,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                         loadFilter(G.$photoCanvas[0].toDataURL("image/png"),work);
                         break;
                     case "filter-emoji":
-                        work=new WorkMan("添加橡皮擦");
+                        work=new WorkMan("添加橡皮�?");
                         G.startErase(function(){
                             updateStep('erase-emoji');
                             work.resolve();
@@ -197,16 +197,22 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                         break;
                     case 'text-emoji':
                         updateStep('confirm-emoji');
-                        work=new WorkMan("生成最终效果",updateStep.bind(null,'confirm-emoji'));
-                        drawResult(function(){
-                            work.resolve();
+                        setcookie("emojiModalTip","yes")
+                        if(G.textStep=='move-text'){
                             $(document.body).addClass("result")
                             G.$resultImg.show()
                             G.$resultImg.attr("src",G.$resultCanvas[0].toDataURL('image/png'));
-                            G.$resultImg.show();
-                            G.$photoCanvas.hide();
-                            setcookie("emojiModalTip","yes")
-                        });
+                            updateStep('confirm-emoji')
+                        }else{
+                            work=new WorkMan("生成�?终效�?",updateStep.bind(null,'confirm-emoji'));
+                            drawResult(function(){
+                                work.resolve();
+                                $(document.body).addClass("result")
+                                G.$resultImg.show()
+                                G.$resultImg.attr("src",G.$resultCanvas[0].toDataURL('image/png'));
+                                G.$resultImg.show();
+                            });
+                        }
                         break;
                     case 'confirm-emoji':
                         sendFile({imageData:G.$resultCanvas[0].toDataURL("image/png"),filetype:"png"});
@@ -256,8 +262,6 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                         //G.emoji.text='';
                         //G.$emojiTextArea.val('');
                         //G.stepLock=true;
-                        G.$eraserCanvas.show();
-                        //G.$resultCanvas.hide();
                         G.$resultImg.hide();
                         updateStep('text-emoji');
                         break;
@@ -351,14 +355,14 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 }
             });
             G.$resultCanvas.hammer({
-               gestureCb:function(o){
-                   if(o.x!=null){
-                       o.x+= G.textX;
-                       o.y+= G.textY;
-                   }
-                   $.extend(G.textParam, o)
-                   G.$resultCanvas.animateLayer("text",G.textParam,0)
-               }
+                gestureCb:function(o){
+                    if(o.x!=null){
+                        o.x+= G.textX;
+                        o.y+= G.textY;
+                    }
+                    $.extend(G.textParam, o)
+                    G.$resultCanvas.animateLayer("text",G.textParam,0)
+                }
             })
             $(document).one("moveInput",function(){
                 G.$photoInput.appendTo(G.currentStepDom.find(".back-step"));
@@ -376,12 +380,12 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                     G.btns.$backStepBtn.removeAttr("disabled")
                     G.resetPhotoConfig();
                     G.emoji.photo=data.originSrc;
-                    var work=new WorkMan("初始化照片");
+                    var work=new WorkMan("初始化照�?");
                     G.photoParam.width=data.dWidth;
                     G.photoParam.height=data.dHeight;
-            /*        var imInfo=G.photoCrop.getCropInfo()
-                    G.photoParam.width=imInfo.dWidth;
-                    G.photoParam.height=imInfo.dHeight;*/
+                    /*        var imInfo=G.photoCrop.getCropInfo()
+                     G.photoParam.width=imInfo.dWidth;
+                     G.photoParam.height=imInfo.dHeight;*/
                     drawPhoto(data.x,data.y,null,null,function(){
                         work.resolve();
                     })
@@ -498,18 +502,18 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
         function WorkMan(tips,cb,errcb){
             G.isBusyWork=true;
             var work= $.Deferred(),tips=tips||"";
-           waitLoad.removeClass("hidden");
+            waitLoad.removeClass("hidden");
             work.done(function(data){
                 G.isBusyWork=false;
                 if(typeof cb==="function"){cb(data);}
-               waitLoad.addClass("hidden");
+                waitLoad.addClass("hidden");
             });
             work.fail(function(err){
                 if(typeof errcb=="function"){
                     errcb(err);
                 }
                 else{
-                    alert('出错咯，再试一次吧!')
+                    alert('出错咯，再试�?次吧!')
                 }
                 G.isBusyWork=false;
 //               waitLoad.removeClass("open");
@@ -521,15 +525,15 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             G.$resultCanvas.removeLayers()[0].getContext("2d").clearRect(0,0, G.pWidth, G.pHeight) ;
             if(G.emoji.background){
                 G.$resultCanvas.
-                drawImage({
-                    source: G.emoji.background,
-                    layer:true,
-                    name:"photoBg",
-                    x:0,y:0,width: G.pWidth,
-                    height: G.pHeight , fromCenter:false ,load:function(){
-                                drawExceptBg(cb);
+                    drawImage({
+                        source: G.emoji.background,
+                        layer:true,
+                        name:"photoBg",
+                        x:0,y:0,width: G.pWidth,
+                        height: G.pHeight , fromCenter:false ,load:function(){
+                            drawExceptBg(cb);
                         }
-                });
+                    });
             }else{
                 drawExceptBg(cb);
             }
@@ -551,33 +555,34 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                             name:"photoMask",
                             x:0,y:0,width: G.pWidth,
                             height: G.pHeight , fromCenter:false,load:function(){
-                             if(two==false){
-                                 two=true;
-                                 if(G.textParam.x==null){
-                                     G.textX=G.pWidth/2;
-                                     G.textY=G.pHeight-55;
-                                     G.textParam.x= G.textX;
-                                     G.textParam.y= G.textY;
-                                 }
-                                 G.$resultCanvas.drawText(
-                                     {
-                                         text: G.emoji.text,
-                                         layer:true,
-                                         name:"text",
-                                         scale: G.textParam.scale,
-                                         fillStyle: '#000',
-                                         fontStyle: 'bold',
-                                         fromCenter:true,
-                                         fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
-                                         fontFamily:G.$emojiTextArea.css("font-family") ,
-                                         x: G.textParam.x ,y: G.textParam.y,
-                                         width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
-                                     }
-                                 );
-                                 if(cb){
-                                     cb();
-                                 }
-                             }
+                                if(two==false){
+                                    two=true;
+                                    if(G.textParam.x==null){
+                                        G.textX=G.pWidth/2;
+                                        G.textY=G.pHeight-55;
+                                        G.textParam.x= G.textX;
+                                        G.textParam.y= G.textY;
+                                    }
+                                    G.$resultCanvas.drawText(
+                                        {
+                                            text: G.emoji.text,
+                                            layer:true,
+                                            name:"text",
+                                            scale: G.textParam.scale,
+                                            fillStyle: '#000',
+                                            fontStyle: 'bold',
+                                            rotate: G.textParam.rotate,
+                                            fromCenter:true,
+                                            fontSize: (G.emoji.textLineNum==2?0.8:1)*parseInt(G.$emojiTextArea.css("font-size"))+"px",
+                                            fontFamily:G.$emojiTextArea.css("font-family") ,
+                                            x: G.textParam.x ,y: G.textParam.y,
+                                            width: G.pWidth,height:120,maxWidth: G.pWidth,lineHeight:"1.2"
+                                        }
+                                    );
+                                    if(cb){
+                                        cb();
+                                    }
+                                }
                             }
                         })
                     }
@@ -679,7 +684,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                     });
             }
         }
-        //前进后退
+        //前进后�??
         function updateStep(step){
             var title;
             if(step!="drag-emoji"){
@@ -698,7 +703,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             }
             needTipStep=G.currentStepDom.filter('.in[data-modal]:not(.tiped)')
             if(needTipStep.length&&!getcookie("emojiModalTip")){
-               $(needTipStep.data("modal")).addClass("in");
+                $(needTipStep.data("modal")).addClass("in");
                 needTipStep.addClass("tiped")
             }
             switch(step){
