@@ -33,7 +33,8 @@ require.config({
         'Caman':"caman.full",
         'slider':"rangeslider.js-1.3.3/rangeslider.min",
         "iscroll-lite":"iscroll-lite",
-        "megapix-image":"megapix-image"
+        "megapix-image":"megapix-image",
+        'fastclick':'fastclick'
     }  ,
     /*模块规则配置*/
     map:{

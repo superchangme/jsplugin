@@ -1,5 +1,6 @@
 var APP=APP||{},jquery;
-require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser','slider'],function($,T,IScroll){
+require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','hammer.showtouch','tomPlugin','Caman','jcanvas','jquery.eraser','slider'],function($,T,IScroll,Fastclick){
+    Fastclick.attach(document.body);
     jquery=$;
     var originHeight=window.innerHeight;
     var waitLoad=$(".loading")
@@ -42,7 +43,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
         textParam:{
           scale:1,
             x:null,
-            y:0
+            y:0,
+            rotate:0
         },
         photoArr:{
             uploadSrc:'',
@@ -50,6 +52,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
             filterSrc:''
         },
         textStep:'',
+        $textDefaultStep:$("[data-text-step=default]"),
         $hiddenOnInputDom:$(".op-box,.op-bar"),
         $emojiTextArea :$("#emojiTextArea"),
         $emojiTextList:$("#emoji-text-list"),
@@ -239,8 +242,13 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         G.$eraserCanvas.hide();
                         break;
                     case 'text-emoji':
+                        G.$textDefaultStep.show().siblings("[data-text-step]").hide();
+                        G.$resultCanvas.hide()
+                        G.$photoCanvas.show();
+                        G.textStep='default'
+                        G.textParam={scale:1,x:null,y:0,rotate:0};
+                        G.$resultCanvas.hammer('reset')
                         updateStep('erase-emoji');
-                        G.$eraserCanvas.show();
                         G.startErase();
                         break;
                     case 'confirm-emoji' :
@@ -248,7 +256,7 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                         //G.emoji.text='';
                         //G.$emojiTextArea.val('');
                         //G.stepLock=true;
-                        //G.$eraserCanvas.show();
+                        G.$eraserCanvas.show();
                         //G.$resultCanvas.hide();
                         G.$resultImg.hide();
                         updateStep('text-emoji');
@@ -380,9 +388,10 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                 }
             });
             $(".radio-box").on("click",function(){
+                var work=new WorkMan("调整滤镜效果");
                 $(this).addClass("in").siblings().removeClass("in")
                 G.$contrast.val($(this).data("val"));
-                filterCanton();
+                filterCanton(work);
             })
             $(".adjust-input").on("change",filterCanton)
             //加载滤镜
@@ -401,7 +410,8 @@ require(["jquery",'tomLib','iscroll-lite','hammer','hammer.fake','hammer.showtou
                     G.$resultCanvas.hide()
                     G.$photoCanvas.show();
                     G.textStep='default'
-                    G.textParam={scale:1,x:null,y:0};
+                    G.textParam={scale:1,x:null,y:0,rotate:0};
+                    G.$resultCanvas.hammer('reset')
                 }else{
                     work=new WorkMan("拖拽文字");
                     G.textStep='move-text'

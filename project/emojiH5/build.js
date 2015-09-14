@@ -23,6 +23,7 @@
         "tomPlugin":"plugins/tom-jqplugins",
         'Caman':"caman.full",
         'slider':"rangeslider.js-1.3.3/rangeslider.min",
-        "iscroll-lite":"iscroll-lite"
+        "iscroll-lite":"iscroll-lite",
+        'fastclick':'fastclick'
     }
 })
