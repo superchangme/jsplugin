@@ -64,7 +64,7 @@
             position: absolute;
             left:0;
             top:0;
-            opacity: 0;
+            opacity: 0.5;
         }
         .border-box{
             position: relative;
@@ -111,11 +111,12 @@
 </body>
 <script>
     var showInputArr=document.querySelectorAll("#showInput span")
-    myInput.addEventListener("input",function(){
+    document.getElementById("myInput").addEventListener("input",function(){
         var start=this.value.length-1;
         if(start>=0){
             if(this.value.length<=6){
                 showInputArr[start].innerText=this.value.slice(start,start+1)
+                console.log(showInputArr[start])
                 if(start<showInputArr.length-1){
                     for(var i=start+1;i<showInputArr.length;i++){
                         showInputArr[i].innerText='';

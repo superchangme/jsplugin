@@ -1,4 +1,15 @@
-var jssdkURL="../php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
+FastClick.attach(document.body);
+var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
+var MYSWIPER;
+var TRANSFORM=prefixStyle("transform")
+var TRANSITION_END=prefixEvent("transitionEnd");
+var carAudio;
+var bgAudio;
+var isSubmiting=false;
+var isSubmited=false;
+var scrollTop=0;
+var loadedTimes=0;
+var jssdkURL="php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
 $.ajax({url:visitUrl,success:function(){
     console.log("记录访问信息")
 }})
@@ -54,17 +65,7 @@ init_wx_jsapi(jssdkURL,function(config){
 });
 
 
-FastClick.attach(document.body);
-var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
-var MYSWIPER;
-var TRANSFORM=prefixStyle("transform")
-var TRANSITION_END=prefixEvent("transitionEnd");
-var carAudio;
-var bgAudio;
-var isSubmiting=false;
-var isSubmited=false;
-var scrollTop=0;
-var loadedTimes=0;
+
 window.addEventListener("orientationchange",function(){
     if (window.orientation == 0 || window.orientation == 180) {
         //orientation = 'portrait';
@@ -258,33 +259,25 @@ if (!(typeof webpsupport == 'function')) {
 webpsupport(function (webpa) {
     var loader = new WxMoment.Loader(),
         fileList =
-            ['img/bg_mask.png',
-                'img/btn_form.png',
-                'img/btn_go.png',
+            [ 'img/anim_pops.png',
+                'img/btn_ishare.png',
                 'img/btn_itry.png',
-                'img/btn_more.png',
-                'img/car_logo.png',
-                'img/finger.png',
-                'img/p1_bg.jpg',
-                'img/p1_text.png',
-                'img/p1_text1.png',
-                'img/p2_bg.jpg',
-                'img/p2_text.png',
-                'img/p3_bg.jpg',
+                'img/btn_morelink.png',
+                'img/btn_see_big.png',
+                'img/btn_video_start.png',
+                'img/event_loading.png',
+                'img/event_loading_white.png',
+                'img/p0_bg.png',
+                'img/p0_car.png',
+                'img/p1_girl.png',
+                'img/p1_man.png',
                 'img/p3_car.png',
-                'img/p3_text.png',
-                'img/p4_bg.jpg',
-                'img/p4_car.png',
-                'img/p4_deng.png',
-                'img/p4_start.png',
-                'img/p4_text.png',
-                'img/rocket.png',
-                'img/video_bg.jpg',
-                'img/voice-logo.png',
-                'img/volume_off.png',
-                'img/volume_on.png'
+                'img/p3_logo.png',
+                'img/p3_share_text.png',
+                'img/qrcode.png',
+                'img/video_frame.png'
             ],
-        $numText=$('.loading-num').find('span');
+        $numText=$('.loading-num').find('span'),$loadInner=$("#loadInner");
     for (var i = 0; i < fileList.length; i++) {
         var basename = fileList[i].substring(fileList[i].lastIndexOf('/') + 1);
         if (webpa && img_map && (basename in img_map) && img_map[basename]) { //if webp
@@ -303,18 +296,18 @@ webpsupport(function (webpa) {
 
     function checkLoaded(){
         if(loadedTimes==1){
-            $('.loading').remove();
+           // $('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active');
             document.body.scrollTop=0;
         }
     }
     //loadBg music
-    loadAudio("../media/bg.mp3",function(){
+    loadAudio("media/bg.mp3",function(){
         loadedTimes+=1;
         checkLoaded()
         bgAudio=document.createElement("audio");
-        bgAudio.src='../media/bg.mp3';
+        bgAudio.src='media/bg.mp3';
         bgAudio.autoplay="autoplay"
         bgAudio.loop="loop"
         bgAudio.volume=0.5
@@ -324,14 +317,14 @@ webpsupport(function (webpa) {
             bgAudio.play();
             bgAudio.isPaused=false
         }
-        image.src='../img/volume_on.png';
+        image.src='img/volume_on.png';
     })
 
-    loadAudio("../media/yinqing.mp3",function(){
+    loadAudio("media/yinqing.mp3",function(){
         loadedTimes+=1;
         checkLoaded()
         carAudio=document.createElement("audio");
-        carAudio.src='../media/yinqing.mp3';
+        carAudio.src='media/yinqing.mp3';
         document.body.appendChild(carAudio);
     })
 
@@ -340,7 +333,7 @@ webpsupport(function (webpa) {
     loader.addProgressListener(function (e) {
         var percentUp = Math.round((e.completedCount / e.totalCount) * 100), //正序, 1-100
             progressDown = 100 - percentUp;                                   //倒序, 100-1
-
+        $loadInner.css(TRANSFORM,"translate3d("+percentUp + '%,0,0)')
         $numText.text(percentUp + '%');
     });
 
@@ -405,7 +398,7 @@ webpsupport(function (webpa) {
 })();
 function resetMeta(){
     var g=window.innerWidth,h=window.innerHeight,k;
-    (g/h)>=320/506?k=h/1012:k=g/640;
+    (g/h)>=320/504?k=h/1008:k=g/640;
     document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
 }
 //init
@@ -419,7 +412,30 @@ $.extend(app,{
              $("#captionText").animate({"translate3d":$("#captionText").parent().width()-$("#captionText").width()+"px,0,0"},app.dubber.duration*1000)
          }
          image.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=';
-     }
+     } ,
+    toggleLoad:function(){
+
+    },
+    uploadEvent:function(that,e){
+        app.toggleLoad();
+        loadCorssData(uploadUrl,$(that).parents("form")[0],function(data){
+            data= JSON.parse(data);
+            app.toggleLoad();
+            if(data.result==1){
+                 window.location.href=data.url;
+            } else{
+                alert(data.message)
+            }
+        })
+       /* $.ajax({
+            type:"post",
+            url:uploadUrl,
+            data:$(that).parents("form").serialize(),
+            success:function(data){
+               console.log(data)
+            }
+        })*/
+    }
 })
 $(function(){
     resetMeta();
@@ -432,6 +448,7 @@ $(function(){
     $("#start").on("click",function(){
         app.play();
     })
+    $("#uploadMyEvent").on("click",app.uploadEvent.bind(null,$("#uploadMyEvent")))
   var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg"),$readyPage=$("#readyPage");
     var touchTime=0;
     setTimeout(function(){
@@ -603,62 +620,7 @@ function mySwipe(opts,successCb,beforeSwipeCb){
 new WxMoment.OrientationTip();
 
 
-var videoIsRe=false;
-/*var video = new WxMoment.Video({
-    //请联系接口人确认视频清晰度已调至高清版本
-    //如果要定制“播放按钮”的样式，请使用 CSS 覆盖 .tvp_overlay_play 和 .tvp_button_play 即可
 
-    vid: "c0164085vxj", //视频 vid 取自视频地址：http://v.qq.com/page/a/t/t/a0016gys8ct.html
-    pic: "../img/video_bg.jpg", //设置视频默认缩略图
-    modId: "WxMomentVideo",
-    isHtml5ControlAlwaysShow: false,//HTML5播放器是否一直显示控制栏
-    html5LiveUIFeature: false,//HTML5直播播放器UI组件
-    isHtml5UseFakeFullScreen: false,//是否强制使用伪全屏
-    playerType:'html5',//使用 HTML5 播放器，不支持 IE
-    noLimitBtn: true,//禁止显示腾讯视频右下角高清banner
-    isiPhoneShowPosterOnPause : false,//设置暂停显示当前帧，仅微信内有效
-    isHtml5ShowLoadingAdOnStart: false,//是否展示腾讯视频前的广告
-    isHtml5ShowLoadingAdOnChange: false,
-    autoplay: false,//是否自动播放
-    oninited: function () {
-        //播放器在视频载入完毕触发
-        console.log("video:oninited");
-        videoIsRe=true;
-    },
-    onplaying: function () {
-        //播放器真正开始播放视频第一帧画面时
-        bgAudio.pause();
-        bgAudio.isPaused=false;
-        if(MYSWIPER&&MYSWIPER.pageLock!=true){
-            //MYSWIPER.pageLock=true;
-        }
-    },
-    onpause: function () {
-        //播放器触发暂停时，目前只针对HTML5播放器有效
-        if(MYSWIPER){
-            //MYSWIPER.pageLock=false;
-        }
-    },
-    onresume: function () {
-        //暂停后继续播放时触发
-    },
-    onallended: function () {
-        if(MYSWIPER.getCurrent()==6){
-            MYSWIPER.pageLock=false;
-            MYSWIPER.next();
-        }
-        //$(".video_bg").css("display","block");
-        //$("#WxMomentVideo").css("display","none");
-        ////播放器播放完毕时
-        //setTimeout(function(e){
-        //    $(".frame1").css("display","none");
-        //    $(".frame2").css("display","block");
-        //},500);
-    },
-    onfullscreen: function (isfull) {
-        //onfullscreen(isfull) 播放器触发全屏/非全屏时，参数isfull表示当前是否是全屏
-    }
-});*/
 //切换
 
 
@@ -821,4 +783,39 @@ function ajax(url,cb){
         }
     }
     xhr.send(null);
+}
+
+function loadCorssData(src,form,cb){
+    var isFirst=false;
+    var frame=document.createElement("iframe");
+    var selfSrc='about:blank';
+    var loaded=false
+    var id="loadCorssData_"+Math.floor(Math.random()*1000)
+    frame.style.display='none';
+    frame.id=id;
+    frame.name=id;
+    document.body.appendChild(frame)
+    frame.addEventListener("load",function(){
+        isFirst=true;
+        frame.removeAttribute("name")
+        if(loaded==false){
+            loaded=true;
+//                console.log(frameWindow)
+//                cb.call(null,frame.contentWindow.name)
+
+            frame.contentWindow.location.href=selfSrc;
+        }else{
+            console.log(frame.contentWindow.name)
+            cb.call(null,frame.contentWindow.name)
+            document.body.removeChild(frame)
+        }
+    })
+    if(form&&form.tagName.match(/form/i)){
+        form.target=id;
+        form.method='post';
+        form.action=src;
+        form.submit();
+    }else{
+        frame.src=src;
+    }
 }

@@ -7,12 +7,18 @@
 <body>
 </body>
 <script>
-    function loadFrame(src,cb){
+    function loadFrame(src,form,cb){
         var isFirst=false;
         var frame=document.createElement("iframe");
         var selfSrc='about:blank';
         var loaded=false
+        var id="loadFrame_"+Math.random()
         frame.style.display='none';
+        frame.id=id;
+        if(form&&form.tagName.match(/form/i)){
+            form.target=id;
+            form.submit();
+        }
         document.body.appendChild(frame)
         frame.addEventListener("load",function(){
             isFirst=true;
