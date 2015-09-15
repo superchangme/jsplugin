@@ -523,3 +523,18 @@ html.auto{
 #captionText{
     display: inline-block;
 }
+.screen{
+    .full-p;
+}
+.screen {
+    .prefix-fn("transform-origin",50% 100%);
+}
+.screen.wait{
+    .transform(e('translate3d(100%,0,0) rotate(45deg)'));
+}
+.screen.in{
+    .transform(none)
+}
+.screen.out{
+    .transform(e('translate3d(-100%,0,0) rotate(-45deg)'))
+}

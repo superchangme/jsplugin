@@ -294,3 +294,13 @@
   display: ~"-webkit-@{display}";
   display: @display;
 }
+.prefix-fn(@name,@val) {
+  @t:~'-webkit-@{name}';
+  @{t}:@val;
+  @t1:~'-moz-@{name}';
+  @{t1}:@val;
+  @t2:~'-o-@{name}';
+  @{t2}:@val;
+  @t3:~'@{name}';
+  @{t3}:@val;
+}

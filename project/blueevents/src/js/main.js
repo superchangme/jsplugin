@@ -1,4 +1,5 @@
 FastClick.attach(document.body);
+
 var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
 var MYSWIPER;
 var TRANSFORM=prefixStyle("transform")
@@ -10,9 +11,62 @@ var isSubmited=false;
 var scrollTop=0;
 var loadedTimes=0;
 var jssdkURL="php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
+var app=app||{};
+$.extend(app,{
+    speedFactor: 10,
+    currentScreen:null,
+    play:function(){
+        var image=new Image;
+        image.onload=function(){
+            app.dubber.play();
+            $("#captionText").animate({"translate3d":$("#captionText").parent().width()-$("#captionText").width()+"px,0,0"},app.dubber.duration*1000)
+        }
+        image.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=';
+    } ,
+    toggleLoad:function(){
+
+    },
+    uploadEvent:function(that,e){
+        app.toggleLoad();
+        loadCorssData(uploadUrl,$(that).parents("form")[0],function(data){
+            data= JSON.parse(data);
+            app.toggleLoad();
+            if(data.result==1){
+                window.location.href=data.url;
+            } else{
+                alert(data.message)
+            }
+        })
+        /* $.ajax({
+         type:"post",
+         url:uploadUrl,
+         data:$(that).parents("form").serialize(),
+         success:function(data){
+         console.log(data)
+         }
+         })*/
+    },
+    seeEvent:function(){
+
+    },
+    createMyEvent:function() {
+
+    },
+    updateScreen:function(newScreen){
+            if(app.currentScreen){
+                newScreen.addClass("in")
+            }else{
+                app.currentScreen.addClass("out")
+                newScreen.addClass("in")
+            }
+        app.currentScreen=newScreen
+    }
+})
+
 $.ajax({url:visitUrl,success:function(){
     console.log("记录访问信息")
 }})
+
 function shareToWx(title, link, imgUrl, desc, cb) {
     wx.onMenuShareTimeline({
         title: title, // 分享标题
@@ -300,6 +354,14 @@ webpsupport(function (webpa) {
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active');
             document.body.scrollTop=0;
+            if(app.eventUrl!=""){
+                //观看大事件
+                app.seeEvent();
+            }else{
+
+                //生成大事件
+                app.createMyEvent();
+            }
         }
     }
     //loadBg music
@@ -333,8 +395,11 @@ webpsupport(function (webpa) {
     loader.addProgressListener(function (e) {
         var percentUp = Math.round((e.completedCount / e.totalCount) * 100), //正序, 1-100
             progressDown = 100 - percentUp;                                   //倒序, 100-1
-        $loadInner.css(TRANSFORM,"translate3d("+percentUp + '%,0,0)')
+        $loadInner.animate({translate3d:""+progressDown + '%,0,0'},0)
         $numText.text(percentUp + '%');
+        if(percentUp==100){
+            $loadInner.animate({translate3d:""+-100 + '%,0,0'},600)
+        }
     });
 
     //启动
@@ -402,41 +467,6 @@ function resetMeta(){
     document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
 }
 //init
-var lightFrame;
-$.extend(app,{
-    speedFactor: 10,
-     play:function(){
-         var image=new Image;
-         image.onload=function(){
-             app.dubber.play();
-             $("#captionText").animate({"translate3d":$("#captionText").parent().width()-$("#captionText").width()+"px,0,0"},app.dubber.duration*1000)
-         }
-         image.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=';
-     } ,
-    toggleLoad:function(){
-
-    },
-    uploadEvent:function(that,e){
-        app.toggleLoad();
-        loadCorssData(uploadUrl,$(that).parents("form")[0],function(data){
-            data= JSON.parse(data);
-            app.toggleLoad();
-            if(data.result==1){
-                 window.location.href=data.url;
-            } else{
-                alert(data.message)
-            }
-        })
-       /* $.ajax({
-            type:"post",
-            url:uploadUrl,
-            data:$(that).parents("form").serialize(),
-            success:function(data){
-               console.log(data)
-            }
-        })*/
-    }
-})
 $(function(){
     resetMeta();
     if(!!app.text){

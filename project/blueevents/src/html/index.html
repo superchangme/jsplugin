@@ -14,10 +14,10 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             overflow: hidden;
+            position: relative;
             background-color: #070709;
         }
         body{
-            position: absolute;
             left: 0;
             top: 0;
             width: 100%;
@@ -109,18 +109,18 @@
 
           </section>
 
-          <section class="screen screen-play" >
+          <section class="screen screen-play wait" id="playScreen">
               <div class="before-play">
 
               </div>
-              <div class="before-play-bg"></div>
+              <div class="before-play-bg "></div>
           </section>
 
-          <section class="screen screen-upload" >
+          <section class="screen screen-upload  wait"  id="createScreen">
 
           </section>
 
-          <section class="screen screen-share" >
+          <section class="screen screen-share wait"  id="shareScreen">
 
           </section>
       </div>
@@ -138,7 +138,7 @@
     var collectShareUrl="../php/main.php?a=share";
     var visitUrl='../php/main.php?a=visit'
     var app={
-        video:"123",
+        eventUrl:"",
         audioSrc:"../media/test.mp3",
         text:"测试2,一男子汤母通过不同用户名在各大婚恋网站上结识异性，并依靠有“泡妞神器”之称的蓝鸟，在三个月内和八位异性先后确立了情侣关系。本以为可以继续共享齐人之福，然而他在国庆黄金周期间在某一景点游玩时，意外地遇上这八位女友。景点人潮汹涌，费大鹏逃跑不遂，惨遭围殴。事后，他哭着表示：都是蓝鸟的锅，这车太酷炫，把女生迷得不要不要的，她们与我交往完全是为了接近我的车。最重要的是，国庆千万不要去景点。",
         picTimeArr:["96"],
