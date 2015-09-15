@@ -187,6 +187,7 @@
     var uploadUrl='http://127.0.0.1/test/upload.php';
     var APP={version:0.1};
     function sendFile(data){
+        alert("准备调用后端接口")
         //data.imageData ---表情图片地址base64   data.filetype---图片后缀名
         //调用app 接口imageready
         imageReady(data.imageData);//imageData:base64
