@@ -7,6 +7,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta content="no-cache" http-equiv="Cache-Control">
     <meta content="no-cache" http-equiv="Pragma">
+
     <title></title>
     <style>
         html, body {
@@ -73,6 +74,7 @@
 </head>
 <body>
 <img src="../img/wx_share.jpg" style="display: none"/>
+<!--loading页-->
 <div class="loading hidden">
         <div class="load_wrapper">
           <div class="load_inner" id="loadInner">
@@ -84,53 +86,73 @@
   <div class="outer">
       <!--容器-->
       <div class="wrap" >
-          <section class="screen screen-" >
-                <div class="abs">
-                    <div class="center fade p1-text text"></div>
-                </div>
-              <div class="abs "><div class="center fade p1-ready"></div></div>
-              <div class="abs"> <a class="fade btn-go btn" data-swipe="next"></a></div>
-              <div class="abs step" id="videoBox">
-                  <div class="finger-tip-1 center"></div>
-                  <div id="WxMomentVideo" class=" center">
-                  </div>
-                  <div class="caption"><div  id="captionText"></div></div>
-              </div>
-              <button id="start">测试音频</button>
-
+          <!--新闻播放loading页-->
+          <section class="screen screen-loading fade" id="startShowScreen">
+              <div class="pops full-p"></div>
+              <div class="event-loading-s1 full-p"></div>
+              <div class="event-loading-s2 full-p"></div>
+              <div class="event-loading-s3 full-p"></div>
+              <div class="event-loading full-p endFrame"></div>
           </section>
 
-          <section class="screen screen-loading" >
-
-          </section>
-
+          <!--播放新闻页-->
           <section class="screen screen-play wait" id="playScreen">
-              <div class="before-play">
-
+              <div class="page-title"></div>
+              <div class="video-box">
+                 <div class="inner">
+                     <div class="mask fade in full-p" id="videoMask">
+                         <a class="btn replay centerXY" id="replayEvent"></a>
+                     </div>
+                     <div class="video full-p">
+                         <div class="caption-box full-p">
+                             <div class="title">
+                                 <span>新闻</span><br/>大事件</div>
+                             <div class="caption-wrap">
+                                 <div class="caption"><div  id="captionText"></div></div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
               </div>
-              <div class="before-play-bg "></div>
+              <div class="btn-group">
+                  <a class="btn btn-share" id="goShare"></a>
+                  <a class="btn btn-create" id="goCreate"></a>
+              </div>
+              <a class=" btn-more" href="https://www.baidu.com/s?wd=蓝鸟"></a>
           </section>
 
+          <!--上传新闻页-->
           <section class="screen screen-upload  wait"  id="createScreen">
             <div class="page">
-                <form action="" onsubmit="return false;">
-                    <h3>请选择性别及输入姓名</h3>
-                    <div id="swipeBox">
-                        <div class="man"></div>
-                        <div class="girl out"></div>
-                    </div>
-                    <input name="name" type="text" value=""/>
-                    <div class="hidden">
-                        <input name="sex" type="radio" checked value="male">
-                        <input name="sex" type="radio" value="female">
-                    </div>
-                    <button id="uploadMyEvent">提交</button>
-                </form>
+                <div class="form-box">
+                    <form action="" onsubmit="return false;">
+                        <h3>请选择性别及输入姓名</h3>
+                        <div id="swipeBox">
+                            <div class="inner">
+                                <div class="man" data-sex="male"></div>
+                                <div class="girl out" data-sex="female"></div>
+                            </div>
+                        </div>
+                        <input name="name" pattern="^[\u4E00-\u9FA5]{2,4}$" type="text" maxlength="4" value=""/>
+                        <div class="tip">可输入2-4个中文名称</div>
+                        <div class="hidden">
+                            <input name="sex" type="radio" checked value="male">
+                            <input name="sex" type="radio" value="female">
+                        </div>
+                        <a class="btn btn-upload" id="uploadMyEvent"></a>
+                    </form>
+                </div>
+
             </div>
           </section>
 
           <section class="screen screen-share wait"  id="shareScreen">
-
+                    <div class="logo"></div>
+              <div class="share-tip"></div>
+              <div class="qr-code centerXY"></div>
+              <div class="blue-car">
+                  <div class="wheel"></div>
+              </div>
           </section>
       </div>
   </div>
@@ -147,8 +169,8 @@
     var collectShareUrl="../php/main.php?a=share";
     var visitUrl='../php/main.php?a=visit'
     var app={
-        eventUrl:"",
-        audioSrc:"../media/test.mp3",
+        eventUrl:"22",
+        audioSrc:"http://10.4.1.76/temp/bluebird/data/user_mp3/bti614sa95f8iil9tm60claaa3_20150916141029_27833.mp3",
         text:"测试2,一男子汤母通过不同用户名在各大婚恋网站上结识异性，并依靠有“泡妞神器”之称的蓝鸟，在三个月内和八位异性先后确立了情侣关系。本以为可以继续共享齐人之福，然而他在国庆黄金周期间在某一景点游玩时，意外地遇上这八位女友。景点人潮汹涌，费大鹏逃跑不遂，惨遭围殴。事后，他哭着表示：都是蓝鸟的锅，这车太酷炫，把女生迷得不要不要的，她们与我交往完全是为了接近我的车。最重要的是，国庆千万不要去景点。",
         picTimeArr:["96"],
         picUrlArr:[]
@@ -163,5 +185,7 @@
 <script type="text/javascript" src="../js/fastclick.js"></script>
 <script  type="text/javascript" src="../js/getWXSDK.js"></script>
 <script  type="text/javascript"  src="../js/main.js"></script>
+<!-- endbuild -->
+
 </body>
 </html>

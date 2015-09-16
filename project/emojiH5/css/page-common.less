@@ -390,8 +390,16 @@ img{
     }
   }
   &.modal2{
-    &:before{
-      background: url(../img/modal2_bg.png) center no-repeat;
+    .step1{
+      background: url(../img/modal2_bg1.png) center bottom no-repeat;
+      .translate3d(0,-300px,0);
+    }
+    .step2{
+      background: url(../img/modal2_bg2.png) center bottom no-repeat;
+      .translate3d(0,-143px,0);
+    }
+    .step3{
+      background: url(../img/modal2_bg3.png) center 70px no-repeat;
     }
   }
   &.modal3{

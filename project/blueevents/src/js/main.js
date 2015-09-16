@@ -4,13 +4,10 @@ var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
 var MYSWIPER;
 var TRANSFORM=prefixStyle("transform")
 var TRANSITION_END=prefixEvent("transitionEnd");
-var carAudio;
-var bgAudio;
 var isSubmiting=false;
 var isSubmited=false;
 var scrollTop=0;
 var loadedTimes=0;
-var jssdkURL="php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
 var app=app||{};
 $.extend(app,{
     speedFactor: 10,
@@ -19,7 +16,9 @@ $.extend(app,{
         var image=new Image;
         image.onload=function(){
             app.dubber.play();
-            $("#captionText").animate({"translate3d":$("#captionText").parent().width()-$("#captionText").width()+"px,0,0"},app.dubber.duration*1000)
+            $("#captionText").animate({"translate3d":$("#captionText").parent().width()-$("#captionText").width()+"px,0,0"},app.dubber.duration*1000,function(){
+                app.showMask();
+            })
         }
         image.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=';
     } ,
@@ -27,16 +26,20 @@ $.extend(app,{
 
     },
     uploadEvent:function(that,e){
-        app.toggleLoad();
-        loadCorssData(uploadUrl,$(that).parents("form")[0],function(data){
-            data= JSON.parse(data);
+        var form=$(that).parents("form")[0];
+        if(checkForm(form)){
             app.toggleLoad();
-            if(data.result==1){
-                window.location.href=data.url;
-            } else{
-                alert(data.message)
-            }
-        })
+            loadCorssData(uploadUrl,form,function(data){
+                data= JSON.parse(data);
+                app.toggleLoad();
+                if(data.result==1){
+                    window.location.href=data.url;
+                } else{
+                    alert(data.message)
+                }
+            })
+        }
+
         /* $.ajax({
          type:"post",
          url:uploadUrl,
@@ -46,20 +49,45 @@ $.extend(app,{
          }
          })*/
     },
+    screens:{
+        playScreen:$("#playScreen"),
+        createScreen:$("#createScreen"),
+        shareScreen:$("#shareScreen") ,
+        startShowScreen:$("#startShowScreen")
+    },
     seeEvent:function(){
-
+        var one=false;
+        app.newsStartAudio.play();
+        app.screens.startShowScreen.addClass("in").find(".endFrame")[0].addEventListener(TRANSITION_END,function(){
+            app.screens.startShowScreen.addClass("scaleIn")
+            if(!one){
+                app.updateScreen(app.screens.playScreen);
+                one=true;
+                setTimeout(function(){
+                    app.newsStartAudio.pause();
+                    app.playEvent();
+                },900)
+            }
+        })
+    },
+    showMask:function(){
+        app.$videoMask.addClass("in");
+    },
+    playEvent:function(){
+        app.$videoMask.removeClass("in");
+        app.play();
     },
     createMyEvent:function() {
-
+        app.updateScreen(app.screens.createScreen);
     },
     updateScreen:function(newScreen){
-            if(app.currentScreen){
+            if(!app.currentScreen){
                 newScreen.addClass("in")
             }else{
-                app.currentScreen.addClass("out")
+                app.currentScreen.addClass("out").removeClass("current")
                 newScreen.addClass("in")
             }
-        app.currentScreen=newScreen
+        app.currentScreen=newScreen.addClass("current")
     },
     sexLock:false,
     updateSex:function(){
@@ -70,17 +98,19 @@ $.extend(app,{
         app.$sexInput.each(function(index,item){
             if(!change&&item.checked==true){
                 app.$sexInput[1-index].checked=true;
+                app.$sexLinkDom.eq(1-index).removeClass("out");
+                app.$sexLinkDom.eq(index).addClass("out")
                 item.checked=false;
                 change=true;
             }
         })
     },
-    $sexInput:$("[name=sex]")
+    $sexLinkDom:$("[data-sex]"),
+    $sexInput:$("[name=sex]"),
+    $videoMask:$("#videoMask")
 })
 
-$.ajax({url:visitUrl,success:function(){
-    console.log("记录访问信息")
-}})
+
 
 function shareToWx(title, link, imgUrl, desc, cb) {
     wx.onMenuShareTimeline({
@@ -111,14 +141,9 @@ function shareToWx(title, link, imgUrl, desc, cb) {
         }
     });
 }
-var shareInfo={
-    title:'重要的事情说三遍！启悦只要69800元！69800元！69800元！',
-    link:location.href.split('#')[0],
-    imgUrl:location.href.replace("html/index.html","img/wx_share.jpg"),
-    desc:'内有彩蛋，分享即有惊喜！'
-}
 
-init_wx_jsapi(jssdkURL,function(config){
+
+/*init_wx_jsapi(jssdkURL,function(config){
     config.debug=false;
     wx.config(config);
     wx.ready(function(){
@@ -131,7 +156,7 @@ init_wx_jsapi(jssdkURL,function(config){
             })
         })
     });
-});
+});*/
 
 
 
@@ -318,7 +343,6 @@ var Tween = {
 Math.tween = Tween;
 
 //var basePath = 'http://wximg.gtimg.com/tmt/_events/promo/EyxiHkkq';
-var basePath ="../";
 if (!(typeof webpsupport == 'function')) {
     var webpsupport = function (cb) {
         cb();
@@ -364,8 +388,8 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==1){
-           // $('.loading').remove();
+        if(loadedTimes==3){
+            $('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active');
             document.body.scrollTop=0;
@@ -373,36 +397,25 @@ webpsupport(function (webpa) {
                 //观看大事件
                 app.seeEvent();
             }else{
-
                 //生成大事件
                 app.createMyEvent();
             }
         }
     }
     //loadBg music
-    loadAudio("media/bg.mp3",function(){
+    loadAudio(app.audioSrc,function(audio){
         loadedTimes+=1;
+        document.body.appendChild(audio)
+        app.dubber=audio;
+        app.dubber.isPaused=false
         checkLoaded()
-        bgAudio=document.createElement("audio");
-        bgAudio.src='media/bg.mp3';
-        bgAudio.autoplay="autoplay"
-        bgAudio.loop="loop"
-        bgAudio.volume=0.5
-        document.body.appendChild(bgAudio)
-        var image=new Image;
-        image.onload=function(){
-            bgAudio.play();
-            bgAudio.isPaused=false
-        }
-        image.src='img/volume_on.png';
     })
 
-    loadAudio("media/yinqing.mp3",function(){
+    loadAudio("media/news_start.mp3",function(audio){
         loadedTimes+=1;
+        document.body.appendChild(audio)
+        app.newsStartAudio=audio;
         checkLoaded()
-        carAudio=document.createElement("audio");
-        carAudio.src='media/yinqing.mp3';
-        document.body.appendChild(carAudio);
     })
 
 
@@ -490,65 +503,22 @@ $(function(){
             app.dubber=audio;
         })
     }
+    //性别滑动
     $("#swipeBox").swipeLeft(function(){
         app.updateSex();
     }).swipeRight(function(){
         app.updateSex();
     })
-    $("#start").on("click",function(){
-        app.play();
+    //重新播放
+    $("#replayEvent").on("click",function(){
+        app.playEvent();
     })
+    //上传数据
     $("#uploadMyEvent").on("click",app.uploadEvent.bind(null,$("#uploadMyEvent")))
-  var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg"),$readyPage=$("#readyPage");
-    var touchTime=0;
-    setTimeout(function(){
-        $(".page").height(window.innerHeight);
-        MYSWIPER=mySwipe({$fixDom:$(".fixDom"),wrap:document.querySelector(".wrap"),pageSelector:".screen"},function(page,index,dir){
-            scrollTop=document.body.scrollTop;
-            if(dir==1){
-               page.addClass("active");
-                if(index==2||index==1){
-                        MYSWIPER.pageLock=true;
-                }
-                if(index==2){
-                    carAudio.pause();
-                    if(bgAudio.isPaused==false){
-                        bgAudio.play();
-                    }
-                }
-            /*   MYSWIPER.pageLock=true;
-               if(index!=2){
-                   setTimeout(function(){
-                       MYSWIPER.pageLock=false;
-                   },2500)
-               }*/
-               if(index==4){
-                   setTimeout(function(){
-                       lightFrame.start();
-                   },600)
-               }
-           }
-        },function(page,index,dir){
-            if(index!=6){
-                video.getPlayer().pause();
-                if(bgAudio.isPaused==false){
-                    bgAudio.play();
-                }
-            }
-        });
-     /*   MYSWIPER.go(3,function(page){
-            page.addClass("active")
-        })*/
-        MYSWIPER.pageLock=true;
-        setTimeout(function(){
-            MYSWIPER.pageLock=false;
-        },3500)
-        $("[data-swipe=next]").on("click",function(){
-            MYSWIPER.pageLock=false;
-            MYSWIPER.next();
-        })
-    },0)
-
+    //去分享页
+    $("#goShare").on("click",app.updateScreen.bind(null,app.screens.shareScreen))
+    //去生成页
+    $("#goCreate").on("click",app.updateScreen.bind(null,app.screens.createScreen))
 
 })
 //swipe plugin
@@ -868,4 +838,25 @@ function loadCorssData(src,form,cb){
     }else{
         frame.src=src;
     }
+}
+function checkForm(form){
+    var inputs=[].slice.call(form.elements),result=true,pattern;
+    inputs.forEach(function(item,index){
+        if(item.getAttribute("name")){
+            if(item.getAttribute('pattern')){
+                pattern=new RegExp(item.getAttribute('pattern'));
+            }
+            if(/^\s*$/.test(item.value)){
+                result=false
+            }
+            if(pattern&&!pattern.test(item.value)){
+                result=false;
+            }
+            pattern=null;
+        }
+    })
+    if(!result){
+        alert("请输入正确的中文名字!")
+    }
+    return result;
 }

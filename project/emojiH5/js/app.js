@@ -135,7 +135,18 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             }
         })
         $(".modal").on("click",function(){
-            $(this).removeClass("in")
+            var last=$(this).find(".step:last"),span=$(this).find(".step.in");
+            if(last.is(".in")){
+                $(this).removeClass("in")
+                last.removeClass("in")
+            }else{
+                if(span.length){
+                    span.removeClass("in").next().addClass("in")
+                }else{
+                    $(this).removeClass("in")
+
+                }
+            }
         })
         Caman.Filter.register("transparent", function (adjust) {
             // Pre-calculate some values that will be used
@@ -839,7 +850,7 @@ function getcookie(name){
 
 function delcookie(name){
     var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
+    exp.setTime(exp.getTime() - 3600);
+    var cval=getcookie(name);
     if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 }

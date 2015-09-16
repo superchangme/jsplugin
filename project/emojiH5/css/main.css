@@ -757,8 +757,22 @@ img {
 .modal.modal1:before {
   background: url(../img/modal1_bg.png) center 37px no-repeat;
 }
-.modal.modal2:before {
-  background: url(../img/modal2_bg.png) center no-repeat;
+.modal.modal2 .step1 {
+  background: url(../img/modal2_bg1.png) center bottom no-repeat;
+  -webkit-transform: translate3d(0, -300px, 0);
+  -moz-transform: translate3d(0, -300px, 0);
+  -o-transform: translate3d(0, -300px, 0);
+  transform: translate3d(0, -300px, 0);
+}
+.modal.modal2 .step2 {
+  background: url(../img/modal2_bg2.png) center bottom no-repeat;
+  -webkit-transform: translate3d(0, -143px, 0);
+  -moz-transform: translate3d(0, -143px, 0);
+  -o-transform: translate3d(0, -143px, 0);
+  transform: translate3d(0, -143px, 0);
+}
+.modal.modal2 .step3 {
+  background: url(../img/modal2_bg3.png) center 70px no-repeat;
 }
 .modal.modal3:before {
   background: url(../img/modal3_bg.png) center no-repeat;

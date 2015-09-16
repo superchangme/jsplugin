@@ -20,9 +20,13 @@
     </div>
 </div>
 <div class="app-wrap fade">
-    <div class="modal modal1 fade"><a class="close thick pointy"></a></div>
-    <div class="modal modal2 fade"><a class="close thick pointy"></a></div>
-    <div class="modal modal3 fade"><a class="close thick pointy"></a></div>
+    <div class="modal modal1 fade"></div>
+    <div class="modal modal2 fade">
+        <div class="step1 full-p step fade in"></div>
+        <div class="step2 full-p fade step"></div>
+        <div class="step3 full-p fade step"></div>
+    </div>
+    <div class="modal modal3 fade"></div>
     <div class="main-box ">
         <div class="main-inner" id="photoInnerBox">
             <!--upload box-->
@@ -181,7 +185,7 @@
 </div>
 </body>
 <script>
-    var baseUrl="../../vendor/";
+    var baseUrl="../../../vendor/";
 </script>
 <script>
     var uploadUrl='http://127.0.0.1/test/upload.php';
@@ -206,8 +210,8 @@
 </script>
 
 <script   src="../js/require.js" ></script>
-<!--<script   src="../../vendor/main.js" ></script>
+<!--<script   src="../../../vendor/main.js" ></script>
 
-<script src="js/app.js"></script>-->
+<script src="../js/app.js"></script>-->
 <script src="../dist/app.js"></script>
 </html>

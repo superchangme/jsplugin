@@ -5,7 +5,22 @@
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
  */
-
+@pageHeight:1008;
+.fade{
+    visibility: hidden;
+}
+.in{
+    visibility: visible;
+}
+.hidden{
+    display: none;
+}
+.topPer(@val){
+    top:percentage(@val/@pageHeight);
+}
+h1,h2,h3,h4{
+    margin: 0;
+}
 .abs{
     z-index: 2;
 }
@@ -61,6 +76,7 @@ html {
  * Remove default margin.
  */
 body {
+    color:#5a5a5a;
     margin: 0;
 }
 /* HTML5 display definitions
@@ -515,27 +531,24 @@ html.auto{
 
 @media screen and (max-device-height: 480px) {
 }
-.caption{
-    white-space: nowrap;
-    margin:  auto 15%;
-    overflow: hidden;
-}
-#captionText{
-    display: inline-block;
-}
+
 .screen{
+    .transition(0.6s);
     .full-p;
 }
 .screen {
     .prefix-fn("transform-origin",50% 100%);
 }
 .screen.wait{
+    z-index: 8;
     .transform(e('translate3d(100%,0,0) rotate(45deg)'));
 }
 .screen.in{
-    .transform(none)
+    .transform(none);
+    z-index: 10;
 }
 .screen.out{
+    z-index: 9;
     .transform(e('translate3d(-100%,0,0) rotate(-45deg)'))
 }
 .man,.girl{
@@ -550,6 +563,268 @@ html.auto{
     background: url(../img/p1_girl.png);
 }
 .man.out,.girl.out{
-    .transform(translate3d(100px,0,0) scale(0.3));
-    opacity: 0.3;
+    .transform(translate3d(100px,0,0) scale(0.555));
+    opacity: 0.35;
+}
+.wrap{
+    .full-p;
+}
+.page{
+  position: relative;
+}
+.screen-upload{
+    text-align: center;
+    .form-box{
+        position: relative;
+        margin: 0 auto;
+    }
+    form{
+
+    }
+    h3{
+        display: inline-block;
+    }
+    .page{
+        .topPer(176);
+    }
+    #swipeBox{
+        padding: 100px 0;
+        height: 330px;
+        .inner{
+            display: inline-block;
+            position: relative;
+            width: 180px;
+            vertical-align: top;
+        }
+    }
+    input{
+        font-size: 38px;
+        height: 75px;
+        line-height: 75px;
+        text-align: center;
+        border-radius: 5px;
+        background: transparent;
+        border: 1px solid #5a5a5a;
+        width: 260px;
+        padding: 0 30px;
+        box-shadow:  inset 0 0 3px #ddd;
+    }
+    .tip{
+        font-size: 20px;
+        margin-top: 18px;
+    }
+}
+
+//btns
+.btn-upload{
+    display: block;
+    margin:65px  auto;
+ background: url(../img/btn_see_big.png);
+   width: 194px;
+    height: 195px;
+}
+.screen-loading{
+    visibility: hidden;
+    .pops{
+        background: url(../img/anim_pops.png) no-repeat center;
+        .transform(scale(0.6));
+    }
+    .event-loading-s1,.event-loading-s2,.event-loading-s3{
+        background: url(../img/event_loading_white.png) no-repeat center;
+        opacity: 0.3;
+    }
+    .event-loading{
+        background: url(../img/event_loading.png) no-repeat center;
+        .transform(rotate(45deg) scale(0.3));
+    }
+    .event-loading-s1{
+         .transform(rotate(-24deg) scale(0.3));
+        opacity: 0.7;
+    }
+    .event-loading-s2{
+        .transform(rotate(13deg)  scale(0.6));
+        opacity: 0.4;
+    }
+    .event-loading-s3{
+        .transform(rotate(26deg)  scale(0.9));
+        opacity: 0.2;
+    }
+    &.in{
+        visibility: visible;
+        .transition(0s 0s);
+        .pops{
+            .transition(2s 0s linear);
+            .transform(scale(1));
+        }
+        .event-loading{
+            .transition(2s 0s);
+            .transform(scale(1));
+        }
+        .event-loading-s1{
+            .transition(0.8s 1.6s ease-out);
+            .transform(rotate(-24deg) scale(0.9));
+        }
+        .event-loading-s2{
+            .transition(0.8s 2s ease-out);
+            .transform(rotate(13deg) scale(1.2));
+        }
+        .event-loading-s3{
+            .transition(0.8s 2.4s ease-out);
+            .transform(rotate(26deg) scale(1.4));
+        }
+    }
+}
+.replay{
+    background: url(../img/btn_video_start.png);
+    width: 81px;
+    height: 81px;
+}
+.video-box{
+    padding: 15px ;
+    margin: 0 auto;
+    background: url(../img/video_frame.png);
+    width: 596px;
+    height: 348px;
+    .inner{
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+    .mask{
+         background: url(../img/video_pop.png) center no-repeat #040708;
+        z-index: 19;
+    }
+}
+.screen.scaleIn{
+    .prefix-fn("transform-origin",50% 50%);
+    .transform(scale(0.1));
+    .transition(0.7s ease-out);
+    opacity: 0;
+}
+.video-box .video{
+    background: url(../img/video.gif);
+    background-size: cover;
+    position: relative;
+}
+.caption-box {
+    bottom: 0;
+    top: auto;
+    height: 50px;
+    background: url(../img/video_title_bg.png) repeat;
+    color: white;
+    .title{
+        text-align: center;
+        font-size: 16px;
+        padding: 8px;
+        border-right:1px solid rgb(21,153,204) ;
+        float:left;
+        height: 50px;
+        span{
+            font-size: 18px;
+        }
+    }
+    .caption-wrap{
+        margin-left: 63px;
+        padding: 0 15px;
+    }
+    .caption{
+        white-space: nowrap;
+        font-size: 16px;
+        overflow: hidden;
+    }
+    #captionText{
+        line-height: 50px;
+        display: inline-block;
+    }
+}
+.screen-play {
+    text-align: center;
+    .page-title{
+        background: url(../img/event_loading.png) no-repeat;
+        width: 233px;
+        height: 205px;
+        background-size: 100%;
+        margin: 50px auto 35px;
+    }
+    .btn-group{
+        margin-top: 25px;
+        margin-bottom: 80px;
+    }
+    .btn-more{
+        display: block;
+           background: url("../img/btn_morelink.png");
+        width: 259px;
+        height: 173px;
+        margin: 0 auto;
+    }
+}
+.btn-share{
+    background: url(../img/btn_ishare.png);
+    width: 225px;
+    height: 62px;
+}
+.btn-create{
+    background: url(../img/btn_itry.png);
+    width: 225px;
+    height: 62px;
+}
+.btn-group{
+    margin: 0 auto;
+    .btn{
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+.btn+.btn{
+    margin-left: 60px;
+}
+.screen-share{
+    .logo{
+        background-image: url(../img/p3_logo.png);
+        width: 168px;
+        height: 224px;
+        position: absolute;
+        left:40px;
+        top:0;
+    }
+    .share-tip {
+        background: url(../img/p3_share_text.png);
+        width: 622px;
+        height: 236px;
+        position: absolute;
+        right: 10px;
+        top:10px;
+    }
+     .qr-code{
+         background: url(../img/qrcode.png);
+         width: 283px;
+         height: 314px;
+     }
+    .blue-car{
+        background: url(../img/p3_car_front.png);
+        width:570px;
+        height: 374px;
+        position: absolute;
+        right: 0;
+        bottom:56px;
+        .transform(translate3d(100%,0,0));
+    }
+    .wheel{
+        position: absolute;
+        top: 228px;
+        left: 149px;
+        background: url(../img/wheel.png);
+        width: 115px;
+        height: 115px;
+    }
+    &.current{
+        .blue-car{
+            .transform(translate3d(0,0,0));
+            .transition(1s 0.6s ease-out);
+        }
+        .wheel{
+            .transition(1s 0.6s ease-out);
+            .transform(rotate(-267deg));
+        }
+    }
 }
