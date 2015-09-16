@@ -2949,7 +2949,7 @@ textarea {
 .main-step .textarea-bg {
   border: 4px dashed #fec600;
   height: 116px;
-  border-radius: 6px;
+  border-radius: 8px;
   width: 430px;
   position: relative;
   top: -18px;
