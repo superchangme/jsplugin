@@ -1370,3 +1370,22 @@ html.auto {
   -webkit-transform: translate3d(-100%,0,0) rotate(-45deg);
   transform: translate3d(-100%,0,0) rotate(-45deg);
 }
+.man,
+.girl {
+  background: url(../img/p1_man.png);
+  width: 180px;
+  height: 179px;
+  position: absolute;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  left: 0;
+}
+.girl {
+  background: url(../img/p1_girl.png);
+}
+.man.out,
+.girl.out {
+  -webkit-transform: translate3d(100px, 0, 0) scale(0.3);
+  transform: translate3d(100px, 0, 0) scale(0.3);
+  opacity: 0.3;
+}

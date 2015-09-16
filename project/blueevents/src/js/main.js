@@ -60,7 +60,22 @@ $.extend(app,{
                 newScreen.addClass("in")
             }
         app.currentScreen=newScreen
-    }
+    },
+    sexLock:false,
+    updateSex:function(){
+        var change=false
+        if(app.sexLock){
+            return;
+        }
+        app.$sexInput.each(function(index,item){
+            if(!change&&item.checked==true){
+                app.$sexInput[1-index].checked=true;
+                item.checked=false;
+                change=true;
+            }
+        })
+    },
+    $sexInput:$("[name=sex]")
 })
 
 $.ajax({url:visitUrl,success:function(){
@@ -475,6 +490,11 @@ $(function(){
             app.dubber=audio;
         })
     }
+    $("#swipeBox").swipeLeft(function(){
+        app.updateSex();
+    }).swipeRight(function(){
+        app.updateSex();
+    })
     $("#start").on("click",function(){
         app.play();
     })

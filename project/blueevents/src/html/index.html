@@ -97,12 +97,7 @@
                   <div class="caption"><div  id="captionText"></div></div>
               </div>
               <button id="start">测试音频</button>
-                <form action="" onsubmit="return false;">
-                    <input name="name" type="text" value=""/>
-                    <input name="sex" type="radio" value="male">
-                    <input name="sex" type="radio" value="female">
-                    <button id="uploadMyEvent">提交</button>
-                </form>
+
           </section>
 
           <section class="screen screen-loading" >
@@ -117,7 +112,21 @@
           </section>
 
           <section class="screen screen-upload  wait"  id="createScreen">
-
+            <div class="page">
+                <form action="" onsubmit="return false;">
+                    <h3>请选择性别及输入姓名</h3>
+                    <div id="swipeBox">
+                        <div class="man"></div>
+                        <div class="girl out"></div>
+                    </div>
+                    <input name="name" type="text" value=""/>
+                    <div class="hidden">
+                        <input name="sex" type="radio" checked value="male">
+                        <input name="sex" type="radio" value="female">
+                    </div>
+                    <button id="uploadMyEvent">提交</button>
+                </form>
+            </div>
           </section>
 
           <section class="screen screen-share wait"  id="shareScreen">
@@ -145,9 +154,10 @@
         picUrlArr:[]
     }
 </script>
-<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>
-<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<!--<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>-->
+<!--<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
 <!-- build:js ../js/lib.js -->
+<script src="../js/wxmoment.min.js"></script>
 <script type="text/javascript" src="../js/zepto.fx.js"></script>
 <script type="text/javascript" src="../js/zepto.data.js"></script>
 <script type="text/javascript" src="../js/fastclick.js"></script>
