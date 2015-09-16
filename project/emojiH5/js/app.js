@@ -347,7 +347,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                     $(this).val(oldVal)
                 }else{
                     if(r.lineNum==2){
-                        G.$emojiTextArea.data("oldVal",val).css("line-height",'60px');
+                        G.$emojiTextArea.data("oldVal",val).css("line-height",'54px');
                     }else{
                         G.$emojiTextArea.css("line-height",'');
                     }
