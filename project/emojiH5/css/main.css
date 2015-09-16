@@ -2919,7 +2919,7 @@ body {
     align-items: center;*/
   width: 220px;
   margin-right: 10px;
-  height: 120px;
+  height: 125px;
   position: relative;
   vertical-align: top;
   display: inline-block;
@@ -2949,6 +2949,7 @@ textarea {
 .main-step .textarea-bg {
   border: 4px dashed #fec600;
   height: 130px;
+  border-radius: 6px;
   width: 430px;
   margin: 0 auto;
 }
