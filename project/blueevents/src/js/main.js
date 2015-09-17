@@ -1,5 +1,4 @@
 FastClick.attach(document.body);
-
 var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
 var MYSWIPER;
 var TRANSFORM=prefixStyle("transform")
@@ -9,33 +8,65 @@ var isSubmited=false;
 var scrollTop=0;
 var loadedTimes=0;
 var app=app||{};
+var eventsTipArr=[
+    {tip:"颜值男团",img:"img/qrcode.png"}
+]
+$(".btn").on("click",function(e){
+    e.preventDefault();
+})
 $.extend(app,{
     speedFactor: 10,
+    $bigShow:$(".bigShow"),
     currentScreen:null,
     play:function(){
         var image=new Image;
+        var interval;
+        var temp,start,index;
         image.onload=function(){
             app.dubber.play();
             $("#captionText").animate({"translate3d":$("#captionText").parent().width()-$("#captionText").width()+"px,0,0"},app.dubber.duration*1000,function(){
-                app.showMask();
+                app.stopEvent();
             })
+            if(app.textDisplayTime){
+                start=+new Date();
+                interval=setInterval(function(){
+                    if(+new Date()-start>=app.textDisplayTime){
+                        app.$bigShow.addClass("in")
+                        clearInterval(interval)
+                        setTimeout(function(){
+                            app.$bigShow.removeClass("in")
+                        },2000)
+                    }
+                },30)
+            }
         }
         image.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=';
-    } ,
-    toggleLoad:function(){
 
-    },
+    } ,
     uploadEvent:function(that,e){
-        var form=$(that).parents("form")[0];
-        if(checkForm(form)){
-            app.toggleLoad();
-            loadCorssData(uploadUrl,form,function(data){
+        var form=$(that).parents("form"),eventLoad=$("#eventLoading");
+        if(checkForm(form[0])){
+            eventLoad.addClass("in");
+       /*     $.ajax({
+                url:uploadUrl,
+                data:form.serialize(),
+                dataType:"json",
+                type:"post",
+                success:function(data){
+                    //data= JSON.parse(data);
+                    if(data.result==1){
+                        window.location.href=data.url;
+                    } else{
+                        alert(data.message)
+                    }
+                }
+            })*/
+            loadCrossData(uploadUrl,form[0],function(data){
                 data= JSON.parse(data);
-                app.toggleLoad();
                 if(data.result==1){
-                    window.location.href=data.url;
+                window.location.href=data.url;
                 } else{
-                    alert(data.message)
+                alert(data.message)
                 }
             })
         }
@@ -77,10 +108,23 @@ $.extend(app,{
         app.$videoMask.removeClass("in");
         app.play();
     },
+    stopEvent:function(){
+        app.$videoMask.addClass("in");
+        if(app.dubber){
+            app.showMask();
+            $("#captionText").animate({"translate3d":"0,0,0"},0);
+        }
+    },
     createMyEvent:function() {
         app.updateScreen(app.screens.createScreen);
     },
     updateScreen:function(newScreen){
+            if(newScreen!=app.screens.playScreen){
+                       app.stopEvent();
+            }
+            if(newScreen==app.screens.shareScreen){
+                window.location.hash="share";
+            }
             if(!app.currentScreen){
                 newScreen.addClass("in")
             }else{
@@ -110,238 +154,13 @@ $.extend(app,{
     $videoMask:$("#videoMask")
 })
 
+window.addEventListener("hashchange",function(){
+    if(window.location.hash=="#share"){
 
-
-function shareToWx(title, link, imgUrl, desc, cb) {
-    wx.onMenuShareTimeline({
-        title: title, // 分享标题
-        link: link, // 分享链接
-        imgUrl: imgUrl, // 分享图标
-        success: function () {
-            cb();
-            // 用户确认分享后执行的回调函数
-        },
-        cancel: function () {
-            // 用户取消分享后执行的回调函数
-        }
-    });
-    wx.onMenuShareAppMessage({
-        title: title, // 分享标题
-        desc: desc, // 分享描述
-        link: link, // 分享链接
-        imgUrl: imgUrl, // 分享图标
-        type: '', // 分享类型,music、video或link，不填默认为link
-        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-        success: function () {
-            cb();
-            // 用户确认分享后执行的回调函数
-        },
-        cancel: function () {
-            // 用户取消分享后执行的回调函数
-        }
-    });
-}
-
-
-/*init_wx_jsapi(jssdkURL,function(config){
-    config.debug=false;
-    wx.config(config);
-    wx.ready(function(){
-        shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
-            $.ajax({
-                url:collectShareUrl ,
-                complete:function(){
-
-                }
-            })
-        })
-    });
-});*/
-
-
-
-window.addEventListener("orientationchange",function(){
-    if (window.orientation == 0 || window.orientation == 180) {
-        //orientation = 'portrait';
-        document.body.scrollTop=scrollTop;
-        return false;
-    }
-    else if (window.orientation == 90 || window.orientation == -90) {
-        //orientation = 'landscape';
-        return false;
+    }else{
+         app.updateScreen(app.screens.createScreen)
     }
 })
-
-var Tween = {
-    Linear: function(t, b, c, d) { return c*t/d + b; },
-    Quad: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return -c *(t /= d)*(t-2) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
-            return -c / 2 * ((--t) * (t-2) - 1) + b;
-        }
-    },
-    Cubic: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t * t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * ((t = t/d - 1) * t * t + 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t*t + b;
-            return c / 2*((t -= 2) * t * t + 2) + b;
-        }
-    },
-    Quart: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t * t*t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return -c * ((t = t/d - 1) * t * t*t - 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
-            return -c / 2 * ((t -= 2) * t * t*t - 2) + b;
-        }
-    },
-    Quint: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t * t * t * t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * ((t = t/d - 1) * t * t * t * t + 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
-            return c / 2*((t -= 2) * t * t * t * t + 2) + b;
-        }
-    },
-    Sine: {
-        easeIn: function(t, b, c, d) {
-            return -c * Math.cos(t/d * (Math.PI/2)) + c + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * Math.sin(t/d * (Math.PI/2)) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            return -c / 2 * (Math.cos(Math.PI * t/d) - 1) + b;
-        }
-    },
-    Expo: {
-        easeIn: function(t, b, c, d) {
-            return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return (t==d) ? b + c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if (t==0) return b;
-            if (t==d) return b+c;
-            if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
-            return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
-        }
-    },
-    Circ: {
-        easeIn: function(t, b, c, d) {
-            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * Math.sqrt(1 - (t = t/d - 1) * t) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
-            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
-        }
-    },
-    Elastic: {
-        easeIn: function(t, b, c, d, a, p) {
-            var s;
-            if (t==0) return b;
-            if ((t /= d) == 1) return b + c;
-            if (typeof p == "undefined") p = d * .3;
-            if (!a || a < Math.abs(c)) {
-                s = p / 4;
-                a = c;
-            } else {
-                s = p / (2 * Math.PI) * Math.asin(c / a);
-            }
-            return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-        },
-        easeOut: function(t, b, c, d, a, p) {
-            var s;
-            if (t==0) return b;
-            if ((t /= d) == 1) return b + c;
-            if (typeof p == "undefined") p = d * .3;
-            if (!a || a < Math.abs(c)) {
-                a = c;
-                s = p / 4;
-            } else {
-                s = p/(2*Math.PI) * Math.asin(c/a);
-            }
-            return (a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b);
-        },
-        easeInOut: function(t, b, c, d, a, p) {
-            var s;
-            if (t==0) return b;
-            if ((t /= d / 2) == 2) return b+c;
-            if (typeof p == "undefined") p = d * (.3 * 1.5);
-            if (!a || a < Math.abs(c)) {
-                a = c;
-                s = p / 4;
-            } else {
-                s = p / (2  *Math.PI) * Math.asin(c / a);
-            }
-            if (t < 1) return -.5 * (a * Math.pow(2, 10* (t -=1 )) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-            return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p ) * .5 + c + b;
-        }
-    },
-    Back: {
-        easeIn: function(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            return c * (t /= d) * t * ((s + 1) * t - s) + b;
-        },
-        easeOut: function(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            return c * ((t = t/d - 1) * t * ((s + 1) * t + s) + 1) + b;
-        },
-        easeInOut: function(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
-            return c / 2*((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
-        }
-    },
-    Bounce: {
-        easeIn: function(t, b, c, d) {
-            return c - Tween.Bounce.easeOut(d-t, 0, c, d) + b;
-        },
-        easeOut: function(t, b, c, d) {
-            if ((t /= d) < (1 / 2.75)) {
-                return c * (7.5625 * t * t) + b;
-            } else if (t < (2 / 2.75)) {
-                return c * (7.5625 * (t -= (1.5 / 2.75)) * t + .75) + b;
-            } else if (t < (2.5 / 2.75)) {
-                return c * (7.5625 * (t -= (2.25 / 2.75)) * t + .9375) + b;
-            } else {
-                return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b;
-            }
-        },
-        easeInOut: function(t, b, c, d) {
-            if (t < d / 2) {
-                return Tween.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
-            } else {
-                return Tween.Bounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
-            }
-        }
-    }
-}
-Math.tween = Tween;
-
 //var basePath = 'http://wximg.gtimg.com/tmt/_events/promo/EyxiHkkq';
 if (!(typeof webpsupport == 'function')) {
     var webpsupport = function (cb) {
@@ -388,30 +207,46 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==3){
+        if(loadedTimes==3||(app.newsId==""&&loadedTimes==2)){
             $('.loading').remove();
-            $(document.documentElement).addClass("auto")
-            $('.screen').eq(0).addClass('active');
-            document.body.scrollTop=0;
-            if(app.eventUrl!=""){
-                //观看大事件
-                app.seeEvent();
-            }else{
-                //生成大事件
-                app.createMyEvent();
-            }
+            resetMeta();
+            setTimeout(function(){
+                $(document.documentElement).addClass("auto in")
+                $('.screen').eq(0).addClass('active');
+                document.body.scrollTop=0;
+                if(app.newsId!=""){
+                    //观看大事件
+                    app.seeEvent();
+                }else{
+                    //生成大事件
+                    app.createMyEvent();
+                }
+            },0)
         }
     }
     //loadBg music
-    loadAudio(app.audioSrc,function(audio){
-        loadedTimes+=1;
-        document.body.appendChild(audio)
-        app.dubber=audio;
-        app.dubber.isPaused=false
-        checkLoaded()
-    })
+    if(app.newsId){
+        loadAudio(app.audioSrc,function(audio){
+            var index;
+            loadedTimes+=1;
+            document.body.appendChild(audio)
+            app.dubber=audio;
+            app.dubber.isPaused=false
+            checkLoaded()
+           setTimeout(function(){
+               for(var i= 0,l=eventsTipArr.length;i<l;i++){
+                   index=app.text.indexOf(eventsTipArr[i].tip);
+                   if(index>-1){
+                       app.textDisplayTime=(index/app.text.length)*app.dubber.duration*1000;
+                       app.$bigShow.find("img").attr("src",basePath+eventsTipArr[i].img)
+                   }
+                   break;
+               }
+           },0)
+        })
+    }
 
-    loadAudio("media/news_start.mp3",function(audio){
+    loadAudio(basePath+"media/news_start.mp3",function(audio){
         loadedTimes+=1;
         document.body.appendChild(audio)
         app.newsStartAudio=audio;
@@ -492,11 +327,12 @@ webpsupport(function (webpa) {
 function resetMeta(){
     var g=window.innerWidth,h=window.innerHeight,k;
     (g/h)>=320/504?k=h/1008:k=g/640;
-    document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+    console.log(g,h,k)
+    document.getElementById("eqMobileViewport").setAttribute("content","initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
 }
 //init
 $(function(){
-    resetMeta();
+    animateGroup({group:$(".three-dots"),classSwitch:true,frameClass:["a","b","c"],duration:500})
     if(!!app.text){
         $("#captionText").text(app.text);
         loadAudio(app.audioSrc,function(audio){
@@ -504,11 +340,19 @@ $(function(){
         })
     }
     //性别滑动
-    $("#swipeBox").swipeLeft(function(){
-        app.updateSex();
-    }).swipeRight(function(){
-        app.updateSex();
-    })
+
+    ;(function(){
+        var start=0;
+        $("#swipeBox").on("touchstart",function(e){
+             start=  e.changedTouches[0].clientX;
+        }).on("touchend",function(e){
+            if(Math.abs(start- e.changedTouches[0].clientX)>50){
+                app.updateSex();
+            }
+            start=0;
+        })
+    })();
+
     //重新播放
     $("#replayEvent").on("click",function(){
         app.playEvent();
@@ -769,13 +613,24 @@ function animateFrame(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, i
 }
 
 function loadAudio(src,cb){
-    var audio=document.createElement("audio");
+    var audio=document.createElement("audio"),readyCount=0;
+    audio.preload="preload";
     $.ajax({
         url:src,
         success:function(result){
-        cb.call(null,audio);
+            readyCount++;
+            checkReady();
     }})
+    audio.addEventListener('loadedmetadata', function() {
+        readyCount++;
+        checkReady();
+    });
     audio.src=src;
+    function checkReady(){
+        if(readyCount==2){
+            cb.call(null,audio);
+        }
+    }
 }
 function ajax(url,cb){
     function sendRequest(){
@@ -805,7 +660,7 @@ function ajax(url,cb){
     xhr.send(null);
 }
 
-function loadCorssData(src,form,cb){
+function loadCrossData(src,form,cb){
     var isFirst=false;
     var frame=document.createElement("iframe");
     var selfSrc='about:blank';
@@ -859,4 +714,70 @@ function checkForm(form){
         alert("请输入正确的中文名字!")
     }
     return result;
+}
+function shareToWx(title, link, imgUrl, desc, cb) {
+    wx.onMenuShareTimeline({
+        title: title, // 分享标题
+        link: link, // 分享链接
+        imgUrl: imgUrl, // 分享图标
+        success: function () {
+            cb();
+            // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+            // 用户取消分享后执行的回调函数
+        }
+    });
+    wx.onMenuShareAppMessage({
+        title: title, // 分享标题
+        desc: desc, // 分享描述
+        link: link, // 分享链接
+        imgUrl: imgUrl, // 分享图标
+        type: '', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () {
+            cb();
+            // 用户确认分享后执行的回调函数
+        },
+        cancel: function () {
+            // 用户取消分享后执行的回调函数
+        }
+    });
+}
+function animateGroup(opts){
+    //group,frameClass,duration,gap,startIndex,loopTimes,cb
+    var animArr=opts.group,reset,duration=opts.duration+(opts.gap|| 0),curEl=animArr.eq(0),index=opts.startIndex|| 0,
+        animLen=Math.max(opts.frameClass.length,animArr.length),groupMaxIndex=animArr.length-1;
+    function run(){
+        curEl.addClass(opts.frameClass[index]||opts.frameClass[0])
+    }
+    if(!opts.waitTime){
+        go();
+    }else{
+        setTimeout(function(){
+            go();
+        },opts.waitTime)
+    }
+    function go() {
+        run();
+        reset = setInterval(function () {
+            if (opts.classSwitch !== false) {
+                curEl.removeClass(opts.frameClass[index] || opts.frameClass[0]);
+            }
+            index++;
+            if (index > animLen - 1) {
+                opts.loopTimes--;
+                index = 0;
+            }
+            curEl = animArr.eq(Math.min(index,groupMaxIndex));
+            if (opts.loopTimes == null || opts.loopTimes != 0) {
+                run();
+            }
+            if (opts.loopTimes == 0) {
+                clearInterval(reset);
+                typeof opts.callback == "function" && opts.callback();
+            }
+        }, duration + 70);
+    }
+    return reset;
 }

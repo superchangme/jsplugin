@@ -52,6 +52,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             filterSrc:''
         },
         textStep:'',
+        $mainStep:$(".main-step"),
         $textDefaultStep:$("[data-text-step=default]"),
         $hiddenOnInputDom:$(".op-box,.op-bar"),
         $emojiTextArea :$("#emojiTextArea"),
@@ -139,12 +140,12 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             if(last.is(".in")){
                 $(this).removeClass("in")
                 last.removeClass("in")
+                $(this).find(".step:first").addClass("in")
             }else{
                 if(span.length){
                     span.removeClass("in").next().addClass("in")
                 }else{
                     $(this).removeClass("in")
-
                 }
             }
         })
@@ -163,9 +164,14 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
 
         G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth});
         if(originHeight>=504){
-            G.photoScale=(Math.min(600,$("#photoInnerBox").width())/400);
-            G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+G.photoScale+")").addClass("visible")
-            G.$uploadMask.find(".photo-input-mask").css(G.transform,"scale("+G.photoScale+")")
+           setTimeout(function(){
+               var frameHeight=$(".main-box").height()-20;
+               G.$mainStep.css("top",frameHeight- G.$mainStep.height()+20)
+               G.photoScale=(Math.min(600,Math.min($("#photoInnerBox").width(),frameHeight))/400);
+               console.log(frameHeight )
+               G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+G.photoScale+")").addClass("visible")
+               G.$uploadMask.find(".photo-input-mask").css(G.transform,"scale("+G.photoScale+")")
+           },0)
         }
 
         G.eraseCtx=G.$eraserCanvas[0].getContext("2d");

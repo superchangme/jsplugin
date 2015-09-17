@@ -909,6 +909,8 @@ html {
 body {
   color: #5a5a5a;
   margin: 0;
+  background: url(../img/p0_bg.png);
+  background-size: cover;
 }
 /* HTML5 display definitions
    ========================================================================== */
@@ -1532,6 +1534,16 @@ html.auto {
   width: 81px;
   height: 81px;
 }
+.pulse {
+  -webkit-animation: pulse 1s;
+  animation: pulse 1s;
+}
+.infinite {
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  -o-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
 .video-box {
   padding: 15px ;
   margin: 0 auto;
@@ -1574,8 +1586,8 @@ html.auto {
 .caption-box .title {
   text-align: center;
   font-size: 16px;
-  padding: 8px;
-  border-right: 1px solid #1599cc;
+  padding: 5px 8px;
+  border-right: 1px solid black ;
   float: left;
   height: 50px;
 }
@@ -1588,7 +1600,7 @@ html.auto {
 }
 .caption-box .caption {
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 18px;
   overflow: hidden;
 }
 .caption-box #captionText {
@@ -1649,13 +1661,13 @@ html.auto {
   width: 622px;
   height: 236px;
   position: absolute;
-  right: 10px;
+  right: 35px;
   top: 10px;
 }
 .screen-share .qr-code {
-  background: url(../img/qrcode.png);
   width: 283px;
   height: 314px;
+  margin-top: -35px;
 }
 .screen-share .blue-car {
   background: url(../img/p3_car_front.png);
@@ -1686,4 +1698,35 @@ html.auto {
   transition: 1s 0.6s ease-out;
   -webkit-transform: rotate(-267deg);
   transform: rotate(-267deg);
+}
+.event-loading {
+  color: #000000 ;
+  font-style: italic;
+  font-weight: bold;
+  z-index: 8888;
+  background: url(../img/p0_bg.png);
+  background-size: cover ;
+}
+.three-dots {
+  position: relative;
+  display: inline-block;
+}
+.three-dots .inner {
+  overflow: hidden;
+  position: relative;
+}
+.three-dots.a .dot2,
+.three-dots.a .dot3 {
+  visibility: hidden;
+}
+.three-dots.b .dot3 {
+  visibility: hidden;
+}
+.bigShow {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+}
+.bigShow img {
+  width: 160px;
 }

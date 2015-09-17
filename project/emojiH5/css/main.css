@@ -2942,7 +2942,6 @@ textarea {
   overflow: hidden;
 }
 .main-step {
-  bottom: 6px;
   width: 100%;
   position: absolute;
 }
@@ -2952,7 +2951,6 @@ textarea {
   border-radius: 8px;
   width: 430px;
   position: relative;
-  top: -18px;
   margin: 0 auto;
 }
 body.result {
