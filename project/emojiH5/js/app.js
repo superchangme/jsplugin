@@ -168,9 +168,11 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                var frameHeight=$(".main-box").height()-20;
                G.$mainStep.css("top",frameHeight- G.$mainStep.height()+20)
                G.photoScale=(Math.min(600,Math.min($("#photoInnerBox").width(),frameHeight))/400);
-               console.log(frameHeight )
                G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+G.photoScale+")").addClass("visible")
                G.$uploadMask.find(".photo-input-mask").css(G.transform,"scale("+G.photoScale+")")
+               //step eraser
+               G.$eraserCanvas.eraser({scaleCanvas: G.photoScale,radius:15,container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
+               }}).eraser('stop')
            },0)
         }
 
@@ -443,9 +445,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                     });
                 }
             })
-            //step eraser
-            G.$eraserCanvas.eraser({scaleCanvas: G.photoScale,radius:15,container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
-            }}).eraser('stop')
+
             //btns bind
             G.$backFilterBtn.on("click",function(){
                 drawPhoto(0,0,1);

@@ -47,7 +47,7 @@ $.extend(app,{
         var form=$(that).parents("form"),eventLoad=$("#eventLoading");
         if(checkForm(form[0])){
             eventLoad.addClass("in");
-       /*     $.ajax({
+            $.ajax({
                 url:uploadUrl,
                 data:form.serialize(),
                 dataType:"json",
@@ -60,15 +60,15 @@ $.extend(app,{
                         alert(data.message)
                     }
                 }
-            })*/
-            loadCrossData(uploadUrl,form[0],function(data){
+            })
+           /* loadCrossData(uploadUrl,form[0],function(data){
                 data= JSON.parse(data);
                 if(data.result==1){
                 window.location.href=data.url;
                 } else{
                 alert(data.message)
                 }
-            })
+            })*/
         }
 
         /* $.ajax({
@@ -86,18 +86,31 @@ $.extend(app,{
         shareScreen:$("#shareScreen") ,
         startShowScreen:$("#startShowScreen")
     },
+    $loadingMask:$(".loading-mask"),
     seeEvent:function(){
         var one=false;
         app.newsStartAudio.play();
         app.screens.startShowScreen.addClass("in").find(".endFrame")[0].addEventListener(TRANSITION_END,function(){
-            app.screens.startShowScreen.addClass("scaleIn")
             if(!one){
-                app.updateScreen(app.screens.playScreen);
                 one=true;
-                setTimeout(function(){
-                    app.newsStartAudio.pause();
-                    app.playEvent();
-                },900)
+                openMask({
+                    maskTop:app.$loadingMask.find(".top")[0],
+                    maskBottom:app.$loadingMask.find(".bottom")[0],
+                    width:window.innerWidth,
+                    height:window.innerHeight,
+                    duration: parseInt(1500/16),
+                    beforeInit:function(){
+                        app.$loadingMask.addClass("in")
+                    },
+                    success:function(){
+                        app.screens.startShowScreen.removeClass("in");
+                        app.$loadingMask.removeClass("in");
+                        app.updateScreen(app.screens.playScreen);
+                        setTimeout(function(){
+                            app.newsStartAudio.pause();
+                            app.playEvent();
+                        },600)
+                }})
             }
         })
     },
@@ -112,6 +125,7 @@ $.extend(app,{
         app.$videoMask.addClass("in");
         if(app.dubber){
             app.showMask();
+            app.dubber.pause();
             $("#captionText").animate({"translate3d":"0,0,0"},0);
         }
     },
@@ -207,8 +221,9 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==3||(app.newsId==""&&loadedTimes==2)){
+        if(loadedTimes==2||(app.newsId==""&&loadedTimes==2)){
             $('.loading').remove();
+            $(".outer").show();
             resetMeta();
             setTimeout(function(){
                 $(document.documentElement).addClass("auto in")
@@ -350,6 +365,8 @@ $(function(){
                 app.updateSex();
             }
             start=0;
+        }).on("click",function(){
+            app.updateSex();
         })
     })();
 
@@ -781,3 +798,30 @@ function animateGroup(opts){
     }
     return reset;
 }
+
+function openMask(opts){
+    var per= 0,init=false,factor=opts.factor|| 1,curTime= 0,step=Number((opts.height*factor/200).toFixed(2)),max=opts.height/2,ctop= 0;
+    function _run(){
+
+        if(init==false){
+            opts.maskTop.style.clip='rect('+0+"px,"+opts.width+"px,"+0+"px,0";
+            opts.maskBottom.style.clip='rect('+opts.height+"px,"+opts.width+"px,"+opts.height+"px,0";
+            init=true;
+            opts.beforeInit.call();
+        }
+        requestAnimFrame(function(){
+             ctop = parseInt(Tween.Cubic.easeInOut(++curTime, 0, max, opts.duration));
+          //  ctop=Math.min(max,ctop+step)
+            opts.maskTop.style.clip='rect('+0+"px,"+opts.width+"px,"+ctop+"px,0";
+            opts.maskBottom.style.clip='rect('+(opts.height-ctop)+"px,"+opts.width+"px,"+opts.height+"px,0";
+            if(curTime<opts.duration){
+                _run();
+                curTime++
+            }else if(curTime>=opts.duration){
+                  opts.success.call();
+            }
+        })
+    }
+    _run()
+}
+

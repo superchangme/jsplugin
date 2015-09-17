@@ -90,16 +90,19 @@
         <div class="centerXY ">正在生成请稍候<span class="three-dots"><span class="dot1">.</span><span class="dot2">.</span><span class="dot3">.</span> </span>
         </div>
 </div>
-  <div class="outer">
+<div class="loading-mask full-p fade"><div class="top full-p"></div><div class="bottom full-p"></div></div>
+  <div class="outer" >
       <!--容器-->
       <div class="wrap" >
           <!--新闻播放loading页-->
           <section class="screen screen-loading fade" id="startShowScreen">
-              <div class="pops full-p"></div>
-              <div class="event-loading-s1 full-p"></div>
-              <div class="event-loading-s2 full-p"></div>
-              <div class="event-loading-s3 full-p"></div>
-              <div class="event-loading full-p endFrame"></div>
+              <div class="full-p back-scale">
+                  <div class="pops full-p"></div>
+                  <div class="event-loading-s1 full-p"></div>
+                  <div class="event-loading-s2 full-p"></div>
+                  <div class="event-loading-s3 full-p"></div>
+                  <div class="event-loading full-p endFrame"></div>
+              </div>
           </section>
 
           <!--播放新闻页-->
@@ -107,7 +110,7 @@
               <div class="page-title"></div>
               <div class="video-box">
                  <div class="inner">
-                     <div class="mask fade in full-p" id="videoMask">
+                     <div class="mask fade  full-p" id="videoMask">
                          <div class="pulse infinite full-p">
                              <a class="btn replay centerXY" id="replayEvent"></a>
                          </div>
@@ -197,6 +200,7 @@ var basePath="../";
 <script type="text/javascript" src="../js/zepto.data.js"></script>
 <script type="text/javascript" src="../js/fastclick.js"></script>
 <script  type="text/javascript" src="../js/getWXSDK.js"></script>
+<script  type="text/javascript"  src="../js/other.js"></script>
 <script  type="text/javascript"  src="../js/main.js"></script>
 <!-- endbuild -->
 
