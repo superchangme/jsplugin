@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>选择表情</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+<div class="loading ">
+    <div class="spinner">
+        <div class="loading_img"></div>
+        <!--<div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>-->
+    </div>
+</div>
+<div class="app-wrap fade">
+    <div class="modal modal1 fade"></div>
+    <div class="modal modal2 fade">
+        <div class="step1 full-p step fade in"></div>
+        <div class="step2 full-p fade step"></div>
+        <div class="step3 full-p fade step"></div>
+    </div>
+    <div class="modal modal3 fade"></div>
+    <div class="main-box ">
+        <div class="main-inner" id="photoInnerBox">
+            <!--upload box-->
+                   <div class="photo-input-box centerXY" data-step="choose-emoji">
+                       <div class="photo-input-mask step-tip">
+                           <img id='photoBg' />
+                           <input type="file"   accept="image/*;capture=camrea" id="photoInput"/>
+                       </div>
+                   </div>
+            <!--main photo frame box-->
+                  <div class="photoFrame centerXY" id="photoFrame">
+                      <div class="full-p frame-inner visible">
+                          <div class="photo-bg" id="emojiBg"></div>
+                          <canvas id="photoCanvas"  ></canvas>
+                          <canvas id="filterCanvas"  data-caman-hidpi-disabled style="display: none"></canvas>
+                          <canvas id="eraserCanvas"   style="display: none"></canvas>
+                          <div class="photo-cover" id="emojiCover"></div>
+                          <canvas id="resultCanvas"   style="display: none;"></canvas>
+                          <img id="resultImg" src='' style="display: none"/>
+                      </div>
+                  </div>
+                 <!--steps list-->
+                <div class="step main-step" data-step="text-emoji" >
+                    <div data-text-step="default">
+                        <div class="textarea-bg step-tip">
+                              <textarea id="emojiTextArea" placeholder="添加文字">
+                    </textarea>
+                        </div>
+                    </div>
+                    <div data-text-step="move-text">
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="op-box">
+        <div class="step" data-step="choose-emoji" id="emoji-tpl-list">
+            <div class="scroller">
+                <ul class="inline vm step-tip">
+                    <li>
+                        <img width="178" src="../img/emoji_thumb_01.png"/>
+                    </li>
+                    <li data-photo="true">
+                        <img width="226" src="../img/emoji_thumb_02.png"/>
+                    </li>
+                    <li>
+                        <img width="216" src="../img/emoji_thumb_03.png"/>
+                    </li> <li data-bg="true">
+                    <img width="173" src="../img/emoji_thumb_04.png"/>
+                </li>
+                    <li>
+                        <img width="174" src="../img/emoji_thumb_05.png"/>
+                    </li>
+                    <li data-photo="true">
+                        <img width="174" src="../img/emoji_thumb_06.png"/>
+                    </li>
+                    <li data-photo="true">
+                        <img width="227" src="../img/emoji_thumb_07.png"/>
+                    </li>
+                    <li data-photo="true">
+                        <img width="256" src="../img/emoji_thumb_08.png"/>
+                    </li>
+                    <li data-photo="true">
+                        <img width="270" src="../img/emoji_thumb_09.png"/>
+                    </li>
+                </ul>
+                <div class="verticalAlign"></div>
+             </div>
+        </div>
+        <div class="step" data-step="filter-emoji" >
+          <!--  <div class="range-bar">
+                <div class="info-line clearfix"><span class="pull-left">对比度</span><span  class="output pull-right">60</span> </div>
+                <input type="range" max="80" min="0" style="width: 200px" step="20" value="60" class="adjust-input" id="contrast"  data-rangeslider/>
+            </div>-->
+            <div class="range-bar fix-radio">
+                <input type="range" class='hidden' max="80" min="20" style="width: 200px" step="20" value="20" class="hidden" id="contrast"  />
+                <div class="radio-box in" data-val="20">
+                    低对比
+                </div>
+                <div class="radio-box"  data-val="40">
+                    中对比
+                </div>
+                <div class="radio-box"  data-val="60">
+                    高对比
+                </div>
+                <div class="radio-box"  data-val="80">
+                    强对比
+                </div>
+            </div>
+            <div class="range-bar">
+                <div class="info-line clearfix"><span class="pull-left">暗</span><span  class=" pull-right">亮</span></div>
+        <input type="range" max="0" min="-100" style="width: 200px" step="1" value="-50" class="adjust-input" id="exposure" data-rangeslider/>
+            </div>
+        </div>
+        <div class="step" data-step="erase-emoji">
+            <div class="reset-eraser">
+                <a class='inline vm' id="resetEraser"><i class="ico-reset"></i>重擦</a>
+            </div>
+            <div  class="range-bar">
+                <div class="info-line clearfix"><span class="pull-left">粗细</span><span  class="output pull-right">10</span></div>
+                <input type="range" max="100" min="10" style="width: 200px" step="10" value="30" class="adjust-input" id="eraserRange"  data-rangeslider/>
+            </div>
+        </div>
+        <div class="step" data-step="text-emoji">
+                <div data-text-step="default"  id="emoji-text-list">
+                    <div class="scroller">
+                        <div class="item-row vm step-tip">
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>卧勒个槽！</div>
+                            </div></div><div class="item"><div class='v-table'><div class='v-table-cell'>年轻人，你的思想很危险啊！
+                        </div></div></div><div class="item"><div class='v-table'><div class='v-table-cell'>么么哒～</div></div></div><div class="item">
+                            <div class='v-table'><div class='v-table-cell'>去你表妹！</div></div></div>
+                        </div>
+                        <div  class="item-row vm step-tip">
+                            <div class="item"><div class='v-table'><div class='v-table-cell'>哎哟卧操！</div></div></div><div class="item">
+                            <div class='v-table'><div class='v-table-cell'>孩子，你需要治疗</div></div></div><div class="item">
+                            <div class='v-table'><div class='v-table-cell'>呵呵呵</div></div></div><div class="item">
+                            <div class='v-table'><div class='v-table-cell'>我是女神我怕谁</div></div></div>
+                        </div>
+                    </div>
+                </div>
+            <div data-text-step="move-text" style="display: none">
+                <div class="centerXY">
+                    <a data-switch="default" class="pd5">重新编辑文字</a>
+                </div>
+            </div>
+        </div>
+        <div class="step" data-step="confirm-emoji" >
+        </div>
+    </div>
+    <div class="op-bar">
+        <div class="step" data-step="choose-emoji" data-modal=".modal1">
+            <a class="btn-label back-step" disabled>重拍</a>
+            <a class="btn-tip" data-modal=".modal1"></a>
+            <a class="btn-yellow pull-right next-step">下一步</a>
+        </div>
+        <div class="step" data-step="filter-emoji"  data-modal=".modal2">
+            <a class="btn-label back-step" >上一步</a>
+            <a class="btn-tip" data-modal=".modal2"></a>
+            <a class="btn-yellow pull-right next-step">下一步</a>
+        </div>
+        <div class="step" data-step="erase-emoji" data-modal=".modal3">
+            <a class="btn-label back-step">上一步</a>
+            <a class="btn-tip" data-modal=".modal3"></a>
+            <a class="btn-yellow pull-right next-step">下一步</a>
+        </div>
+        <div class="step" data-step="text-emoji" >
+            <a class="btn-label back-step" >上一步</a>
+            <a class="move-text centerXY" data-switch="move-text" style="display: none">移动文字</a>
+            <a class="btn-yellow pull-right next-step">完成</a>
+        </div>
+        <div class="step" data-step="confirm-emoji" >
+            <a class="btn-label back-step" >上一步</a>
+            <a class="btn-yellow pull-right next-step">确认添加</a>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var baseUrl="../../../vendor/";
+</script>
+<script>
+    var uploadUrl='http://127.0.0.1/test/upload.php';
+    var APP={version:'0.1.2'};
+    function sendFile(data){
+        alert("准备调用后端接口")
+        //data.imageData ---表情图片地址base64   data.filetype---图片后缀名
+        //调用app 接口imageready
+        imageReady(data.imageData);//imageData:base64
+        /*var form = new FormData();
+        form.append("filetype", data.filetype);
+        form.append("imageData", data.imageData.substring(22));
+        var xhrForm = new XMLHttpRequest();
+        xhrForm.open("POST", uploadUrl);
+        xhrForm.setRequestHeader("Access-Control-Allow-Origin","*");
+        xhrForm.send(form);*/
+    }
+    document.addEventListener("touchmove",function(e){
+        e.preventDefault();
+    })
+
+</script>
+
+<script   src="../js/require.js" ></script>
+<!--<script   src="../../../vendor/main.js" ></script>
+
+<script src="../js/app.js"></script>-->
+<script src="../dist/app.js"></script>
+</html>
