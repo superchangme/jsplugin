@@ -103,8 +103,8 @@ $.extend(app,{
                         app.$loadingMask.addClass("in")
                     },
                     success:function(){
-                        app.screens.startShowScreen.removeClass("in");
-                        app.$loadingMask.removeClass("in");
+                        app.screens.startShowScreen.addClass("hidden");
+                        app.$loadingMask.addClass("hidden");
                         app.updateScreen(app.screens.playScreen);
                         setTimeout(function(){
                             app.newsStartAudio.pause();
@@ -221,7 +221,7 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==2||(app.newsId==""&&loadedTimes==2)){
+        if(loadedTimes==3||(app.newsId==""&&loadedTimes==2)){
             $('.loading').remove();
             $(".outer").show();
             resetMeta();
@@ -234,6 +234,7 @@ webpsupport(function (webpa) {
                     app.seeEvent();
                 }else{
                     //生成大事件
+                    app.screens.playScreen.addClass("hidden")
                     app.createMyEvent();
                 }
             },0)
@@ -802,7 +803,6 @@ function animateGroup(opts){
 function openMask(opts){
     var per= 0,init=false,factor=opts.factor|| 1,curTime= 0,step=Number((opts.height*factor/200).toFixed(2)),max=opts.height/2,ctop= 0;
     function _run(){
-
         if(init==false){
             opts.maskTop.style.clip='rect('+0+"px,"+opts.width+"px,"+0+"px,0";
             opts.maskBottom.style.clip='rect('+opts.height+"px,"+opts.width+"px,"+opts.height+"px,0";
@@ -816,7 +816,6 @@ function openMask(opts){
             opts.maskBottom.style.clip='rect('+(opts.height-ctop)+"px,"+opts.width+"px,"+opts.height+"px,0";
             if(curTime<opts.duration){
                 _run();
-                curTime++
             }else if(curTime>=opts.duration){
                   opts.success.call();
             }
