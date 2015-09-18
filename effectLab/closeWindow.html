@@ -101,7 +101,7 @@
             if(init==false){
                 maskTop.css('clip','rect('+0+"px,"+opts.width+"px,"+0+"px,0px");
                 maskBottom.css('clip','rect('+opts.height+"px,"+opts.width+"px,"+opts.height+"px,0");
-
+                             alert(maskBottom.css("clip"))
                 init=true;
             }
             requestAnimFrame(function(){
