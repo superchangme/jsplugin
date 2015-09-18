@@ -99,14 +99,14 @@
         var per= 0,init=false,factor=opts.factor|| 1,step=Number((opts.height*factor/200).toFixed(2)),max=opts.height/2,ctop= 0;
         function _run(){
             if(init==false){
-                maskTop.style.clip='rect('+0+"px "+opts.width+"px "+0+"px 0px)";
-                maskBottom.style.clip='rect('+opts.height+"px "+opts.width+"px "+opts.height+"px 0px)";
+                maskTop.style.clip='rect('+0+"px,"+opts.width+"px,"+0+"px,0px)";
+                maskBottom.style.clip='rect('+opts.height+"px,"+opts.width+"px,"+opts.height+"px,0px)";
                 init=true;
             }
             requestAnimFrame(function(){
                 ctop=Math.min(max,ctop+step)
-                maskTop.style.clip='rect('+0+"px "+opts.width+"px "+ctop+"px 0px)";
-                maskBottom.style.clip='rect('+(opts.height-ctop)+"px "+opts.width+"px "+opts.height+"px 0px)";
+                maskTop.style.clip='rect('+0+"px,"+opts.width+"px,"+ctop+"px,0px)";
+                maskBottom.style.clip='rect('+(opts.height-ctop)+"px,"+opts.width+"px,"+opts.height+"px,0px)";
                 if(per<100){
                     _run();
                     per+=factor;
