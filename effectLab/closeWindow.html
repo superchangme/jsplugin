@@ -84,8 +84,9 @@
                      </pre>
            </div>
 </body>
+<script src="../vendor/jquery-2.1.4.js"></script>
 <script>
-         var maskBottom=document.querySelector(".bottom"),maskTop= document.querySelector(".top"),height=window.innerHeight,width=window.innerWidth;
+         var maskBottom=$(".bottom"),maskTop= $(".top"),height=window.innerHeight,width=window.innerWidth;
          window.requestAnimFrame = (function(){
              return  window.requestAnimationFrame       ||
                      window.webkitRequestAnimationFrame ||
@@ -94,21 +95,19 @@
                          window.setTimeout(callback, 1000 / 60);
                      };
          })();
-         alert(maskBottom)
     function openMask(opts){
         var per= 0,init=false,factor=opts.factor|| 1,step=Number((opts.height*factor/200).toFixed(2)),max=opts.height/2,ctop= 0;
         function _run(){
             if(init==false){
-                maskTop.style.clip='rect('+0+"px,"+opts.width+"px,"+0+"px,0px";
-                maskBottom.style.clip='rect('+opts.height+"px,"+opts.width+"px,"+opts.height+"px,0";
-                alert(maskBottom.style.clip)
+                maskTop.css('clip','rect('+0+"px,"+opts.width+"px,"+0+"px,0px");
+                maskBottom.css('clip','rect('+opts.height+"px,"+opts.width+"px,"+opts.height+"px,0");
 
                 init=true;
             }
             requestAnimFrame(function(){
                 ctop=Math.min(max,ctop+step)
-                maskTop.style.clip='rect('+0+"px,"+opts.width+"px,"+ctop+"px,0px";
-                maskBottom.style.clip='rect('+(opts.height-ctop)+"px,"+opts.width+"px,"+opts.height+"px,0";
+                maskTop.css('clip','rect('+0+"px,"+opts.width+"px,"+ctop+"px,0px");
+                maskBottom.css('clip','rect('+(opts.height-ctop)+"px,"+opts.width+"px,"+opts.height+"px,0");
                 if(per<100){
                     _run();
                     per+=factor;
@@ -139,6 +138,6 @@
              }
              _run()
          }
-         closeMask({width:width,height:height,factor:2})
+         openMask({width:width,height:height,factor:2})
 </script>
 </html>
