@@ -540,6 +540,13 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
         //draw result
         function drawResult(cb,final){
             G.$resultCanvas.removeLayers()[0].getContext("2d").clearRect(0,0, G.pWidth, G.pHeight) ;
+            G.$resultCanvas.drawRect({
+                fillStyle:"#fff",
+                fromCenter:false,
+                width: G.pWidth,
+                height: G.pHeight,
+                x:0,y:0
+            })
             if(G.emoji.background){
                 G.$resultCanvas.
                     drawImage({

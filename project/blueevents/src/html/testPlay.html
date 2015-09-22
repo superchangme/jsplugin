@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<audio id="start" src="media/news_start.mp3"></audio>
+</body>
+<script src="js/zepto.min.js"></script>
+<script>
+    alert("hhfffs")
+    var audio=document.createElement("audio"),start=document.getElementById("start");
+    audio.preload="preload";
+    document.body.appendChild(audio)
+    setTimeout(function(){
+            $.ajax({
+            url:  "media/ending.mp3",
+            success:function(){
+                    audio.play()
+                     alert(audio.duration)
+                     setTimeout(function(){
+                         start.play();
+                     },(audio.duration-2)*1000)
+            }
+        })
+    },3000)
+
+    audio.src="media/ending.mp3"
+</script>
+</html>

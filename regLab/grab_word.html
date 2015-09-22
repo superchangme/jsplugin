@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>获取\w的所有匹配字符</title>
+</head>
+<body>
+
+</body>
+<script>
+    var start= 0,end=127,r=[];
+    for(var i=start;i<=end;i++){
+        if(String.fromCharCode(i).match(/\w/)){
+            r.push(String.fromCharCode(i))
+        }
+    }
+    document.write(r.join(""))
+</script>
+</html>
