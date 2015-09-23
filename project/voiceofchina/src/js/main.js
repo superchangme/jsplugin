@@ -316,13 +316,13 @@ webpsupport(function (webpa) {
         checkLoaded()
         bgAudio=document.createElement("audio");
         bgAudio.src='../media/bg.mp3';
-        bgAudio.autoplay="autoplay"
+        //bgAudio.autoplay="autoplay"
         bgAudio.loop="loop"
         bgAudio.volume=0.5
         document.body.appendChild(bgAudio)
         var image=new Image;
         image.onload=function(){
-            bgAudio.play();
+            //bgAudio.play();
             bgAudio.isPaused=false
         }
         image.src='../img/volume_on.png';
