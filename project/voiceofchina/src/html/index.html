@@ -100,7 +100,7 @@
              </div>
          </div>
 
-          <section class="screen screen1" >
+          <section class="screen screen1" id="startScreen" >
               <div class="screen-inner full-p">
                   <div class="main-content">
                       <div class="reward-big abs">
@@ -113,22 +113,22 @@
                       <div class="abs qiyue-stamp"></div>
                       <div class="abs big-title"></div>
                       <div class="abs top">
-                          <ul class="master-choose-list">
-                              <li data-choose="halin">
+                          <ul class="master-choose-list" >
+                              <li data-choose="halin" data-choose-item>
                                   <img src="../img/halin_s.png"/>
                                   <div class="label centerXY">
                                       <div class="halin_t centerXY"></div>
                                   </div>
                               </li>
-                              <li data-choose="zhou">
+                              <li data-choose="zhou" data-choose-item>
                                   <img src="../img/jielun_s.png"/>
                                   <div class="label centerXY"><div class="lun_t centerXY"></div></div>
                               </li>
-                              <li data-choose="ying">
+                              <li data-choose="ying" data-choose-item>
                                   <img src="../img/naying_s.png"/>
                                   <div class="label centerXY"><div class="ying_t centerXY"></div></div>
                               </li>
-                              <li data-choose="feng">
+                              <li data-choose="feng" data-choose-item>
                                   <img src="../img/wangfeng_s.png"/>
                                   <div class="label centerXY "><div class="feng_t centerXY"></div></div>
                               </li>
@@ -138,11 +138,210 @@
               </div>
           </section>
 
-          <section class="screen screen7 text-center">
+          <section  class="screen screen2 out text-center" id="styleScreen">
+                <div class="screen-inner full-p">
+                    <div class="main-content">
+                        <div class="reward-title abs"></div>
+                        <ul class="master-style-list" >
+                            <li data-choose="halin" >
+                                <div class="portrait"></div>
+                                <div class="style"></div>
+                                <div class="btn-group">
+                                    <a class="btn" data-choose="halin" data-choose-item></a><a class="btn btn-back-choose" data-screen="styleScreen" ></a>
+                                </div>
+                            </li>
+                            <li data-choose="zhou" >
+                                <div class="portrait"></div>
+                                <div class="style"></div>
+                                <div class="btn-group">
+                                    <a class="btn" data-choose="zhou" data-choose-item></a><a class="btn btn-back-choose" data-screen="styleScreen" ></a>
+                                </div>
+                            </li>
+                            <li data-choose="ying" >
+                                <div class="portrait"></div>
+                                <div class="style"></div>
+                                <div class="btn-group">
+                                    <a class="btn" data-choose="ying" data-choose-item></a><a class="btn btn-back-choose" data-screen="styleScreen" ></a>
+                                </div>
+                            </li>
+                            <li data-choose="feng" >
+                                <div class="portrait"></div>
+                                <div class="style"></div>
+                                <div class="btn-group">
+                                    <a class="btn" data-choose="feng" data-choose-item></a><a class="btn btn-back-choose" data-screen="styleScreen" ></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+          </section>
+
+          <section class="screen screen3 out text-center" id="qsScreen">
+              <div class="screen-inner full-p">
+                  <div class="main-content">
+                      <div class="reward-title center"></div>
+                      <ul class="question-list">
+                          <li data-choose="halin">
+                              <div class="title abs"></div>
+                             <ul class="check-list">
+                                 <li><input name='halin' type="radio"/><i class="right"></i></li>
+                                 <li><input name='halin'type="radio"/><i class="right"></i></li>
+                                 <li><input name='halin' type="radio"/><i class="right"></i></li>
+                                 <li><input name='halin' type="radio"/><i class="right"></i></li>
+                             </ul>
+                          </li>
+                          <li data-choose="zhou">
+                              <div class="title abs"></div>
+                              <ul class="check-list">
+                                  <li><input name='zhou' type="radio"/><i class="right"></i></li>
+                                  <li><input name='zhou'type="radio"/><i class="right"></i></li>
+                                  <li><input name='zhou' type="radio"/><i class="right"></i></li>
+                                  <li><input name='zhou' type="radio"/><i class="right"></i></li>
+                              </ul>
+                          </li>
+                          <li data-choose="ying">
+                              <div class="title abs"></div>
+                              <ul class="check-list">
+                                  <li><input name='ying' type="radio"/><i class="right"></i></li>
+                                  <li><input name='ying'type="radio"/><i class="right"></i></li>
+                                  <li><input name='ying' type="radio"/><i class="right"></i></li>
+                                  <li><input name='ying' type="radio"/><i class="right"></i></li>
+                              </ul>
+                          </li>
+                          <li data-choose="feng">
+                              <div class="title abs"></div>
+                              <ul class="check-list">
+                                  <li><input name='ying' type="radio"/><i class="right"></i></li>
+                                  <li><input name='ying'type="radio"/><i class="right"></i></li>
+                                  <li><input name='ying' type="radio"/><i class="right"></i></li>
+                                  <li><input name='ying' type="radio"/><i class="right"></i></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </section>
+
+          <section class="screen screen3 out text-center" id="qsWrongScreen">
+              <div class="screen-inner full-p">
+                  <div class="main-content">
+                      <div class="reward-title pull-right"></div>
+                      <ul class="wrong-tip-list">
+                  <li data-choose="halin">
+                      <div class="dialog">
+                          <div class="edict-column">
+                              <div class="lin-portrait"></div>
+                              <div class="lin-words words"></div>
+                          </div>
+                          <div class="edict-column">
+                              <div class="you-portrait"></div>
+                              <div class="ans-words-lin words"></div>
+                          </div>
+                      </div>
+                  </li>
+                  <li data-choose="zhou">
+                      <div class="dialog">
+                          <div class="edict-column">
+                              <div class="zhou-portrait"></div>
+                              <div class="zhou-words words"></div>
+                          </div>
+                          <div class="edict-column">
+                              <div class="you-portrait"></div>
+                              <div class="ans-words-zhou "></div>
+                          </div>
+                      </div>
+                  </li>
+                  <li data-choose="ying">
+                      <div class="dialog">
+                          <div class="edict-column">
+                              <div class="ying-portrait"></div>
+                              <div class="ying-words words"></div>
+                          </div>
+                          <div class="edict-column">
+                              <div class="you-portrait"></div>
+                              <div class="ans-words-ying"></div>
+                          </div>
+                      </div>
+                  </li>
+                  <li data-choose="feng">
+                      <div class="dialog">
+                          <div class="edict-column">
+                              <div class="feng-portrait"></div>
+                              <div class="feng-words words"></div>
+                          </div>
+                          <div class="edict-column">
+                              <div class="you-portrait"></div>
+                              <div class="you-words"></div>
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+                      <div class="roll-back">
+                          <div class="title"></div>
+                          <a class="btn btn-roll-back" data-screen="qsScreen"></a>
+                      </div>
+                </div>
+              </div>
+
+          </section>
+
+          <section class="screen screen4 out text-center" id="qsRightScreen">
+              <div class="screen-inner full-p">
+                  <div class="main-content">
+                      <div class="reward-title pull-right"></div>
+                      <ul class="right-tip-list">
+                          <li data-choose="halin">
+                              <div class="dialog">
+                                  <div class="edict-column">
+                                      <div class="lin-portrait portrait"><div class="bg"></div></div>
+                                      <div class="lin-words words"></div>
+                                      <div class="red-car"></div>
+                                  </div>
+                              </div>
+                          </li>
+                          <li data-choose="zhou">
+                              <div class="dialog">
+                                  <div class="edict-column">
+                                      <div class="zhou-portrait portrait"><div class="bg"></div></div>
+                                      <div class="zhou-words words"></div>
+                                      <div class="red-car"></div>
+                                  </div>
+                              </div>
+                          </li>
+                          <li data-choose="ying">
+                              <div class="dialog">
+                                  <div class="edict-column">
+                                      <div class="ying-portrait portrait"><div class="bg"></div></div>
+                                      <div class="ying-words  words"></div>
+                                      <div class="red-car"></div>
+                                  </div>
+                              </div>
+                          </li>
+                          <li data-choose="feng">
+                              <div class="dialog">
+                                  <div class="edict-column">
+                                      <div class="feng-portrait portrait"><div class="bg"></div></div>
+                                      <div class="feng-words words"></div>
+                                      <div class="red-car"></div>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                      <div class="btn-group">
+                          <a class="btn btn-go-form" data-screen="yueScreen"></a>
+                          <a class='btn btn-go-site' href="http://m.changansuzuki.com/jsp/gn.jsp?cid=101|107"></a>
+                      </div>
+                      <div class="reward-u center" ></div>
+                  </div>
+              </div>
+          </section>
+
+          <section class="screen screen5 text-center" id="yueScreen">
+              <div class="screen-inner full-p">
+                  <div class="main-content">
               <div class=" form-wrapper inline center abs">
-                  <div class="center  p7-text"></div>
-                  <div class="center  p7-title"></div>
-                 <form onsubmit="return false;" novalidate>
+                  <div class="center  p5-title"></div>
+                 <form class="center" onsubmit="return false;" novalidate>
                 <div class="form-box  inline">
                     <div class="row">
                         <label>
@@ -157,7 +356,7 @@
                         </label>
                     </div>
                     <div class="row">
-                        <label>
+                        <label for="province">
                             <span>省&emsp;&emsp;份:</span>
                             <label class="select-wrap">
                                 <select id="province" name="province" class="form-control">
@@ -166,7 +365,7 @@
                         </label>
                     </div>
                     <div class="row">
-                        <label>
+                        <label for="city">
                             <span>城&emsp;&emsp;市:</span>
                             <label class="select-wrap">
                                 <select id="city" name="city" class="form-control">
@@ -175,14 +374,14 @@
                         </label>
                     </div>
                      <div class="row">
-                         <label>
+                         <label for="agency">
                              <span>区&emsp;&emsp;域:</span>
                              <label class="select-wrap">
                                  <select id="agency" name="agency" class="form-control">
                                  </select>
                              </label>
                          </label>
-                         <label>
+                         <label for="area">
                              <span>经&ensp;销&ensp;商:</span>
                              <label class="select-wrap">
                                  <select id="area" name="area" class="form-control">
@@ -191,9 +390,14 @@
                          </label>
                      </div>
                 </div>
-                 <button type="submit" id="submitFormBtn" class="center">确认提交</button>
+                     <div class="btn-group">
+                         <a onclick="javascript:this.form.submit()" id="submitFormBtn" class="hover btn"></a>
+                         <a class="btn btn-more-link"></a>
+                     </div>
                  </form>
              </div>
+                      </div>
+                  </div>
           </section>
       </div>
   </div>
@@ -213,7 +417,7 @@
 <script type="text/javascript" src="../js/area.js"></script>
 <script type="text/javascript" src="../js/fastclick.js"></script>
 <script  type="text/javascript" src="../js/getWXSDK.js"></script>
-<script  type="text/javascript"  src="../js/main.js"></script>
+<script  type="text/javascript"  src="../js/main.js?s=ss"></script>
 <!-- endbuild -->
 <div style="display: none">
     <script>

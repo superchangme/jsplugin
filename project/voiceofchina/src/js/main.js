@@ -1,3 +1,4 @@
+var app=app||{};
 var jssdkURL="../php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
 $.ajax({url:visitUrl,success:function(){
     console.log("记录访问信息")
@@ -38,6 +39,7 @@ var shareInfo={
     desc:'内有彩蛋，分享即有惊喜！'
 }
 
+/*
 init_wx_jsapi(jssdkURL,function(config){
     config.debug=false;
     wx.config(config);
@@ -52,6 +54,7 @@ init_wx_jsapi(jssdkURL,function(config){
         })
     });
 });
+*/
 
 
 FastClick.attach(document.body);
@@ -65,6 +68,96 @@ var isSubmiting=false;
 var isSubmited=false;
 var scrollTop=0;
 var loadedTimes=0;
+$.extend(app,{
+    ansList:{
+        "halin":1,
+        "ying":0,
+        "feng":0,
+         "zhou":2
+    },
+    $checkList:$(".check-list li"),
+    $chooseList: $("[data-choose-item]"),
+   init:function(){
+          var self=this,selLock;
+         return (function(){
+                   this.currentScreen=this.screens.startScreen;
+                    this.$chooseList.on("click",function(){
+                          self.updateScreen(self.getNextScreen(),$(this).data("choose"))
+                   })
+                    $("[data-screen]").on("click",function(){
+                        self.updateScreen(self.screens[$(this).data("screen")])
+                    })
+                    $("select").on("change",function(){
+                        $(this).addClass("in")
+                    })
+                    $('input[type=radio]').on("change",function(){
+                        if(selLock){return}
+                        selLock=true;
+
+                        var updateScreen,chooseName=$(this).attr("name"),ansIndex=self.ansList[chooseName],checkList=$(this).parents(".check-list").find("li"),index=checkList.index($(this).parent("li"));
+                        if(ansIndex==index){
+                            checkList.eq(ansIndex).addClass("right")
+                            updateScreen=self.screens.qsRightScreen
+                        }else{
+                            updateScreen=self.screens.qsWrongScreen
+                        }
+                        checkList.eq(index).addClass("choose")
+                        setTimeout(function(){
+                            self.updateScreen(updateScreen,chooseName)
+
+                        },1000)
+                        setTimeout(function(){
+                            selLock=false;
+                        },2000)
+                    })
+         }).bind(app)()
+   },
+    screens:{
+        startScreen:$("#startScreen"),
+        styleScreen:$("#styleScreen"),
+        qsScreen:$("#qsScreen"),
+        qsWrongScreen:$("#qsWrongScreen"),
+        qsRightScreen:$("#qsRightScreen"),
+        yueScreen:$("#yueScreen")
+    },
+    getNextScreen:function(){
+        var stop=false;
+          for(var screen in app.screens){
+              if(stop){
+                 return app.screens[screen]
+              }
+              if(stop==false&&app.screens[screen]==app.currentScreen){
+                  stop=true;
+              }
+          }
+    },
+    currentScreen:null,
+    changeStyle:function(newScreen,choose){
+        newScreen.find('[data-choose='+choose+"]").show().addClass("hover").siblings('[data-choose]').removeClass("hover").hide();
+    } ,
+    updateScreen:function(newScreen,choose){
+        if(choose){
+            app.changeStyle(newScreen,choose)
+        }
+        if(newScreen==app.screens.shareScreen){
+            window.location.hash="share";
+        }
+        if(newScreen==app.screens.qsScreen){
+           app.$checkList.removeClass().find("input").prop("checked",false)
+        }
+        if(!app.currentScreen){
+            newScreen.addClass("in")
+        }else{
+            app.currentScreen.addClass("out").removeClass("in current")
+            newScreen.removeClass("out").addClass("in")
+        }
+        app.currentScreen=newScreen.addClass("current")
+        if(newScreen!=app.screens.playScreen){
+            //app.stopEvent();
+        }
+    }
+});
+//加载省市代理商区域下拉
 new MyArea(["province","city","agency","area"],null,true); //初始化地区插件   三级第一个为已选择
 window.addEventListener("orientationchange",function(){
     if (window.orientation == 0 || window.orientation == 180) {
@@ -259,29 +352,7 @@ if (!(typeof webpsupport == 'function')) {
 webpsupport(function (webpa) {
     var loader = new WxMoment.Loader(),
         fileList =
-            ['img/bg_mask.png',
-                'img/btn_form.png',
-                'img/btn_go.png',
-                'img/btn_itry.png',
-                'img/btn_more.png',
-                'img/car_logo.png',
-                'img/finger.png',
-                'img/p1_bg.jpg',
-                'img/p1_text.png',
-                'img/p1_text1.png',
-                'img/p2_bg.jpg',
-                'img/p2_text.png',
-                'img/p3_bg.jpg',
-                'img/p3_car.png',
-                'img/p3_text.png',
-                'img/p4_bg.jpg',
-                'img/p4_car.png',
-                'img/p4_deng.png',
-                'img/p4_start.png',
-                'img/p4_text.png',
-                'img/rocket.png',
-                'img/video_bg.jpg',
-                'img/voice-logo.png',
+            [
                 'img/volume_off.png',
                 'img/volume_on.png'
             ],
@@ -306,7 +377,8 @@ webpsupport(function (webpa) {
         if(loadedTimes==3){
             $('.loading').remove();
             $(document.documentElement).addClass("auto")
-            $('.screen').eq(0).addClass('active');
+            $('.screen').eq(0).addClass('active in');
+            app.init();
             document.body.scrollTop=0;
         }
     }
@@ -414,6 +486,9 @@ var lightFrame;
 $(function(){
     resetMeta();
 var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg"),$readyPage=$("#readyPage");
+    $(".btn-go-site").on("click",function(e){
+        e.stopImmediatePropagation();
+    })
     $("a.btn").on("click",function(e){
         e.preventDefault();
     })
@@ -457,11 +532,11 @@ var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg")
                 url:uploadUrl,
                 success:function(data){
                     isSubmited=true;
-                    $self.text("提交成功");
+                    //$self.text("提交成功");
                     alert(data.message);
                 },error:function(){
                     alert("出错了，请重新提交！")
-                    $self.text("重新提交");
+                    //$self.text("重新提交");
                 } ,complete:function(){
                     isSubmiting=false;
                 }
