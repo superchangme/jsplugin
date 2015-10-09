@@ -9,7 +9,7 @@
         var YAO = YAO;
     }
     var _exec,elapsed,isSupport=false;
-    function _throttle(delay, call,args,thisObj)
+    function _throttle(delay, call,thisObj,args)
     {
         var  args=Object.prototype.toString.apply(args).slice(8,-1)==="Array"?args:[args] ;
         function callable()
@@ -30,11 +30,9 @@
         }
         return callable;
     }
-    var throttle = 50,isStop=false, throttleFunc = function (args) {
-        if(!isStop){
-            _throttle(throttle, deviceMotionHandler, args, YAO)();
-        }
-    };
+
+    var throttle = 50,isStop=false, throttleFunc = _throttle.bind(null,throttle, devicemotionHandler, YAO);
+
 
     YAO.init = function () {
         this.x = this.y = this.z = this.last_x = this.last_y = this.last_z = 0;
@@ -45,11 +43,12 @@
     }
     YAO.checkSupport = function(cb){
         function once(e){
-                var acceleration = e.accelerationIncludingGravity;
-                if(acceleration.x!=null){
-                    isSupport=true;
-                    cb(isSupport);
-                }
+           /*     var acceleration = e.accelerationIncludingGravity;
+                if(acceleration.x!=null||true){
+
+                }*/
+            isSupport=true;
+            cb(isSupport);
                 window.removeEventListener("devicemotion",once);
         }
         setTimeout(function(){
@@ -84,7 +83,7 @@
         this.isStop = false;
     };
     var time=+new Date;
-    function deviceMotionHandler(eventData) {
+    function devicemotionHandler(eventData) {
         if(YAO.isStop){
             return;
         }
