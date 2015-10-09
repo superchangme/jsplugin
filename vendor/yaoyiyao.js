@@ -9,7 +9,7 @@
         var YAO = YAO;
     }
     var _exec,elapsed,isSupport=false;
-    function _throttle(delay, call,thisObj,args)
+    function _throttle(delay, call,args,thisObj)
     {
         var  args=Object.prototype.toString.apply(args).slice(8,-1)==="Array"?args:[args] ;
         function callable()
@@ -30,9 +30,12 @@
         }
         return callable;
     }
-
-    var throttle = 50,isStop=false, throttleFunc = _throttle.bind(null,throttle, devicemotionHandler, YAO);
-
+    var throttle = 50,isStop=false, throttleFunc = function (args) {
+        if(!isStop){
+            deviceMotionHandler.call(YAO,args)
+            //_throttle(throttle, deviceMotionHandler, args, YAO)();
+        }
+    };
 
     YAO.init = function () {
         this.x = this.y = this.z = this.last_x = this.last_y = this.last_z = 0;
@@ -43,12 +46,11 @@
     }
     YAO.checkSupport = function(cb){
         function once(e){
-           /*     var acceleration = e.accelerationIncludingGravity;
-                if(acceleration.x!=null||true){
-
-                }*/
-            isSupport=true;
-            cb(isSupport);
+                var acceleration = e.accelerationIncludingGravity;
+                if(acceleration.x!=null){
+                    isSupport=true;
+                    cb(isSupport);
+                }
                 window.removeEventListener("devicemotion",once);
         }
         setTimeout(function(){
@@ -82,8 +84,7 @@
     YAO.restart = function(){
         this.isStop = false;
     };
-    var time=+new Date;
-    function devicemotionHandler(eventData) {
+    function deviceMotionHandler(eventData) {
         if(YAO.isStop){
             return;
         }
@@ -92,7 +93,6 @@
         this.y = acceleration.y;
         this.z = acceleration.z;
         if ((Math.abs(this.x- this.last_x)+Math.abs(this.y-this.last_y)+Math.abs(this.z - this.last_z)) / throttle >0.5) {
-            time=+new Date;
             this.counts++;
             this.callback();
             // var old=document.getElementById("log").value;

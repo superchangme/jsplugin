@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+    <title>长安铃木</title>
+    <link rel="stylesheet" href="../css/style-promo.css"/>
+    <style>
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            /*overflow: hidden;*/
+            background-color: #caa47b;
+        }
+        body{
+            position: relative;
+            /*   position: absolute;
+               left: 0;
+               top: 0;
+               width: 100%;
+               height: 100%;
+               overflow: hidden;*/
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background-color: white;
+        }
+        .loading__inner{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -83px;
+            margin-top: -40px;
+            width: 166px;
+            height: 60px;
+            text-align: center;
+            color: black;
+            font-size: 12px;
+        }
+
+        .loading__img{
+            width: 166px;
+            height: 20px;
+            background: url(../img/car_logo.png) no-repeat;
+        }
+
+        .loading-num{
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .loading-num img{
+            vertical-align: middle;
+            margin-right: 5px;;
+        }
+        .outer{
+            position: absolute;
+            height: 100%;
+            top:0;
+            left:0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/wx_share.jpg" style="display: none"/>
+<div class="loading">
+    <div class="loading__inner">
+        <div class="loading__img"></div>
+        <div class="loading-num"><span> 0%</span></div>
+    </div>
+</div>
+<div class="outer">
+    <!--容器-->
+    <div class="wrap" >
+        <div class="share-bg page hidden" id="sharePage">
+            <div class="share-car centerXY"></div>
+            <div class="share-tip"></div>
+        </div>
+        <div class="share-bg page hidden" id="rewardPage">
+            <div class="intro-tip centerXY"></div>
+        </div>
+        <div class="voice-logo fixDom"></div>
+        <div class="header-voice fixDom">
+            <div class="car-logo "></div>
+            <div  id="musicPlayBtn">
+                <a class="music-btn  btn"></a>
+            </div>
+        </div>
+
+        <section class="screen screen1" id="startScreen" >
+            <div class="screen-inner full-p">
+                <div class="main-content">
+                    <div class="reward-big abs world">
+                      <div class="anim inline">
+                          <div class="t1"><div class="text center"></div></div>
+                          <div class="t2"><div class="text center"></div></div>
+                          <div class="t3"><div class="text center"></div></div>
+                          <div class="abs shen-stamp"></div>
+                      </div>
+                    </div>
+                    <div class="abs cool-man"></div>
+                    <div class="world qiyue-world abs">
+                        <div class=" qiyue-stamp"></div>
+                    </div>
+                    <div class="abs big-title"></div>
+                    <div class="abs top">
+                        <ul class="master-choose-list" >
+                            <li data-choose="halin" data-choose-item>
+                                <img src="../img/halin_s.png"/>
+                                <div class="label centerXY">
+                                    <div class="halin_t centerXY"></div>
+                                </div>
+                            </li>
+                            <li data-choose="zhou" data-choose-item>
+                                <img src="../img/jielun_s.png" width="125"/>
+                                <div class="label centerXY"><div class="lun_t centerXY"></div></div>
+                            </li>
+                            <li data-choose="ying" data-choose-item>
+                                <img src="../img/naying_s.png"/>
+                                <div class="label centerXY"><div class="ying_t centerXY"></div></div>
+                            </li>
+                            <li data-choose="feng" data-choose-item>
+                                <img src="../img/wangfeng_s.png"/>
+                                <div class="label centerXY "><div class="feng_t centerXY"></div></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section  class="screen screen2 out text-center" id="styleScreen">
+            <div class="screen-inner full-p">
+                <div class="main-content">
+                    <div class="reward-title abs"></div>
+                    <ul class="master-style-list" >
+                        <li data-choose="halin" class="world" >
+                            <div class="portrait"></div>
+                            <div class="style"></div>
+                            <div class="btn-group">
+                                <a class="btn" data-choose="halin" data-choose-item></a><a class="btn btn-back-choose" data-screen="startScreen" ></a>
+                            </div>
+                        </li>
+                        <li data-choose="zhou"  class="world" >
+                            <div class="portrait"></div>
+                            <div class="style"></div>
+                            <div class="btn-group">
+                                <a class="btn" data-choose="zhou" data-choose-item></a><a class="btn btn-back-choose" data-screen="startScreen" ></a>
+                            </div>
+                        </li>
+                        <li data-choose="ying"  class="world" >
+                            <div class="portrait"></div>
+                            <div class="style"></div>
+                            <div class="btn-group">
+                                <a class="btn" data-choose="ying" data-choose-item></a><a class="btn btn-back-choose" data-screen="startScreen" ></a>
+                            </div>
+                        </li>
+                        <li data-choose="feng"  class="world" >
+                            <div class="portrait"></div>
+                            <div class="style"></div>
+                            <div class="btn-group">
+                                <a class="btn" data-choose="feng" data-choose-item></a><a class="btn btn-back-choose" data-screen="startScreen" ></a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen screen3 out text-center" id="qsScreen">
+            <div class="screen-inner full-p">
+                <div class="main-content">
+                    <div class="reward-title center"></div>
+                    <ul class="question-list">
+                        <li data-choose="halin">
+                            <div class="title abs"></div>
+                            <ul class="check-list">
+                                <li><input name='halin' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='halin'type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='halin' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='halin' type="radio"/><div class="right world"><i></i></div></li>
+                            </ul>
+                        </li>
+                        <li data-choose="zhou">
+                            <div class="title abs"></div>
+                            <ul class="check-list">
+                                <li><input name='zhou' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='zhou'type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='zhou' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='zhou' type="radio"/><div class="right world"><i></i></div></li>
+                            </ul>
+                        </li>
+                        <li data-choose="ying">
+                            <div class="title abs"></div>
+                            <ul class="check-list">
+                                <li><input name='ying' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='ying'type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='ying' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='ying' type="radio"/><div class="right world"><i></i></div></li>
+                            </ul>
+                        </li>
+                        <li data-choose="feng">
+                            <div class="title abs"></div>
+                            <ul class="check-list">
+                                <li><input name='feng' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='feng'type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='feng' type="radio"/><div class="right world"><i></i></div></li>
+                                <li><input name='feng' type="radio"/><div class="right world"><i></i></div></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen screen3 out text-center" id="qsWrongScreen">
+            <div class="screen-inner full-p">
+                <div class="main-content">
+                    <div class="reward-title pull-right"></div>
+                    <ul class="wrong-tip-list">
+                        <li data-choose="halin">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="lin-portrait"></div>
+                                    <div class="lin-words words"></div>
+                                </div>
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="you-portrait"></div>
+                                    <div class="ans-words-lin words"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li data-choose="zhou">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="zhou-portrait"></div>
+                                    <div class="zhou-words words"></div>
+
+                                </div>
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="you-portrait"></div>
+                                    <div class="ans-words-zhou "></div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li data-choose="ying">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="ying-portrait"></div>
+                                    <div class="ying-words words"></div>
+
+                                </div>
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="you-portrait"></div>
+                                    <div class="ans-words-ying"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li data-choose="feng">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="feng-portrait"></div>
+                                    <div class="feng-words words"></div>
+
+                                </div>
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="you-portrait"></div>
+                                    <div class="ans-words-feng"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="roll-back">
+                        <div class="title center"></div>
+                        <a class="btn btn-roll-back" data-screen="qsScreen"></a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="screen screen4 out text-center" id="qsRightScreen">
+            <div class="screen-inner full-p">
+                <div class="main-content">
+                    <div class="reward-title pull-right"></div>
+                    <ul class="right-tip-list">
+                        <li data-choose="halin">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="lin-portrait portrait"><div class="bg"></div></div>
+                                    <div class="lin-words words"></div>
+                                    <div class="red-car"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li data-choose="zhou">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="zhou-portrait portrait"><div class="bg"></div></div>
+                                    <div class="zhou-words words"></div>
+                                    <div class="red-car"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li data-choose="ying">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="ying-portrait portrait"><div class="bg"></div></div>
+                                    <div class="ying-words  words"></div>
+                                    <div class="red-car"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li data-choose="feng">
+                            <div class="dialog">
+                                <div class="edict-column">
+                                    <div class="column"></div>
+
+                                    <div class="feng-portrait portrait"><div class="bg"></div></div>
+                                    <div class="feng-words words"></div>
+                                    <div class="red-car"></div>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="btn-group">
+                        <a class="btn btn-go-form" data-screen="yueScreen"></a>
+                        <a class='btn btn-go-site' href="http://m.changansuzuki.com/jsp/gn.jsp?cid=101|107"></a>
+                    </div>
+                    <a class="btn reward-u center" ></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen screen5 text-center" id="yueScreen">
+            <div class="screen-inner full-p">
+                <div class="main-content">
+                    <div class=" form-wrapper inline center abs">
+                        <div class="center  p5-title"></div>
+                        <form class="center" onsubmit="return false;" novalidate>
+                            <div class="form-box  inline">
+                                <div class="row">
+                                    <label>
+                                        <span>真实姓名:</span>
+                                        <input name="name" type="text" required pattern="\S*"/>
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label>
+                                        <span>手机号码:</span>
+                                        <input name="phone" type="text" required pattern="^\d{11}$"/>
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label for="province">
+                                        <span>省&emsp;&emsp;份:</span>
+                                        <label class="select-wrap">
+                                            <select id="province" name="province" class="form-control">
+                                            </select>
+                                        </label>
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label for="city">
+                                        <span>城&emsp;&emsp;市:</span>
+                                        <label class="select-wrap">
+                                            <select id="city" name="city" class="form-control">
+                                            </select>
+                                        </label>
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label for="agency">
+                                        <span>区&emsp;&emsp;域:</span>
+                                        <label class="select-wrap">
+                                            <select id="agency" name="agency" class="form-control">
+                                            </select>
+                                        </label>
+                                    </label>
+                                    <label for="area">
+                                        <span>经&ensp;销&ensp;商:</span>
+                                        <label class="select-wrap">
+                                            <select id="area" name="area" class="form-control">
+                                            </select>
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <a onclick="javascript:this.form.submit()" id="submitFormBtn" class="hover btn"></a>
+                                <a class="btn btn-more-link" ></a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script >
+    /*    window.onerror=function(err){
+     alert(err)
+     }*/
+    var uploadUrl="../php/main.php?a=saveform";
+    var collectShareUrl="../php/main.php?a=share";
+    var visitUrl='../php/main.php?a=visit'
+</script>
+<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>
+<!--<script src="../js/wxmoment.min.js"></script>-->
+<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<!-- build:js ../js/lib.js -->
+<script type="text/javascript" src="../js/zepto.data.js"></script>
+<script type="text/javascript" src="../js/area.js"></script>
+<script type="text/javascript" src="../js/fastclick.js"></script>
+<script  type="text/javascript" src="../js/getWXSDK.js"></script>
+<script  type="text/javascript"  src="../js/main.js"></script>
+<!-- endbuild -->
+<div style="display: none">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?387f37b60dec0f825a68fef0e15242ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</div>
+</body>
+</html>
