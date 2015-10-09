@@ -1,0 +1,2743 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\nodejs\\\\node.exe',
+1 verbose cli   'D:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@1.4.3
+3 info using node@v0.10.26
+4 verbose node symlink D:\nodejs\\node.exe
+5 warn package.json react-basic-commonjs-example@ No repository field.
+6 verbose readDependencies using package.json deps
+7 verbose install where, deps [ 'C:\\wamp\\www\\react\\examples\\basic-commonjs',
+7 verbose install   [ 'browserify', 'envify', 'react', 'reactify' ] ]
+8 info preinstall react-basic-commonjs-example@
+9 verbose readDependencies using package.json deps
+10 verbose cache add [ 'envify@^3.2.0', null ]
+11 verbose cache add name=undefined spec="envify@^3.2.0" args=["envify@^3.2.0",null]
+12 verbose parsed url { protocol: null,
+12 verbose parsed url   slashes: null,
+12 verbose parsed url   auth: null,
+12 verbose parsed url   host: null,
+12 verbose parsed url   port: null,
+12 verbose parsed url   hostname: null,
+12 verbose parsed url   hash: null,
+12 verbose parsed url   search: null,
+12 verbose parsed url   query: null,
+12 verbose parsed url   pathname: 'envify@^3.2.0',
+12 verbose parsed url   path: 'envify@^3.2.0',
+12 verbose parsed url   href: 'envify@^3.2.0' }
+13 verbose cache add name="envify" spec="^3.2.0" args=["envify","^3.2.0"]
+14 verbose parsed url { protocol: null,
+14 verbose parsed url   slashes: null,
+14 verbose parsed url   auth: null,
+14 verbose parsed url   host: null,
+14 verbose parsed url   port: null,
+14 verbose parsed url   hostname: null,
+14 verbose parsed url   hash: null,
+14 verbose parsed url   search: null,
+14 verbose parsed url   query: null,
+14 verbose parsed url   pathname: '^3.2.0',
+14 verbose parsed url   path: '^3.2.0',
+14 verbose parsed url   href: '^3.2.0' }
+15 verbose addNamed [ 'envify', '^3.2.0' ]
+16 verbose addNamed [ null, '>=3.2.0-0 <4.0.0-0' ]
+17 verbose cache add [ 'react@^0.13.0', null ]
+18 verbose cache add name=undefined spec="react@^0.13.0" args=["react@^0.13.0",null]
+19 verbose parsed url { protocol: null,
+19 verbose parsed url   slashes: null,
+19 verbose parsed url   auth: null,
+19 verbose parsed url   host: null,
+19 verbose parsed url   port: null,
+19 verbose parsed url   hostname: null,
+19 verbose parsed url   hash: null,
+19 verbose parsed url   search: null,
+19 verbose parsed url   query: null,
+19 verbose parsed url   pathname: 'react@^0.13.0',
+19 verbose parsed url   path: 'react@^0.13.0',
+19 verbose parsed url   href: 'react@^0.13.0' }
+20 verbose cache add name="react" spec="^0.13.0" args=["react","^0.13.0"]
+21 verbose parsed url { protocol: null,
+21 verbose parsed url   slashes: null,
+21 verbose parsed url   auth: null,
+21 verbose parsed url   host: null,
+21 verbose parsed url   port: null,
+21 verbose parsed url   hostname: null,
+21 verbose parsed url   hash: null,
+21 verbose parsed url   search: null,
+21 verbose parsed url   query: null,
+21 verbose parsed url   pathname: '^0.13.0',
+21 verbose parsed url   path: '^0.13.0',
+21 verbose parsed url   href: '^0.13.0' }
+22 verbose addNamed [ 'react', '^0.13.0' ]
+23 verbose addNamed [ null, '>=0.13.0-0 <0.14.0-0' ]
+24 verbose cache add [ 'reactify@^0.17.1', null ]
+25 verbose cache add name=undefined spec="reactify@^0.17.1" args=["reactify@^0.17.1",null]
+26 verbose parsed url { protocol: null,
+26 verbose parsed url   slashes: null,
+26 verbose parsed url   auth: null,
+26 verbose parsed url   host: null,
+26 verbose parsed url   port: null,
+26 verbose parsed url   hostname: null,
+26 verbose parsed url   hash: null,
+26 verbose parsed url   search: null,
+26 verbose parsed url   query: null,
+26 verbose parsed url   pathname: 'reactify@^0.17.1',
+26 verbose parsed url   path: 'reactify@^0.17.1',
+26 verbose parsed url   href: 'reactify@^0.17.1' }
+27 verbose cache add name="reactify" spec="^0.17.1" args=["reactify","^0.17.1"]
+28 verbose parsed url { protocol: null,
+28 verbose parsed url   slashes: null,
+28 verbose parsed url   auth: null,
+28 verbose parsed url   host: null,
+28 verbose parsed url   port: null,
+28 verbose parsed url   hostname: null,
+28 verbose parsed url   hash: null,
+28 verbose parsed url   search: null,
+28 verbose parsed url   query: null,
+28 verbose parsed url   pathname: '^0.17.1',
+28 verbose parsed url   path: '^0.17.1',
+28 verbose parsed url   href: '^0.17.1' }
+29 verbose addNamed [ 'reactify', '^0.17.1' ]
+30 verbose addNamed [ null, '>=0.17.1-0 <0.18.0-0' ]
+31 verbose cache add [ 'browserify@^6.3.3', null ]
+32 verbose cache add name=undefined spec="browserify@^6.3.3" args=["browserify@^6.3.3",null]
+33 verbose parsed url { protocol: null,
+33 verbose parsed url   slashes: null,
+33 verbose parsed url   auth: null,
+33 verbose parsed url   host: null,
+33 verbose parsed url   port: null,
+33 verbose parsed url   hostname: null,
+33 verbose parsed url   hash: null,
+33 verbose parsed url   search: null,
+33 verbose parsed url   query: null,
+33 verbose parsed url   pathname: 'browserify@^6.3.3',
+33 verbose parsed url   path: 'browserify@^6.3.3',
+33 verbose parsed url   href: 'browserify@^6.3.3' }
+34 verbose cache add name="browserify" spec="^6.3.3" args=["browserify","^6.3.3"]
+35 verbose parsed url { protocol: null,
+35 verbose parsed url   slashes: null,
+35 verbose parsed url   auth: null,
+35 verbose parsed url   host: null,
+35 verbose parsed url   port: null,
+35 verbose parsed url   hostname: null,
+35 verbose parsed url   hash: null,
+35 verbose parsed url   search: null,
+35 verbose parsed url   query: null,
+35 verbose parsed url   pathname: '^6.3.3',
+35 verbose parsed url   path: '^6.3.3',
+35 verbose parsed url   href: '^6.3.3' }
+36 verbose addNamed [ 'browserify', '^6.3.3' ]
+37 verbose addNamed [ null, '>=6.3.3-0 <7.0.0-0' ]
+38 silly lockFile 4db02b9b-envify-3-2-0 envify@^3.2.0
+39 verbose lock envify@^3.2.0 C:\Users\tom.chang\AppData\Roaming\npm-cache\4db02b9b-envify-3-2-0.lock
+40 silly lockFile 5691f262-react-0-13-0 react@^0.13.0
+41 verbose lock react@^0.13.0 C:\Users\tom.chang\AppData\Roaming\npm-cache\5691f262-react-0-13-0.lock
+42 silly lockFile 4ee82bec-reactify-0-17-1 reactify@^0.17.1
+43 verbose lock reactify@^0.17.1 C:\Users\tom.chang\AppData\Roaming\npm-cache\4ee82bec-reactify-0-17-1.lock
+44 silly lockFile 9ea5bd79-browserify-6-3-3 browserify@^6.3.3
+45 verbose lock browserify@^6.3.3 C:\Users\tom.chang\AppData\Roaming\npm-cache\9ea5bd79-browserify-6-3-3.lock
+46 silly addNameRange { name: 'react', range: '>=0.13.0-0 <0.14.0-0', hasData: false }
+47 silly addNameRange { name: 'reactify',
+47 silly addNameRange   range: '>=0.17.1-0 <0.18.0-0',
+47 silly addNameRange   hasData: false }
+48 silly addNameRange { name: 'envify', range: '>=3.2.0-0 <4.0.0-0', hasData: false }
+49 silly addNameRange { name: 'browserify',
+49 silly addNameRange   range: '>=6.3.3-0 <7.0.0-0',
+49 silly addNameRange   hasData: false }
+50 verbose url raw react
+51 verbose url resolving [ 'http://registry.cnpmjs.org/', './react' ]
+52 verbose url resolved http://registry.cnpmjs.org/react
+53 info trying registry request attempt 1 at 17:27:14
+54 http GET http://registry.cnpmjs.org/react
+55 verbose url raw reactify
+56 verbose url resolving [ 'http://registry.cnpmjs.org/', './reactify' ]
+57 verbose url resolved http://registry.cnpmjs.org/reactify
+58 info trying registry request attempt 1 at 17:27:14
+59 http GET http://registry.cnpmjs.org/reactify
+60 verbose url raw envify
+61 verbose url resolving [ 'http://registry.cnpmjs.org/', './envify' ]
+62 verbose url resolved http://registry.cnpmjs.org/envify
+63 info trying registry request attempt 1 at 17:27:14
+64 http GET http://registry.cnpmjs.org/envify
+65 verbose url raw browserify
+66 verbose url resolving [ 'http://registry.cnpmjs.org/', './browserify' ]
+67 verbose url resolved http://registry.cnpmjs.org/browserify
+68 info trying registry request attempt 1 at 17:27:14
+69 http GET http://registry.cnpmjs.org/browserify
+70 http 200 http://registry.cnpmjs.org/envify
+71 silly registry.get cb [ 200,
+71 silly registry.get   { server: 'nginx/1.4.6 (Ubuntu)',
+71 silly registry.get     date: 'Mon, 21 Sep 2015 09:29:55 GMT',
+71 silly registry.get     'content-type': 'application/json; charset=utf-8',
+71 silly registry.get     'content-length': '25483',
+71 silly registry.get     connection: 'keep-alive',
+71 silly registry.get     etag: '"CiN76PFCrwow13dv4py1GQ=="',
+71 silly registry.get     'x-readtime': '23' } ]
+72 silly addNameRange number 2 { name: 'envify', range: '>=3.2.0-0 <4.0.0-0', hasData: true }
+73 silly addNameRange versions [ 'envify',
+73 silly addNameRange   [ '3.4.0',
+73 silly addNameRange     '3.3.1',
+73 silly addNameRange     '3.3.0',
+73 silly addNameRange     '3.2.0',
+73 silly addNameRange     '3.1.0',
+73 silly addNameRange     '3.0.0',
+73 silly addNameRange     '2.0.1',
+73 silly addNameRange     '2.0.0',
+73 silly addNameRange     '1.2.1',
+73 silly addNameRange     '1.2.0',
+73 silly addNameRange     '1.1.0',
+73 silly addNameRange     '1.0.1',
+73 silly addNameRange     '1.0.0',
+73 silly addNameRange     '0.2.0',
+73 silly addNameRange     '0.1.0',
+73 silly addNameRange     '0.0.1' ] ]
+74 verbose addNamed [ 'envify', '3.4.0' ]
+75 verbose addNamed [ '3.4.0', '3.4.0' ]
+76 silly lockFile b60ef226-envify-3-4-0 envify@3.4.0
+77 verbose lock envify@3.4.0 C:\Users\tom.chang\AppData\Roaming\npm-cache\b60ef226-envify-3-4-0.lock
+78 silly lockFile b2a08981-envify-download-envify-3-4-0-tgz http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+79 verbose lock http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\b2a08981-envify-download-envify-3-4-0-tgz.lock
+80 verbose addRemoteTarball [ 'http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz',
+80 verbose addRemoteTarball   'a0bed52222529076a02fabf6ce00eef42d7b6734' ]
+81 info retry fetch attempt 1 at 17:27:15
+82 verbose fetch to= C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635418-0.9241510317660868\tmp.tgz
+83 http GET http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+84 http 200 http://registry.cnpmjs.org/reactify
+85 silly registry.get cb [ 200,
+85 silly registry.get   { server: 'nginx/1.4.6 (Ubuntu)',
+85 silly registry.get     date: 'Mon, 21 Sep 2015 09:29:55 GMT',
+85 silly registry.get     'content-type': 'application/json; charset=utf-8',
+85 silly registry.get     'content-length': '59633',
+85 silly registry.get     connection: 'keep-alive',
+85 silly registry.get     etag: '"wSitYKkRrTmtNqbj7ceifw=="',
+85 silly registry.get     'x-readtime': '32' } ]
+86 silly addNameRange number 2 { name: 'reactify',
+86 silly addNameRange   range: '>=0.17.1-0 <0.18.0-0',
+86 silly addNameRange   hasData: true }
+87 silly addNameRange versions [ 'reactify',
+87 silly addNameRange   [ '1.1.1',
+87 silly addNameRange     '1.1.0',
+87 silly addNameRange     '1.0.0',
+87 silly addNameRange     '0.17.1',
+87 silly addNameRange     '0.17.0',
+87 silly addNameRange     '0.16.0',
+87 silly addNameRange     '0.15.2',
+87 silly addNameRange     '0.12.1',
+87 silly addNameRange     '0.13.2',
+87 silly addNameRange     '0.11.1',
+87 silly addNameRange     '0.10.1',
+87 silly addNameRange     '0.9.2',
+87 silly addNameRange     '0.8.2',
+87 silly addNameRange     '0.14.1',
+87 silly addNameRange     '0.15.1',
+87 silly addNameRange     '0.15.0',
+87 silly addNameRange     '0.14.0',
+87 silly addNameRange     '0.13.1',
+87 silly addNameRange     '0.13.0',
+87 silly addNameRange     '0.12.0',
+87 silly addNameRange     '0.11.0',
+87 silly addNameRange     '0.10.0',
+87 silly addNameRange     '0.9.1',
+87 silly addNameRange     '0.9.0',
+87 silly addNameRange     '0.8.1',
+87 silly addNameRange     '0.8.0',
+87 silly addNameRange     '0.7.0',
+87 silly addNameRange     '0.6.1',
+87 silly addNameRange     '0.6.0',
+87 silly addNameRange     '0.5.1',
+87 silly addNameRange     '0.5.0',
+87 silly addNameRange     '0.4.0',
+87 silly addNameRange     '0.3.2',
+87 silly addNameRange     '0.3.1',
+87 silly addNameRange     '0.3.0',
+87 silly addNameRange     '0.2.2',
+87 silly addNameRange     '0.2.1',
+87 silly addNameRange     '0.2.0',
+87 silly addNameRange     '0.1.4',
+87 silly addNameRange     '0.1.3',
+87 silly addNameRange     '0.1.2',
+87 silly addNameRange     '0.1.1',
+87 silly addNameRange     '0.1.0' ] ]
+88 verbose addNamed [ 'reactify', '0.17.1' ]
+89 verbose addNamed [ '0.17.1', '0.17.1' ]
+90 silly lockFile 7a84788b-reactify-0-17-1 reactify@0.17.1
+91 verbose lock reactify@0.17.1 C:\Users\tom.chang\AppData\Roaming\npm-cache\7a84788b-reactify-0-17-1.lock
+92 silly lockFile 50997995-ify-download-reactify-0-17-1-tgz http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz
+93 verbose lock http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\50997995-ify-download-reactify-0-17-1-tgz.lock
+94 verbose addRemoteTarball [ 'http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz',
+94 verbose addRemoteTarball   '0a4683cca59a4c7a769579fe2fec0a9bdf81eed6' ]
+95 info retry fetch attempt 1 at 17:27:15
+96 verbose fetch to= C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\tmp.tgz
+97 http GET http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz
+98 http 200 http://registry.cnpmjs.org/react
+99 silly registry.get cb [ 200,
+99 silly registry.get   { server: 'nginx/1.4.6 (Ubuntu)',
+99 silly registry.get     date: 'Mon, 21 Sep 2015 09:29:55 GMT',
+99 silly registry.get     'content-type': 'application/json; charset=utf-8',
+99 silly registry.get     'content-length': '79002',
+99 silly registry.get     connection: 'keep-alive',
+99 silly registry.get     etag: '"k7zc2Nhw3IwPUDfiw0g8jg=="',
+99 silly registry.get     'x-readtime': '39' } ]
+100 silly addNameRange number 2 { name: 'react', range: '>=0.13.0-0 <0.14.0-0', hasData: true }
+101 silly addNameRange versions [ 'react',
+101 silly addNameRange   [ '0.14.0-rc1',
+101 silly addNameRange     '0.14.0-beta3',
+101 silly addNameRange     '0.14.0-beta2',
+101 silly addNameRange     '0.14.0-beta1',
+101 silly addNameRange     '0.14.0-alpha3',
+101 silly addNameRange     '0.14.0-alpha2',
+101 silly addNameRange     '0.14.0-alpha1',
+101 silly addNameRange     '0.13.3',
+101 silly addNameRange     '0.13.2',
+101 silly addNameRange     '0.13.1',
+101 silly addNameRange     '0.13.0',
+101 silly addNameRange     '0.13.0-rc2',
+101 silly addNameRange     '0.13.0-rc1',
+101 silly addNameRange     '0.13.0-beta.2',
+101 silly addNameRange     '0.13.0-beta.1',
+101 silly addNameRange     '0.13.0-alpha.2',
+101 silly addNameRange     '0.13.0-alpha.1',
+101 silly addNameRange     '0.12.2',
+101 silly addNameRange     '0.12.1',
+101 silly addNameRange     '0.12.0',
+101 silly addNameRange     '0.12.0-rc1',
+101 silly addNameRange     '0.11.2',
+101 silly addNameRange     '0.11.1',
+101 silly addNameRange     '0.11.0',
+101 silly addNameRange     '0.11.0-rc1',
+101 silly addNameRange     '0.10.0',
+101 silly addNameRange     '0.10.0-rc1',
+101 silly addNameRange     '0.9.0',
+101 silly addNameRange     '0.9.0-rc1',
+101 silly addNameRange     '0.8.0',
+101 silly addNameRange     '0.7.1',
+101 silly addNameRange     '0.7.0',
+101 silly addNameRange     '0.6.3',
+101 silly addNameRange     '0.6.2',
+101 silly addNameRange     '0.6.1',
+101 silly addNameRange     '0.6.0',
+101 silly addNameRange     '0.5.2',
+101 silly addNameRange     '0.5.1',
+101 silly addNameRange     '0.5.0',
+101 silly addNameRange     '0.3.5',
+101 silly addNameRange     '0.3.4',
+101 silly addNameRange     '0.3.0',
+101 silly addNameRange     '0.2.6',
+101 silly addNameRange     '0.2.5',
+101 silly addNameRange     '0.2.4',
+101 silly addNameRange     '0.2.3',
+101 silly addNameRange     '0.2.2',
+101 silly addNameRange     '0.2.1',
+101 silly addNameRange     '0.2.0',
+101 silly addNameRange     '0.1.2',
+101 silly addNameRange     '0.0.3',
+101 silly addNameRange     '0.0.2',
+101 silly addNameRange     '0.0.1' ] ]
+102 verbose addNamed [ 'react', '0.13.3' ]
+103 verbose addNamed [ '0.13.3', '0.13.3' ]
+104 silly lockFile e90fbd15-react-0-13-3 react@0.13.3
+105 verbose lock react@0.13.3 C:\Users\tom.chang\AppData\Roaming\npm-cache\e90fbd15-react-0-13-3.lock
+106 silly lockFile e0bc4fba--react-download-react-0-13-3-tgz http://registry.cnpmjs.org/react/download/react-0.13.3.tgz
+107 verbose lock http://registry.cnpmjs.org/react/download/react-0.13.3.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\e0bc4fba--react-download-react-0-13-3-tgz.lock
+108 verbose addRemoteTarball [ 'http://registry.cnpmjs.org/react/download/react-0.13.3.tgz',
+108 verbose addRemoteTarball   'a2dfa85335d7dc02b82b482f089582e64cc13356' ]
+109 info retry fetch attempt 1 at 17:27:15
+110 verbose fetch to= C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\tmp.tgz
+111 http GET http://registry.cnpmjs.org/react/download/react-0.13.3.tgz
+112 http 200 http://registry.cnpmjs.org/react/download/react-0.13.3.tgz
+113 verbose tar unpack C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\tmp.tgz
+114 silly lockFile fbe23ba5-35665-0-9037129622884095-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package
+115 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package C:\Users\tom.chang\AppData\Roaming\npm-cache\fbe23ba5-35665-0-9037129622884095-package.lock
+116 silly lockFile d78ffb42-35665-0-9037129622884095-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\tmp.tgz
+117 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\tmp.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\d78ffb42-35665-0-9037129622884095-tmp-tgz.lock
+118 silly gunzTarPerm modes [ '755', '644' ]
+119 silly gunzTarPerm extractEntry package.json
+120 silly gunzTarPerm extractEntry README.md
+121 silly gunzTarPerm extractEntry addons.js
+122 silly gunzTarPerm extractEntry react.js
+123 silly gunzTarPerm extractEntry dist/JSXTransformer.js
+124 silly gunzTarPerm extractEntry dist/react-with-addons.js
+125 silly gunzTarPerm extractEntry dist/react-with-addons.min.js
+126 silly gunzTarPerm extractEntry dist/react.js
+127 silly gunzTarPerm extractEntry dist/react.min.js
+128 silly gunzTarPerm extractEntry lib/AutoFocusMixin.js
+129 silly gunzTarPerm extractEntry lib/ReactPropTypeLocationNames.js
+130 silly gunzTarPerm extractEntry lib/ReactPropTypeLocations.js
+131 silly gunzTarPerm extractEntry lib/ReactPropTypes.js
+132 silly gunzTarPerm extractEntry lib/ReactPropTransferer.js
+133 silly gunzTarPerm extractEntry lib/ReactReconcileTransaction.js
+134 silly gunzTarPerm extractEntry lib/ReactReconciler.js
+135 silly gunzTarPerm extractEntry lib/ReactRef.js
+136 silly gunzTarPerm extractEntry lib/ReactRootIndex.js
+137 silly gunzTarPerm extractEntry lib/ReactServerRendering.js
+138 silly gunzTarPerm extractEntry lib/ReactPerf.js
+139 silly gunzTarPerm extractEntry lib/ReactServerRenderingTransaction.js
+140 silly gunzTarPerm extractEntry lib/ReactOwner.js
+141 silly gunzTarPerm extractEntry lib/ReactStateSetters.js
+142 silly gunzTarPerm extractEntry lib/ReactNativeComponent.js
+143 silly gunzTarPerm extractEntry lib/ReactTestUtils.js
+144 silly gunzTarPerm extractEntry lib/ReactMultiChildUpdateTypes.js
+145 silly gunzTarPerm extractEntry lib/ReactTransitionChildMapping.js
+146 silly gunzTarPerm extractEntry lib/ReactMultiChild.js
+147 silly gunzTarPerm extractEntry lib/ReactTransitionEvents.js
+148 silly gunzTarPerm extractEntry lib/ReactMount.js
+149 silly gunzTarPerm extractEntry lib/ReactTransitionGroup.js
+150 silly gunzTarPerm extractEntry lib/ReactMarkupChecksum.js
+151 silly gunzTarPerm extractEntry lib/ReactUpdateQueue.js
+152 silly gunzTarPerm extractEntry lib/ReactLink.js
+153 silly gunzTarPerm extractEntry lib/ReactUpdates.js
+154 silly gunzTarPerm extractEntry lib/ReactLifeCycle.js
+155 silly gunzTarPerm extractEntry lib/ReactWithAddons.js
+156 silly gunzTarPerm extractEntry lib/ReactInstanceMap.js
+157 silly gunzTarPerm extractEntry lib/SVGDOMPropertyConfig.js
+158 silly gunzTarPerm extractEntry lib/ReactInstanceHandles.js
+159 silly gunzTarPerm extractEntry lib/SelectEventPlugin.js
+160 silly gunzTarPerm extractEntry lib/ReactInputSelection.js
+161 silly gunzTarPerm extractEntry lib/ServerReactRootIndex.js
+162 silly gunzTarPerm extractEntry lib/ReactInjection.js
+163 silly gunzTarPerm extractEntry lib/SimpleEventPlugin.js
+164 silly gunzTarPerm extractEntry lib/ReactFragment.js
+165 silly gunzTarPerm extractEntry lib/SyntheticClipboardEvent.js
+166 silly gunzTarPerm extractEntry lib/ReactEventListener.js
+167 silly gunzTarPerm extractEntry lib/SyntheticCompositionEvent.js
+168 silly gunzTarPerm extractEntry lib/ReactEventEmitterMixin.js
+169 silly gunzTarPerm extractEntry lib/SyntheticDragEvent.js
+170 silly gunzTarPerm extractEntry lib/ReactErrorUtils.js
+171 silly gunzTarPerm extractEntry lib/SyntheticEvent.js
+172 silly gunzTarPerm extractEntry lib/ReactEmptyComponent.js
+173 silly gunzTarPerm extractEntry lib/SyntheticFocusEvent.js
+174 silly gunzTarPerm extractEntry lib/ReactElementValidator.js
+175 silly gunzTarPerm extractEntry lib/SyntheticInputEvent.js
+176 silly gunzTarPerm extractEntry lib/ReactElement.js
+177 silly gunzTarPerm extractEntry lib/SyntheticKeyboardEvent.js
+178 silly gunzTarPerm extractEntry lib/ReactDefaultPerfAnalysis.js
+179 silly gunzTarPerm extractEntry lib/SyntheticMouseEvent.js
+180 silly gunzTarPerm extractEntry lib/ReactDefaultPerf.js
+181 silly gunzTarPerm extractEntry lib/SyntheticTouchEvent.js
+182 silly gunzTarPerm extractEntry lib/ReactDefaultInjection.js
+183 silly gunzTarPerm extractEntry lib/SyntheticUIEvent.js
+184 silly gunzTarPerm extractEntry lib/ReactDefaultBatchingStrategy.js
+185 silly gunzTarPerm extractEntry lib/SyntheticWheelEvent.js
+186 silly gunzTarPerm extractEntry lib/ReactDOMTextarea.js
+187 silly gunzTarPerm extractEntry lib/Transaction.js
+188 silly gunzTarPerm extractEntry lib/ReactDOMTextComponent.js
+189 silly gunzTarPerm extractEntry lib/ViewportMetrics.js
+190 silly gunzTarPerm extractEntry lib/ReactDOMSelection.js
+191 silly gunzTarPerm extractEntry lib/accumulateInto.js
+192 silly gunzTarPerm extractEntry lib/ReactDOMSelect.js
+193 silly gunzTarPerm extractEntry lib/adler32.js
+194 silly gunzTarPerm extractEntry lib/ReactDOMOption.js
+195 silly gunzTarPerm extractEntry lib/camelize.js
+196 silly gunzTarPerm extractEntry lib/ReactDOMInput.js
+197 silly gunzTarPerm extractEntry lib/camelizeStyleName.js
+198 silly gunzTarPerm extractEntry lib/ReactDOMImg.js
+199 silly gunzTarPerm extractEntry lib/cloneWithProps.js
+200 silly gunzTarPerm extractEntry lib/ReactDOMIframe.js
+201 silly gunzTarPerm extractEntry lib/containsNode.js
+202 silly gunzTarPerm extractEntry lib/ReactDOMIDOperations.js
+203 silly gunzTarPerm extractEntry lib/createArrayFromMixed.js
+204 silly gunzTarPerm extractEntry lib/ReactDOMForm.js
+205 silly gunzTarPerm extractEntry lib/createFullPageComponent.js
+206 silly gunzTarPerm extractEntry lib/ReactDOMComponent.js
+207 silly gunzTarPerm extractEntry lib/createNodesFromMarkup.js
+208 silly gunzTarPerm extractEntry lib/ReactDOMButton.js
+209 silly gunzTarPerm extractEntry lib/cx.js
+210 silly gunzTarPerm extractEntry lib/ReactDOM.js
+211 silly gunzTarPerm extractEntry lib/dangerousStyleValue.js
+212 silly gunzTarPerm extractEntry lib/ReactCurrentOwner.js
+213 silly gunzTarPerm extractEntry lib/emptyFunction.js
+214 silly gunzTarPerm extractEntry lib/ReactContext.js
+215 silly gunzTarPerm extractEntry lib/emptyObject.js
+216 silly gunzTarPerm extractEntry lib/ReactCompositeComponent.js
+217 silly gunzTarPerm extractEntry lib/escapeTextContentForBrowser.js
+218 silly gunzTarPerm extractEntry lib/ReactComponentWithPureRenderMixin.js
+219 silly gunzTarPerm extractEntry lib/findDOMNode.js
+220 silly gunzTarPerm extractEntry lib/ReactComponentEnvironment.js
+221 silly gunzTarPerm extractEntry lib/flattenChildren.js
+222 silly gunzTarPerm extractEntry lib/ReactComponentBrowserEnvironment.js
+223 silly gunzTarPerm extractEntry lib/focusNode.js
+224 silly gunzTarPerm extractEntry lib/ReactComponent.js
+225 silly gunzTarPerm extractEntry lib/forEachAccumulated.js
+226 silly gunzTarPerm extractEntry lib/ReactClass.js
+227 silly gunzTarPerm extractEntry lib/getActiveElement.js
+228 silly gunzTarPerm extractEntry lib/ReactChildren.js
+229 silly gunzTarPerm extractEntry lib/getEventCharCode.js
+230 silly gunzTarPerm extractEntry lib/ReactChildReconciler.js
+231 silly gunzTarPerm extractEntry lib/getEventKey.js
+232 silly gunzTarPerm extractEntry lib/ReactCSSTransitionGroupChild.js
+233 silly gunzTarPerm extractEntry lib/getEventModifierState.js
+234 silly gunzTarPerm extractEntry lib/ReactCSSTransitionGroup.js
+235 silly gunzTarPerm extractEntry lib/getEventTarget.js
+236 silly gunzTarPerm extractEntry lib/ReactBrowserEventEmitter.js
+237 silly gunzTarPerm extractEntry lib/getIteratorFn.js
+238 silly gunzTarPerm extractEntry lib/ReactBrowserComponentMixin.js
+239 silly gunzTarPerm extractEntry lib/getMarkupWrap.js
+240 silly gunzTarPerm extractEntry lib/React.js
+241 silly gunzTarPerm extractEntry lib/getNodeForCharacterOffset.js
+242 silly gunzTarPerm extractEntry lib/PooledClass.js
+243 silly gunzTarPerm extractEntry lib/getReactRootElementInContainer.js
+244 silly gunzTarPerm extractEntry lib/Object.assign.js
+245 silly gunzTarPerm extractEntry lib/getTextContentAccessor.js
+246 silly gunzTarPerm extractEntry lib/MobileSafariClickEventPlugin.js
+247 silly gunzTarPerm extractEntry lib/getUnboundedScrollPosition.js
+248 silly gunzTarPerm extractEntry lib/LocalEventTrapMixin.js
+249 silly gunzTarPerm extractEntry lib/hyphenate.js
+250 silly gunzTarPerm extractEntry lib/LinkedValueUtils.js
+251 silly gunzTarPerm extractEntry lib/hyphenateStyleName.js
+252 silly gunzTarPerm extractEntry lib/LinkedStateMixin.js
+253 silly gunzTarPerm extractEntry lib/instantiateReactComponent.js
+254 silly gunzTarPerm extractEntry lib/HTMLDOMPropertyConfig.js
+255 silly gunzTarPerm extractEntry lib/invariant.js
+256 silly gunzTarPerm extractEntry lib/FallbackCompositionState.js
+257 silly gunzTarPerm extractEntry lib/isEventSupported.js
+258 silly gunzTarPerm extractEntry lib/ExecutionEnvironment.js
+259 silly gunzTarPerm extractEntry lib/isNode.js
+260 silly gunzTarPerm extractEntry lib/EventPropagators.js
+261 silly gunzTarPerm extractEntry lib/isTextInputElement.js
+262 silly gunzTarPerm extractEntry lib/EventPluginUtils.js
+263 silly gunzTarPerm extractEntry lib/isTextNode.js
+264 silly gunzTarPerm extractEntry lib/EventPluginRegistry.js
+265 silly gunzTarPerm extractEntry lib/joinClasses.js
+266 silly gunzTarPerm extractEntry lib/EventPluginHub.js
+267 silly gunzTarPerm extractEntry lib/keyMirror.js
+268 silly gunzTarPerm extractEntry lib/EventListener.js
+269 silly gunzTarPerm extractEntry lib/keyOf.js
+270 silly gunzTarPerm extractEntry lib/EventConstants.js
+271 silly gunzTarPerm extractEntry lib/mapObject.js
+272 silly gunzTarPerm extractEntry lib/EnterLeaveEventPlugin.js
+273 silly gunzTarPerm extractEntry lib/memoizeStringOnly.js
+274 silly gunzTarPerm extractEntry lib/DefaultEventPluginOrder.js
+275 silly gunzTarPerm extractEntry lib/onlyChild.js
+276 silly gunzTarPerm extractEntry lib/Danger.js
+277 silly gunzTarPerm extractEntry lib/performance.js
+278 silly gunzTarPerm extractEntry lib/DOMPropertyOperations.js
+279 silly gunzTarPerm extractEntry lib/performanceNow.js
+280 silly gunzTarPerm extractEntry lib/DOMProperty.js
+281 silly gunzTarPerm extractEntry lib/quoteAttributeValueForBrowser.js
+282 silly gunzTarPerm extractEntry lib/DOMChildrenOperations.js
+283 silly gunzTarPerm extractEntry lib/setInnerHTML.js
+284 silly gunzTarPerm extractEntry lib/ClientReactRootIndex.js
+285 silly gunzTarPerm extractEntry lib/setTextContent.js
+286 silly gunzTarPerm extractEntry lib/ChangeEventPlugin.js
+287 silly gunzTarPerm extractEntry lib/shallowEqual.js
+288 silly gunzTarPerm extractEntry lib/CallbackQueue.js
+289 silly gunzTarPerm extractEntry lib/shouldUpdateReactComponent.js
+290 silly gunzTarPerm extractEntry lib/CSSPropertyOperations.js
+291 silly gunzTarPerm extractEntry lib/toArray.js
+292 silly gunzTarPerm extractEntry lib/CSSProperty.js
+293 silly gunzTarPerm extractEntry lib/traverseAllChildren.js
+294 silly gunzTarPerm extractEntry lib/CSSCore.js
+295 silly gunzTarPerm extractEntry lib/update.js
+296 silly gunzTarPerm extractEntry lib/BeforeInputEventPlugin.js
+297 silly gunzTarPerm extractEntry lib/warning.js
+298 silly gunzTarPerm extractEntry lib/ReactPutListenerQueue.js
+299 silly lockFile fbe23ba5-35665-0-9037129622884095-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package
+300 silly lockFile fbe23ba5-35665-0-9037129622884095-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package
+301 silly lockFile d78ffb42-35665-0-9037129622884095-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\tmp.tgz
+302 silly lockFile d78ffb42-35665-0-9037129622884095-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\tmp.tgz
+303 verbose tar pack [ 'C:\\Users\\tom.chang\\AppData\\Roaming\\npm-cache\\react\\0.13.3\\package.tgz',
+303 verbose tar pack   'C:\\Users\\TOM~1.CHA\\AppData\\Local\\Temp\\npm-13596-AjY3Bc9Z\\1442827635665-0.9037129622884095\\package' ]
+304 verbose tarball C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+305 verbose folder C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package
+306 silly lockFile fbe23ba5-35665-0-9037129622884095-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package
+307 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package C:\Users\tom.chang\AppData\Roaming\npm-cache\fbe23ba5-35665-0-9037129622884095-package.lock
+308 silly lockFile 85ac4908-m-cache-react-0-13-3-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+309 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\85ac4908-m-cache-react-0-13-3-package-tgz.lock
+310 silly lockFile fbe23ba5-35665-0-9037129622884095-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package
+311 silly lockFile fbe23ba5-35665-0-9037129622884095-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635665-0.9037129622884095\package
+312 silly lockFile 85ac4908-m-cache-react-0-13-3-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+313 silly lockFile 85ac4908-m-cache-react-0-13-3-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+314 silly lockFile 182709ad-g-npm-cache-react-0-13-3-package C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package
+315 verbose lock C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package C:\Users\tom.chang\AppData\Roaming\npm-cache\182709ad-g-npm-cache-react-0-13-3-package.lock
+316 silly lockFile 182709ad-g-npm-cache-react-0-13-3-package C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package
+317 silly lockFile 182709ad-g-npm-cache-react-0-13-3-package C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package
+318 verbose tar unpack C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+319 silly lockFile c2180ff7-g-npm-cache-react-0-13-3-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package
+320 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package C:\Users\tom.chang\AppData\Roaming\npm-cache\c2180ff7-g-npm-cache-react-0-13-3-package.lock
+321 silly lockFile 85ac4908-m-cache-react-0-13-3-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+322 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\85ac4908-m-cache-react-0-13-3-package-tgz.lock
+323 silly gunzTarPerm modes [ '755', '644' ]
+324 silly gunzTarPerm extractEntry package.json
+325 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+326 silly gunzTarPerm extractEntry README.md
+327 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+328 silly gunzTarPerm extractEntry addons.js
+329 silly gunzTarPerm modified mode [ 'addons.js', 438, 420 ]
+330 silly gunzTarPerm extractEntry react.js
+331 silly gunzTarPerm modified mode [ 'react.js', 438, 420 ]
+332 silly gunzTarPerm extractEntry dist/JSXTransformer.js
+333 silly gunzTarPerm modified mode [ 'dist/JSXTransformer.js', 438, 420 ]
+334 silly gunzTarPerm extractEntry dist/react-with-addons.js
+335 silly gunzTarPerm modified mode [ 'dist/react-with-addons.js', 438, 420 ]
+336 silly gunzTarPerm extractEntry dist/react-with-addons.min.js
+337 silly gunzTarPerm modified mode [ 'dist/react-with-addons.min.js', 438, 420 ]
+338 silly gunzTarPerm extractEntry dist/react.js
+339 silly gunzTarPerm modified mode [ 'dist/react.js', 438, 420 ]
+340 silly gunzTarPerm extractEntry dist/react.min.js
+341 silly gunzTarPerm modified mode [ 'dist/react.min.js', 438, 420 ]
+342 silly gunzTarPerm extractEntry lib/AutoFocusMixin.js
+343 silly gunzTarPerm modified mode [ 'lib/AutoFocusMixin.js', 438, 420 ]
+344 silly gunzTarPerm extractEntry lib/ReactPropTypeLocationNames.js
+345 silly gunzTarPerm modified mode [ 'lib/ReactPropTypeLocationNames.js', 438, 420 ]
+346 silly gunzTarPerm extractEntry lib/ReactPropTypeLocations.js
+347 silly gunzTarPerm modified mode [ 'lib/ReactPropTypeLocations.js', 438, 420 ]
+348 silly gunzTarPerm extractEntry lib/ReactPropTypes.js
+349 silly gunzTarPerm modified mode [ 'lib/ReactPropTypes.js', 438, 420 ]
+350 silly gunzTarPerm extractEntry lib/ReactPropTransferer.js
+351 silly gunzTarPerm modified mode [ 'lib/ReactPropTransferer.js', 438, 420 ]
+352 silly gunzTarPerm extractEntry lib/ReactReconcileTransaction.js
+353 silly gunzTarPerm modified mode [ 'lib/ReactReconcileTransaction.js', 438, 420 ]
+354 silly gunzTarPerm extractEntry lib/ReactReconciler.js
+355 silly gunzTarPerm modified mode [ 'lib/ReactReconciler.js', 438, 420 ]
+356 silly gunzTarPerm extractEntry lib/ReactRef.js
+357 silly gunzTarPerm modified mode [ 'lib/ReactRef.js', 438, 420 ]
+358 silly gunzTarPerm extractEntry lib/ReactRootIndex.js
+359 silly gunzTarPerm modified mode [ 'lib/ReactRootIndex.js', 438, 420 ]
+360 silly gunzTarPerm extractEntry lib/ReactServerRendering.js
+361 silly gunzTarPerm modified mode [ 'lib/ReactServerRendering.js', 438, 420 ]
+362 silly gunzTarPerm extractEntry lib/ReactPerf.js
+363 silly gunzTarPerm modified mode [ 'lib/ReactPerf.js', 438, 420 ]
+364 silly gunzTarPerm extractEntry lib/ReactServerRenderingTransaction.js
+365 silly gunzTarPerm modified mode [ 'lib/ReactServerRenderingTransaction.js', 438, 420 ]
+366 silly gunzTarPerm extractEntry lib/ReactOwner.js
+367 silly gunzTarPerm modified mode [ 'lib/ReactOwner.js', 438, 420 ]
+368 silly gunzTarPerm extractEntry lib/ReactStateSetters.js
+369 silly gunzTarPerm modified mode [ 'lib/ReactStateSetters.js', 438, 420 ]
+370 silly gunzTarPerm extractEntry lib/ReactNativeComponent.js
+371 silly gunzTarPerm modified mode [ 'lib/ReactNativeComponent.js', 438, 420 ]
+372 silly gunzTarPerm extractEntry lib/ReactTestUtils.js
+373 silly gunzTarPerm modified mode [ 'lib/ReactTestUtils.js', 438, 420 ]
+374 silly gunzTarPerm extractEntry lib/ReactMultiChildUpdateTypes.js
+375 silly gunzTarPerm modified mode [ 'lib/ReactMultiChildUpdateTypes.js', 438, 420 ]
+376 silly gunzTarPerm extractEntry lib/ReactTransitionChildMapping.js
+377 silly gunzTarPerm modified mode [ 'lib/ReactTransitionChildMapping.js', 438, 420 ]
+378 silly gunzTarPerm extractEntry lib/ReactMultiChild.js
+379 silly gunzTarPerm modified mode [ 'lib/ReactMultiChild.js', 438, 420 ]
+380 silly gunzTarPerm extractEntry lib/ReactTransitionEvents.js
+381 silly gunzTarPerm modified mode [ 'lib/ReactTransitionEvents.js', 438, 420 ]
+382 silly gunzTarPerm extractEntry lib/ReactMount.js
+383 silly gunzTarPerm modified mode [ 'lib/ReactMount.js', 438, 420 ]
+384 silly gunzTarPerm extractEntry lib/ReactTransitionGroup.js
+385 silly gunzTarPerm modified mode [ 'lib/ReactTransitionGroup.js', 438, 420 ]
+386 silly gunzTarPerm extractEntry lib/ReactMarkupChecksum.js
+387 silly gunzTarPerm modified mode [ 'lib/ReactMarkupChecksum.js', 438, 420 ]
+388 silly gunzTarPerm extractEntry lib/ReactUpdateQueue.js
+389 silly gunzTarPerm modified mode [ 'lib/ReactUpdateQueue.js', 438, 420 ]
+390 silly gunzTarPerm extractEntry lib/ReactLink.js
+391 silly gunzTarPerm modified mode [ 'lib/ReactLink.js', 438, 420 ]
+392 silly gunzTarPerm extractEntry lib/ReactUpdates.js
+393 silly gunzTarPerm modified mode [ 'lib/ReactUpdates.js', 438, 420 ]
+394 silly gunzTarPerm extractEntry lib/ReactLifeCycle.js
+395 silly gunzTarPerm modified mode [ 'lib/ReactLifeCycle.js', 438, 420 ]
+396 silly gunzTarPerm extractEntry lib/ReactWithAddons.js
+397 silly gunzTarPerm modified mode [ 'lib/ReactWithAddons.js', 438, 420 ]
+398 silly gunzTarPerm extractEntry lib/ReactInstanceMap.js
+399 silly gunzTarPerm modified mode [ 'lib/ReactInstanceMap.js', 438, 420 ]
+400 silly gunzTarPerm extractEntry lib/SVGDOMPropertyConfig.js
+401 silly gunzTarPerm modified mode [ 'lib/SVGDOMPropertyConfig.js', 438, 420 ]
+402 silly gunzTarPerm extractEntry lib/ReactInstanceHandles.js
+403 silly gunzTarPerm modified mode [ 'lib/ReactInstanceHandles.js', 438, 420 ]
+404 silly gunzTarPerm extractEntry lib/SelectEventPlugin.js
+405 silly gunzTarPerm modified mode [ 'lib/SelectEventPlugin.js', 438, 420 ]
+406 silly gunzTarPerm extractEntry lib/ReactInputSelection.js
+407 silly gunzTarPerm modified mode [ 'lib/ReactInputSelection.js', 438, 420 ]
+408 silly gunzTarPerm extractEntry lib/ServerReactRootIndex.js
+409 silly gunzTarPerm modified mode [ 'lib/ServerReactRootIndex.js', 438, 420 ]
+410 silly gunzTarPerm extractEntry lib/ReactInjection.js
+411 silly gunzTarPerm modified mode [ 'lib/ReactInjection.js', 438, 420 ]
+412 silly gunzTarPerm extractEntry lib/SimpleEventPlugin.js
+413 silly gunzTarPerm modified mode [ 'lib/SimpleEventPlugin.js', 438, 420 ]
+414 silly gunzTarPerm extractEntry lib/ReactFragment.js
+415 silly gunzTarPerm modified mode [ 'lib/ReactFragment.js', 438, 420 ]
+416 silly gunzTarPerm extractEntry lib/SyntheticClipboardEvent.js
+417 silly gunzTarPerm modified mode [ 'lib/SyntheticClipboardEvent.js', 438, 420 ]
+418 silly gunzTarPerm extractEntry lib/ReactEventListener.js
+419 silly gunzTarPerm modified mode [ 'lib/ReactEventListener.js', 438, 420 ]
+420 silly gunzTarPerm extractEntry lib/SyntheticCompositionEvent.js
+421 silly gunzTarPerm modified mode [ 'lib/SyntheticCompositionEvent.js', 438, 420 ]
+422 silly gunzTarPerm extractEntry lib/ReactEventEmitterMixin.js
+423 silly gunzTarPerm modified mode [ 'lib/ReactEventEmitterMixin.js', 438, 420 ]
+424 silly gunzTarPerm extractEntry lib/SyntheticDragEvent.js
+425 silly gunzTarPerm modified mode [ 'lib/SyntheticDragEvent.js', 438, 420 ]
+426 silly gunzTarPerm extractEntry lib/ReactErrorUtils.js
+427 silly gunzTarPerm modified mode [ 'lib/ReactErrorUtils.js', 438, 420 ]
+428 silly gunzTarPerm extractEntry lib/SyntheticEvent.js
+429 silly gunzTarPerm modified mode [ 'lib/SyntheticEvent.js', 438, 420 ]
+430 silly gunzTarPerm extractEntry lib/ReactEmptyComponent.js
+431 silly gunzTarPerm modified mode [ 'lib/ReactEmptyComponent.js', 438, 420 ]
+432 silly gunzTarPerm extractEntry lib/SyntheticFocusEvent.js
+433 silly gunzTarPerm modified mode [ 'lib/SyntheticFocusEvent.js', 438, 420 ]
+434 silly gunzTarPerm extractEntry lib/ReactElementValidator.js
+435 silly gunzTarPerm modified mode [ 'lib/ReactElementValidator.js', 438, 420 ]
+436 silly gunzTarPerm extractEntry lib/SyntheticInputEvent.js
+437 silly gunzTarPerm modified mode [ 'lib/SyntheticInputEvent.js', 438, 420 ]
+438 silly gunzTarPerm extractEntry lib/ReactElement.js
+439 silly gunzTarPerm modified mode [ 'lib/ReactElement.js', 438, 420 ]
+440 silly gunzTarPerm extractEntry lib/SyntheticKeyboardEvent.js
+441 silly gunzTarPerm modified mode [ 'lib/SyntheticKeyboardEvent.js', 438, 420 ]
+442 silly gunzTarPerm extractEntry lib/ReactDefaultPerfAnalysis.js
+443 silly gunzTarPerm modified mode [ 'lib/ReactDefaultPerfAnalysis.js', 438, 420 ]
+444 silly gunzTarPerm extractEntry lib/SyntheticMouseEvent.js
+445 silly gunzTarPerm modified mode [ 'lib/SyntheticMouseEvent.js', 438, 420 ]
+446 silly gunzTarPerm extractEntry lib/ReactDefaultPerf.js
+447 silly gunzTarPerm modified mode [ 'lib/ReactDefaultPerf.js', 438, 420 ]
+448 silly gunzTarPerm extractEntry lib/SyntheticTouchEvent.js
+449 silly gunzTarPerm modified mode [ 'lib/SyntheticTouchEvent.js', 438, 420 ]
+450 silly gunzTarPerm extractEntry lib/ReactDefaultInjection.js
+451 silly gunzTarPerm modified mode [ 'lib/ReactDefaultInjection.js', 438, 420 ]
+452 silly gunzTarPerm extractEntry lib/SyntheticUIEvent.js
+453 silly gunzTarPerm modified mode [ 'lib/SyntheticUIEvent.js', 438, 420 ]
+454 silly gunzTarPerm extractEntry lib/ReactDefaultBatchingStrategy.js
+455 silly gunzTarPerm modified mode [ 'lib/ReactDefaultBatchingStrategy.js', 438, 420 ]
+456 silly gunzTarPerm extractEntry lib/SyntheticWheelEvent.js
+457 silly gunzTarPerm modified mode [ 'lib/SyntheticWheelEvent.js', 438, 420 ]
+458 silly gunzTarPerm extractEntry lib/ReactDOMTextarea.js
+459 silly gunzTarPerm modified mode [ 'lib/ReactDOMTextarea.js', 438, 420 ]
+460 silly gunzTarPerm extractEntry lib/Transaction.js
+461 silly gunzTarPerm modified mode [ 'lib/Transaction.js', 438, 420 ]
+462 silly gunzTarPerm extractEntry lib/ReactDOMTextComponent.js
+463 silly gunzTarPerm modified mode [ 'lib/ReactDOMTextComponent.js', 438, 420 ]
+464 silly gunzTarPerm extractEntry lib/ViewportMetrics.js
+465 silly gunzTarPerm modified mode [ 'lib/ViewportMetrics.js', 438, 420 ]
+466 silly gunzTarPerm extractEntry lib/ReactDOMSelection.js
+467 silly gunzTarPerm modified mode [ 'lib/ReactDOMSelection.js', 438, 420 ]
+468 silly gunzTarPerm extractEntry lib/accumulateInto.js
+469 silly gunzTarPerm modified mode [ 'lib/accumulateInto.js', 438, 420 ]
+470 silly gunzTarPerm extractEntry lib/ReactDOMSelect.js
+471 silly gunzTarPerm modified mode [ 'lib/ReactDOMSelect.js', 438, 420 ]
+472 silly gunzTarPerm extractEntry lib/adler32.js
+473 silly gunzTarPerm modified mode [ 'lib/adler32.js', 438, 420 ]
+474 silly gunzTarPerm extractEntry lib/ReactDOMOption.js
+475 silly gunzTarPerm modified mode [ 'lib/ReactDOMOption.js', 438, 420 ]
+476 silly gunzTarPerm extractEntry lib/camelize.js
+477 silly gunzTarPerm modified mode [ 'lib/camelize.js', 438, 420 ]
+478 silly gunzTarPerm extractEntry lib/ReactDOMInput.js
+479 silly gunzTarPerm modified mode [ 'lib/ReactDOMInput.js', 438, 420 ]
+480 silly gunzTarPerm extractEntry lib/camelizeStyleName.js
+481 silly gunzTarPerm modified mode [ 'lib/camelizeStyleName.js', 438, 420 ]
+482 silly gunzTarPerm extractEntry lib/ReactDOMImg.js
+483 silly gunzTarPerm modified mode [ 'lib/ReactDOMImg.js', 438, 420 ]
+484 silly gunzTarPerm extractEntry lib/cloneWithProps.js
+485 silly gunzTarPerm modified mode [ 'lib/cloneWithProps.js', 438, 420 ]
+486 silly gunzTarPerm extractEntry lib/ReactDOMIframe.js
+487 silly gunzTarPerm modified mode [ 'lib/ReactDOMIframe.js', 438, 420 ]
+488 silly gunzTarPerm extractEntry lib/containsNode.js
+489 silly gunzTarPerm modified mode [ 'lib/containsNode.js', 438, 420 ]
+490 silly gunzTarPerm extractEntry lib/ReactDOMIDOperations.js
+491 silly gunzTarPerm modified mode [ 'lib/ReactDOMIDOperations.js', 438, 420 ]
+492 silly gunzTarPerm extractEntry lib/createArrayFromMixed.js
+493 silly gunzTarPerm modified mode [ 'lib/createArrayFromMixed.js', 438, 420 ]
+494 silly gunzTarPerm extractEntry lib/ReactDOMForm.js
+495 silly gunzTarPerm modified mode [ 'lib/ReactDOMForm.js', 438, 420 ]
+496 silly gunzTarPerm extractEntry lib/createFullPageComponent.js
+497 silly gunzTarPerm modified mode [ 'lib/createFullPageComponent.js', 438, 420 ]
+498 silly gunzTarPerm extractEntry lib/ReactDOMComponent.js
+499 silly gunzTarPerm modified mode [ 'lib/ReactDOMComponent.js', 438, 420 ]
+500 silly gunzTarPerm extractEntry lib/createNodesFromMarkup.js
+501 silly gunzTarPerm modified mode [ 'lib/createNodesFromMarkup.js', 438, 420 ]
+502 silly gunzTarPerm extractEntry lib/ReactDOMButton.js
+503 silly gunzTarPerm modified mode [ 'lib/ReactDOMButton.js', 438, 420 ]
+504 silly gunzTarPerm extractEntry lib/cx.js
+505 silly gunzTarPerm modified mode [ 'lib/cx.js', 438, 420 ]
+506 silly gunzTarPerm extractEntry lib/ReactDOM.js
+507 silly gunzTarPerm modified mode [ 'lib/ReactDOM.js', 438, 420 ]
+508 silly gunzTarPerm extractEntry lib/dangerousStyleValue.js
+509 silly gunzTarPerm modified mode [ 'lib/dangerousStyleValue.js', 438, 420 ]
+510 silly gunzTarPerm extractEntry lib/ReactCurrentOwner.js
+511 silly gunzTarPerm modified mode [ 'lib/ReactCurrentOwner.js', 438, 420 ]
+512 silly gunzTarPerm extractEntry lib/emptyFunction.js
+513 silly gunzTarPerm modified mode [ 'lib/emptyFunction.js', 438, 420 ]
+514 silly gunzTarPerm extractEntry lib/ReactContext.js
+515 silly gunzTarPerm modified mode [ 'lib/ReactContext.js', 438, 420 ]
+516 silly gunzTarPerm extractEntry lib/emptyObject.js
+517 silly gunzTarPerm modified mode [ 'lib/emptyObject.js', 438, 420 ]
+518 silly gunzTarPerm extractEntry lib/ReactCompositeComponent.js
+519 silly gunzTarPerm modified mode [ 'lib/ReactCompositeComponent.js', 438, 420 ]
+520 silly gunzTarPerm extractEntry lib/escapeTextContentForBrowser.js
+521 silly gunzTarPerm modified mode [ 'lib/escapeTextContentForBrowser.js', 438, 420 ]
+522 silly gunzTarPerm extractEntry lib/ReactComponentWithPureRenderMixin.js
+523 silly gunzTarPerm modified mode [ 'lib/ReactComponentWithPureRenderMixin.js', 438, 420 ]
+524 silly gunzTarPerm extractEntry lib/findDOMNode.js
+525 silly gunzTarPerm modified mode [ 'lib/findDOMNode.js', 438, 420 ]
+526 silly gunzTarPerm extractEntry lib/ReactComponentEnvironment.js
+527 silly gunzTarPerm modified mode [ 'lib/ReactComponentEnvironment.js', 438, 420 ]
+528 silly gunzTarPerm extractEntry lib/flattenChildren.js
+529 silly gunzTarPerm modified mode [ 'lib/flattenChildren.js', 438, 420 ]
+530 silly gunzTarPerm extractEntry lib/ReactComponentBrowserEnvironment.js
+531 silly gunzTarPerm modified mode [ 'lib/ReactComponentBrowserEnvironment.js', 438, 420 ]
+532 silly gunzTarPerm extractEntry lib/focusNode.js
+533 silly gunzTarPerm modified mode [ 'lib/focusNode.js', 438, 420 ]
+534 silly gunzTarPerm extractEntry lib/ReactComponent.js
+535 silly gunzTarPerm modified mode [ 'lib/ReactComponent.js', 438, 420 ]
+536 silly gunzTarPerm extractEntry lib/forEachAccumulated.js
+537 silly gunzTarPerm modified mode [ 'lib/forEachAccumulated.js', 438, 420 ]
+538 silly gunzTarPerm extractEntry lib/ReactClass.js
+539 silly gunzTarPerm modified mode [ 'lib/ReactClass.js', 438, 420 ]
+540 silly gunzTarPerm extractEntry lib/getActiveElement.js
+541 silly gunzTarPerm modified mode [ 'lib/getActiveElement.js', 438, 420 ]
+542 silly gunzTarPerm extractEntry lib/ReactChildren.js
+543 silly gunzTarPerm modified mode [ 'lib/ReactChildren.js', 438, 420 ]
+544 silly gunzTarPerm extractEntry lib/getEventCharCode.js
+545 silly gunzTarPerm modified mode [ 'lib/getEventCharCode.js', 438, 420 ]
+546 silly gunzTarPerm extractEntry lib/ReactChildReconciler.js
+547 silly gunzTarPerm modified mode [ 'lib/ReactChildReconciler.js', 438, 420 ]
+548 silly gunzTarPerm extractEntry lib/getEventKey.js
+549 silly gunzTarPerm modified mode [ 'lib/getEventKey.js', 438, 420 ]
+550 silly gunzTarPerm extractEntry lib/ReactCSSTransitionGroupChild.js
+551 silly gunzTarPerm modified mode [ 'lib/ReactCSSTransitionGroupChild.js', 438, 420 ]
+552 silly gunzTarPerm extractEntry lib/getEventModifierState.js
+553 silly gunzTarPerm modified mode [ 'lib/getEventModifierState.js', 438, 420 ]
+554 silly gunzTarPerm extractEntry lib/ReactCSSTransitionGroup.js
+555 silly gunzTarPerm modified mode [ 'lib/ReactCSSTransitionGroup.js', 438, 420 ]
+556 silly gunzTarPerm extractEntry lib/getEventTarget.js
+557 silly gunzTarPerm modified mode [ 'lib/getEventTarget.js', 438, 420 ]
+558 silly gunzTarPerm extractEntry lib/ReactBrowserEventEmitter.js
+559 silly gunzTarPerm modified mode [ 'lib/ReactBrowserEventEmitter.js', 438, 420 ]
+560 silly gunzTarPerm extractEntry lib/getIteratorFn.js
+561 silly gunzTarPerm modified mode [ 'lib/getIteratorFn.js', 438, 420 ]
+562 silly gunzTarPerm extractEntry lib/ReactBrowserComponentMixin.js
+563 silly gunzTarPerm modified mode [ 'lib/ReactBrowserComponentMixin.js', 438, 420 ]
+564 silly gunzTarPerm extractEntry lib/getMarkupWrap.js
+565 silly gunzTarPerm modified mode [ 'lib/getMarkupWrap.js', 438, 420 ]
+566 silly gunzTarPerm extractEntry lib/React.js
+567 silly gunzTarPerm modified mode [ 'lib/React.js', 438, 420 ]
+568 silly gunzTarPerm extractEntry lib/getNodeForCharacterOffset.js
+569 silly gunzTarPerm modified mode [ 'lib/getNodeForCharacterOffset.js', 438, 420 ]
+570 silly gunzTarPerm extractEntry lib/PooledClass.js
+571 silly gunzTarPerm modified mode [ 'lib/PooledClass.js', 438, 420 ]
+572 silly gunzTarPerm extractEntry lib/getReactRootElementInContainer.js
+573 silly gunzTarPerm modified mode [ 'lib/getReactRootElementInContainer.js', 438, 420 ]
+574 silly gunzTarPerm extractEntry lib/Object.assign.js
+575 silly gunzTarPerm modified mode [ 'lib/Object.assign.js', 438, 420 ]
+576 silly gunzTarPerm extractEntry lib/getTextContentAccessor.js
+577 silly gunzTarPerm modified mode [ 'lib/getTextContentAccessor.js', 438, 420 ]
+578 silly gunzTarPerm extractEntry lib/MobileSafariClickEventPlugin.js
+579 silly gunzTarPerm modified mode [ 'lib/MobileSafariClickEventPlugin.js', 438, 420 ]
+580 silly gunzTarPerm extractEntry lib/getUnboundedScrollPosition.js
+581 silly gunzTarPerm modified mode [ 'lib/getUnboundedScrollPosition.js', 438, 420 ]
+582 silly gunzTarPerm extractEntry lib/LocalEventTrapMixin.js
+583 silly gunzTarPerm modified mode [ 'lib/LocalEventTrapMixin.js', 438, 420 ]
+584 silly gunzTarPerm extractEntry lib/hyphenate.js
+585 silly gunzTarPerm modified mode [ 'lib/hyphenate.js', 438, 420 ]
+586 silly gunzTarPerm extractEntry lib/LinkedValueUtils.js
+587 silly gunzTarPerm modified mode [ 'lib/LinkedValueUtils.js', 438, 420 ]
+588 silly gunzTarPerm extractEntry lib/hyphenateStyleName.js
+589 silly gunzTarPerm modified mode [ 'lib/hyphenateStyleName.js', 438, 420 ]
+590 silly gunzTarPerm extractEntry lib/LinkedStateMixin.js
+591 silly gunzTarPerm modified mode [ 'lib/LinkedStateMixin.js', 438, 420 ]
+592 silly gunzTarPerm extractEntry lib/instantiateReactComponent.js
+593 silly gunzTarPerm modified mode [ 'lib/instantiateReactComponent.js', 438, 420 ]
+594 silly gunzTarPerm extractEntry lib/HTMLDOMPropertyConfig.js
+595 silly gunzTarPerm modified mode [ 'lib/HTMLDOMPropertyConfig.js', 438, 420 ]
+596 silly gunzTarPerm extractEntry lib/invariant.js
+597 silly gunzTarPerm modified mode [ 'lib/invariant.js', 438, 420 ]
+598 silly gunzTarPerm extractEntry lib/FallbackCompositionState.js
+599 silly gunzTarPerm modified mode [ 'lib/FallbackCompositionState.js', 438, 420 ]
+600 silly gunzTarPerm extractEntry lib/isEventSupported.js
+601 silly gunzTarPerm modified mode [ 'lib/isEventSupported.js', 438, 420 ]
+602 silly gunzTarPerm extractEntry lib/ExecutionEnvironment.js
+603 silly gunzTarPerm modified mode [ 'lib/ExecutionEnvironment.js', 438, 420 ]
+604 silly gunzTarPerm extractEntry lib/isNode.js
+605 silly gunzTarPerm modified mode [ 'lib/isNode.js', 438, 420 ]
+606 silly gunzTarPerm extractEntry lib/EventPropagators.js
+607 silly gunzTarPerm modified mode [ 'lib/EventPropagators.js', 438, 420 ]
+608 silly gunzTarPerm extractEntry lib/isTextInputElement.js
+609 silly gunzTarPerm modified mode [ 'lib/isTextInputElement.js', 438, 420 ]
+610 silly gunzTarPerm extractEntry lib/EventPluginUtils.js
+611 silly gunzTarPerm modified mode [ 'lib/EventPluginUtils.js', 438, 420 ]
+612 silly gunzTarPerm extractEntry lib/isTextNode.js
+613 silly gunzTarPerm modified mode [ 'lib/isTextNode.js', 438, 420 ]
+614 silly gunzTarPerm extractEntry lib/EventPluginRegistry.js
+615 silly gunzTarPerm modified mode [ 'lib/EventPluginRegistry.js', 438, 420 ]
+616 silly gunzTarPerm extractEntry lib/joinClasses.js
+617 silly gunzTarPerm modified mode [ 'lib/joinClasses.js', 438, 420 ]
+618 silly gunzTarPerm extractEntry lib/EventPluginHub.js
+619 silly gunzTarPerm modified mode [ 'lib/EventPluginHub.js', 438, 420 ]
+620 silly gunzTarPerm extractEntry lib/keyMirror.js
+621 silly gunzTarPerm modified mode [ 'lib/keyMirror.js', 438, 420 ]
+622 silly gunzTarPerm extractEntry lib/EventListener.js
+623 silly gunzTarPerm modified mode [ 'lib/EventListener.js', 438, 420 ]
+624 silly gunzTarPerm extractEntry lib/keyOf.js
+625 silly gunzTarPerm modified mode [ 'lib/keyOf.js', 438, 420 ]
+626 silly gunzTarPerm extractEntry lib/EventConstants.js
+627 silly gunzTarPerm modified mode [ 'lib/EventConstants.js', 438, 420 ]
+628 silly gunzTarPerm extractEntry lib/mapObject.js
+629 silly gunzTarPerm modified mode [ 'lib/mapObject.js', 438, 420 ]
+630 silly gunzTarPerm extractEntry lib/EnterLeaveEventPlugin.js
+631 silly gunzTarPerm modified mode [ 'lib/EnterLeaveEventPlugin.js', 438, 420 ]
+632 silly gunzTarPerm extractEntry lib/memoizeStringOnly.js
+633 silly gunzTarPerm modified mode [ 'lib/memoizeStringOnly.js', 438, 420 ]
+634 silly gunzTarPerm extractEntry lib/DefaultEventPluginOrder.js
+635 silly gunzTarPerm modified mode [ 'lib/DefaultEventPluginOrder.js', 438, 420 ]
+636 silly gunzTarPerm extractEntry lib/onlyChild.js
+637 silly gunzTarPerm modified mode [ 'lib/onlyChild.js', 438, 420 ]
+638 silly gunzTarPerm extractEntry lib/Danger.js
+639 silly gunzTarPerm modified mode [ 'lib/Danger.js', 438, 420 ]
+640 silly gunzTarPerm extractEntry lib/performance.js
+641 silly gunzTarPerm modified mode [ 'lib/performance.js', 438, 420 ]
+642 silly gunzTarPerm extractEntry lib/DOMPropertyOperations.js
+643 silly gunzTarPerm modified mode [ 'lib/DOMPropertyOperations.js', 438, 420 ]
+644 silly gunzTarPerm extractEntry lib/performanceNow.js
+645 silly gunzTarPerm modified mode [ 'lib/performanceNow.js', 438, 420 ]
+646 silly gunzTarPerm extractEntry lib/DOMProperty.js
+647 silly gunzTarPerm modified mode [ 'lib/DOMProperty.js', 438, 420 ]
+648 silly gunzTarPerm extractEntry lib/quoteAttributeValueForBrowser.js
+649 silly gunzTarPerm modified mode [ 'lib/quoteAttributeValueForBrowser.js', 438, 420 ]
+650 silly gunzTarPerm extractEntry lib/DOMChildrenOperations.js
+651 silly gunzTarPerm modified mode [ 'lib/DOMChildrenOperations.js', 438, 420 ]
+652 silly gunzTarPerm extractEntry lib/setInnerHTML.js
+653 silly gunzTarPerm modified mode [ 'lib/setInnerHTML.js', 438, 420 ]
+654 silly gunzTarPerm extractEntry lib/ClientReactRootIndex.js
+655 silly gunzTarPerm modified mode [ 'lib/ClientReactRootIndex.js', 438, 420 ]
+656 silly gunzTarPerm extractEntry lib/setTextContent.js
+657 silly gunzTarPerm modified mode [ 'lib/setTextContent.js', 438, 420 ]
+658 silly gunzTarPerm extractEntry lib/ChangeEventPlugin.js
+659 silly gunzTarPerm modified mode [ 'lib/ChangeEventPlugin.js', 438, 420 ]
+660 silly gunzTarPerm extractEntry lib/shallowEqual.js
+661 silly gunzTarPerm modified mode [ 'lib/shallowEqual.js', 438, 420 ]
+662 silly gunzTarPerm extractEntry lib/CallbackQueue.js
+663 silly gunzTarPerm modified mode [ 'lib/CallbackQueue.js', 438, 420 ]
+664 silly gunzTarPerm extractEntry lib/shouldUpdateReactComponent.js
+665 silly gunzTarPerm modified mode [ 'lib/shouldUpdateReactComponent.js', 438, 420 ]
+666 silly gunzTarPerm extractEntry lib/CSSPropertyOperations.js
+667 silly gunzTarPerm modified mode [ 'lib/CSSPropertyOperations.js', 438, 420 ]
+668 silly gunzTarPerm extractEntry lib/toArray.js
+669 silly gunzTarPerm modified mode [ 'lib/toArray.js', 438, 420 ]
+670 silly gunzTarPerm extractEntry lib/CSSProperty.js
+671 silly gunzTarPerm modified mode [ 'lib/CSSProperty.js', 438, 420 ]
+672 silly gunzTarPerm extractEntry lib/traverseAllChildren.js
+673 silly gunzTarPerm modified mode [ 'lib/traverseAllChildren.js', 438, 420 ]
+674 silly gunzTarPerm extractEntry lib/CSSCore.js
+675 silly gunzTarPerm modified mode [ 'lib/CSSCore.js', 438, 420 ]
+676 silly gunzTarPerm extractEntry lib/update.js
+677 silly gunzTarPerm modified mode [ 'lib/update.js', 438, 420 ]
+678 silly gunzTarPerm extractEntry lib/BeforeInputEventPlugin.js
+679 silly gunzTarPerm modified mode [ 'lib/BeforeInputEventPlugin.js', 438, 420 ]
+680 silly gunzTarPerm extractEntry lib/warning.js
+681 silly gunzTarPerm modified mode [ 'lib/warning.js', 438, 420 ]
+682 silly gunzTarPerm extractEntry lib/ReactPutListenerQueue.js
+683 silly gunzTarPerm modified mode [ 'lib/ReactPutListenerQueue.js', 438, 420 ]
+684 silly lockFile c2180ff7-g-npm-cache-react-0-13-3-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package
+685 silly lockFile c2180ff7-g-npm-cache-react-0-13-3-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package
+686 silly lockFile 85ac4908-m-cache-react-0-13-3-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+687 silly lockFile 85ac4908-m-cache-react-0-13-3-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+688 verbose chmod C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz 644
+689 silly chown skipping for windows C:\Users\tom.chang\AppData\Roaming\npm-cache\react\0.13.3\package.tgz
+690 silly lockFile e0bc4fba--react-download-react-0-13-3-tgz http://registry.cnpmjs.org/react/download/react-0.13.3.tgz
+691 silly lockFile e0bc4fba--react-download-react-0-13-3-tgz http://registry.cnpmjs.org/react/download/react-0.13.3.tgz
+692 silly lockFile e90fbd15-react-0-13-3 react@0.13.3
+693 silly lockFile e90fbd15-react-0-13-3 react@0.13.3
+694 silly lockFile 5691f262-react-0-13-0 react@^0.13.0
+695 silly lockFile 5691f262-react-0-13-0 react@^0.13.0
+696 http 200 http://registry.cnpmjs.org/browserify
+697 silly registry.get cb [ 200,
+697 silly registry.get   { server: 'nginx/1.4.6 (Ubuntu)',
+697 silly registry.get     date: 'Mon, 21 Sep 2015 09:29:56 GMT',
+697 silly registry.get     'content-type': 'application/json; charset=utf-8',
+697 silly registry.get     'content-length': '1090386',
+697 silly registry.get     connection: 'keep-alive',
+697 silly registry.get     etag: '"rjEQaVUbjdecHhp1CzTQjg=="',
+697 silly registry.get     'x-readtime': '378' } ]
+698 silly addNameRange number 2 { name: 'browserify',
+698 silly addNameRange   range: '>=6.3.3-0 <7.0.0-0',
+698 silly addNameRange   hasData: true }
+699 silly addNameRange versions [ 'browserify',
+699 silly addNameRange   [ '11.1.0',
+699 silly addNameRange     '11.0.1',
+699 silly addNameRange     '11.0.0',
+699 silly addNameRange     '10.2.6',
+699 silly addNameRange     '10.2.5',
+699 silly addNameRange     '10.2.4',
+699 silly addNameRange     '10.2.3',
+699 silly addNameRange     '10.2.1',
+699 silly addNameRange     '10.2.0',
+699 silly addNameRange     '10.1.3',
+699 silly addNameRange     '10.1.2',
+699 silly addNameRange     '10.1.1',
+699 silly addNameRange     '10.1.0',
+699 silly addNameRange     '10.0.0',
+699 silly addNameRange     '9.0.8',
+699 silly addNameRange     '9.0.7',
+699 silly addNameRange     '9.0.6',
+699 silly addNameRange     '9.0.5',
+699 silly addNameRange     '9.0.4',
+699 silly addNameRange     '9.0.3',
+699 silly addNameRange     '9.0.2',
+699 silly addNameRange     '9.0.1',
+699 silly addNameRange     '9.0.0',
+699 silly addNameRange     '8.1.3',
+699 silly addNameRange     '8.1.2',
+699 silly addNameRange     '8.1.1',
+699 silly addNameRange     '8.1.0',
+699 silly addNameRange     '8.0.3',
+699 silly addNameRange     '8.0.2',
+699 silly addNameRange     '8.0.1',
+699 silly addNameRange     '8.0.0',
+699 silly addNameRange     '7.1.0',
+699 silly addNameRange     '7.0.3',
+699 silly addNameRange     '7.0.2',
+699 silly addNameRange     '7.0.1',
+699 silly addNameRange     '7.0.0',
+699 silly addNameRange     '6.3.4',
+699 silly addNameRange     '6.3.3',
+699 silly addNameRange     '6.3.2',
+699 silly addNameRange     '6.3.1',
+699 silly addNameRange     '6.3.0',
+699 silly addNameRange     '6.2.0',
+699 silly addNameRange     '6.1.2',
+699 silly addNameRange     '6.1.1',
+699 silly addNameRange     '6.1.0',
+699 silly addNameRange     '6.0.3',
+699 silly addNameRange     '6.0.2',
+699 silly addNameRange     '6.0.1',
+699 silly addNameRange     '6.0.0',
+699 silly addNameRange     '5.13.1',
+699 silly addNameRange     '5.13.0',
+699 silly addNameRange     '5.12.2',
+699 silly addNameRange     '5.12.1',
+699 silly addNameRange     '5.12.0',
+699 silly addNameRange     '5.11.2',
+699 silly addNameRange     '5.11.1',
+699 silly addNameRange     '5.11.0',
+699 silly addNameRange     '5.10.1',
+699 silly addNameRange     '5.10.0',
+699 silly addNameRange     '5.9.3',
+699 silly addNameRange     '5.9.2',
+699 silly addNameRange     '5.9.1',
+699 silly addNameRange     '5.9.0',
+699 silly addNameRange     '5.8.0',
+699 silly addNameRange     '5.7.0',
+699 silly addNameRange     '5.6.1',
+699 silly addNameRange     '5.6.0',
+699 silly addNameRange     '5.5.0',
+699 silly addNameRange     '5.4.2',
+699 silly addNameRange     '5.4.1',
+699 silly addNameRange     '5.4.0',
+699 silly addNameRange     '5.3.0',
+699 silly addNameRange     '5.2.1',
+699 silly addNameRange     '5.2.0',
+699 silly addNameRange     '5.1.1',
+699 silly addNameRange     '5.1.0',
+699 silly addNameRange     '5.0.8',
+699 silly addNameRange     '5.0.7',
+699 silly addNameRange     '5.0.6',
+699 silly addNameRange     '5.0.5',
+699 silly addNameRange     '5.0.4',
+699 silly addNameRange     '5.0.3',
+699 silly addNameRange     '5.0.2',
+699 silly addNameRange     '5.0.1',
+699 silly addNameRange     '5.0.0',
+699 silly addNameRange     '4.2.3',
+699 silly addNameRange     '4.2.2',
+699 silly addNameRange     '4.2.1',
+699 silly addNameRange     '4.2.0',
+699 silly addNameRange     '4.1.11',
+699 silly addNameRange     '4.1.10',
+699 silly addNameRange     '4.1.9',
+699 silly addNameRange     '4.1.8',
+699 silly addNameRange     '4.1.7',
+699 silly addNameRange     '4.1.6',
+699 silly addNameRange     '4.1.5',
+699 silly addNameRange     '4.1.4',
+699 silly addNameRange     '4.1.3',
+699 silly addNameRange     '4.1.2',
+699 silly addNameRange     '4.1.1',
+699 silly addNameRange     '4.1.0',
+699 silly addNameRange     '4.0.0',
+699 silly addNameRange     '3.46.1',
+699 silly addNameRange     '3.46.0',
+699 silly addNameRange     '3.45.0',
+699 silly addNameRange     '3.44.2',
+699 silly addNameRange     '3.44.1',
+699 silly addNameRange     '3.44.0',
+699 silly addNameRange     '3.43.0',
+699 silly addNameRange     '3.42.0',
+699 silly addNameRange     '3.41.0',
+699 silly addNameRange     '3.40.4',
+699 silly addNameRange     '3.40.3',
+699 silly addNameRange     '3.40.2',
+699 silly addNameRange     '3.40.1',
+699 silly addNameRange     '3.40.0',
+699 silly addNameRange     '3.39.0',
+699 silly addNameRange     '3.38.1',
+699 silly addNameRange     '3.38.0',
+699 silly addNameRange     '3.37.2',
+699 silly addNameRange     '3.37.1',
+699 silly addNameRange     '3.37.0',
+699 silly addNameRange     '3.36.1',
+699 silly addNameRange     '3.36.0',
+699 silly addNameRange     '3.35.0',
+699 silly addNameRange     '3.34.0',
+699 silly addNameRange     '3.33.1',
+699 silly addNameRange     '3.33.0',
+699 silly addNameRange     '3.32.1',
+699 silly addNameRange     '3.32.0',
+699 silly addNameRange     '3.31.2',
+699 silly addNameRange     '3.31.1',
+699 silly addNameRange     '3.31.0',
+699 silly addNameRange     '3.30.4',
+699 silly addNameRange     '3.30.3',
+699 silly addNameRange     '3.30.2',
+699 silly addNameRange     '3.30.1',
+699 silly addNameRange     '3.30.0',
+699 silly addNameRange     '3.29.1',
+699 silly addNameRange     '3.29.0',
+699 silly addNameRange     '3.28.2',
+699 silly addNameRange     '3.28.1',
+699 silly addNameRange     '3.28.0',
+699 silly addNameRange     '3.27.1',
+699 silly addNameRange     '3.27.0',
+699 silly addNameRange     '3.26.0',
+699 silly addNameRange     '3.25.2',
+699 silly addNameRange     '3.25.1',
+699 silly addNameRange     '3.25.0',
+699 silly addNameRange     '3.24.13',
+699 silly addNameRange     '3.24.11',
+699 silly addNameRange     '3.24.10',
+699 silly addNameRange     '3.24.9',
+699 silly addNameRange     '3.24.8',
+699 silly addNameRange     '3.24.7',
+699 silly addNameRange     '3.24.6',
+699 silly addNameRange     '3.24.5',
+699 silly addNameRange     '3.24.4',
+699 silly addNameRange     '3.24.3',
+699 silly addNameRange     '3.24.2',
+699 silly addNameRange     '3.24.1',
+699 silly addNameRange     '3.24.0',
+699 silly addNameRange     '3.23.1',
+699 silly addNameRange     '3.23.0',
+699 silly addNameRange     '3.22.1',
+699 silly addNameRange     '3.22.0',
+699 silly addNameRange     '3.21.1',
+699 silly addNameRange     '3.21.0',
+699 silly addNameRange     '3.20.2',
+699 silly addNameRange     '3.20.1',
+699 silly addNameRange     '3.20.0',
+699 silly addNameRange     '3.19.1',
+699 silly addNameRange     '3.19.0',
+699 silly addNameRange     '3.18.0',
+699 silly addNameRange     '3.17.0',
+699 silly addNameRange     '3.16.1',
+699 silly addNameRange     '3.16.0',
+699 silly addNameRange     '3.14.1',
+699 silly addNameRange     '3.14.0',
+699 silly addNameRange     '3.13.0',
+699 silly addNameRange     '3.12.0',
+699 silly addNameRange     '3.11.1',
+699 silly addNameRange     '3.11.0',
+699 silly addNameRange     '3.10.0',
+699 silly addNameRange     '3.9.1',
+699 silly addNameRange     '3.9.0',
+699 silly addNameRange     '3.8.1',
+699 silly addNameRange     '3.8.0',
+699 silly addNameRange     '3.7.0',
+699 silly addNameRange     '3.6.0',
+699 silly addNameRange     '3.5.0',
+699 silly addNameRange     '3.4.1',
+699 silly addNameRange     '3.4.0',
+699 silly addNameRange     '3.3.0',
+699 silly addNameRange     '3.2.2',
+699 silly addNameRange     '3.2.1',
+699 silly addNameRange     '3.2.0',
+699 silly addNameRange     '3.1.3',
+699 silly addNameRange     '3.1.2',
+699 silly addNameRange     '3.1.1',
+699 silly addNameRange     '3.1.0',
+699 silly addNameRange     '3.0.0',
+699 silly addNameRange     '2.36.1',
+699 silly addNameRange     '2.36.0',
+699 silly addNameRange     '2.35.4',
+699 silly addNameRange     '2.35.3',
+699 silly addNameRange     '2.35.2',
+699 silly addNameRange     '2.35.1',
+699 silly addNameRange     '2.35.0',
+699 silly addNameRange     '2.34.3',
+699 silly addNameRange     '2.34.2',
+699 silly addNameRange     '2.34.1',
+699 silly addNameRange     '2.34.0',
+699 silly addNameRange     '2.33.1',
+699 silly addNameRange     '2.33.0',
+699 silly addNameRange     '2.32.4',
+699 silly addNameRange     '2.32.3',
+699 silly addNameRange     '2.32.2',
+699 silly addNameRange     '2.32.1',
+699 silly addNameRange     '2.32.0',
+699 silly addNameRange     '2.31.0',
+699 silly addNameRange     '2.30.0',
+699 silly addNameRange     '2.29.1',
+699 silly addNameRange     '2.29.0',
+699 silly addNameRange     '2.28.0',
+699 silly addNameRange     '2.27.1',
+699 silly addNameRange     '2.27.0',
+699 silly addNameRange     '2.26.0',
+699 silly addNameRange     '2.25.1',
+699 silly addNameRange     '2.25.0',
+699 silly addNameRange     '2.24.3',
+699 silly addNameRange     '2.24.2',
+699 silly addNameRange     '2.24.1',
+699 silly addNameRange     '2.24.0',
+699 silly addNameRange     '2.23.1',
+699 silly addNameRange     '2.23.0',
+699 silly addNameRange     '2.22.0',
+699 silly addNameRange     '2.21.0',
+699 silly addNameRange     '2.20.2',
+699 silly addNameRange     '2.20.1',
+699 silly addNameRange     '2.20.0',
+699 silly addNameRange     '2.19.0',
+699 silly addNameRange     '2.18.1',
+699 silly addNameRange     '2.18.0',
+699 silly addNameRange     '2.17.4',
+699 silly addNameRange     '2.17.3',
+699 silly addNameRange     '2.17.2',
+699 silly addNameRange     '2.17.1',
+699 silly addNameRange     '2.17.0',
+699 silly addNameRange     '2.16.0',
+699 silly addNameRange     '2.15.0',
+699 silly addNameRange     '2.14.2',
+699 silly addNameRange     '2.14.1',
+699 silly addNameRange     '2.14.0',
+699 silly addNameRange     '2.13.3',
+699 silly addNameRange     '2.13.2',
+699 silly addNameRange     '2.13.1',
+699 silly addNameRange     '2.13.0',
+699 silly addNameRange     '2.12.5',
+699 silly addNameRange     '2.12.4',
+699 silly addNameRange     '2.12.3',
+699 silly addNameRange     '2.12.2',
+699 silly addNameRange     '2.12.1',
+699 silly addNameRange     '2.12.0',
+699 silly addNameRange     '2.11.0',
+699 silly addNameRange     '2.10.2',
+699 silly addNameRange     '2.10.1',
+699 silly addNameRange     '2.10.0',
+699 silly addNameRange     '2.9.0',
+699 silly addNameRange     '2.8.1',
+699 silly addNameRange     '2.8.0',
+699 silly addNameRange     '2.7.4',
+699 silly addNameRange     '2.7.3',
+699 silly addNameRange     '2.7.2',
+699 silly addNameRange     '2.7.1',
+699 silly addNameRange     '2.7.0',
+699 silly addNameRange     '2.6.1',
+699 silly addNameRange     '2.6.0',
+699 silly addNameRange     '2.5.1',
+699 silly addNameRange     '2.5.0',
+699 silly addNameRange     '2.4.3',
+699 silly addNameRange     '2.4.2',
+699 silly addNameRange     '2.4.1',
+699 silly addNameRange     '2.4.0',
+699 silly addNameRange     '2.3.1',
+699 silly addNameRange     '2.3.0',
+699 silly addNameRange     '2.2.6',
+699 silly addNameRange     '2.2.5',
+699 silly addNameRange     '2.2.4',
+699 silly addNameRange     '2.2.3',
+699 silly addNameRange     '2.2.2',
+699 silly addNameRange     '2.2.1',
+699 silly addNameRange     '2.2.0',
+699 silly addNameRange     '2.1.0',
+699 silly addNameRange     '2.0.1',
+699 silly addNameRange     '2.0.0',
+699 silly addNameRange     '1.18.0',
+699 silly addNameRange     '1.17.3',
+699 silly addNameRange     '1.17.2',
+699 silly addNameRange     '1.17.1',
+699 silly addNameRange     '1.17.0',
+699 silly addNameRange     '1.16.8',
+699 silly addNameRange     '1.16.7',
+699 silly addNameRange     '1.16.6',
+699 silly addNameRange     '1.16.5',
+699 silly addNameRange     '1.16.4',
+699 silly addNameRange     '1.16.3',
+699 silly addNameRange     '1.16.2',
+699 silly addNameRange     '1.16.1',
+699 silly addNameRange     '1.16.0',
+699 silly addNameRange     '1.15.6',
+699 silly addNameRange     '1.15.5',
+699 silly addNameRange     '1.15.4',
+699 silly addNameRange     '1.15.3',
+699 silly addNameRange     '1.15.2',
+699 silly addNameRange     '1.15.1',
+699 silly addNameRange     '1.15.0',
+699 silly addNameRange     '1.14.5',
+699 silly addNameRange     '1.14.4',
+699 silly addNameRange     '1.14.3',
+699 silly addNameRange     '1.14.2',
+699 silly addNameRange     '1.14.1',
+699 silly addNameRange     '1.14.0',
+699 silly addNameRange     '1.13.10',
+699 silly addNameRange     '1.13.9',
+699 silly addNameRange     '1.13.8',
+699 silly addNameRange     '1.13.6',
+699 silly addNameRange     '1.13.5',
+699 silly addNameRange     '1.13.4',
+699 silly addNameRange     '1.13.3',
+699 silly addNameRange     '1.13.2',
+699 silly addNameRange     '1.13.1',
+699 silly addNameRange     '1.13.0',
+699 silly addNameRange     '1.12.3',
+699 silly addNameRange     '1.12.2',
+699 silly addNameRange     '1.12.1',
+699 silly addNameRange     '1.12.0',
+699 silly addNameRange     '1.11.1',
+699 silly addNameRange     '1.11.0',
+699 silly addNameRange     '1.10.17',
+699 silly addNameRange     '1.10.16',
+699 silly addNameRange     '1.10.15',
+699 silly addNameRange     '1.10.14',
+699 silly addNameRange     '1.10.13',
+699 silly addNameRange     '1.10.12',
+699 silly addNameRange     '1.10.11',
+699 silly addNameRange     '1.10.9',
+699 silly addNameRange     '1.10.8',
+699 silly addNameRange     '1.10.7',
+699 silly addNameRange     '1.10.6',
+699 silly addNameRange     '1.10.5',
+699 silly addNameRange     '1.10.4',
+699 silly addNameRange     '1.10.3',
+699 silly addNameRange     '1.10.2',
+699 silly addNameRange     '1.10.1',
+699 silly addNameRange     '1.10.0',
+699 silly addNameRange     '1.9.4',
+699 silly addNameRange     '1.9.3',
+699 silly addNameRange     '1.9.2',
+699 silly addNameRange     '1.9.1',
+699 silly addNameRange     '1.9.0',
+699 silly addNameRange     '1.8.3',
+699 silly addNameRange     '1.8.2',
+699 silly addNameRange     '1.8.1',
+699 silly addNameRange     '1.8.0',
+699 silly addNameRange     '1.7.7',
+699 silly addNameRange     '1.7.6',
+699 silly addNameRange     '1.7.5',
+699 silly addNameRange     '1.7.4',
+699 silly addNameRange     '1.7.3',
+699 silly addNameRange     '1.7.2',
+699 silly addNameRange     '1.7.1',
+699 silly addNameRange     '1.7.0',
+699 silly addNameRange     '1.6.1',
+699 silly addNameRange     '1.6.0',
+699 silly addNameRange     '1.5.0',
+699 silly addNameRange     '1.4.8',
+699 silly addNameRange     '1.4.7',
+699 silly addNameRange     '1.4.6',
+699 silly addNameRange     '1.4.5',
+699 silly addNameRange     '1.4.4',
+699 silly addNameRange     '1.4.3',
+699 silly addNameRange     '1.4.2',
+699 silly addNameRange     '1.4.1',
+699 silly addNameRange     '1.4.0',
+699 silly addNameRange     '1.3.0',
+699 silly addNameRange     '1.2.9',
+699 silly addNameRange     '1.2.8',
+699 silly addNameRange     '1.2.7',
+699 silly addNameRange     '1.2.6',
+699 silly addNameRange     '1.2.5',
+699 silly addNameRange     '1.2.4',
+699 silly addNameRange     '1.2.3',
+699 silly addNameRange     '1.2.2',
+699 silly addNameRange     '1.2.1',
+699 silly addNameRange     '1.2.0',
+699 silly addNameRange     '1.1.4',
+699 silly addNameRange     '1.1.3',
+699 silly addNameRange     '1.1.2',
+699 silly addNameRange     '1.1.1',
+699 silly addNameRange     '1.1.0',
+699 silly addNameRange     '1.0.0',
+699 silly addNameRange     '0.5.2',
+699 silly addNameRange     '0.5.1',
+699 silly addNameRange     '0.5.0',
+699 silly addNameRange     '0.4.15',
+699 silly addNameRange     '0.4.14',
+699 silly addNameRange     '0.4.13',
+699 silly addNameRange     '0.4.12',
+699 silly addNameRange     '0.4.11',
+699 silly addNameRange     '0.4.10',
+699 silly addNameRange     '0.4.9',
+699 silly addNameRange     '0.4.8',
+699 silly addNameRange     '0.4.7',
+699 silly addNameRange     '0.4.6',
+699 silly addNameRange     '0.4.5',
+699 silly addNameRange     '0.4.4',
+699 silly addNameRange     '0.4.3',
+699 silly addNameRange     '0.4.2',
+699 silly addNameRange     '0.4.1',
+699 silly addNameRange     '0.4.0',
+699 silly addNameRange     '0.3.7',
+699 silly addNameRange     '0.3.6',
+699 silly addNameRange     '0.3.5',
+699 silly addNameRange     '0.3.4',
+699 silly addNameRange     '0.3.3',
+699 silly addNameRange     '0.3.2',
+699 silly addNameRange     '0.3.1',
+699 silly addNameRange     '0.3.0',
+699 silly addNameRange     '0.2.11',
+699 silly addNameRange     '0.2.10',
+699 silly addNameRange     '0.2.9',
+699 silly addNameRange     '0.2.8',
+699 silly addNameRange     '0.2.7',
+699 silly addNameRange     '0.2.6',
+699 silly addNameRange     '0.2.5',
+699 silly addNameRange     '0.2.4',
+699 silly addNameRange     '0.2.3',
+699 silly addNameRange     '0.2.2',
+699 silly addNameRange     '0.2.1',
+699 silly addNameRange     '0.2.0',
+699 silly addNameRange     '0.1.5',
+699 silly addNameRange     '0.1.4',
+699 silly addNameRange     '0.1.3',
+699 silly addNameRange     '0.1.2',
+699 silly addNameRange     '0.1.1',
+699 silly addNameRange     '0.1.0',
+699 silly addNameRange     '0.0.5',
+699 silly addNameRange     '0.0.4',
+699 silly addNameRange     '0.0.3',
+699 silly addNameRange     '0.0.2',
+699 silly addNameRange     '0.0.1' ] ]
+700 verbose addNamed [ 'browserify', '6.3.4' ]
+701 verbose addNamed [ '6.3.4', '6.3.4' ]
+702 silly lockFile efdca493-browserify-6-3-4 browserify@6.3.4
+703 verbose lock browserify@6.3.4 C:\Users\tom.chang\AppData\Roaming\npm-cache\efdca493-browserify-6-3-4.lock
+704 silly lockFile 2493d7eb-fy-download-browserify-6-3-4-tgz http://registry.cnpmjs.org/browserify/download/browserify-6.3.4.tgz
+705 verbose lock http://registry.cnpmjs.org/browserify/download/browserify-6.3.4.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\2493d7eb-fy-download-browserify-6-3-4-tgz.lock
+706 verbose addRemoteTarball [ 'http://registry.cnpmjs.org/browserify/download/browserify-6.3.4.tgz',
+706 verbose addRemoteTarball   '57b5d195cc568139e971302e5cd9d58ddafb54d8' ]
+707 info retry fetch attempt 1 at 17:27:33
+708 verbose fetch to= C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\tmp.tgz
+709 http GET http://registry.cnpmjs.org/browserify/download/browserify-6.3.4.tgz
+710 http 200 http://registry.cnpmjs.org/browserify/download/browserify-6.3.4.tgz
+711 verbose tar unpack C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\tmp.tgz
+712 silly lockFile 4f0868bb-53964-0-7018233768176287-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package
+713 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package C:\Users\tom.chang\AppData\Roaming\npm-cache\4f0868bb-53964-0-7018233768176287-package.lock
+714 silly lockFile f591821a-53964-0-7018233768176287-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\tmp.tgz
+715 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\tmp.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\f591821a-53964-0-7018233768176287-tmp-tgz.lock
+716 silly gunzTarPerm modes [ '755', '644' ]
+717 silly gunzTarPerm extractEntry package.json
+718 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
+719 silly gunzTarPerm extractEntry .npmignore
+720 silly gunzTarPerm modified mode [ '.npmignore', 436, 420 ]
+721 silly gunzTarPerm extractEntry LICENSE
+722 silly gunzTarPerm modified mode [ 'LICENSE', 436, 420 ]
+723 silly gunzTarPerm extractEntry index.js
+724 silly gunzTarPerm modified mode [ 'index.js', 436, 420 ]
+725 silly gunzTarPerm extractEntry example/api/build.js
+726 silly gunzTarPerm modified mode [ 'example/api/build.js', 436, 420 ]
+727 silly gunzTarPerm extractEntry example/api/browser/bar.js
+728 silly gunzTarPerm modified mode [ 'example/api/browser/bar.js', 436, 420 ]
+729 silly gunzTarPerm extractEntry example/api/browser/foo.js
+730 silly gunzTarPerm modified mode [ 'example/api/browser/foo.js', 436, 420 ]
+731 silly gunzTarPerm extractEntry example/api/browser/main.js
+732 silly gunzTarPerm modified mode [ 'example/api/browser/main.js', 436, 420 ]
+733 silly gunzTarPerm extractEntry example/multiple_bundles/beep.js
+734 silly gunzTarPerm modified mode [ 'example/multiple_bundles/beep.js', 436, 420 ]
+735 silly gunzTarPerm extractEntry example/multiple_bundles/boop.js
+736 silly gunzTarPerm modified mode [ 'example/multiple_bundles/boop.js', 436, 420 ]
+737 silly gunzTarPerm extractEntry example/multiple_bundles/robot.js
+738 silly gunzTarPerm modified mode [ 'example/multiple_bundles/robot.js', 436, 420 ]
+739 silly gunzTarPerm extractEntry example/multiple_bundles/build.sh
+740 silly gunzTarPerm modified mode [ 'example/multiple_bundles/build.sh', 509, 493 ]
+741 silly gunzTarPerm extractEntry example/multiple_bundles/static/beep.html
+742 silly gunzTarPerm modified mode [ 'example/multiple_bundles/static/beep.html', 436, 420 ]
+743 silly gunzTarPerm extractEntry example/multiple_bundles/static/boop.html
+744 silly gunzTarPerm modified mode [ 'example/multiple_bundles/static/boop.html', 436, 420 ]
+745 silly gunzTarPerm extractEntry example/source_maps/build.js
+746 silly gunzTarPerm modified mode [ 'example/source_maps/build.js', 436, 420 ]
+747 silly gunzTarPerm extractEntry example/source_maps/build.sh
+748 silly gunzTarPerm modified mode [ 'example/source_maps/build.sh', 509, 493 ]
+749 silly gunzTarPerm extractEntry example/source_maps/index.html
+750 silly gunzTarPerm modified mode [ 'example/source_maps/index.html', 436, 420 ]
+751 silly gunzTarPerm extractEntry example/source_maps/js/foo.js
+752 silly gunzTarPerm modified mode [ 'example/source_maps/js/foo.js', 436, 420 ]
+753 silly gunzTarPerm extractEntry example/source_maps/js/main.js
+754 silly gunzTarPerm modified mode [ 'example/source_maps/js/main.js', 436, 420 ]
+755 silly gunzTarPerm extractEntry example/source_maps/js/build/.npmignore
+756 silly gunzTarPerm modified mode [ 'example/source_maps/js/build/.npmignore', 436, 420 ]
+757 silly gunzTarPerm extractEntry example/source_maps/js/wunder/bar.js
+758 silly gunzTarPerm modified mode [ 'example/source_maps/js/wunder/bar.js', 436, 420 ]
+759 silly gunzTarPerm extractEntry changelog.markdown
+760 silly gunzTarPerm modified mode [ 'changelog.markdown', 436, 420 ]
+761 silly gunzTarPerm extractEntry doc/changelog/3_0.markdown
+762 silly gunzTarPerm modified mode [ 'doc/changelog/3_0.markdown', 436, 420 ]
+763 silly gunzTarPerm extractEntry doc/changelog/4_0.markdown
+764 silly gunzTarPerm modified mode [ 'doc/changelog/4_0.markdown', 436, 420 ]
+765 silly gunzTarPerm extractEntry doc/changelog/5_0.markdown
+766 silly gunzTarPerm modified mode [ 'doc/changelog/5_0.markdown', 436, 420 ]
+767 silly gunzTarPerm extractEntry doc/changelog/6_0.markdown
+768 silly gunzTarPerm modified mode [ 'doc/changelog/6_0.markdown', 436, 420 ]
+769 silly gunzTarPerm extractEntry .travis.yml
+770 silly gunzTarPerm modified mode [ '.travis.yml', 436, 420 ]
+771 silly gunzTarPerm extractEntry lib/_empty.js
+772 silly gunzTarPerm modified mode [ 'lib/_empty.js', 436, 420 ]
+773 silly gunzTarPerm extractEntry lib/_exclude.js
+774 silly gunzTarPerm modified mode [ 'lib/_exclude.js', 436, 420 ]
+775 silly gunzTarPerm extractEntry lib/builtins.js
+776 silly gunzTarPerm modified mode [ 'lib/builtins.js', 436, 420 ]
+777 silly gunzTarPerm extractEntry readme.markdown
+778 silly gunzTarPerm modified mode [ 'readme.markdown', 436, 420 ]
+779 silly gunzTarPerm extractEntry bin/args.js
+780 silly gunzTarPerm modified mode [ 'bin/args.js', 436, 420 ]
+781 silly gunzTarPerm extractEntry bin/cmd.js
+782 silly gunzTarPerm modified mode [ 'bin/cmd.js', 509, 493 ]
+783 silly gunzTarPerm extractEntry bin/advanced.txt
+784 silly gunzTarPerm modified mode [ 'bin/advanced.txt', 436, 420 ]
+785 silly gunzTarPerm extractEntry bin/usage.txt
+786 silly gunzTarPerm modified mode [ 'bin/usage.txt', 436, 420 ]
+787 silly gunzTarPerm extractEntry test/args.js
+788 silly gunzTarPerm modified mode [ 'test/args.js', 436, 420 ]
+789 silly gunzTarPerm extractEntry test/dep.js
+790 silly gunzTarPerm modified mode [ 'test/dep.js', 436, 420 ]
+791 silly gunzTarPerm extractEntry test/standalone_sourcemap.js
+792 silly gunzTarPerm modified mode [ 'test/standalone_sourcemap.js', 436, 420 ]
+793 silly gunzTarPerm extractEntry test/dnode.js
+794 silly gunzTarPerm modified mode [ 'test/dnode.js', 436, 420 ]
+795 silly gunzTarPerm extractEntry test/standalone_events.js
+796 silly gunzTarPerm modified mode [ 'test/standalone_events.js', 436, 420 ]
+797 silly gunzTarPerm extractEntry test/delay.js
+798 silly gunzTarPerm modified mode [ 'test/delay.js', 436, 420 ]
+799 silly gunzTarPerm extractEntry test/standalone.js
+800 silly gunzTarPerm modified mode [ 'test/standalone.js', 436, 420 ]
+801 silly gunzTarPerm extractEntry test/double_buffer.js
+802 silly gunzTarPerm modified mode [ 'test/double_buffer.js', 436, 420 ]
+803 silly gunzTarPerm extractEntry test/double_bundle.js
+804 silly gunzTarPerm modified mode [ 'test/double_bundle.js', 436, 420 ]
+805 silly gunzTarPerm extractEntry test/double_bundle_parallel.js
+806 silly gunzTarPerm modified mode [ 'test/double_bundle_parallel.js', 436, 420 ]
+807 silly gunzTarPerm extractEntry test/double_bundle_parallel_cache.js
+808 silly gunzTarPerm modified mode [ 'test/double_bundle_parallel_cache.js', 436, 420 ]
+809 silly gunzTarPerm extractEntry test/stdin.js
+810 silly gunzTarPerm modified mode [ 'test/stdin.js', 436, 420 ]
+811 silly gunzTarPerm extractEntry test/shebang.js
+812 silly gunzTarPerm modified mode [ 'test/shebang.js', 436, 420 ]
+813 silly gunzTarPerm extractEntry test/dedupe-nomap.js
+814 silly gunzTarPerm modified mode [ 'test/dedupe-nomap.js', 436, 420 ]
+815 silly gunzTarPerm extractEntry test/reverse_multi_bundle.js
+816 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle.js', 436, 420 ]
+817 silly gunzTarPerm extractEntry test/dedupe-deps.js
+818 silly gunzTarPerm modified mode [ 'test/dedupe-deps.js', 436, 420 ]
+819 silly gunzTarPerm extractEntry test/entry.js
+820 silly gunzTarPerm modified mode [ 'test/entry.js', 436, 420 ]
+821 silly gunzTarPerm extractEntry test/debug_standalone.js
+822 silly gunzTarPerm modified mode [ 'test/debug_standalone.js', 436, 420 ]
+823 silly gunzTarPerm extractEntry test/retarget.js
+824 silly gunzTarPerm modified mode [ 'test/retarget.js', 436, 420 ]
+825 silly gunzTarPerm extractEntry test/stream.js
+826 silly gunzTarPerm modified mode [ 'test/stream.js', 436, 420 ]
+827 silly gunzTarPerm extractEntry test/entry_exec.js
+828 silly gunzTarPerm modified mode [ 'test/entry_exec.js', 436, 420 ]
+829 silly gunzTarPerm extractEntry test/cycle.js
+830 silly gunzTarPerm modified mode [ 'test/cycle.js', 436, 420 ]
+831 silly gunzTarPerm extractEntry test/reset.js
+832 silly gunzTarPerm modified mode [ 'test/reset.js', 436, 420 ]
+833 silly gunzTarPerm extractEntry test/stream_file.js
+834 silly gunzTarPerm modified mode [ 'test/stream_file.js', 436, 420 ]
+835 silly gunzTarPerm extractEntry test/error_code.js
+836 silly gunzTarPerm modified mode [ 'test/error_code.js', 436, 420 ]
+837 silly gunzTarPerm extractEntry test/crypto_ig.js
+838 silly gunzTarPerm modified mode [ 'test/crypto_ig.js', 436, 420 ]
+839 silly gunzTarPerm extractEntry test/require_cache.js
+840 silly gunzTarPerm modified mode [ 'test/require_cache.js', 436, 420 ]
+841 silly gunzTarPerm extractEntry test/crypto.js
+842 silly gunzTarPerm modified mode [ 'test/crypto.js', 436, 420 ]
+843 silly gunzTarPerm extractEntry test/export.js
+844 silly gunzTarPerm modified mode [ 'test/export.js', 436, 420 ]
+845 silly gunzTarPerm extractEntry test/constants.js
+846 silly gunzTarPerm modified mode [ 'test/constants.js', 436, 420 ]
+847 silly gunzTarPerm extractEntry test/process.js
+848 silly gunzTarPerm modified mode [ 'test/process.js', 436, 420 ]
+849 silly gunzTarPerm extractEntry test/comment.js
+850 silly gunzTarPerm modified mode [ 'test/comment.js', 436, 420 ]
+851 silly gunzTarPerm extractEntry test/external.js
+852 silly gunzTarPerm modified mode [ 'test/external.js', 436, 420 ]
+853 silly gunzTarPerm extractEntry test/subdep.js
+854 silly gunzTarPerm modified mode [ 'test/subdep.js', 436, 420 ]
+855 silly gunzTarPerm extractEntry test/plugin.js
+856 silly gunzTarPerm modified mode [ 'test/plugin.js', 436, 420 ]
+857 silly gunzTarPerm extractEntry test/coffeeify.js
+858 silly gunzTarPerm modified mode [ 'test/coffeeify.js', 436, 420 ]
+859 silly gunzTarPerm extractEntry test/pkg.js
+860 silly gunzTarPerm modified mode [ 'test/pkg.js', 436, 420 ]
+861 silly gunzTarPerm extractEntry test/tr.js
+862 silly gunzTarPerm modified mode [ 'test/tr.js', 436, 420 ]
+863 silly gunzTarPerm extractEntry test/externalize.js
+864 silly gunzTarPerm modified mode [ 'test/externalize.js', 436, 420 ]
+865 silly gunzTarPerm extractEntry test/coffee_bin.js
+866 silly gunzTarPerm modified mode [ 'test/coffee_bin.js', 436, 420 ]
+867 silly gunzTarPerm extractEntry test/pipeline_deps.js
+868 silly gunzTarPerm modified mode [ 'test/pipeline_deps.js', 436, 420 ]
+869 silly gunzTarPerm extractEntry test/tr_args.js
+870 silly gunzTarPerm modified mode [ 'test/tr_args.js', 436, 420 ]
+871 silly gunzTarPerm extractEntry test/fake.js
+872 silly gunzTarPerm modified mode [ 'test/fake.js', 436, 420 ]
+873 silly gunzTarPerm extractEntry test/circular.js
+874 silly gunzTarPerm modified mode [ 'test/circular.js', 436, 420 ]
+875 silly gunzTarPerm extractEntry test/paths.js
+876 silly gunzTarPerm modified mode [ 'test/paths.js', 436, 420 ]
+877 silly gunzTarPerm extractEntry test/tr_error.js
+878 silly gunzTarPerm modified mode [ 'test/tr_error.js', 436, 420 ]
+879 silly gunzTarPerm extractEntry test/field.js
+880 silly gunzTarPerm modified mode [ 'test/field.js', 436, 420 ]
+881 silly gunzTarPerm extractEntry test/catch.js
+882 silly gunzTarPerm modified mode [ 'test/catch.js', 436, 420 ]
+883 silly gunzTarPerm extractEntry test/file_event.js
+884 silly gunzTarPerm modified mode [ 'test/file_event.js', 436, 420 ]
+885 silly gunzTarPerm extractEntry test/tr_flags.js
+886 silly gunzTarPerm modified mode [ 'test/tr_flags.js', 436, 420 ]
+887 silly gunzTarPerm extractEntry test/five_bundle.js
+888 silly gunzTarPerm modified mode [ 'test/five_bundle.js', 436, 420 ]
+889 silly gunzTarPerm extractEntry test/bundle_sourcemap.js
+890 silly gunzTarPerm modified mode [ 'test/bundle_sourcemap.js', 436, 420 ]
+891 silly gunzTarPerm extractEntry test/pack.js
+892 silly gunzTarPerm modified mode [ 'test/pack.js', 436, 420 ]
+893 silly gunzTarPerm extractEntry test/bundle_external_global.js
+894 silly gunzTarPerm modified mode [ 'test/bundle_external_global.js', 436, 420 ]
+895 silly gunzTarPerm extractEntry test/no_builtins.js
+896 silly gunzTarPerm modified mode [ 'test/no_builtins.js', 436, 420 ]
+897 silly gunzTarPerm extractEntry test/bundle_external.js
+898 silly gunzTarPerm modified mode [ 'test/bundle_external.js', 436, 420 ]
+899 silly gunzTarPerm extractEntry test/glob.js
+900 silly gunzTarPerm modified mode [ 'test/glob.js', 436, 420 ]
+901 silly gunzTarPerm extractEntry test/tr_no_entry.js
+902 silly gunzTarPerm modified mode [ 'test/tr_no_entry.js', 436, 420 ]
+903 silly gunzTarPerm extractEntry test/multi_entry.js
+904 silly gunzTarPerm modified mode [ 'test/multi_entry.js', 436, 420 ]
+905 silly gunzTarPerm extractEntry test/bundle.js
+906 silly gunzTarPerm modified mode [ 'test/bundle.js', 436, 420 ]
+907 silly gunzTarPerm extractEntry test/global.js
+908 silly gunzTarPerm modified mode [ 'test/global.js', 436, 420 ]
+909 silly gunzTarPerm extractEntry test/buffer.js
+910 silly gunzTarPerm modified mode [ 'test/buffer.js', 436, 420 ]
+911 silly gunzTarPerm extractEntry test/global_coffeeify.js
+912 silly gunzTarPerm modified mode [ 'test/global_coffeeify.js', 436, 420 ]
+913 silly gunzTarPerm extractEntry test/bom.js
+914 silly gunzTarPerm modified mode [ 'test/bom.js', 436, 420 ]
+915 silly gunzTarPerm extractEntry test/multi_bundle_unique.js
+916 silly gunzTarPerm modified mode [ 'test/multi_bundle_unique.js', 436, 420 ]
+917 silly gunzTarPerm extractEntry test/unicode.js
+918 silly gunzTarPerm modified mode [ 'test/unicode.js', 436, 420 ]
+919 silly gunzTarPerm extractEntry test/hash.js
+920 silly gunzTarPerm modified mode [ 'test/hash.js', 436, 420 ]
+921 silly gunzTarPerm extractEntry test/bin_tr_error.js
+922 silly gunzTarPerm modified mode [ 'test/bin_tr_error.js', 436, 420 ]
+923 silly gunzTarPerm extractEntry test/multi_bundle.js
+924 silly gunzTarPerm modified mode [ 'test/multi_bundle.js', 436, 420 ]
+925 silly gunzTarPerm extractEntry test/util.js
+926 silly gunzTarPerm modified mode [ 'test/util.js', 436, 420 ]
+927 silly gunzTarPerm extractEntry test/hash_instance.js
+928 silly gunzTarPerm modified mode [ 'test/hash_instance.js', 436, 420 ]
+929 silly gunzTarPerm extractEntry test/bin_entry.js
+930 silly gunzTarPerm modified mode [ 'test/bin_entry.js', 436, 420 ]
+931 silly gunzTarPerm extractEntry test/maxlisteners.js
+932 silly gunzTarPerm modified mode [ 'test/maxlisteners.js', 436, 420 ]
+933 silly gunzTarPerm extractEntry test/bin.js
+934 silly gunzTarPerm modified mode [ 'test/bin.js', 436, 420 ]
+935 silly gunzTarPerm extractEntry test/hash_instance_context.js
+936 silly gunzTarPerm modified mode [ 'test/hash_instance_context.js', 436, 420 ]
+937 silly gunzTarPerm extractEntry test/bare_shebang.js
+938 silly gunzTarPerm modified mode [ 'test/bare_shebang.js', 436, 420 ]
+939 silly gunzTarPerm extractEntry test/leak.js
+940 silly gunzTarPerm modified mode [ 'test/leak.js', 436, 420 ]
+941 silly gunzTarPerm extractEntry test/bare.js
+942 silly gunzTarPerm modified mode [ 'test/bare.js', 436, 420 ]
+943 silly gunzTarPerm extractEntry test/ignore.js
+944 silly gunzTarPerm modified mode [ 'test/ignore.js', 436, 420 ]
+945 silly gunzTarPerm extractEntry test/backbone.js
+946 silly gunzTarPerm modified mode [ 'test/backbone.js', 436, 420 ]
+947 silly gunzTarPerm extractEntry test/json.js
+948 silly gunzTarPerm modified mode [ 'test/json.js', 436, 420 ]
+949 silly gunzTarPerm extractEntry test/array.js
+950 silly gunzTarPerm modified mode [ 'test/array.js', 436, 420 ]
+951 silly gunzTarPerm extractEntry test/ignore_missing.js
+952 silly gunzTarPerm modified mode [ 'test/ignore_missing.js', 436, 420 ]
+953 silly gunzTarPerm extractEntry test/dollar.js
+954 silly gunzTarPerm modified mode [ 'test/dollar.js', 436, 420 ]
+955 silly gunzTarPerm extractEntry test/yield.js
+956 silly gunzTarPerm modified mode [ 'test/yield.js', 436, 420 ]
+957 silly gunzTarPerm extractEntry test/full_paths.js
+958 silly gunzTarPerm modified mode [ 'test/full_paths.js', 436, 420 ]
+959 silly gunzTarPerm extractEntry test/json/main.js
+960 silly gunzTarPerm modified mode [ 'test/json/main.js', 436, 420 ]
+961 silly gunzTarPerm extractEntry test/json/beep.json
+962 silly gunzTarPerm modified mode [ 'test/json/beep.json', 436, 420 ]
+963 silly gunzTarPerm extractEntry test/ignore/by-id.js
+964 silly gunzTarPerm modified mode [ 'test/ignore/by-id.js', 436, 420 ]
+965 silly gunzTarPerm extractEntry test/ignore/by-relative.js
+966 silly gunzTarPerm modified mode [ 'test/ignore/by-relative.js', 436, 420 ]
+967 silly gunzTarPerm extractEntry test/ignore/double-skip.js
+968 silly gunzTarPerm modified mode [ 'test/ignore/double-skip.js', 436, 420 ]
+969 silly gunzTarPerm extractEntry test/ignore/main.js
+970 silly gunzTarPerm modified mode [ 'test/ignore/main.js', 436, 420 ]
+971 silly gunzTarPerm extractEntry test/ignore/skip.js
+972 silly gunzTarPerm modified mode [ 'test/ignore/skip.js', 436, 420 ]
+973 silly gunzTarPerm extractEntry test/ignore/double-skip/index.js
+974 silly gunzTarPerm modified mode [ 'test/ignore/double-skip/index.js', 436, 420 ]
+975 silly gunzTarPerm extractEntry test/ignore/double-skip/skip.js
+976 silly gunzTarPerm modified mode [ 'test/ignore/double-skip/skip.js', 436, 420 ]
+977 silly gunzTarPerm extractEntry test/ignore/ignored/skip.js
+978 silly gunzTarPerm modified mode [ 'test/ignore/ignored/skip.js', 436, 420 ]
+979 silly gunzTarPerm extractEntry test/ignore/relative/index.js
+980 silly gunzTarPerm modified mode [ 'test/ignore/relative/index.js', 436, 420 ]
+981 silly gunzTarPerm extractEntry test/maxlisteners/main.js
+982 silly gunzTarPerm modified mode [ 'test/maxlisteners/main.js', 436, 420 ]
+983 silly gunzTarPerm extractEntry test/hash_instance_context/main.js
+984 silly gunzTarPerm modified mode [ 'test/hash_instance_context/main.js', 436, 420 ]
+985 silly gunzTarPerm extractEntry test/hash_instance_context/one/f.js
+986 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/f.js', 436, 420 ]
+987 silly gunzTarPerm extractEntry test/hash_instance_context/one/g.js
+988 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/g.js', 436, 420 ]
+989 silly gunzTarPerm extractEntry test/hash_instance_context/one/dir/f.js
+990 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/dir/f.js', 436, 420 ]
+991 silly gunzTarPerm extractEntry test/hash_instance_context/one/dir/g.js
+992 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/dir/g.js', 436, 420 ]
+993 silly gunzTarPerm extractEntry test/hash_instance_context/three/f.js
+994 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/f.js', 436, 420 ]
+995 silly gunzTarPerm extractEntry test/hash_instance_context/three/g.js
+996 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/g.js', 436, 420 ]
+997 silly gunzTarPerm extractEntry test/hash_instance_context/three/h.js
+998 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/h.js', 436, 420 ]
+999 silly gunzTarPerm extractEntry test/hash_instance_context/three/dir/f.js
+1000 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/dir/f.js', 436, 420 ]
+1001 silly gunzTarPerm extractEntry test/hash_instance_context/three/dir/g.js
+1002 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/dir/g.js', 436, 420 ]
+1003 silly gunzTarPerm extractEntry test/hash_instance_context/three/dir/h.js
+1004 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/dir/h.js', 436, 420 ]
+1005 silly gunzTarPerm extractEntry test/hash_instance_context/two/f.js
+1006 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/f.js', 436, 420 ]
+1007 silly gunzTarPerm extractEntry test/hash_instance_context/two/g.js
+1008 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/g.js', 436, 420 ]
+1009 silly gunzTarPerm extractEntry test/hash_instance_context/two/h.js
+1010 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/h.js', 436, 420 ]
+1011 silly gunzTarPerm extractEntry test/hash_instance_context/two/dir/f.js
+1012 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/dir/f.js', 436, 420 ]
+1013 silly gunzTarPerm extractEntry test/hash_instance_context/two/dir/g.js
+1014 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/dir/g.js', 436, 420 ]
+1015 silly gunzTarPerm extractEntry test/hash_instance_context/two/dir/h.js
+1016 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/dir/h.js', 436, 420 ]
+1017 silly gunzTarPerm extractEntry test/multi_bundle/_prelude.js
+1018 silly gunzTarPerm modified mode [ 'test/multi_bundle/_prelude.js', 436, 420 ]
+1019 silly gunzTarPerm extractEntry test/multi_bundle/a.js
+1020 silly gunzTarPerm modified mode [ 'test/multi_bundle/a.js', 436, 420 ]
+1021 silly gunzTarPerm extractEntry test/multi_bundle/b.js
+1022 silly gunzTarPerm modified mode [ 'test/multi_bundle/b.js', 436, 420 ]
+1023 silly gunzTarPerm extractEntry test/multi_bundle/c.js
+1024 silly gunzTarPerm modified mode [ 'test/multi_bundle/c.js', 436, 420 ]
+1025 silly gunzTarPerm extractEntry test/hash_instance/main.js
+1026 silly gunzTarPerm modified mode [ 'test/hash_instance/main.js', 436, 420 ]
+1027 silly gunzTarPerm extractEntry test/hash_instance/one.js
+1028 silly gunzTarPerm modified mode [ 'test/hash_instance/one.js', 436, 420 ]
+1029 silly gunzTarPerm extractEntry test/hash_instance/foo/two.js
+1030 silly gunzTarPerm modified mode [ 'test/hash_instance/foo/two.js', 436, 420 ]
+1031 silly gunzTarPerm extractEntry test/hash/main.js
+1032 silly gunzTarPerm modified mode [ 'test/hash/main.js', 436, 420 ]
+1033 silly gunzTarPerm extractEntry test/hash/one.js
+1034 silly gunzTarPerm modified mode [ 'test/hash/one.js', 436, 420 ]
+1035 silly gunzTarPerm extractEntry test/hash/other.js
+1036 silly gunzTarPerm modified mode [ 'test/hash/other.js', 436, 420 ]
+1037 silly gunzTarPerm extractEntry test/hash/foo/other.js
+1038 silly gunzTarPerm modified mode [ 'test/hash/foo/other.js', 436, 420 ]
+1039 silly gunzTarPerm extractEntry test/hash/foo/two.js
+1040 silly gunzTarPerm modified mode [ 'test/hash/foo/two.js', 436, 420 ]
+1041 silly gunzTarPerm extractEntry test/multi_entry/a.js
+1042 silly gunzTarPerm extractEntry test/multi_entry/b.js
+1043 silly gunzTarPerm extractEntry test/multi_entry/c.js
+1044 silly gunzTarPerm modified mode [ 'test/multi_entry/c.js', 436, 420 ]
+1045 silly gunzTarPerm extractEntry test/global/buffer.js
+1046 silly gunzTarPerm modified mode [ 'test/global/buffer.js', 436, 420 ]
+1047 silly gunzTarPerm extractEntry test/global/filename.js
+1048 silly gunzTarPerm modified mode [ 'test/global/filename.js', 436, 420 ]
+1049 silly gunzTarPerm extractEntry test/global/main.js
+1050 silly gunzTarPerm modified mode [ 'test/global/main.js', 436, 420 ]
+1051 silly gunzTarPerm extractEntry test/global/tick.js
+1052 silly gunzTarPerm modified mode [ 'test/global/tick.js', 436, 420 ]
+1053 silly gunzTarPerm extractEntry test/no_builtins/main.js
+1054 silly gunzTarPerm modified mode [ 'test/no_builtins/main.js', 436, 420 ]
+1055 silly gunzTarPerm extractEntry test/no_builtins/extra/fs.js
+1056 silly gunzTarPerm modified mode [ 'test/no_builtins/extra/fs.js', 436, 420 ]
+1057 silly gunzTarPerm extractEntry test/no_builtins/extra/tls.js
+1058 silly gunzTarPerm modified mode [ 'test/no_builtins/extra/tls.js', 436, 420 ]
+1059 silly gunzTarPerm extractEntry test/no_builtins/x.txt
+1060 silly gunzTarPerm modified mode [ 'test/no_builtins/x.txt', 436, 420 ]
+1061 silly gunzTarPerm extractEntry test/glob/a.js
+1062 silly gunzTarPerm modified mode [ 'test/glob/a.js', 436, 420 ]
+1063 silly gunzTarPerm extractEntry test/glob/b.js
+1064 silly gunzTarPerm modified mode [ 'test/glob/b.js', 436, 420 ]
+1065 silly gunzTarPerm extractEntry test/glob/lib/z.js
+1066 silly gunzTarPerm modified mode [ 'test/glob/lib/z.js', 436, 420 ]
+1067 silly gunzTarPerm extractEntry test/glob/vendor/x.js
+1068 silly gunzTarPerm modified mode [ 'test/glob/vendor/x.js', 436, 420 ]
+1069 silly gunzTarPerm extractEntry test/glob/vendor/y.js
+1070 silly gunzTarPerm modified mode [ 'test/glob/vendor/y.js', 436, 420 ]
+1071 silly gunzTarPerm extractEntry test/yield/f.js
+1072 silly gunzTarPerm modified mode [ 'test/yield/f.js', 436, 420 ]
+1073 silly gunzTarPerm extractEntry test/yield/main.js
+1074 silly gunzTarPerm modified mode [ 'test/yield/main.js', 436, 420 ]
+1075 silly gunzTarPerm extractEntry test/array/one.js
+1076 silly gunzTarPerm modified mode [ 'test/array/one.js', 436, 420 ]
+1077 silly gunzTarPerm extractEntry test/array/three.js
+1078 silly gunzTarPerm modified mode [ 'test/array/three.js', 436, 420 ]
+1079 silly gunzTarPerm extractEntry test/array/two.js
+1080 silly gunzTarPerm modified mode [ 'test/array/two.js', 436, 420 ]
+1081 silly gunzTarPerm extractEntry test/paths/main.js
+1082 silly gunzTarPerm modified mode [ 'test/paths/main.js', 436, 420 ]
+1083 silly gunzTarPerm extractEntry test/paths/x/aaa/index.js
+1084 silly gunzTarPerm modified mode [ 'test/paths/x/aaa/index.js', 436, 420 ]
+1085 silly gunzTarPerm extractEntry test/paths/x/ccc/index.js
+1086 silly gunzTarPerm modified mode [ 'test/paths/x/ccc/index.js', 436, 420 ]
+1087 silly gunzTarPerm extractEntry test/paths/y/bbb/index.js
+1088 silly gunzTarPerm modified mode [ 'test/paths/y/bbb/index.js', 436, 420 ]
+1089 silly gunzTarPerm extractEntry test/paths/y/ccc/index.js
+1090 silly gunzTarPerm modified mode [ 'test/paths/y/ccc/index.js', 436, 420 ]
+1091 silly gunzTarPerm extractEntry test/field/miss.js
+1092 silly gunzTarPerm modified mode [ 'test/field/miss.js', 436, 420 ]
+1093 silly gunzTarPerm extractEntry test/field/object.js
+1094 silly gunzTarPerm modified mode [ 'test/field/object.js', 436, 420 ]
+1095 silly gunzTarPerm extractEntry test/field/string.js
+1096 silly gunzTarPerm modified mode [ 'test/field/string.js', 436, 420 ]
+1097 silly gunzTarPerm extractEntry test/field/sub.js
+1098 silly gunzTarPerm modified mode [ 'test/field/sub.js', 436, 420 ]
+1099 silly gunzTarPerm extractEntry test/field/node_modules/z-miss/package.json
+1100 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-miss/package.json', 436, 420 ]
+1101 silly gunzTarPerm extractEntry test/field/node_modules/z-miss/browser.js
+1102 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-miss/browser.js', 436, 420 ]
+1103 silly gunzTarPerm extractEntry test/field/node_modules/z-miss/main.js
+1104 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-miss/main.js', 436, 420 ]
+1105 silly gunzTarPerm extractEntry test/field/node_modules/z-object/package.json
+1106 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-object/package.json', 436, 420 ]
+1107 silly gunzTarPerm extractEntry test/field/node_modules/z-object/browser.js
+1108 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-object/browser.js', 436, 420 ]
+1109 silly gunzTarPerm extractEntry test/field/node_modules/z-object/main.js
+1110 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-object/main.js', 436, 420 ]
+1111 silly gunzTarPerm extractEntry test/field/node_modules/z-string/package.json
+1112 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-string/package.json', 436, 420 ]
+1113 silly gunzTarPerm extractEntry test/field/node_modules/z-string/browser.js
+1114 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-string/browser.js', 436, 420 ]
+1115 silly gunzTarPerm extractEntry test/field/node_modules/z-string/main.js
+1116 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-string/main.js', 436, 420 ]
+1117 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/package.json
+1118 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/package.json', 436, 420 ]
+1119 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/main.js
+1120 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/main.js', 436, 420 ]
+1121 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/browser/a.js
+1122 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/browser/a.js', 436, 420 ]
+1123 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/browser/b.js
+1124 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/browser/b.js', 436, 420 ]
+1125 silly gunzTarPerm extractEntry test/pipeline_deps/bar.js
+1126 silly gunzTarPerm modified mode [ 'test/pipeline_deps/bar.js', 436, 420 ]
+1127 silly gunzTarPerm extractEntry test/pipeline_deps/foo.js
+1128 silly gunzTarPerm modified mode [ 'test/pipeline_deps/foo.js', 436, 420 ]
+1129 silly gunzTarPerm extractEntry test/pipeline_deps/main.js
+1130 silly gunzTarPerm modified mode [ 'test/pipeline_deps/main.js', 436, 420 ]
+1131 silly gunzTarPerm extractEntry test/pipeline_deps/xyz.js
+1132 silly gunzTarPerm modified mode [ 'test/pipeline_deps/xyz.js', 436, 420 ]
+1133 silly gunzTarPerm extractEntry test/fake/fake_fs.js
+1134 silly gunzTarPerm modified mode [ 'test/fake/fake_fs.js', 436, 420 ]
+1135 silly gunzTarPerm extractEntry test/fake/main.js
+1136 silly gunzTarPerm modified mode [ 'test/fake/main.js', 436, 420 ]
+1137 silly gunzTarPerm extractEntry test/pkg/package.json
+1138 silly gunzTarPerm modified mode [ 'test/pkg/package.json', 436, 420 ]
+1139 silly gunzTarPerm extractEntry test/pkg/main.js
+1140 silly gunzTarPerm modified mode [ 'test/pkg/main.js', 436, 420 ]
+1141 silly gunzTarPerm extractEntry test/externalize/beep.js
+1142 silly gunzTarPerm modified mode [ 'test/externalize/beep.js', 436, 420 ]
+1143 silly gunzTarPerm extractEntry test/externalize/boop.js
+1144 silly gunzTarPerm modified mode [ 'test/externalize/boop.js', 436, 420 ]
+1145 silly gunzTarPerm extractEntry test/externalize/robot.js
+1146 silly gunzTarPerm modified mode [ 'test/externalize/robot.js', 436, 420 ]
+1147 silly gunzTarPerm extractEntry test/plugin/main.js
+1148 silly gunzTarPerm modified mode [ 'test/plugin/main.js', 436, 420 ]
+1149 silly gunzTarPerm extractEntry test/external_args/main.js
+1150 silly gunzTarPerm modified mode [ 'test/external_args/main.js', 436, 420 ]
+1151 silly gunzTarPerm extractEntry test/process/main.js
+1152 silly gunzTarPerm modified mode [ 'test/process/main.js', 436, 420 ]
+1153 silly gunzTarPerm extractEntry test/process/one.js
+1154 silly gunzTarPerm modified mode [ 'test/process/one.js', 436, 420 ]
+1155 silly gunzTarPerm extractEntry test/process/two.js
+1156 silly gunzTarPerm modified mode [ 'test/process/two.js', 436, 420 ]
+1157 silly gunzTarPerm extractEntry test/external/main.js
+1158 silly gunzTarPerm extractEntry test/external/x.js
+1159 silly gunzTarPerm modified mode [ 'test/external/x.js', 436, 420 ]
+1160 silly gunzTarPerm extractEntry test/export/entry.js
+1161 silly gunzTarPerm modified mode [ 'test/export/entry.js', 436, 420 ]
+1162 silly gunzTarPerm extractEntry test/error_code/src.js
+1163 silly gunzTarPerm modified mode [ 'test/error_code/src.js', 436, 420 ]
+1164 silly gunzTarPerm extractEntry test/entry_exec/fail.js
+1165 silly gunzTarPerm modified mode [ 'test/entry_exec/fail.js', 436, 420 ]
+1166 silly gunzTarPerm extractEntry test/entry_exec/main.js
+1167 silly gunzTarPerm modified mode [ 'test/entry_exec/main.js', 436, 420 ]
+1168 silly gunzTarPerm extractEntry test/ignore_missing/main.js
+1169 silly gunzTarPerm modified mode [ 'test/ignore_missing/main.js', 436, 420 ]
+1170 silly gunzTarPerm extractEntry test/entry/package.json
+1171 silly gunzTarPerm modified mode [ 'test/entry/package.json', 436, 420 ]
+1172 silly gunzTarPerm extractEntry test/entry/main.js
+1173 silly gunzTarPerm extractEntry test/entry/needs_three.js
+1174 silly gunzTarPerm modified mode [ 'test/entry/needs_three.js', 436, 420 ]
+1175 silly gunzTarPerm extractEntry test/entry/one.js
+1176 silly gunzTarPerm extractEntry test/entry/three.js
+1177 silly gunzTarPerm modified mode [ 'test/entry/three.js', 436, 420 ]
+1178 silly gunzTarPerm extractEntry test/entry/two.js
+1179 silly gunzTarPerm extractEntry test/shebang/foo.js
+1180 silly gunzTarPerm modified mode [ 'test/shebang/foo.js', 436, 420 ]
+1181 silly gunzTarPerm extractEntry test/shebang/main.js
+1182 silly gunzTarPerm modified mode [ 'test/shebang/main.js', 436, 420 ]
+1183 silly gunzTarPerm extractEntry test/dup/foo-dup.js
+1184 silly gunzTarPerm modified mode [ 'test/dup/foo-dup.js', 436, 420 ]
+1185 silly gunzTarPerm extractEntry test/dup/foo.js
+1186 silly gunzTarPerm modified mode [ 'test/dup/foo.js', 436, 420 ]
+1187 silly gunzTarPerm extractEntry test/dup/index.js
+1188 silly gunzTarPerm modified mode [ 'test/dup/index.js', 436, 420 ]
+1189 silly gunzTarPerm extractEntry test/standalone/main.js
+1190 silly gunzTarPerm modified mode [ 'test/standalone/main.js', 436, 420 ]
+1191 silly gunzTarPerm extractEntry test/standalone/one.js
+1192 silly gunzTarPerm modified mode [ 'test/standalone/one.js', 436, 420 ]
+1193 silly gunzTarPerm extractEntry test/standalone/two.js
+1194 silly gunzTarPerm modified mode [ 'test/standalone/two.js', 436, 420 ]
+1195 silly gunzTarPerm extractEntry test/double_buffer/explicit.js
+1196 silly gunzTarPerm modified mode [ 'test/double_buffer/explicit.js', 436, 420 ]
+1197 silly gunzTarPerm extractEntry test/double_buffer/implicit.js
+1198 silly gunzTarPerm modified mode [ 'test/double_buffer/implicit.js', 436, 420 ]
+1199 silly gunzTarPerm extractEntry test/double_buffer/main.js
+1200 silly gunzTarPerm modified mode [ 'test/double_buffer/main.js', 436, 420 ]
+1201 silly gunzTarPerm extractEntry test/dollar/dollar/index.js
+1202 silly gunzTarPerm extractEntry test/delay/diverted.js
+1203 silly gunzTarPerm modified mode [ 'test/delay/diverted.js', 436, 420 ]
+1204 silly gunzTarPerm extractEntry test/delay/main.js
+1205 silly gunzTarPerm modified mode [ 'test/delay/main.js', 436, 420 ]
+1206 silly gunzTarPerm extractEntry test/stream/bar.js
+1207 silly gunzTarPerm modified mode [ 'test/stream/bar.js', 436, 420 ]
+1208 silly gunzTarPerm extractEntry test/stream/foo.js
+1209 silly gunzTarPerm modified mode [ 'test/stream/foo.js', 436, 420 ]
+1210 silly gunzTarPerm extractEntry test/stream/main.js
+1211 silly gunzTarPerm modified mode [ 'test/stream/main.js', 436, 420 ]
+1212 silly gunzTarPerm extractEntry test/debug_standalone/x.js
+1213 silly gunzTarPerm modified mode [ 'test/debug_standalone/x.js', 436, 420 ]
+1214 silly gunzTarPerm extractEntry test/cycle/README.md
+1215 silly gunzTarPerm modified mode [ 'test/cycle/README.md', 436, 420 ]
+1216 silly gunzTarPerm extractEntry test/cycle/entry.js
+1217 silly gunzTarPerm modified mode [ 'test/cycle/entry.js', 436, 420 ]
+1218 silly gunzTarPerm extractEntry test/cycle/mod1/a.js
+1219 silly gunzTarPerm modified mode [ 'test/cycle/mod1/a.js', 436, 420 ]
+1220 silly gunzTarPerm extractEntry test/cycle/mod1/b.js
+1221 silly gunzTarPerm modified mode [ 'test/cycle/mod1/b.js', 436, 420 ]
+1222 silly gunzTarPerm extractEntry test/cycle/mod2/a.js
+1223 silly gunzTarPerm modified mode [ 'test/cycle/mod2/a.js', 436, 420 ]
+1224 silly gunzTarPerm extractEntry test/cycle/mod2/b.js
+1225 silly gunzTarPerm modified mode [ 'test/cycle/mod2/b.js', 436, 420 ]
+1226 silly gunzTarPerm extractEntry test/subdep/package.json
+1227 silly gunzTarPerm extractEntry test/subdep/index.js
+1228 silly gunzTarPerm extractEntry test/comment/main.js
+1229 silly gunzTarPerm modified mode [ 'test/comment/main.js', 436, 420 ]
+1230 silly gunzTarPerm extractEntry test/tr/package.json
+1231 silly gunzTarPerm modified mode [ 'test/tr/package.json', 436, 420 ]
+1232 silly gunzTarPerm extractEntry test/tr/f.js
+1233 silly gunzTarPerm modified mode [ 'test/tr/f.js', 436, 420 ]
+1234 silly gunzTarPerm extractEntry test/tr/main.js
+1235 silly gunzTarPerm modified mode [ 'test/tr/main.js', 436, 420 ]
+1236 silly gunzTarPerm extractEntry test/tr/subdir/g.js
+1237 silly gunzTarPerm modified mode [ 'test/tr/subdir/g.js', 436, 420 ]
+1238 silly gunzTarPerm extractEntry test/coffeeify/main.coffee
+1239 silly gunzTarPerm modified mode [ 'test/coffeeify/main.coffee', 436, 420 ]
+1240 silly gunzTarPerm extractEntry test/tr_args/main.js
+1241 silly gunzTarPerm modified mode [ 'test/tr_args/main.js', 436, 420 ]
+1242 silly gunzTarPerm extractEntry test/tr_args/tr.js
+1243 silly gunzTarPerm modified mode [ 'test/tr_args/tr.js', 436, 420 ]
+1244 silly gunzTarPerm extractEntry test/coffee_bin/main.coffee
+1245 silly gunzTarPerm modified mode [ 'test/coffee_bin/main.coffee', 436, 420 ]
+1246 silly gunzTarPerm extractEntry test/coffee_bin/x.coffee
+1247 silly gunzTarPerm modified mode [ 'test/coffee_bin/x.coffee', 436, 420 ]
+1248 silly gunzTarPerm extractEntry test/circular/a.js
+1249 silly gunzTarPerm modified mode [ 'test/circular/a.js', 436, 420 ]
+1250 silly gunzTarPerm extractEntry test/circular/b.js
+1251 silly gunzTarPerm modified mode [ 'test/circular/b.js', 436, 420 ]
+1252 silly gunzTarPerm extractEntry test/circular/main.js
+1253 silly gunzTarPerm modified mode [ 'test/circular/main.js', 436, 420 ]
+1254 silly gunzTarPerm extractEntry test/catch/main.js
+1255 silly gunzTarPerm modified mode [ 'test/catch/main.js', 436, 420 ]
+1256 silly gunzTarPerm extractEntry test/tr_no_entry/main.js
+1257 silly gunzTarPerm modified mode [ 'test/tr_no_entry/main.js', 436, 420 ]
+1258 silly gunzTarPerm extractEntry test/bundle_external/boop.js
+1259 silly gunzTarPerm modified mode [ 'test/bundle_external/boop.js', 436, 420 ]
+1260 silly gunzTarPerm extractEntry test/bundle_external/main.js
+1261 silly gunzTarPerm modified mode [ 'test/bundle_external/main.js', 436, 420 ]
+1262 silly gunzTarPerm extractEntry test/bundle_external/robot.js
+1263 silly gunzTarPerm modified mode [ 'test/bundle_external/robot.js', 436, 420 ]
+1264 silly gunzTarPerm extractEntry test/unicode/main.js
+1265 silly gunzTarPerm extractEntry test/unicode/one.js
+1266 silly gunzTarPerm extractEntry test/unicode/two.js
+1267 silly gunzTarPerm extractEntry test/bom/hello.js
+1268 silly gunzTarPerm modified mode [ 'test/bom/hello.js', 436, 420 ]
+1269 silly gunzTarPerm extractEntry test/bin_tr_error/main.js
+1270 silly gunzTarPerm modified mode [ 'test/bin_tr_error/main.js', 436, 420 ]
+1271 silly gunzTarPerm extractEntry test/bin_tr_error/tr.js
+1272 silly gunzTarPerm modified mode [ 'test/bin_tr_error/tr.js', 436, 420 ]
+1273 silly gunzTarPerm extractEntry test/reverse_multi_bundle/app.js
+1274 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/app.js', 436, 420 ]
+1275 silly gunzTarPerm extractEntry test/reverse_multi_bundle/arbitrary.js
+1276 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/arbitrary.js', 436, 420 ]
+1277 silly gunzTarPerm extractEntry test/reverse_multi_bundle/lazy.js
+1278 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/lazy.js', 436, 420 ]
+1279 silly gunzTarPerm extractEntry test/reverse_multi_bundle/shared.js
+1280 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/shared.js', 436, 420 ]
+1281 silly gunzTarPerm extractEntry test/node_modules/beep/index.js
+1282 silly gunzTarPerm modified mode [ 'test/node_modules/beep/index.js', 436, 420 ]
+1283 silly gunzTarPerm extractEntry test/node_modules/plugin-foo/index.js
+1284 silly gunzTarPerm modified mode [ 'test/node_modules/plugin-foo/index.js', 436, 420 ]
+1285 silly gunzTarPerm extractEntry test/node_modules/tr/index.js
+1286 silly gunzTarPerm modified mode [ 'test/node_modules/tr/index.js', 436, 420 ]
+1287 silly lockFile 4f0868bb-53964-0-7018233768176287-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package
+1288 silly lockFile 4f0868bb-53964-0-7018233768176287-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package
+1289 silly lockFile f591821a-53964-0-7018233768176287-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\tmp.tgz
+1290 silly lockFile f591821a-53964-0-7018233768176287-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\tmp.tgz
+1291 verbose tar pack [ 'C:\\Users\\tom.chang\\AppData\\Roaming\\npm-cache\\browserify\\6.3.4\\package.tgz',
+1291 verbose tar pack   'C:\\Users\\TOM~1.CHA\\AppData\\Local\\Temp\\npm-13596-AjY3Bc9Z\\1442827653964-0.7018233768176287\\package' ]
+1292 verbose tarball C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1293 verbose folder C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package
+1294 silly lockFile 4f0868bb-53964-0-7018233768176287-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package
+1295 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package C:\Users\tom.chang\AppData\Roaming\npm-cache\4f0868bb-53964-0-7018233768176287-package.lock
+1296 silly lockFile b9372608-che-browserify-6-3-4-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1297 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\b9372608-che-browserify-6-3-4-package-tgz.lock
+1298 silly lockFile 4f0868bb-53964-0-7018233768176287-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package
+1299 silly lockFile 4f0868bb-53964-0-7018233768176287-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827653964-0.7018233768176287\package
+1300 silly lockFile b9372608-che-browserify-6-3-4-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1301 silly lockFile b9372608-che-browserify-6-3-4-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1302 silly lockFile fd3e9dc8-m-cache-browserify-6-3-4-package C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package
+1303 verbose lock C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package C:\Users\tom.chang\AppData\Roaming\npm-cache\fd3e9dc8-m-cache-browserify-6-3-4-package.lock
+1304 silly lockFile fd3e9dc8-m-cache-browserify-6-3-4-package C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package
+1305 silly lockFile fd3e9dc8-m-cache-browserify-6-3-4-package C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package
+1306 verbose tar unpack C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1307 silly lockFile adb6e53f-m-cache-browserify-6-3-4-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package
+1308 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package C:\Users\tom.chang\AppData\Roaming\npm-cache\adb6e53f-m-cache-browserify-6-3-4-package.lock
+1309 silly lockFile b9372608-che-browserify-6-3-4-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1310 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\b9372608-che-browserify-6-3-4-package-tgz.lock
+1311 silly gunzTarPerm modes [ '755', '644' ]
+1312 silly gunzTarPerm extractEntry package.json
+1313 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+1314 silly gunzTarPerm extractEntry .npmignore
+1315 silly gunzTarPerm modified mode [ '.npmignore', 438, 420 ]
+1316 silly gunzTarPerm extractEntry LICENSE
+1317 silly gunzTarPerm modified mode [ 'LICENSE', 438, 420 ]
+1318 silly gunzTarPerm extractEntry index.js
+1319 silly gunzTarPerm modified mode [ 'index.js', 438, 420 ]
+1320 silly gunzTarPerm extractEntry changelog.markdown
+1321 silly gunzTarPerm modified mode [ 'changelog.markdown', 438, 420 ]
+1322 silly gunzTarPerm extractEntry doc/changelog/3_0.markdown
+1323 silly gunzTarPerm modified mode [ 'doc/changelog/3_0.markdown', 438, 420 ]
+1324 silly gunzTarPerm extractEntry doc/changelog/4_0.markdown
+1325 silly gunzTarPerm modified mode [ 'doc/changelog/4_0.markdown', 438, 420 ]
+1326 silly gunzTarPerm extractEntry doc/changelog/5_0.markdown
+1327 silly gunzTarPerm modified mode [ 'doc/changelog/5_0.markdown', 438, 420 ]
+1328 silly gunzTarPerm extractEntry doc/changelog/6_0.markdown
+1329 silly gunzTarPerm modified mode [ 'doc/changelog/6_0.markdown', 438, 420 ]
+1330 silly gunzTarPerm extractEntry .travis.yml
+1331 silly gunzTarPerm modified mode [ '.travis.yml', 438, 420 ]
+1332 silly gunzTarPerm extractEntry test/args.js
+1333 silly gunzTarPerm modified mode [ 'test/args.js', 438, 420 ]
+1334 silly gunzTarPerm extractEntry test/dnode.js
+1335 silly gunzTarPerm modified mode [ 'test/dnode.js', 438, 420 ]
+1336 silly gunzTarPerm extractEntry test/standalone_sourcemap.js
+1337 silly gunzTarPerm modified mode [ 'test/standalone_sourcemap.js', 438, 420 ]
+1338 silly gunzTarPerm extractEntry test/dollar.js
+1339 silly gunzTarPerm modified mode [ 'test/dollar.js', 438, 420 ]
+1340 silly gunzTarPerm extractEntry test/dep.js
+1341 silly gunzTarPerm modified mode [ 'test/dep.js', 438, 420 ]
+1342 silly gunzTarPerm extractEntry test/double_buffer.js
+1343 silly gunzTarPerm modified mode [ 'test/double_buffer.js', 438, 420 ]
+1344 silly gunzTarPerm extractEntry test/double_bundle.js
+1345 silly gunzTarPerm modified mode [ 'test/double_bundle.js', 438, 420 ]
+1346 silly gunzTarPerm extractEntry test/double_bundle_parallel.js
+1347 silly gunzTarPerm modified mode [ 'test/double_bundle_parallel.js', 438, 420 ]
+1348 silly gunzTarPerm extractEntry test/double_bundle_parallel_cache.js
+1349 silly gunzTarPerm modified mode [ 'test/double_bundle_parallel_cache.js', 438, 420 ]
+1350 silly gunzTarPerm extractEntry test/standalone.js
+1351 silly gunzTarPerm modified mode [ 'test/standalone.js', 438, 420 ]
+1352 silly gunzTarPerm extractEntry test/delay.js
+1353 silly gunzTarPerm modified mode [ 'test/delay.js', 438, 420 ]
+1354 silly gunzTarPerm extractEntry test/shebang.js
+1355 silly gunzTarPerm modified mode [ 'test/shebang.js', 438, 420 ]
+1356 silly gunzTarPerm extractEntry test/stdin.js
+1357 silly gunzTarPerm modified mode [ 'test/stdin.js', 438, 420 ]
+1358 silly gunzTarPerm extractEntry test/entry.js
+1359 silly gunzTarPerm modified mode [ 'test/entry.js', 438, 420 ]
+1360 silly gunzTarPerm extractEntry test/dedupe-nomap.js
+1361 silly gunzTarPerm modified mode [ 'test/dedupe-nomap.js', 438, 420 ]
+1362 silly gunzTarPerm extractEntry test/reverse_multi_bundle.js
+1363 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle.js', 438, 420 ]
+1364 silly gunzTarPerm extractEntry test/dedupe-deps.js
+1365 silly gunzTarPerm modified mode [ 'test/dedupe-deps.js', 438, 420 ]
+1366 silly gunzTarPerm extractEntry test/entry_exec.js
+1367 silly gunzTarPerm modified mode [ 'test/entry_exec.js', 438, 420 ]
+1368 silly gunzTarPerm extractEntry test/debug_standalone.js
+1369 silly gunzTarPerm modified mode [ 'test/debug_standalone.js', 438, 420 ]
+1370 silly gunzTarPerm extractEntry test/retarget.js
+1371 silly gunzTarPerm modified mode [ 'test/retarget.js', 438, 420 ]
+1372 silly gunzTarPerm extractEntry test/stream.js
+1373 silly gunzTarPerm modified mode [ 'test/stream.js', 438, 420 ]
+1374 silly gunzTarPerm extractEntry test/error_code.js
+1375 silly gunzTarPerm modified mode [ 'test/error_code.js', 438, 420 ]
+1376 silly gunzTarPerm extractEntry test/cycle.js
+1377 silly gunzTarPerm modified mode [ 'test/cycle.js', 438, 420 ]
+1378 silly gunzTarPerm extractEntry test/reset.js
+1379 silly gunzTarPerm modified mode [ 'test/reset.js', 438, 420 ]
+1380 silly gunzTarPerm extractEntry test/stream_file.js
+1381 silly gunzTarPerm modified mode [ 'test/stream_file.js', 438, 420 ]
+1382 silly gunzTarPerm extractEntry test/export.js
+1383 silly gunzTarPerm modified mode [ 'test/export.js', 438, 420 ]
+1384 silly gunzTarPerm extractEntry test/crypto_ig.js
+1385 silly gunzTarPerm modified mode [ 'test/crypto_ig.js', 438, 420 ]
+1386 silly gunzTarPerm extractEntry test/require_cache.js
+1387 silly gunzTarPerm modified mode [ 'test/require_cache.js', 438, 420 ]
+1388 silly gunzTarPerm extractEntry test/crypto.js
+1389 silly gunzTarPerm modified mode [ 'test/crypto.js', 438, 420 ]
+1390 silly gunzTarPerm extractEntry test/external.js
+1391 silly gunzTarPerm modified mode [ 'test/external.js', 438, 420 ]
+1392 silly gunzTarPerm extractEntry test/constants.js
+1393 silly gunzTarPerm modified mode [ 'test/constants.js', 438, 420 ]
+1394 silly gunzTarPerm extractEntry test/process.js
+1395 silly gunzTarPerm modified mode [ 'test/process.js', 438, 420 ]
+1396 silly gunzTarPerm extractEntry test/comment.js
+1397 silly gunzTarPerm modified mode [ 'test/comment.js', 438, 420 ]
+1398 silly gunzTarPerm extractEntry test/plugin.js
+1399 silly gunzTarPerm modified mode [ 'test/plugin.js', 438, 420 ]
+1400 silly gunzTarPerm extractEntry test/subdep.js
+1401 silly gunzTarPerm modified mode [ 'test/subdep.js', 438, 420 ]
+1402 silly gunzTarPerm extractEntry test/externalize.js
+1403 silly gunzTarPerm modified mode [ 'test/externalize.js', 438, 420 ]
+1404 silly gunzTarPerm extractEntry test/coffeeify.js
+1405 silly gunzTarPerm modified mode [ 'test/coffeeify.js', 438, 420 ]
+1406 silly gunzTarPerm extractEntry test/pkg.js
+1407 silly gunzTarPerm modified mode [ 'test/pkg.js', 438, 420 ]
+1408 silly gunzTarPerm extractEntry test/tr.js
+1409 silly gunzTarPerm modified mode [ 'test/tr.js', 438, 420 ]
+1410 silly gunzTarPerm extractEntry test/fake.js
+1411 silly gunzTarPerm modified mode [ 'test/fake.js', 438, 420 ]
+1412 silly gunzTarPerm extractEntry test/coffee_bin.js
+1413 silly gunzTarPerm modified mode [ 'test/coffee_bin.js', 438, 420 ]
+1414 silly gunzTarPerm extractEntry test/pipeline_deps.js
+1415 silly gunzTarPerm modified mode [ 'test/pipeline_deps.js', 438, 420 ]
+1416 silly gunzTarPerm extractEntry test/tr_args.js
+1417 silly gunzTarPerm modified mode [ 'test/tr_args.js', 438, 420 ]
+1418 silly gunzTarPerm extractEntry test/field.js
+1419 silly gunzTarPerm modified mode [ 'test/field.js', 438, 420 ]
+1420 silly gunzTarPerm extractEntry test/circular.js
+1421 silly gunzTarPerm modified mode [ 'test/circular.js', 438, 420 ]
+1422 silly gunzTarPerm extractEntry test/file_event.js
+1423 silly gunzTarPerm modified mode [ 'test/file_event.js', 438, 420 ]
+1424 silly gunzTarPerm extractEntry test/tr_error.js
+1425 silly gunzTarPerm modified mode [ 'test/tr_error.js', 438, 420 ]
+1426 silly gunzTarPerm extractEntry test/five_bundle.js
+1427 silly gunzTarPerm modified mode [ 'test/five_bundle.js', 438, 420 ]
+1428 silly gunzTarPerm extractEntry test/catch.js
+1429 silly gunzTarPerm modified mode [ 'test/catch.js', 438, 420 ]
+1430 silly gunzTarPerm extractEntry test/full_paths.js
+1431 silly gunzTarPerm modified mode [ 'test/full_paths.js', 438, 420 ]
+1432 silly gunzTarPerm extractEntry test/tr_flags.js
+1433 silly gunzTarPerm modified mode [ 'test/tr_flags.js', 438, 420 ]
+1434 silly gunzTarPerm extractEntry test/paths.js
+1435 silly gunzTarPerm modified mode [ 'test/paths.js', 438, 420 ]
+1436 silly gunzTarPerm extractEntry test/bundle_sourcemap.js
+1437 silly gunzTarPerm modified mode [ 'test/bundle_sourcemap.js', 438, 420 ]
+1438 silly gunzTarPerm extractEntry test/glob.js
+1439 silly gunzTarPerm modified mode [ 'test/glob.js', 438, 420 ]
+1440 silly gunzTarPerm extractEntry test/bundle_external_global.js
+1441 silly gunzTarPerm modified mode [ 'test/bundle_external_global.js', 438, 420 ]
+1442 silly gunzTarPerm extractEntry test/pack.js
+1443 silly gunzTarPerm modified mode [ 'test/pack.js', 438, 420 ]
+1444 silly gunzTarPerm extractEntry test/bundle_external.js
+1445 silly gunzTarPerm modified mode [ 'test/bundle_external.js', 438, 420 ]
+1446 silly gunzTarPerm extractEntry test/global.js
+1447 silly gunzTarPerm modified mode [ 'test/global.js', 438, 420 ]
+1448 silly gunzTarPerm extractEntry test/tr_no_entry.js
+1449 silly gunzTarPerm modified mode [ 'test/tr_no_entry.js', 438, 420 ]
+1450 silly gunzTarPerm extractEntry test/global_coffeeify.js
+1451 silly gunzTarPerm modified mode [ 'test/global_coffeeify.js', 438, 420 ]
+1452 silly gunzTarPerm extractEntry test/bundle.js
+1453 silly gunzTarPerm modified mode [ 'test/bundle.js', 438, 420 ]
+1454 silly gunzTarPerm extractEntry test/no_builtins.js
+1455 silly gunzTarPerm modified mode [ 'test/no_builtins.js', 438, 420 ]
+1456 silly gunzTarPerm extractEntry test/buffer.js
+1457 silly gunzTarPerm modified mode [ 'test/buffer.js', 438, 420 ]
+1458 silly gunzTarPerm extractEntry test/hash.js
+1459 silly gunzTarPerm modified mode [ 'test/hash.js', 438, 420 ]
+1460 silly gunzTarPerm extractEntry test/bom.js
+1461 silly gunzTarPerm modified mode [ 'test/bom.js', 438, 420 ]
+1462 silly gunzTarPerm extractEntry test/multi_entry.js
+1463 silly gunzTarPerm modified mode [ 'test/multi_entry.js', 438, 420 ]
+1464 silly gunzTarPerm extractEntry test/unicode.js
+1465 silly gunzTarPerm modified mode [ 'test/unicode.js', 438, 420 ]
+1466 silly gunzTarPerm extractEntry test/hash_instance.js
+1467 silly gunzTarPerm modified mode [ 'test/hash_instance.js', 438, 420 ]
+1468 silly gunzTarPerm extractEntry test/bin_tr_error.js
+1469 silly gunzTarPerm modified mode [ 'test/bin_tr_error.js', 438, 420 ]
+1470 silly gunzTarPerm extractEntry test/multi_bundle_unique.js
+1471 silly gunzTarPerm modified mode [ 'test/multi_bundle_unique.js', 438, 420 ]
+1472 silly gunzTarPerm extractEntry test/util.js
+1473 silly gunzTarPerm modified mode [ 'test/util.js', 438, 420 ]
+1474 silly gunzTarPerm extractEntry test/hash_instance_context.js
+1475 silly gunzTarPerm modified mode [ 'test/hash_instance_context.js', 438, 420 ]
+1476 silly gunzTarPerm extractEntry test/bin_entry.js
+1477 silly gunzTarPerm modified mode [ 'test/bin_entry.js', 438, 420 ]
+1478 silly gunzTarPerm extractEntry test/multi_bundle.js
+1479 silly gunzTarPerm modified mode [ 'test/multi_bundle.js', 438, 420 ]
+1480 silly gunzTarPerm extractEntry test/bin.js
+1481 silly gunzTarPerm modified mode [ 'test/bin.js', 438, 420 ]
+1482 silly gunzTarPerm extractEntry test/ignore.js
+1483 silly gunzTarPerm modified mode [ 'test/ignore.js', 438, 420 ]
+1484 silly gunzTarPerm extractEntry test/bare_shebang.js
+1485 silly gunzTarPerm modified mode [ 'test/bare_shebang.js', 438, 420 ]
+1486 silly gunzTarPerm extractEntry test/maxlisteners.js
+1487 silly gunzTarPerm modified mode [ 'test/maxlisteners.js', 438, 420 ]
+1488 silly gunzTarPerm extractEntry test/bare.js
+1489 silly gunzTarPerm modified mode [ 'test/bare.js', 438, 420 ]
+1490 silly gunzTarPerm extractEntry test/ignore_missing.js
+1491 silly gunzTarPerm modified mode [ 'test/ignore_missing.js', 438, 420 ]
+1492 silly gunzTarPerm extractEntry test/backbone.js
+1493 silly gunzTarPerm modified mode [ 'test/backbone.js', 438, 420 ]
+1494 silly gunzTarPerm extractEntry test/leak.js
+1495 silly gunzTarPerm modified mode [ 'test/leak.js', 438, 420 ]
+1496 silly gunzTarPerm extractEntry test/array.js
+1497 silly gunzTarPerm modified mode [ 'test/array.js', 438, 420 ]
+1498 silly gunzTarPerm extractEntry test/json.js
+1499 silly gunzTarPerm modified mode [ 'test/json.js', 438, 420 ]
+1500 silly gunzTarPerm extractEntry test/standalone_events.js
+1501 silly gunzTarPerm modified mode [ 'test/standalone_events.js', 438, 420 ]
+1502 silly gunzTarPerm extractEntry test/yield.js
+1503 silly gunzTarPerm modified mode [ 'test/yield.js', 438, 420 ]
+1504 silly gunzTarPerm extractEntry test/entry_exec/fail.js
+1505 silly gunzTarPerm modified mode [ 'test/entry_exec/fail.js', 438, 420 ]
+1506 silly gunzTarPerm extractEntry test/entry_exec/main.js
+1507 silly gunzTarPerm modified mode [ 'test/entry_exec/main.js', 438, 420 ]
+1508 silly gunzTarPerm extractEntry test/json/main.js
+1509 silly gunzTarPerm modified mode [ 'test/json/main.js', 438, 420 ]
+1510 silly gunzTarPerm extractEntry test/json/beep.json
+1511 silly gunzTarPerm modified mode [ 'test/json/beep.json', 438, 420 ]
+1512 silly gunzTarPerm extractEntry test/ignore_missing/main.js
+1513 silly gunzTarPerm modified mode [ 'test/ignore_missing/main.js', 438, 420 ]
+1514 silly gunzTarPerm extractEntry test/multi_bundle/_prelude.js
+1515 silly gunzTarPerm modified mode [ 'test/multi_bundle/_prelude.js', 438, 420 ]
+1516 silly gunzTarPerm extractEntry test/multi_bundle/a.js
+1517 silly gunzTarPerm modified mode [ 'test/multi_bundle/a.js', 438, 420 ]
+1518 silly gunzTarPerm extractEntry test/multi_bundle/b.js
+1519 silly gunzTarPerm modified mode [ 'test/multi_bundle/b.js', 438, 420 ]
+1520 silly gunzTarPerm extractEntry test/multi_bundle/c.js
+1521 silly gunzTarPerm modified mode [ 'test/multi_bundle/c.js', 438, 420 ]
+1522 silly gunzTarPerm extractEntry test/ignore/by-id.js
+1523 silly gunzTarPerm modified mode [ 'test/ignore/by-id.js', 438, 420 ]
+1524 silly gunzTarPerm extractEntry test/ignore/by-relative.js
+1525 silly gunzTarPerm modified mode [ 'test/ignore/by-relative.js', 438, 420 ]
+1526 silly gunzTarPerm extractEntry test/ignore/double-skip.js
+1527 silly gunzTarPerm modified mode [ 'test/ignore/double-skip.js', 438, 420 ]
+1528 silly gunzTarPerm extractEntry test/ignore/main.js
+1529 silly gunzTarPerm modified mode [ 'test/ignore/main.js', 438, 420 ]
+1530 silly gunzTarPerm extractEntry test/ignore/skip.js
+1531 silly gunzTarPerm modified mode [ 'test/ignore/skip.js', 438, 420 ]
+1532 silly gunzTarPerm extractEntry test/ignore/double-skip/index.js
+1533 silly gunzTarPerm modified mode [ 'test/ignore/double-skip/index.js', 438, 420 ]
+1534 silly gunzTarPerm extractEntry test/ignore/double-skip/skip.js
+1535 silly gunzTarPerm modified mode [ 'test/ignore/double-skip/skip.js', 438, 420 ]
+1536 silly gunzTarPerm extractEntry test/ignore/ignored/skip.js
+1537 silly gunzTarPerm modified mode [ 'test/ignore/ignored/skip.js', 438, 420 ]
+1538 silly gunzTarPerm extractEntry test/ignore/relative/index.js
+1539 silly gunzTarPerm modified mode [ 'test/ignore/relative/index.js', 438, 420 ]
+1540 silly gunzTarPerm extractEntry test/hash_instance_context/main.js
+1541 silly gunzTarPerm modified mode [ 'test/hash_instance_context/main.js', 438, 420 ]
+1542 silly gunzTarPerm extractEntry test/hash_instance_context/one/f.js
+1543 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/f.js', 438, 420 ]
+1544 silly gunzTarPerm extractEntry test/hash_instance_context/one/g.js
+1545 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/g.js', 438, 420 ]
+1546 silly gunzTarPerm extractEntry test/hash_instance_context/one/dir/f.js
+1547 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/dir/f.js', 438, 420 ]
+1548 silly gunzTarPerm extractEntry test/hash_instance_context/one/dir/g.js
+1549 silly gunzTarPerm modified mode [ 'test/hash_instance_context/one/dir/g.js', 438, 420 ]
+1550 silly gunzTarPerm extractEntry test/hash_instance_context/three/f.js
+1551 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/f.js', 438, 420 ]
+1552 silly gunzTarPerm extractEntry test/hash_instance_context/three/g.js
+1553 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/g.js', 438, 420 ]
+1554 silly gunzTarPerm extractEntry test/hash_instance_context/three/h.js
+1555 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/h.js', 438, 420 ]
+1556 silly gunzTarPerm extractEntry test/hash_instance_context/three/dir/f.js
+1557 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/dir/f.js', 438, 420 ]
+1558 silly gunzTarPerm extractEntry test/hash_instance_context/three/dir/g.js
+1559 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/dir/g.js', 438, 420 ]
+1560 silly gunzTarPerm extractEntry test/hash_instance_context/three/dir/h.js
+1561 silly gunzTarPerm modified mode [ 'test/hash_instance_context/three/dir/h.js', 438, 420 ]
+1562 silly gunzTarPerm extractEntry test/hash_instance_context/two/f.js
+1563 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/f.js', 438, 420 ]
+1564 silly gunzTarPerm extractEntry test/hash_instance_context/two/g.js
+1565 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/g.js', 438, 420 ]
+1566 silly gunzTarPerm extractEntry test/hash_instance_context/two/h.js
+1567 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/h.js', 438, 420 ]
+1568 silly gunzTarPerm extractEntry test/hash_instance_context/two/dir/f.js
+1569 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/dir/f.js', 438, 420 ]
+1570 silly gunzTarPerm extractEntry test/hash_instance_context/two/dir/g.js
+1571 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/dir/g.js', 438, 420 ]
+1572 silly gunzTarPerm extractEntry test/hash_instance_context/two/dir/h.js
+1573 silly gunzTarPerm modified mode [ 'test/hash_instance_context/two/dir/h.js', 438, 420 ]
+1574 silly gunzTarPerm extractEntry test/multi_entry/a.js
+1575 silly gunzTarPerm modified mode [ 'test/multi_entry/a.js', 438, 420 ]
+1576 silly gunzTarPerm extractEntry test/multi_entry/b.js
+1577 silly gunzTarPerm modified mode [ 'test/multi_entry/b.js', 438, 420 ]
+1578 silly gunzTarPerm extractEntry test/multi_entry/c.js
+1579 silly gunzTarPerm modified mode [ 'test/multi_entry/c.js', 438, 420 ]
+1580 silly gunzTarPerm extractEntry test/hash_instance/main.js
+1581 silly gunzTarPerm modified mode [ 'test/hash_instance/main.js', 438, 420 ]
+1582 silly gunzTarPerm extractEntry test/hash_instance/one.js
+1583 silly gunzTarPerm modified mode [ 'test/hash_instance/one.js', 438, 420 ]
+1584 silly gunzTarPerm extractEntry test/hash_instance/foo/two.js
+1585 silly gunzTarPerm modified mode [ 'test/hash_instance/foo/two.js', 438, 420 ]
+1586 silly gunzTarPerm extractEntry test/no_builtins/main.js
+1587 silly gunzTarPerm modified mode [ 'test/no_builtins/main.js', 438, 420 ]
+1588 silly gunzTarPerm extractEntry test/no_builtins/extra/fs.js
+1589 silly gunzTarPerm modified mode [ 'test/no_builtins/extra/fs.js', 438, 420 ]
+1590 silly gunzTarPerm extractEntry test/no_builtins/extra/tls.js
+1591 silly gunzTarPerm modified mode [ 'test/no_builtins/extra/tls.js', 438, 420 ]
+1592 silly gunzTarPerm extractEntry test/no_builtins/x.txt
+1593 silly gunzTarPerm modified mode [ 'test/no_builtins/x.txt', 438, 420 ]
+1594 silly gunzTarPerm extractEntry test/hash/main.js
+1595 silly gunzTarPerm modified mode [ 'test/hash/main.js', 438, 420 ]
+1596 silly gunzTarPerm extractEntry test/hash/one.js
+1597 silly gunzTarPerm modified mode [ 'test/hash/one.js', 438, 420 ]
+1598 silly gunzTarPerm extractEntry test/hash/other.js
+1599 silly gunzTarPerm modified mode [ 'test/hash/other.js', 438, 420 ]
+1600 silly gunzTarPerm extractEntry test/hash/foo/other.js
+1601 silly gunzTarPerm modified mode [ 'test/hash/foo/other.js', 438, 420 ]
+1602 silly gunzTarPerm extractEntry test/hash/foo/two.js
+1603 silly gunzTarPerm modified mode [ 'test/hash/foo/two.js', 438, 420 ]
+1604 silly gunzTarPerm extractEntry test/yield/f.js
+1605 silly gunzTarPerm modified mode [ 'test/yield/f.js', 438, 420 ]
+1606 silly gunzTarPerm extractEntry test/yield/main.js
+1607 silly gunzTarPerm modified mode [ 'test/yield/main.js', 438, 420 ]
+1608 silly gunzTarPerm extractEntry test/global/buffer.js
+1609 silly gunzTarPerm modified mode [ 'test/global/buffer.js', 438, 420 ]
+1610 silly gunzTarPerm extractEntry test/global/filename.js
+1611 silly gunzTarPerm modified mode [ 'test/global/filename.js', 438, 420 ]
+1612 silly gunzTarPerm extractEntry test/global/main.js
+1613 silly gunzTarPerm modified mode [ 'test/global/main.js', 438, 420 ]
+1614 silly gunzTarPerm extractEntry test/global/tick.js
+1615 silly gunzTarPerm modified mode [ 'test/global/tick.js', 438, 420 ]
+1616 silly gunzTarPerm extractEntry test/paths/main.js
+1617 silly gunzTarPerm modified mode [ 'test/paths/main.js', 438, 420 ]
+1618 silly gunzTarPerm extractEntry test/paths/x/aaa/index.js
+1619 silly gunzTarPerm modified mode [ 'test/paths/x/aaa/index.js', 438, 420 ]
+1620 silly gunzTarPerm extractEntry test/paths/x/ccc/index.js
+1621 silly gunzTarPerm modified mode [ 'test/paths/x/ccc/index.js', 438, 420 ]
+1622 silly gunzTarPerm extractEntry test/paths/y/bbb/index.js
+1623 silly gunzTarPerm modified mode [ 'test/paths/y/bbb/index.js', 438, 420 ]
+1624 silly gunzTarPerm extractEntry test/paths/y/ccc/index.js
+1625 silly gunzTarPerm modified mode [ 'test/paths/y/ccc/index.js', 438, 420 ]
+1626 silly gunzTarPerm extractEntry test/array/one.js
+1627 silly gunzTarPerm modified mode [ 'test/array/one.js', 438, 420 ]
+1628 silly gunzTarPerm extractEntry test/array/three.js
+1629 silly gunzTarPerm modified mode [ 'test/array/three.js', 438, 420 ]
+1630 silly gunzTarPerm extractEntry test/array/two.js
+1631 silly gunzTarPerm modified mode [ 'test/array/two.js', 438, 420 ]
+1632 silly gunzTarPerm extractEntry test/pipeline_deps/bar.js
+1633 silly gunzTarPerm modified mode [ 'test/pipeline_deps/bar.js', 438, 420 ]
+1634 silly gunzTarPerm extractEntry test/pipeline_deps/foo.js
+1635 silly gunzTarPerm modified mode [ 'test/pipeline_deps/foo.js', 438, 420 ]
+1636 silly gunzTarPerm extractEntry test/pipeline_deps/main.js
+1637 silly gunzTarPerm modified mode [ 'test/pipeline_deps/main.js', 438, 420 ]
+1638 silly gunzTarPerm extractEntry test/pipeline_deps/xyz.js
+1639 silly gunzTarPerm modified mode [ 'test/pipeline_deps/xyz.js', 438, 420 ]
+1640 silly gunzTarPerm extractEntry test/field/miss.js
+1641 silly gunzTarPerm modified mode [ 'test/field/miss.js', 438, 420 ]
+1642 silly gunzTarPerm extractEntry test/field/object.js
+1643 silly gunzTarPerm modified mode [ 'test/field/object.js', 438, 420 ]
+1644 silly gunzTarPerm extractEntry test/field/string.js
+1645 silly gunzTarPerm modified mode [ 'test/field/string.js', 438, 420 ]
+1646 silly gunzTarPerm extractEntry test/field/sub.js
+1647 silly gunzTarPerm modified mode [ 'test/field/sub.js', 438, 420 ]
+1648 silly gunzTarPerm extractEntry test/field/node_modules/z-miss/package.json
+1649 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-miss/package.json', 438, 420 ]
+1650 silly gunzTarPerm extractEntry test/field/node_modules/z-miss/browser.js
+1651 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-miss/browser.js', 438, 420 ]
+1652 silly gunzTarPerm extractEntry test/field/node_modules/z-miss/main.js
+1653 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-miss/main.js', 438, 420 ]
+1654 silly gunzTarPerm extractEntry test/field/node_modules/z-object/package.json
+1655 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-object/package.json', 438, 420 ]
+1656 silly gunzTarPerm extractEntry test/field/node_modules/z-object/browser.js
+1657 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-object/browser.js', 438, 420 ]
+1658 silly gunzTarPerm extractEntry test/field/node_modules/z-object/main.js
+1659 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-object/main.js', 438, 420 ]
+1660 silly gunzTarPerm extractEntry test/field/node_modules/z-string/package.json
+1661 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-string/package.json', 438, 420 ]
+1662 silly gunzTarPerm extractEntry test/field/node_modules/z-string/browser.js
+1663 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-string/browser.js', 438, 420 ]
+1664 silly gunzTarPerm extractEntry test/field/node_modules/z-string/main.js
+1665 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-string/main.js', 438, 420 ]
+1666 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/package.json
+1667 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/package.json', 438, 420 ]
+1668 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/main.js
+1669 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/main.js', 438, 420 ]
+1670 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/browser/a.js
+1671 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/browser/a.js', 438, 420 ]
+1672 silly gunzTarPerm extractEntry test/field/node_modules/z-sub/browser/b.js
+1673 silly gunzTarPerm modified mode [ 'test/field/node_modules/z-sub/browser/b.js', 438, 420 ]
+1674 silly gunzTarPerm extractEntry test/pkg/package.json
+1675 silly gunzTarPerm modified mode [ 'test/pkg/package.json', 438, 420 ]
+1676 silly gunzTarPerm extractEntry test/pkg/main.js
+1677 silly gunzTarPerm modified mode [ 'test/pkg/main.js', 438, 420 ]
+1678 silly gunzTarPerm extractEntry test/fake/fake_fs.js
+1679 silly gunzTarPerm modified mode [ 'test/fake/fake_fs.js', 438, 420 ]
+1680 silly gunzTarPerm extractEntry test/fake/main.js
+1681 silly gunzTarPerm modified mode [ 'test/fake/main.js', 438, 420 ]
+1682 silly gunzTarPerm extractEntry test/plugin/main.js
+1683 silly gunzTarPerm modified mode [ 'test/plugin/main.js', 438, 420 ]
+1684 silly gunzTarPerm extractEntry test/externalize/beep.js
+1685 silly gunzTarPerm modified mode [ 'test/externalize/beep.js', 438, 420 ]
+1686 silly gunzTarPerm extractEntry test/externalize/boop.js
+1687 silly gunzTarPerm modified mode [ 'test/externalize/boop.js', 438, 420 ]
+1688 silly gunzTarPerm extractEntry test/externalize/robot.js
+1689 silly gunzTarPerm modified mode [ 'test/externalize/robot.js', 438, 420 ]
+1690 silly gunzTarPerm extractEntry test/process/main.js
+1691 silly gunzTarPerm modified mode [ 'test/process/main.js', 438, 420 ]
+1692 silly gunzTarPerm extractEntry test/process/one.js
+1693 silly gunzTarPerm modified mode [ 'test/process/one.js', 438, 420 ]
+1694 silly gunzTarPerm extractEntry test/process/two.js
+1695 silly gunzTarPerm modified mode [ 'test/process/two.js', 438, 420 ]
+1696 silly gunzTarPerm extractEntry test/external_args/main.js
+1697 silly gunzTarPerm modified mode [ 'test/external_args/main.js', 438, 420 ]
+1698 silly gunzTarPerm extractEntry test/external/main.js
+1699 silly gunzTarPerm modified mode [ 'test/external/main.js', 438, 420 ]
+1700 silly gunzTarPerm extractEntry test/external/x.js
+1701 silly gunzTarPerm modified mode [ 'test/external/x.js', 438, 420 ]
+1702 silly gunzTarPerm extractEntry test/export/entry.js
+1703 silly gunzTarPerm modified mode [ 'test/export/entry.js', 438, 420 ]
+1704 silly gunzTarPerm extractEntry test/error_code/src.js
+1705 silly gunzTarPerm modified mode [ 'test/error_code/src.js', 438, 420 ]
+1706 silly gunzTarPerm extractEntry test/reverse_multi_bundle/app.js
+1707 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/app.js', 438, 420 ]
+1708 silly gunzTarPerm extractEntry test/reverse_multi_bundle/arbitrary.js
+1709 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/arbitrary.js', 438, 420 ]
+1710 silly gunzTarPerm extractEntry test/reverse_multi_bundle/lazy.js
+1711 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/lazy.js', 438, 420 ]
+1712 silly gunzTarPerm extractEntry test/reverse_multi_bundle/shared.js
+1713 silly gunzTarPerm modified mode [ 'test/reverse_multi_bundle/shared.js', 438, 420 ]
+1714 silly gunzTarPerm extractEntry test/maxlisteners/main.js
+1715 silly gunzTarPerm modified mode [ 'test/maxlisteners/main.js', 438, 420 ]
+1716 silly gunzTarPerm extractEntry test/shebang/foo.js
+1717 silly gunzTarPerm modified mode [ 'test/shebang/foo.js', 438, 420 ]
+1718 silly gunzTarPerm extractEntry test/shebang/main.js
+1719 silly gunzTarPerm modified mode [ 'test/shebang/main.js', 438, 420 ]
+1720 silly gunzTarPerm extractEntry test/entry/package.json
+1721 silly gunzTarPerm modified mode [ 'test/entry/package.json', 438, 420 ]
+1722 silly gunzTarPerm extractEntry test/entry/main.js
+1723 silly gunzTarPerm modified mode [ 'test/entry/main.js', 438, 420 ]
+1724 silly gunzTarPerm extractEntry test/entry/needs_three.js
+1725 silly gunzTarPerm modified mode [ 'test/entry/needs_three.js', 438, 420 ]
+1726 silly gunzTarPerm extractEntry test/entry/one.js
+1727 silly gunzTarPerm modified mode [ 'test/entry/one.js', 438, 420 ]
+1728 silly gunzTarPerm extractEntry test/entry/three.js
+1729 silly gunzTarPerm modified mode [ 'test/entry/three.js', 438, 420 ]
+1730 silly gunzTarPerm extractEntry test/entry/two.js
+1731 silly gunzTarPerm modified mode [ 'test/entry/two.js', 438, 420 ]
+1732 silly gunzTarPerm extractEntry test/standalone/main.js
+1733 silly gunzTarPerm modified mode [ 'test/standalone/main.js', 438, 420 ]
+1734 silly gunzTarPerm extractEntry test/standalone/one.js
+1735 silly gunzTarPerm modified mode [ 'test/standalone/one.js', 438, 420 ]
+1736 silly gunzTarPerm extractEntry test/standalone/two.js
+1737 silly gunzTarPerm modified mode [ 'test/standalone/two.js', 438, 420 ]
+1738 silly gunzTarPerm extractEntry test/dup/foo-dup.js
+1739 silly gunzTarPerm modified mode [ 'test/dup/foo-dup.js', 438, 420 ]
+1740 silly gunzTarPerm extractEntry test/dup/foo.js
+1741 silly gunzTarPerm modified mode [ 'test/dup/foo.js', 438, 420 ]
+1742 silly gunzTarPerm extractEntry test/dup/index.js
+1743 silly gunzTarPerm modified mode [ 'test/dup/index.js', 438, 420 ]
+1744 silly gunzTarPerm extractEntry test/double_buffer/explicit.js
+1745 silly gunzTarPerm modified mode [ 'test/double_buffer/explicit.js', 438, 420 ]
+1746 silly gunzTarPerm extractEntry test/double_buffer/implicit.js
+1747 silly gunzTarPerm modified mode [ 'test/double_buffer/implicit.js', 438, 420 ]
+1748 silly gunzTarPerm extractEntry test/double_buffer/main.js
+1749 silly gunzTarPerm modified mode [ 'test/double_buffer/main.js', 438, 420 ]
+1750 silly gunzTarPerm extractEntry test/dollar/dollar/index.js
+1751 silly gunzTarPerm modified mode [ 'test/dollar/dollar/index.js', 438, 420 ]
+1752 silly gunzTarPerm extractEntry test/delay/diverted.js
+1753 silly gunzTarPerm modified mode [ 'test/delay/diverted.js', 438, 420 ]
+1754 silly gunzTarPerm extractEntry test/delay/main.js
+1755 silly gunzTarPerm modified mode [ 'test/delay/main.js', 438, 420 ]
+1756 silly gunzTarPerm extractEntry test/stream/bar.js
+1757 silly gunzTarPerm modified mode [ 'test/stream/bar.js', 438, 420 ]
+1758 silly gunzTarPerm extractEntry test/stream/foo.js
+1759 silly gunzTarPerm modified mode [ 'test/stream/foo.js', 438, 420 ]
+1760 silly gunzTarPerm extractEntry test/stream/main.js
+1761 silly gunzTarPerm modified mode [ 'test/stream/main.js', 438, 420 ]
+1762 silly gunzTarPerm extractEntry test/debug_standalone/x.js
+1763 silly gunzTarPerm modified mode [ 'test/debug_standalone/x.js', 438, 420 ]
+1764 silly gunzTarPerm extractEntry test/cycle/README.md
+1765 silly gunzTarPerm modified mode [ 'test/cycle/README.md', 438, 420 ]
+1766 silly gunzTarPerm extractEntry test/cycle/entry.js
+1767 silly gunzTarPerm modified mode [ 'test/cycle/entry.js', 438, 420 ]
+1768 silly gunzTarPerm extractEntry test/cycle/mod1/a.js
+1769 silly gunzTarPerm modified mode [ 'test/cycle/mod1/a.js', 438, 420 ]
+1770 silly gunzTarPerm extractEntry test/cycle/mod1/b.js
+1771 silly gunzTarPerm modified mode [ 'test/cycle/mod1/b.js', 438, 420 ]
+1772 silly gunzTarPerm extractEntry test/cycle/mod2/a.js
+1773 silly gunzTarPerm modified mode [ 'test/cycle/mod2/a.js', 438, 420 ]
+1774 silly gunzTarPerm extractEntry test/cycle/mod2/b.js
+1775 silly gunzTarPerm modified mode [ 'test/cycle/mod2/b.js', 438, 420 ]
+1776 silly gunzTarPerm extractEntry test/subdep/package.json
+1777 silly gunzTarPerm modified mode [ 'test/subdep/package.json', 438, 420 ]
+1778 silly gunzTarPerm extractEntry test/subdep/index.js
+1779 silly gunzTarPerm modified mode [ 'test/subdep/index.js', 438, 420 ]
+1780 silly gunzTarPerm extractEntry test/comment/main.js
+1781 silly gunzTarPerm modified mode [ 'test/comment/main.js', 438, 420 ]
+1782 silly gunzTarPerm extractEntry test/tr/package.json
+1783 silly gunzTarPerm modified mode [ 'test/tr/package.json', 438, 420 ]
+1784 silly gunzTarPerm extractEntry test/tr/f.js
+1785 silly gunzTarPerm modified mode [ 'test/tr/f.js', 438, 420 ]
+1786 silly gunzTarPerm extractEntry test/tr/main.js
+1787 silly gunzTarPerm modified mode [ 'test/tr/main.js', 438, 420 ]
+1788 silly gunzTarPerm extractEntry test/tr/subdir/g.js
+1789 silly gunzTarPerm modified mode [ 'test/tr/subdir/g.js', 438, 420 ]
+1790 silly gunzTarPerm extractEntry test/coffeeify/main.coffee
+1791 silly gunzTarPerm modified mode [ 'test/coffeeify/main.coffee', 438, 420 ]
+1792 silly gunzTarPerm extractEntry test/tr_args/main.js
+1793 silly gunzTarPerm modified mode [ 'test/tr_args/main.js', 438, 420 ]
+1794 silly gunzTarPerm extractEntry test/tr_args/tr.js
+1795 silly gunzTarPerm modified mode [ 'test/tr_args/tr.js', 438, 420 ]
+1796 silly gunzTarPerm extractEntry test/coffee_bin/main.coffee
+1797 silly gunzTarPerm modified mode [ 'test/coffee_bin/main.coffee', 438, 420 ]
+1798 silly gunzTarPerm extractEntry test/coffee_bin/x.coffee
+1799 silly gunzTarPerm modified mode [ 'test/coffee_bin/x.coffee', 438, 420 ]
+1800 silly gunzTarPerm extractEntry test/circular/a.js
+1801 silly gunzTarPerm modified mode [ 'test/circular/a.js', 438, 420 ]
+1802 silly gunzTarPerm extractEntry test/circular/b.js
+1803 silly gunzTarPerm modified mode [ 'test/circular/b.js', 438, 420 ]
+1804 silly gunzTarPerm extractEntry test/circular/main.js
+1805 silly gunzTarPerm modified mode [ 'test/circular/main.js', 438, 420 ]
+1806 silly gunzTarPerm extractEntry test/catch/main.js
+1807 silly gunzTarPerm modified mode [ 'test/catch/main.js', 438, 420 ]
+1808 silly gunzTarPerm extractEntry test/tr_no_entry/main.js
+1809 silly gunzTarPerm modified mode [ 'test/tr_no_entry/main.js', 438, 420 ]
+1810 silly gunzTarPerm extractEntry test/bundle_external/boop.js
+1811 silly gunzTarPerm modified mode [ 'test/bundle_external/boop.js', 438, 420 ]
+1812 silly gunzTarPerm extractEntry test/bundle_external/main.js
+1813 silly gunzTarPerm modified mode [ 'test/bundle_external/main.js', 438, 420 ]
+1814 silly gunzTarPerm extractEntry test/bundle_external/robot.js
+1815 silly gunzTarPerm modified mode [ 'test/bundle_external/robot.js', 438, 420 ]
+1816 silly gunzTarPerm extractEntry test/unicode/main.js
+1817 silly gunzTarPerm modified mode [ 'test/unicode/main.js', 438, 420 ]
+1818 silly gunzTarPerm extractEntry test/unicode/one.js
+1819 silly gunzTarPerm modified mode [ 'test/unicode/one.js', 438, 420 ]
+1820 silly gunzTarPerm extractEntry test/unicode/two.js
+1821 silly gunzTarPerm modified mode [ 'test/unicode/two.js', 438, 420 ]
+1822 silly gunzTarPerm extractEntry test/bom/hello.js
+1823 silly gunzTarPerm modified mode [ 'test/bom/hello.js', 438, 420 ]
+1824 silly gunzTarPerm extractEntry test/bin_tr_error/main.js
+1825 silly gunzTarPerm modified mode [ 'test/bin_tr_error/main.js', 438, 420 ]
+1826 silly gunzTarPerm extractEntry test/bin_tr_error/tr.js
+1827 silly gunzTarPerm modified mode [ 'test/bin_tr_error/tr.js', 438, 420 ]
+1828 silly gunzTarPerm extractEntry test/glob/a.js
+1829 silly gunzTarPerm modified mode [ 'test/glob/a.js', 438, 420 ]
+1830 silly gunzTarPerm extractEntry test/glob/b.js
+1831 silly gunzTarPerm modified mode [ 'test/glob/b.js', 438, 420 ]
+1832 silly gunzTarPerm extractEntry test/glob/lib/z.js
+1833 silly gunzTarPerm modified mode [ 'test/glob/lib/z.js', 438, 420 ]
+1834 silly gunzTarPerm extractEntry test/glob/vendor/x.js
+1835 silly gunzTarPerm modified mode [ 'test/glob/vendor/x.js', 438, 420 ]
+1836 silly gunzTarPerm extractEntry test/glob/vendor/y.js
+1837 silly gunzTarPerm modified mode [ 'test/glob/vendor/y.js', 438, 420 ]
+1838 silly gunzTarPerm extractEntry test/node_modules/beep/index.js
+1839 silly gunzTarPerm modified mode [ 'test/node_modules/beep/index.js', 438, 420 ]
+1840 silly gunzTarPerm extractEntry test/node_modules/plugin-foo/index.js
+1841 silly gunzTarPerm modified mode [ 'test/node_modules/plugin-foo/index.js', 438, 420 ]
+1842 silly gunzTarPerm extractEntry test/node_modules/tr/index.js
+1843 silly gunzTarPerm modified mode [ 'test/node_modules/tr/index.js', 438, 420 ]
+1844 silly gunzTarPerm extractEntry lib/_empty.js
+1845 silly gunzTarPerm modified mode [ 'lib/_empty.js', 438, 420 ]
+1846 silly gunzTarPerm extractEntry lib/_exclude.js
+1847 silly gunzTarPerm modified mode [ 'lib/_exclude.js', 438, 420 ]
+1848 silly gunzTarPerm extractEntry lib/builtins.js
+1849 silly gunzTarPerm modified mode [ 'lib/builtins.js', 438, 420 ]
+1850 silly gunzTarPerm extractEntry bin/args.js
+1851 silly gunzTarPerm modified mode [ 'bin/args.js', 438, 420 ]
+1852 silly gunzTarPerm extractEntry bin/cmd.js
+1853 silly gunzTarPerm modified mode [ 'bin/cmd.js', 438, 420 ]
+1854 silly gunzTarPerm extractEntry bin/advanced.txt
+1855 silly gunzTarPerm modified mode [ 'bin/advanced.txt', 438, 420 ]
+1856 silly gunzTarPerm extractEntry bin/usage.txt
+1857 silly gunzTarPerm modified mode [ 'bin/usage.txt', 438, 420 ]
+1858 silly gunzTarPerm extractEntry readme.markdown
+1859 silly gunzTarPerm modified mode [ 'readme.markdown', 438, 420 ]
+1860 silly gunzTarPerm extractEntry example/api/build.js
+1861 silly gunzTarPerm modified mode [ 'example/api/build.js', 438, 420 ]
+1862 silly gunzTarPerm extractEntry example/api/browser/bar.js
+1863 silly gunzTarPerm modified mode [ 'example/api/browser/bar.js', 438, 420 ]
+1864 silly gunzTarPerm extractEntry example/api/browser/foo.js
+1865 silly gunzTarPerm modified mode [ 'example/api/browser/foo.js', 438, 420 ]
+1866 silly gunzTarPerm extractEntry example/api/browser/main.js
+1867 silly gunzTarPerm modified mode [ 'example/api/browser/main.js', 438, 420 ]
+1868 silly gunzTarPerm extractEntry example/multiple_bundles/beep.js
+1869 silly gunzTarPerm modified mode [ 'example/multiple_bundles/beep.js', 438, 420 ]
+1870 silly gunzTarPerm extractEntry example/multiple_bundles/boop.js
+1871 silly gunzTarPerm modified mode [ 'example/multiple_bundles/boop.js', 438, 420 ]
+1872 silly gunzTarPerm extractEntry example/multiple_bundles/robot.js
+1873 silly gunzTarPerm modified mode [ 'example/multiple_bundles/robot.js', 438, 420 ]
+1874 silly gunzTarPerm extractEntry example/multiple_bundles/build.sh
+1875 silly gunzTarPerm modified mode [ 'example/multiple_bundles/build.sh', 438, 420 ]
+1876 silly gunzTarPerm extractEntry example/multiple_bundles/static/beep.html
+1877 silly gunzTarPerm modified mode [ 'example/multiple_bundles/static/beep.html', 438, 420 ]
+1878 silly gunzTarPerm extractEntry example/multiple_bundles/static/boop.html
+1879 silly gunzTarPerm modified mode [ 'example/multiple_bundles/static/boop.html', 438, 420 ]
+1880 silly gunzTarPerm extractEntry example/source_maps/build.js
+1881 silly gunzTarPerm modified mode [ 'example/source_maps/build.js', 438, 420 ]
+1882 silly gunzTarPerm extractEntry example/source_maps/build.sh
+1883 silly gunzTarPerm modified mode [ 'example/source_maps/build.sh', 438, 420 ]
+1884 silly gunzTarPerm extractEntry example/source_maps/index.html
+1885 silly gunzTarPerm modified mode [ 'example/source_maps/index.html', 438, 420 ]
+1886 silly gunzTarPerm extractEntry example/source_maps/js/foo.js
+1887 silly gunzTarPerm modified mode [ 'example/source_maps/js/foo.js', 438, 420 ]
+1888 silly gunzTarPerm extractEntry example/source_maps/js/main.js
+1889 silly gunzTarPerm modified mode [ 'example/source_maps/js/main.js', 438, 420 ]
+1890 silly gunzTarPerm extractEntry example/source_maps/js/build/.npmignore
+1891 silly gunzTarPerm modified mode [ 'example/source_maps/js/build/.npmignore', 438, 420 ]
+1892 silly gunzTarPerm extractEntry example/source_maps/js/wunder/bar.js
+1893 silly gunzTarPerm modified mode [ 'example/source_maps/js/wunder/bar.js', 438, 420 ]
+1894 silly lockFile adb6e53f-m-cache-browserify-6-3-4-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package
+1895 silly lockFile adb6e53f-m-cache-browserify-6-3-4-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package
+1896 silly lockFile b9372608-che-browserify-6-3-4-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1897 silly lockFile b9372608-che-browserify-6-3-4-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1898 verbose chmod C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz 644
+1899 silly chown skipping for windows C:\Users\tom.chang\AppData\Roaming\npm-cache\browserify\6.3.4\package.tgz
+1900 silly lockFile 2493d7eb-fy-download-browserify-6-3-4-tgz http://registry.cnpmjs.org/browserify/download/browserify-6.3.4.tgz
+1901 silly lockFile 2493d7eb-fy-download-browserify-6-3-4-tgz http://registry.cnpmjs.org/browserify/download/browserify-6.3.4.tgz
+1902 silly lockFile efdca493-browserify-6-3-4 browserify@6.3.4
+1903 silly lockFile efdca493-browserify-6-3-4 browserify@6.3.4
+1904 silly lockFile 9ea5bd79-browserify-6-3-3 browserify@^6.3.3
+1905 silly lockFile 9ea5bd79-browserify-6-3-3 browserify@^6.3.3
+1906 error fetch failed http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+1907 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+1908 error fetch failed http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz
+1909 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+1910 info retry fetch attempt 2 at 17:27:46
+1911 verbose fetch to= C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635418-0.9241510317660868\tmp.tgz
+1912 http GET http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+1913 info retry fetch attempt 2 at 17:27:46
+1914 verbose fetch to= C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\tmp.tgz
+1915 http GET http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz
+1916 http 200 http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz
+1917 verbose tar unpack C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\tmp.tgz
+1918 silly lockFile 93bf64f8-35620-0-5349958669394255-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package
+1919 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package C:\Users\tom.chang\AppData\Roaming\npm-cache\93bf64f8-35620-0-5349958669394255-package.lock
+1920 silly lockFile bf5c5476-35620-0-5349958669394255-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\tmp.tgz
+1921 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\tmp.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\bf5c5476-35620-0-5349958669394255-tmp-tgz.lock
+1922 silly gunzTarPerm modes [ '755', '644' ]
+1923 silly gunzTarPerm extractEntry package.json
+1924 silly gunzTarPerm extractEntry .npmignore
+1925 silly gunzTarPerm extractEntry README.md
+1926 silly gunzTarPerm extractEntry LICENSE
+1927 silly gunzTarPerm extractEntry index.js
+1928 silly gunzTarPerm extractEntry Makefile
+1929 silly gunzTarPerm extractEntry CHANGELOG.md
+1930 silly gunzTarPerm extractEntry .jshintrc
+1931 silly gunzTarPerm extractEntry test/reactify.js
+1932 silly gunzTarPerm extractEntry test/fixtures/invalid.js
+1933 silly gunzTarPerm extractEntry test/fixtures/main.js
+1934 silly gunzTarPerm extractEntry test/fixtures/main.strip-types.js
+1935 silly gunzTarPerm extractEntry test/fixtures/simple.js
+1936 silly gunzTarPerm extractEntry test/fixtures/main.es6-custom.jsx
+1937 silly gunzTarPerm extractEntry test/fixtures/main.es6-target-es5.jsx
+1938 silly gunzTarPerm extractEntry test/fixtures/main.es6.jsx
+1939 silly gunzTarPerm extractEntry test/fixtures/main.jsnox
+1940 silly gunzTarPerm extractEntry test/fixtures/main.jsx
+1941 silly gunzTarPerm extractEntry test/fixtures/main.strip-types-es6.jsx
+1942 silly lockFile 93bf64f8-35620-0-5349958669394255-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package
+1943 silly lockFile 93bf64f8-35620-0-5349958669394255-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package
+1944 silly lockFile bf5c5476-35620-0-5349958669394255-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\tmp.tgz
+1945 silly lockFile bf5c5476-35620-0-5349958669394255-tmp-tgz tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\tmp.tgz
+1946 verbose tar pack [ 'C:\\Users\\tom.chang\\AppData\\Roaming\\npm-cache\\reactify\\0.17.1\\package.tgz',
+1946 verbose tar pack   'C:\\Users\\TOM~1.CHA\\AppData\\Local\\Temp\\npm-13596-AjY3Bc9Z\\1442827635620-0.5349958669394255\\package' ]
+1947 verbose tarball C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+1948 verbose folder C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package
+1949 silly lockFile 93bf64f8-35620-0-5349958669394255-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package
+1950 verbose lock tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package C:\Users\tom.chang\AppData\Roaming\npm-cache\93bf64f8-35620-0-5349958669394255-package.lock
+1951 silly lockFile d724aedc-ache-reactify-0-17-1-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+1952 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\d724aedc-ache-reactify-0-17-1-package-tgz.lock
+1953 silly lockFile 93bf64f8-35620-0-5349958669394255-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package
+1954 silly lockFile 93bf64f8-35620-0-5349958669394255-package tar://C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635620-0.5349958669394255\package
+1955 silly lockFile d724aedc-ache-reactify-0-17-1-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+1956 silly lockFile d724aedc-ache-reactify-0-17-1-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+1957 silly lockFile 32541b1f-pm-cache-reactify-0-17-1-package C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package
+1958 verbose lock C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package C:\Users\tom.chang\AppData\Roaming\npm-cache\32541b1f-pm-cache-reactify-0-17-1-package.lock
+1959 silly lockFile 32541b1f-pm-cache-reactify-0-17-1-package C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package
+1960 silly lockFile 32541b1f-pm-cache-reactify-0-17-1-package C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package
+1961 verbose tar unpack C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+1962 silly lockFile 1475fd79-pm-cache-reactify-0-17-1-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package
+1963 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package C:\Users\tom.chang\AppData\Roaming\npm-cache\1475fd79-pm-cache-reactify-0-17-1-package.lock
+1964 silly lockFile d724aedc-ache-reactify-0-17-1-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+1965 verbose lock tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz C:\Users\tom.chang\AppData\Roaming\npm-cache\d724aedc-ache-reactify-0-17-1-package-tgz.lock
+1966 silly gunzTarPerm modes [ '755', '644' ]
+1967 silly gunzTarPerm extractEntry package.json
+1968 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+1969 silly gunzTarPerm extractEntry .npmignore
+1970 silly gunzTarPerm modified mode [ '.npmignore', 438, 420 ]
+1971 silly gunzTarPerm extractEntry README.md
+1972 silly gunzTarPerm modified mode [ 'README.md', 438, 420 ]
+1973 silly gunzTarPerm extractEntry LICENSE
+1974 silly gunzTarPerm modified mode [ 'LICENSE', 438, 420 ]
+1975 silly gunzTarPerm extractEntry index.js
+1976 silly gunzTarPerm modified mode [ 'index.js', 438, 420 ]
+1977 silly gunzTarPerm extractEntry .jshintrc
+1978 silly gunzTarPerm modified mode [ '.jshintrc', 438, 420 ]
+1979 silly gunzTarPerm extractEntry CHANGELOG.md
+1980 silly gunzTarPerm modified mode [ 'CHANGELOG.md', 438, 420 ]
+1981 silly gunzTarPerm extractEntry Makefile
+1982 silly gunzTarPerm modified mode [ 'Makefile', 438, 420 ]
+1983 silly gunzTarPerm extractEntry test/reactify.js
+1984 silly gunzTarPerm modified mode [ 'test/reactify.js', 438, 420 ]
+1985 silly gunzTarPerm extractEntry test/fixtures/invalid.js
+1986 silly gunzTarPerm modified mode [ 'test/fixtures/invalid.js', 438, 420 ]
+1987 silly gunzTarPerm extractEntry test/fixtures/main.js
+1988 silly gunzTarPerm modified mode [ 'test/fixtures/main.js', 438, 420 ]
+1989 silly gunzTarPerm extractEntry test/fixtures/main.strip-types.js
+1990 silly gunzTarPerm modified mode [ 'test/fixtures/main.strip-types.js', 438, 420 ]
+1991 silly gunzTarPerm extractEntry test/fixtures/simple.js
+1992 silly gunzTarPerm modified mode [ 'test/fixtures/simple.js', 438, 420 ]
+1993 silly gunzTarPerm extractEntry test/fixtures/main.es6-custom.jsx
+1994 silly gunzTarPerm modified mode [ 'test/fixtures/main.es6-custom.jsx', 438, 420 ]
+1995 silly gunzTarPerm extractEntry test/fixtures/main.es6-target-es5.jsx
+1996 silly gunzTarPerm modified mode [ 'test/fixtures/main.es6-target-es5.jsx', 438, 420 ]
+1997 silly gunzTarPerm extractEntry test/fixtures/main.es6.jsx
+1998 silly gunzTarPerm modified mode [ 'test/fixtures/main.es6.jsx', 438, 420 ]
+1999 silly gunzTarPerm extractEntry test/fixtures/main.jsnox
+2000 silly gunzTarPerm modified mode [ 'test/fixtures/main.jsnox', 438, 420 ]
+2001 silly gunzTarPerm extractEntry test/fixtures/main.jsx
+2002 silly gunzTarPerm modified mode [ 'test/fixtures/main.jsx', 438, 420 ]
+2003 silly gunzTarPerm extractEntry test/fixtures/main.strip-types-es6.jsx
+2004 silly gunzTarPerm modified mode [ 'test/fixtures/main.strip-types-es6.jsx', 438, 420 ]
+2005 silly lockFile 1475fd79-pm-cache-reactify-0-17-1-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package
+2006 silly lockFile 1475fd79-pm-cache-reactify-0-17-1-package tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package
+2007 silly lockFile d724aedc-ache-reactify-0-17-1-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+2008 silly lockFile d724aedc-ache-reactify-0-17-1-package-tgz tar://C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+2009 verbose chmod C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz 644
+2010 silly chown skipping for windows C:\Users\tom.chang\AppData\Roaming\npm-cache\reactify\0.17.1\package.tgz
+2011 silly lockFile 50997995-ify-download-reactify-0-17-1-tgz http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz
+2012 silly lockFile 50997995-ify-download-reactify-0-17-1-tgz http://registry.cnpmjs.org/reactify/download/reactify-0.17.1.tgz
+2013 silly lockFile 7a84788b-reactify-0-17-1 reactify@0.17.1
+2014 silly lockFile 7a84788b-reactify-0-17-1 reactify@0.17.1
+2015 silly lockFile 4ee82bec-reactify-0-17-1 reactify@^0.17.1
+2016 silly lockFile 4ee82bec-reactify-0-17-1 reactify@^0.17.1
+2017 error fetch failed http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+2018 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+2019 info retry fetch attempt 3 at 17:29:07
+2020 verbose fetch to= C:\Users\TOM~1.CHA\AppData\Local\Temp\npm-13596-AjY3Bc9Z\1442827635418-0.9241510317660868\tmp.tgz
+2021 http GET http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+2022 error fetch failed http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+2023 silly lockFile b2a08981-envify-download-envify-3-4-0-tgz http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+2024 silly lockFile b2a08981-envify-download-envify-3-4-0-tgz http://registry.cnpmjs.org/envify/download/envify-3.4.0.tgz
+2025 silly lockFile b60ef226-envify-3-4-0 envify@3.4.0
+2026 silly lockFile b60ef226-envify-3-4-0 envify@3.4.0
+2027 silly lockFile 4db02b9b-envify-3-2-0 envify@^3.2.0
+2028 silly lockFile 4db02b9b-envify-3-2-0 envify@^3.2.0
+2029 error network connect ETIMEDOUT
+2029 error network This is most likely not a problem with npm itself
+2029 error network and is related to network connectivity.
+2029 error network In most cases you are behind a proxy or have bad network settings.
+2029 error network
+2029 error network If you are behind a proxy, please make sure that the
+2029 error network 'proxy' config is set properly.  See: 'npm help config'
+2030 error System Windows_NT 6.1.7601
+2031 error command "D:\\nodejs\\\\node.exe" "D:\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+2032 error cwd C:\wamp\www\react\examples\basic-commonjs
+2033 error node -v v0.10.26
+2034 error npm -v 1.4.3
+2035 error syscall connect
+2036 error code ETIMEDOUT
+2037 error errno ETIMEDOUT
+2038 verbose exit [ 1, true ]

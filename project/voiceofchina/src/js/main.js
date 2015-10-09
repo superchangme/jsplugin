@@ -33,13 +33,12 @@ function shareToWx(title, link, imgUrl, desc, cb) {
     });
 }
 var shareInfo={
-    title:'重要的事情说三遍！启悦只要69800元！69800元！69800元！',
+    title:'好声音10月7日决战鸟巢之巅！四大门派你看好谁？',
     link:location.href.split('#')[0],
     imgUrl:location.href.replace("html/index.html","img/wx_share.jpg"),
-    desc:'内有彩蛋，分享即有惊喜！'
+    desc:'想拿赏金？一试即知！'
 }
 
-/*
 init_wx_jsapi(jssdkURL,function(config){
     config.debug=false;
     wx.config(config);
@@ -54,7 +53,6 @@ init_wx_jsapi(jssdkURL,function(config){
         })
     });
 });
-*/
 
 
 FastClick.attach(document.body);
@@ -354,7 +352,107 @@ webpsupport(function (webpa) {
         fileList =
             [
                 'img/volume_off.png',
-                'img/volume_on.png'
+                'img/volume_on.png',
+                'img/ans_feng.png',
+                'img/ans_lin.png',
+                'img/ans_more_feng.png',
+                'img/ans_more_lin.png',
+                'img/ans_more_ying.png',
+                'img/ans_more_zhou.png',
+                'img/ans_wrong_feng.png',
+                'img/ans_wrong_lin.png',
+                'img/ans_wrong_ying.png',
+                'img/ans_wrong_zhou.png',
+                'img/ans_ying.png',
+                'img/ans_zhou.png',
+                'img/ask_lin.png',
+                'img/big_titile.png',
+                'img/btn_back_text.png',
+                'img/btn_isu_text.png',
+                'img/btn_iwant_text.png',
+                'img/btn_more_text.png',
+                'img/btn_onlyu_text.png',
+                'img/btn_refuse_text.png',
+                'img/btn_replay.png',
+                'img/btn_selme_text.png',
+                'img/btn_sel_feita.png',
+                'img/btn_submit_text.png',
+                'img/btn_yue_text.png',
+                'img/car_logo.png',
+                'img/cry.png',
+                'img/dialog_bg.png',
+                'img/dialog_long_bg.png',
+                'img/feng_portrait.png',
+                'img/feng_portrait_s.png',
+                'img/feng_style.png',
+                'img/form_bg.png',
+                'img/form_label.png',
+                'img/form_title.png',
+                'img/halin_s.png',
+                'img/ha_portrait.png',
+                'img/ha_style.png',
+                'img/ico_right.png',
+                'img/jielun_s.png',
+                'img/jielun_s2.png',
+                'img/label_reward.png',
+                'img/lin_portrait_s.png',
+                'img/modal_bg.png',
+                'img/naying_s.png',
+                'img/p1_bg.jpg',
+                'img/p1_bg.png',
+                'img/p1_check.png',
+                'img/p1_check_h.png',
+                'img/p1_circle1.png',
+                'img/p1_circle2.png',
+                'img/p1_circle3.png',
+                'img/p1_cool_man.png',
+                'img/p1_reward1.png',
+                'img/p1_reward2.png',
+                'img/p1_reward3.png',
+                'img/p1_stamp.png',
+                'img/p1_stamp2.png',
+                'img/p1_t_1.png',
+                'img/p1_t_2.png',
+                'img/p1_t_3.png',
+                'img/p1_t_4.png',
+                'img/p2_sel.png',
+                'img/p2_sel_h.png',
+                'img/person_bg.png',
+                'img/pn_bg.jpg',
+                'img/pn_bg.png',
+                'img/qrcode.png',
+                'img/qs_bg.png',
+                'img/qs_feng.png',
+                'img/qs_lin.png',
+                'img/qs_right.png',
+                'img/qs_ying.png',
+                'img/qs_zhou.png',
+                'img/radio_bg.png',
+                'img/red_car.png',
+                'img/reward_bg.jpg',
+                'img/reward_title.png',
+                'img/select_bg.png',
+                'img/share-arrow.png',
+                'img/share.png',
+                'img/share_logo.png',
+                'img/text_notrust.png',
+                'img/text_onemore.png',
+                'img/text_trymore.png',
+                'img/text_ur_right.png',
+                'img/text_ur_right_feng.png',
+                'img/text_ur_right_lin.png',
+                'img/text_ur_right_ying.png',
+                'img/text_ur_right_zhou.png',
+                'img/throne.png',
+                'img/voice-logo.png',
+                'img/volume_off.png',
+                'img/volume_on.png',
+                'img/wangfeng_s.png',
+                'img/ying_portrait.png',
+                'img/ying_s2.png',
+                'img/ying_style.png',
+                'img/zhou_portrait.png',
+                'img/zhou_style.png'
             ],
         $numText=$('.loading-num').find('span');
     for (var i = 0; i < fileList.length; i++) {
@@ -374,7 +472,7 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==3){
+        if(loadedTimes==2){
             $('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active in');
@@ -383,30 +481,20 @@ webpsupport(function (webpa) {
         }
     }
     //loadBg music
-    loadAudio("../media/bg.mp3",function(){
+    loadAudio("../media/bg.mp3",function(audio){
         loadedTimes+=1;
         checkLoaded()
-        bgAudio=document.createElement("audio");
-        bgAudio.src='../media/bg.mp3';
-        //bgAudio.autoplay="autoplay"
+        bgAudio=audio;
         bgAudio.loop="loop"
         bgAudio.volume=0.5
-        document.body.appendChild(bgAudio)
         var image=new Image;
         image.onload=function(){
-            //bgAudio.play();
+            bgAudio.play();
             bgAudio.isPaused=false
         }
         image.src='../img/volume_on.png';
     })
 
-    loadAudio("../media/yinqing.mp3",function(){
-        loadedTimes+=1;
-        checkLoaded()
-        carAudio=document.createElement("audio");
-        carAudio.src='../media/yinqing.mp3';
-        document.body.appendChild(carAudio);
-    })
 
 
     //loading 进度监听
@@ -479,20 +567,36 @@ webpsupport(function (webpa) {
 function resetMeta(){
     var g=window.innerWidth,h=window.innerHeight,k;
     (g/h)>=320/506?k=h/1136:k=g/640;
-    document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+    //alert(window.innerHeight+'-'+window.innerWidth)
+    document.getElementById("eqMobileViewport").setAttribute("content","initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+    //alert(k);
+  /*   setTimeout(function(){
+         alert(window.innerHeight+'-'+window.innerWidth)
+     })*/
 }
 //init
 var lightFrame;
 $(function(){
     resetMeta();
-var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg"),$readyPage=$("#readyPage");
+var musicBtn=$(".music-btn"),$sharePage=$("#sharePage"),$readyPage=$("#rewardPage");
     $(".btn-go-site").on("click",function(e){
         e.stopImmediatePropagation();
     })
     $("a.btn").on("click",function(e){
         e.preventDefault();
     })
-
+    $(".btn-more-link").on("click",function(){
+        $sharePage.removeClass("hidden");
+    })
+    $sharePage.on("click",function(){
+        $sharePage.addClass("hidden");
+    })
+    $(".reward-u").on("click",function(){
+        $readyPage.removeClass("hidden");
+    })
+    $readyPage.on("click",function(){
+        $readyPage.addClass("hidden");
+    })
 
     $("#submitFormBtn").on("click",function(e){
         var $self=$(this);
@@ -524,7 +628,7 @@ var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg")
             alert("请检查填写的资料是否正确!")
         }else{
             isSubmiting=true;
-            $(this).text("提交中...");
+            //$(this).text("提交中...");
             $.ajax({
                 type:"post",
                 data: $form.serializeArray(),
@@ -805,14 +909,21 @@ function animateFrame(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, i
 }
 
 function loadAudio(src,cb){
-    var audio=document.createElement("image");
+    var audio=document.createElement("audio");
+    audio.preload="preload";
+    audio.src=src;
+    document.body.appendChild(audio)
     $.ajax({
         url:src,
-        success:function(result){
-        cb.call(null,audio);
-    }})
-    audio.src=src;
+        success:function(result) {
+            setTimeout(function () {
+                cb.call(null, audio);
+
+            }, 0)
+        }
+    })
 }
+
 function ajax(url,cb){
     function sendRequest(){
         var xmlHttp=null;

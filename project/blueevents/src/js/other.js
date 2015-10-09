@@ -15,7 +15,7 @@ $(document).ready(function(){
     var screenHeight = document.documentElement.clientHeight,
         screenWidth = document.documentElement.clientWidth;
 
-    scaleEle(".screen__inner","center");
+    scaleEle(".screen__inner","center top");
 });
 
 //zhangxinxu math tween

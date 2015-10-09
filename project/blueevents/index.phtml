@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+     <base href="<?php echo $this->serverUrl().$this->baseUrl('/')?>"/>
+    <title>蓝鸟大事件</title>
+    <style>
+	       *{
+            margin: 0;
+        box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            background-color: rgb(221, 221, 221);
+        }
+        body{
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(221, 221, 221);
+        }
+        .load_inner{
+            position: relative;
+            transform: translate3d(100%,0,0);
+            -webkit-transform:translate3d(100%,0,0);;
+            width: 61%;
+        }
+        .loading-num{
+            position: absolute;
+            left: 64px;
+            top: -21px;
+            width: 100%;
+            text-align: left;
+            color: #5a5a5a;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .load_car{
+            background: url(img/p0_car.png);
+            width: 121.5px;
+            height: 38px;
+            background-size:100% ;
+        }
+        .load_wrapper{
+            position: absolute;
+            width: 100%;
+            top:50%;
+            left:50%;
+            -webkit-transform:translate3d(-50%,-50%,0);
+            transform:translate3d(-50%,-50%,0);
+        }
+         .loading-num img{
+               vertical-align: middle;
+             margin-right: 5px;;
+         }
+        .fade{
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+<img src="img/wx_share.jpg" style="display: none"/>
+<!--loading页-->
+<div class="loading" >
+        <div class="load_wrapper">
+          <div class="load_inner" id="loadInner">
+              <div class="load_car"></div>
+              <div class="loading-num">Now Loading...<span> 0%</span></div>
+          </div>
+        </div>
+</div>
+<div class="full-p event-loading fade" id="eventLoading">
+           <div class="centerXY ">正在生成请稍候<span class="three-dots"><span class="dot1">.</span><span class="dot2">.</span><span class="dot3">.</span> </span>
+        </div>
+</div>
+<div class="loading-mask full-p fade"><div class="top full-p"></div><div class="bottom full-p"></div></div>
+
+  <div class="outer" style="display:none">
+      <!--容器-->
+      <div class="wrap" >
+          <!--新闻播放loading页-->
+          <section class="screen screen-loading fade" id="startShowScreen">
+              <div class="pops full-p"></div>
+              <div class="event-loading-s1 full-p"></div>
+              <div class="event-loading-s2 full-p"></div>
+              <div class="event-loading-s3 full-p"></div>
+              <div class="event-loading full-p endFrame"></div>
+          </section>
+
+          <!--播放新闻页-->
+          <section class="screen screen-play fade " id="playScreen">
+              <div class="page-title"></div>
+              <div class="video-box">
+                 <div class="inner">
+                     <div class="mask fade  full-p" id="videoMask">
+							<div class="pulse infinite full-p">
+                             <a class="btn replay centerXY" id="replayEvent"></a>
+                         </div>                    
+					</div>
+                     <div class="video full-p">
+                         <div class="caption-box full-p">
+                             <div class="title" id='newsTitle'></div>
+                             <div class="caption-wrap">
+                                 <div class="caption"><div  id="captionText"></div></div>
+                             </div>
+                         </div>
+						 						 <div class='bigShow fade'><img/><div class='text'></div></div>
+
+                     </div>
+                 </div>
+              </div>
+              <div class="btn-group">
+                  <a class="btn btn-share" id="goShare"></a>
+                  <a class="btn btn-create" id="goCreate"></a>
+              </div>
+              <a class=" btn-more" href="<?php echo time()>=1443169800?'http://www.dongfeng-nissan.com.cn/Nissan/car/lannia':'http://m.dongfeng-nissan.com.cn/Nissan/car/lannia/online'; ?>"></a>
+          </section>
+
+          <!--上传新闻页-->
+          <section class="screen screen-upload  wait "  id="createScreen">
+            <div class="page">
+                <div class="form-box">
+                    <form action="" onsubmit="return false;">
+                        <h3>聪明的人填朋友的名字，<br/>
+                            帅到没朋友的人填自己名字！</h3>
+                        <div id="swipeBox">
+                            <div class="inner">
+                                <div class="man" data-sex="male"></div>
+                                <div class="girl out" data-sex="female"></div>
+                            </div>
+                        </div>
+                        <input name="name" placeholder="姓名输入框" pattern="^[\u4E00-\u9FA5]{2,4}$" type="text" maxlength="4" value=""/>
+                        <div class="tip">可输入2-4个中文名称</div>
+                        <div class="hidden">
+                            <input name="sex" type="radio" checked value="male">
+                            <input name="sex" type="radio" value="female">
+                        </div>
+                        <a class="btn btn-upload" id="uploadMyEvent"></a>
+                    </form>
+                </div>
+
+            </div>
+          </section>
+
+          <section class="screen screen-share wait "  id="shareScreen">
+                    <div class="logo"></div>
+              <div class="share-tip"></div>
+              <div class="qr-code centerXY"><img width="100%" src="img/qrcode.png"></div>
+              <div class="blue-car">
+                  <div class="wheel"></div>
+              </div>
+          </section>
+      </div>
+
+  </div>
+<script >
+/*
+    window.onerror=function(err){
+        alert(err)
+    }
+*/
+	var VerifyUrl=encodeURIComponent(window.location.href.split("#")[0]);
+        var jssdkURL="<?php echo $this->url(array('controller'=>'index','action'=>'wxjssdksign'),null,true),'?url='?>"+VerifyUrl;
+
+
+    var basePath ="";
+    var link=document.createElement("link");
+    link.href= "css/style-promo.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+    var uploadUrl="<?php echo $this->url(array('controller'=>'index','action'=>'index'),null,true); ?>";
+    var collectShareUrl="<?php echo $this->url(array('controller'=>'index','action'=>'saveshare'),null,true); ?>";
+    var app={
+		newsTitle:"<?php echo !empty($this->news) ? addslashes($this->news->title):''; ?>",
+        newsId:"<?php echo !empty($this->news) ? $this->news->id:''; ?>",
+        audioSrc:"<?php echo !empty($this->news) ? $this->baseUrl('data/user_mp3/'.$this->news->mp3.'.mp3'):''; ?>",
+        newsText:"<?php echo !empty($this->news) ? addslashes($this->news->contentText):''; ?>" ,
+        picTimeArr:["96"],
+        picUrlArr:[]
+    }
+
+
+</script>
+<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>
+<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="js/lib.js"></script>
+<script>
+    var shareInfo={
+        title:'<?php echo !empty($this->news) ? $this->news->title:'蓝鸟新闻大事件'; ?>',
+        link:location.href.split('#')[0],
+        imgUrl:'<?php echo $this->serverUrl().$this->baseUrl("img/wx_share.jpg"); ?>',
+        desc:'速度点击，看看关于自己的大事件！'
+    }
+var config={
+  appId: '<?php echo $this->signPackage["appId"];?>',
+    timestamp: <?php echo $this->signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $this->signPackage["nonceStr"];?>',
+    signature: '<?php echo $this->signPackage["signature"];?>',
+    jsApiList:[
+                              'checkJsApi',
+                              'onMenuShareTimeline',
+                              'onMenuShareAppMessage'
+                              ]
+}
+if(shareInfo.title){
+	document.title=shareInfo.title
+}
+  config.debug=false;
+            wx.config(config);
+            wx.ready(function(){
+                shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
+                    $.ajax({
+                        url:collectShareUrl ,
+                        complete:function(){
+
+                        }
+                    })
+                })
+            });
+</script>
+<div style='display:none'>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?78454c9665a4f86b02606eee76691178";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</div>
+</body>
+</html>

@@ -3,11 +3,11 @@ $(document).ready(function(){
     function scaleEle(selector,position){
         var pageScale;
         var currentScale=screenWidth/screenHeight;
-        var originScale=320/504;
+        var originScale=640/1136;
         if(currentScale>originScale){
-            pageScale=screenHeight/504;
+            pageScale=screenHeight/1136;
         }else{
-            pageScale=screenWidth/320;
+            pageScale=screenWidth/640;
         }
         $(selector).css({"-webkit-transform-origin":position,"transform-origin":position,"-webkit-transform":"scale("+pageScale+");","transform":"scale("+pageScale+");"});
     }
@@ -15,5 +15,5 @@ $(document).ready(function(){
     var screenHeight = document.documentElement.clientHeight,
         screenWidth = document.documentElement.clientWidth;
 
-    scaleEle(".screen__inner","center");
+    scaleEle(".screen__inner","center top");
 });

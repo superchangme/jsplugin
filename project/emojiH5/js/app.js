@@ -4,14 +4,15 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
     jquery=$;
     var originHeight=window.innerHeight;
     var waitLoad=$(".loading")
+    //缩放页面
     function resetMeta(){
         var g=window.innerWidth,h=window.innerHeight,k;
         (g/h)>=320/504?k=h/1008:k=g/640;
-        console.log(k)
         document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
     }
+    //全局对象APP
     var G=APP ;
-    //step1 上传图片
+    //app预设属性
     $.extend(G,{
         photoBg:$("#photoBg")[0],
         defaultPhotoSrc:"../img/emoji_photo_0.png",
@@ -82,15 +83,18 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
         eraserRadius:30,
         //functions
         stopUserMove:function(){
+            //暂停用户手势修改照片响应
             G.$photoFrame.hammer('stop')
             G.stopMove=true;
         },
         startUserMove:function(){
+            //恢复用户手势
             G.$photoFrame.hammer('start');
             G.$photoCanvas.removeLayer("filter").removeLayer("mask").drawLayers();
             G.stopMove=false;
         },
         startErase:function(cb){
+            //启用橡皮擦
             G.stopUserMove();
             G.emoji.photo=G.$photoCanvas[0].toDataURL("image/png");
             G.eraseCtx.lineWidth= G.eraserRadius;
@@ -106,17 +110,20 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             }
             img.src= G.emoji.photo;
         },resetErase:function(){
+            //重置橡皮擦回到擦前
             drawPhoto(0,0,1,null,function(){
                 G.$photoCanvas.show();
                 G.$eraserCanvas.hide();
             });
         },
         resetPhotoConfig:function(){
+            //重设照片参数//-
             G.photoParam.x=0;
             G.photoParam.y=0;
             G.photoParam.scale=1;
             G.photoParam.rotate=0;
         },
+        //表情滑动列表和文字滑动列表
         scroll:{
             emojiListScroll:null,
             emojiTextScroll:null
@@ -125,6 +132,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
 
     $(function(){
         resetMeta();
+        //底部提示按钮点击事件
         $(".btn-tip").on("click",function(){
             var modal=$(this).data("modal-dom");
             if(modal){
@@ -135,6 +143,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 $(this).data("modal-dom",modal)
             }
         })
+        //提示弹窗点击事件
         $(".modal").on("click",function(){
             var last=$(this).find(".step:last"),span=$(this).find(".step.in");
             if(last.is(".in")){
@@ -149,6 +158,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 }
             }
         })
+        //camanjs库 自定义滤镜效果，把偏亮色的置为透明 ，这样可以留下脸部细节 (认为脸部是深色的前提下)
         Caman.Filter.register("transparent", function (adjust) {
             // Pre-calculate some values that will be used
             // Our process function that will be called for each pixel.
@@ -161,8 +171,9 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 return rgba;
             });
         });
-
+      //初始化canvas画布尺寸
         G.$photoFrame.find("canvas").prop({width: G.pWidth,height: G.pWidth});
+        //判断原始高度大于504的情况，把表情制作画布放大
         if(originHeight>=504){
            setTimeout(function(){
                var frameHeight=$(".main-box").height()-20;
@@ -170,19 +181,26 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                G.photoScale=(Math.min(600,Math.min($("#photoInnerBox").width(),frameHeight))/400);
                G.$photoFrame.find(".frame-inner").css(G.transform,"scale("+G.photoScale+")").addClass("visible")
                G.$uploadMask.find(".photo-input-mask").css(G.transform,"scale("+G.photoScale+")")
-               //step eraser
-               G.$eraserCanvas.eraser({scaleCanvas: G.photoScale,radius:15,container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
-               }}).eraser('stop')
+
            },0)
         }
+
+        setTimeout(function(){
+            //初始化橡皮擦
+            //step eraser
+            G.$eraserCanvas.eraser({scaleCanvas: G.photoScale,radius:15,container: G.$photoFrame,bindContainer:true,customCanvas:G.$eraserCanvas[0],noneedCalc:true,every:true,touchEndCb:function(){
+            }}).eraser('stop')
+        },0)
 
         G.eraseCtx=G.$eraserCanvas[0].getContext("2d");
         G.photoCtx=G.$photoCanvas[0].getContext("2d");
         //step0
         function init(){
+            //重擦按钮
             G.btns.$resetEraser.on("click",function(){
                 G.startErase();
             })
+            //下一步
             G.btns.$nextStepBtn.on("click",function(){
                 if(G.isBusyWork){
                     return
@@ -237,7 +255,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                         sendFile({imageData:G.$resultCanvas[0].toDataURL("image/png"),filetype:"png"});
                 }
             })
-            //soga step
+            //上一步
             G.btns.$backStepBtn.on("click",function(){
                 if(G.isBusyWork){
                     return

@@ -24,13 +24,12 @@ var eventsTipArr=[
     {tip:"力压大热的美女时代",img:"img/events13.png"},
     {tip:"太阳系与三体星系",img:"img/events16.png"},
     {tip:"登陆地球网络上的蓝鸟",img:"img/events17.png"},
-    {tip:"国庆黄金周高速拥堵",img:"img/events20.png"},
+    {tip:"国庆黄金周高速拥堵",img:"img/events18.png"},
     {tip:"国庆假期最无聊先生",img:"img/events19.png"},
     {tip:"国庆假期最无聊小姐",img:"img/events21.png"},
     {tip:"她参选照片的背景是",img:"img/events14.png"},
     {tip:"一辆名叫蓝鸟的新车",img:"img/events14.png"},
-    {tip:"顺便在朋友圈狂晒自己买了蓝鸟",img:"img/events20.png"},
-
+    {tip:"顺便在朋友圈狂晒自己买了蓝鸟",img:"img/events20.png"}
 ]
 $(".btn").on("click",function(e){
     e.preventDefault();

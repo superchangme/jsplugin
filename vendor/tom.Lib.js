@@ -335,21 +335,35 @@
                     ctx.clearRect(0,0,canvas.width,canvas.height)
                     if(this.files&&this.files.length){
                         var temp,mega,preview=this.files[0],img=new Image;
-                                EXIF.getData(preview, function() {
-                                    mega=new MegaPixImage(preview);
-                                    mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1,orientation: EXIF.getTag(this,'Orientation')||1},function(){
-                                        var fuckCbimg=new Image;
-                                        fuckCbimg.onload=function(){
-                                            G.preview=img;
-                                            var o=getCropInfo();
-                                            $bindPreview.prop("style",'')
-                                            opts.onLoad({
-                                                originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
-                                                ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
-                                        }
-                                        fuckCbimg.src=img.src;
-                                    })
-                                });
+                              //  EXIF.getData(preview, function() {
+                        if(preview.type=="image/jpeg"){
+                            mega=new MegaPixImage(preview);
+                            mega.render(img,{ maxWidth: 800, maxHeight: 800,quality:1,orientation: EXIF.getTag(this,'Orientation')||1},function(){
+                                var fuckCbimg=new Image;
+                                fuckCbimg.onload=function(){
+                                    G.preview=img;
+                                    var o=getCropInfo();
+                                    $bindPreview.prop("style",'')
+                                    opts.onLoad({
+                                        originSrc:img.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
+                                        ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
+                                }
+                                fuckCbimg.src=img.src;
+                            })
+                        }else{
+                            var fuckCbimg=new Image;
+                            fuckCbimg.onload=function(){
+                                G.preview=fuckCbimg;
+                                var o=getCropInfo();
+                                $bindPreview.prop("style",'')
+                                opts.onLoad({
+                                    originSrc:fuckCbimg.src,width: o.dWidth,height: o.dHeight,ratio: G.ratio
+                                    ,x: o.x,y: o.y,dWidth: o.dWidth,dHeight: o.dHeight,scale: o.scale})
+                            }
+                            fuckCbimg.src=URL.createObjectURL(preview);
+                        }
+
+                              //  });
                         //img.src = URL.createObjectURL(preview);
                     //    { maxWidth: 1024, maxHeight: 1024,quality:0.5 }
                     }
@@ -530,7 +544,18 @@
             }(),
             language:(navigator.browserLanguage || navigator.language).toLowerCase()
     }
-
+    _.getParam=function(name){
+            var search=window.location.search.slice(1),
+                list=search.split("&"),length= 0,keyValArr
+            while(length<list.length){
+                keyValArr=list[length].split("=")
+                if(keyValArr[0]==name){
+                    return decodeURI(keyValArr[1]);
+                }
+                length++;
+            }
+            return null
+    }
     return _;
 });
 

@@ -1,0 +1,1 @@
+define(["jquery"],function(a){return console.log(a),a.noConflict(!0)})

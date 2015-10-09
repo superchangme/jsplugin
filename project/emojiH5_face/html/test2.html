@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<canvas id="canvas" width="500" height="500"></canvas>
+</body>
+<script src="../js/jquery-2.1.4.js"></script>
+<script>
+    var faceInfo='{"img":"14434239631016446909.jpg","contour_chin":{"x":46.85322,"y":78.627801},"contour_left1":{"x":37.325085,"y":38.719419},"contour_left2":{"x":35.752881,"y":43.890871},"contour_left3":{"x":35.040339,"y":48.264315},"contour_left4":{"x":35.581695,"y":53.044398},"contour_left5":{"x":36.218644,"y":57.570124},"contour_left6":{"x":37.851864,"y":61.884647},"contour_left7":{"x":39.690847,"y":66.547303},"contour_left8":{"x":41.416271,"y":70.893776},"contour_left9":{"x":43.304746,"y":75.487967},"contour_right1":{"x":71.989831,"y":44.860996},"contour_right2":{"x":71.614915,"y":51.123651},"contour_right3":{"x":70.704407,"y":56.640664},"contour_right4":{"x":69.177288,"y":62.011203},"contour_right5":{"x":66.961017,"y":66.829046},"contour_right6":{"x":63.785424,"y":71.009959},"contour_right7":{"x":60.091186,"y":73.901245},"contour_right8":{"x":56.383729,"y":76.902075},"contour_right9":{"x":51.94,"y":78.657676},"left_eye_bottom":{"x":42.095932,"y":40.750207},"left_eye_center":{"x":42.379661,"y":39.322365},"left_eye_left_corner":{"x":39.486441,"y":39.15805},"left_eye_lower_left_quarter":{"x":40.439322,"y":39.969793},"left_eye_lower_right_quarter":{"x":43.714576,"y":41.08083},"left_eye_pupil":{"x":43.843729,"y":39.398299},"left_eye_right_corner":{"x":45.796949,"y":41.373983},"left_eye_top":{"x":42.771186,"y":37.646017},"left_eye_upper_left_quarter":{"x":40.909492,"y":37.796846},"left_eye_upper_right_quarter":{"x":44.348475,"y":38.690498},"left_eyebrow_left_corner":{"x":38.089831,"y":33.270415},"left_eyebrow_lower_left_quarter":{"x":39.873898,"y":33.267095},"left_eyebrow_lower_middle":{"x":42.096949,"y":33.610996},"left_eyebrow_lower_right_quarter":{"x":44.155593,"y":34.346017},"left_eyebrow_right_corner":{"x":46.24339,"y":34.602656},"left_eyebrow_upper_left_quarter":{"x":40.142712,"y":32.018423},"left_eyebrow_upper_middle":{"x":42.232542,"y":31.750249},"left_eyebrow_upper_right_quarter":{"x":44.485424,"y":32.440581},"mouth_left_corner":{"x":41.071186,"y":59.294191},"mouth_lower_lip_bottom":{"x":46.937966,"y":67.902075},"mouth_lower_lip_left_contour1":{"x":44.114237,"y":63.094606},"mouth_lower_lip_left_contour2":{"x":42.739661,"y":63.06805},"mouth_lower_lip_left_contour3":{"x":44.058983,"y":66.287552},"mouth_lower_lip_right_contour1":{"x":53.336949,"y":65.211203},"mouth_lower_lip_right_contour2":{"x":55.13661,"y":65.986307},"mouth_lower_lip_right_contour3":{"x":50.917288,"y":68.06639},"mouth_lower_lip_top":{"x":47.377627,"y":65.383817},"mouth_right_corner":{"x":57.957288,"y":62.76971},"mouth_upper_lip_bottom":{"x":47.411525,"y":61.880913},"mouth_upper_lip_left_contour1":{"x":46.066102,"y":59.705394},"mouth_upper_lip_left_contour2":{"x":43.160339,"y":59.260996},"mouth_upper_lip_left_contour3":{"x":44.379322,"y":60.604979},"mouth_upper_lip_right_contour1":{"x":48.98678,"y":60.187552},"mouth_upper_lip_right_contour2":{"x":53.417288,"y":61.185892},"mouth_upper_lip_right_contour3":{"x":52.540678,"y":62.182988},"mouth_upper_lip_top":{"x":47.529153,"y":60.211618},"nose_contour_left1":{"x":47.500339,"y":41.044896},"nose_contour_left2":{"x":44.662373,"y":48.974274},"nose_contour_left3":{"x":44.914576,"y":55.165975},"nose_contour_lower_middle":{"x":47.245763,"y":56.203734},"nose_contour_right1":{"x":52.025085,"y":41.754357},"nose_contour_right2":{"x":52.630169,"y":50.208714},"nose_contour_right3":{"x":50.6,"y":56.247718},"nose_left":{"x":42.942373,"y":52.817427},"nose_right":{"x":53.912881,"y":55.034025},"nose_tip":{"x":46.928136,"y":52.252697},"right_eye_bottom":{"x":58.925085,"y":43.405809},"right_eye_center":{"x":58.89322,"y":42.064315},"right_eye_left_corner":{"x":54.718644,"y":42.684232},"right_eye_lower_left_quarter":{"x":56.53322,"y":43.043983},"right_eye_lower_right_quarter":{"x":61.118305,"y":43.242739},"right_eye_pupil":{"x":59.349831,"y":41.939834},"right_eye_right_corner":{"x":62.610847,"y":43.174274},"right_eye_top":{"x":59.000339,"y":40.506639},"right_eye_upper_left_quarter":{"x":56.772542,"y":40.844938},"right_eye_upper_right_quarter":{"x":61.009492,"y":41.341743},"right_eyebrow_left_corner":{"x":54.103051,"y":35.238465},"right_eyebrow_lower_left_quarter":{"x":57.09661,"y":36.004647},"right_eyebrow_lower_middle":{"x":60.268814,"y":36.304647},"right_eyebrow_lower_right_quarter":{"x":63.505085,"y":37.331452},"right_eyebrow_right_corner":{"x":66.250508,"y":38.895851},"right_eyebrow_upper_left_quarter":{"x":56.989153,"y":33.819959},"right_eyebrow_upper_middle":{"x":60.330508,"y":34.131909},"right_eyebrow_upper_right_quarter":{"x":63.883729,"y":35.682531}}'
+    faceInfo=JSON.parse(faceInfo);
+   function faceDect(faceInfo,opts,cb){
+       var canvas=document.createElement("canvas"),ctx=canvas.getContext("2d"),defer= $.Deferred();
+       defer.done(function(resultImg){
+           cb.call(null,resultImg);
+       })
+       canvas.style.display='none';
+       document.body.appendChild(canvas)
+       var img  =new Image,xMin=yMin= 100,xMax=yMax= 0,destImgWidth,destImgHeight;
+       var  faceCollection={}
+       opts=opts||{dWidth:300,dHeight:300,dTop:50,dLeft:50};
+       var faceOrderArr=[
+           'contour_lower_middle',
+           'contour_left3',
+           'left',
+           'contour_left2',
+           'contour_left1',
+           'contour_right1',
+           'contour_right2',
+           'right',
+           'contour_right3',
+           'lower_lip_bottom',
+           'lower_lip_left_contour3',
+           'lower_lip_left_contour2',
+           'lower_middle',
+           'bottom',
+           'lower_left_quarter',
+           'left_corner',
+           'upper_lip_left_contour2',
+           'upper_lip_left_contour1',
+           'upper_lip_top',
+           'upper_lip_right_contour1',
+           'upper_lip_right_contour2',
+           'upper_left_quarter',
+           'top',
+           'upper_middle',
+           'left_top',
+           'upper_right_quarter',
+           'right_corner',
+           'lower_lip_right_contour2',
+           'lower_lip_right_contour3',
+           'lower_right_quarter']
+       var temp,index,len;
+       var width,height,start;//nose_contour_left
+       ctx.lineCap=ctx.lineJoin="round";
+       for(var p in faceInfo) {
+           if(p.indexOf("mouth")>-1|| p.indexOf("nose")>-1){
+               temp=/([^_]*)_(.*)/g.exec(p);
+           }else{
+               temp=/([^_]*_[^_]*)_(.*)/g.exec(p);
+           }
+           if(temp&&temp.length==3){
+               index=faceOrderArr.indexOf(temp[2]);
+               if(index==-1){
+                   continue;
+               }
+               if(!faceCollection[temp[1]]){
+                   faceCollection[temp[1]]=new Array(8);
+               }
+               faceCollection[temp[1]][index]=faceInfo[p]
+           }
+
+           if(faceInfo[p].x){
+               xMin=Math.min(faceInfo[p].x,xMin);
+               yMin=Math.min(faceInfo[p].y,yMin);
+               xMax=Math.max(faceInfo[p].x,xMax);
+               yMax=Math.max(faceInfo[p].y,yMax);
+           }
+       }
+       faceInfo.xMin=xMin;
+       faceInfo.xMax=xMax;
+       faceInfo.yMin=yMin;
+       faceInfo.yMax=yMax;
+       for(var p in faceCollection) {
+           len=faceCollection[p].length;
+           for(var i= 0;i<len;i++){
+               if(typeof faceCollection[p][i]=="undefined"){
+                   faceCollection[p].splice(i,1);
+                   i--;
+                   len--;
+               }
+           }
+       }
+       img.onload=function(){
+           canvas.width=img.naturalWidth;
+           canvas.height=img.naturalHeight
+           destImgWidth=canvas.width;
+           destImgHeight=canvas.height;
+           addFaceInfo(faceInfo);
+           ctx.drawImage(img,0,0);
+           ctx.strokeStyle='red'
+           ctx.globalCompositeOperation='destination-in'
+           ctx.beginPath();
+           for(var p in faceCollection) {
+               ctx.moveTo(faceCollection[p][0].x*destImgWidth/100,faceCollection[p][0].y*destImgHeight/100)
+               for(var i= 1,l=faceCollection[p].length-1;i<l;i++){
+                   try{
+                       ctx.lineTo(faceCollection[p][i].x*destImgWidth/100,faceCollection[p][i].y*destImgHeight/100)
+                   }catch(e){
+                       console.log(faceCollection[p],i)
+                   }
+               }
+           }
+           ctx.closePath();
+           ctx.fill();
+           drawBaby(canvas.toDataURL("image/jpeg"),faceInfo)
+       }
+       img.src=faceInfo.img;
+       function drawBaby(imgSrc,info){
+           var img=new Image,rcanvas=document.createElement("canvas"),ctx=rcanvas.getContext("2d"),dx,dy,dw,dh,sx=opts.dLeft,sy=opts.dTop,sw,sh;
+           rcanvas.style=
+           document.body.appendChild(rcanvas);
+           rcanvas.width=opts.dWidth;
+           rcanvas.height=opts.dHeight;
+           sw=rcanvas.width-sx*2;
+           sh=rcanvas.height-sy*2;
+           dx=info.xMinVal;
+           dy=info.yMinVal;
+           dw=info.width;
+           dh=info.height;
+           img.onload=function(){
+               ctx.drawImage(img,dx,dy,dw,dh,sx,sy,sw,sh)
+               defer.resolve(rcanvas.toDataURL("image/jpeg"));
+               document.body.removeChild(rcanvas);
+               document.body.removeChild(canvas);
+           }
+           img.src=imgSrc;
+       }
+       function addFaceInfo(faceInfo){
+           faceInfo.width=destImgWidth*(faceInfo.xMax-faceInfo.xMin)/100;
+           faceInfo.height=destImgHeight*(faceInfo.yMax-faceInfo.yMin)/100;
+           faceInfo.xMinVal=faceInfo.xMin*destImgWidth/100;
+           faceInfo.yMinVal=faceInfo.yMin*destImgHeight/100;
+       }
+   }
+    faceDect(faceInfo,null,function(imgSrc){
+            console.log(imgSrc)
+    })
+</script>
+</html>
