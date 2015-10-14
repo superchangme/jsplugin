@@ -200,7 +200,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             G.btns.$resetEraser.on("click",function(){
                 G.startErase();
             })
-            //下一步
+            //下一步按钮
             G.btns.$nextStepBtn.on("click",function(){
                 if(G.isBusyWork){
                     return
@@ -255,7 +255,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                         sendFile({imageData:G.$resultCanvas[0].toDataURL("image/png"),filetype:"png"});
                 }
             })
-            //上一步
+            //上一步按钮a
             G.btns.$backStepBtn.on("click",function(){
                 if(G.isBusyWork){
                     return
@@ -555,8 +555,11 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             } );
             return work;
         }
-        //draw result
+        //draw result生成表情结果
+        //共四层
+        //1背景层 2用户制作层 3遮罩层 4文字层
         function drawResult(cb,final){
+
             G.$resultCanvas.removeLayers()[0].getContext("2d").clearRect(0,0, G.pWidth, G.pHeight) ;
             G.$resultCanvas.drawRect({
                 fillStyle:"#fff",
@@ -565,6 +568,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 height: G.pHeight,
                 x:0,y:0
             })
+               //背景层
             if(G.emoji.background){
                 G.$resultCanvas.
                     drawImage({
@@ -583,6 +587,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
 
         function drawExceptBg(cb){
             var one=false,two=false
+            //用户制作表情层
             G.$resultCanvas. drawImage({
                 source: G.emoji.photoWithErase,
                 layer:true,
@@ -591,6 +596,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 height: G.pHeight , fromCenter:false,load:function(){
                     if(one==false){
                         one=true;
+                        //表情遮罩层
                         G.$resultCanvas.drawImage({
                             source: G.emoji.mask,
                             layer:true,
@@ -605,6 +611,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                                         G.textParam.x= G.textX;
                                         G.textParam.y= G.textY;
                                     }
+                                    //表情文字
                                     G.$resultCanvas.drawText(
                                         {
                                             text: G.emoji.text,
@@ -633,6 +640,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             })
         }
 //draw photo
+        //用户照片生成到canvas
         function drawPhoto(x,y,scale,noLayer,cb){
             G.initX=x||0;
             G.initY=y||0;
@@ -693,6 +701,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             }).restoreCanvas()
         }
 //drawMaskLayer
+        //执行滤镜效果
         function loadFilter(img,work){
             var defer= $.Deferred();
             G.$filterCanvas.removeAttr("data-caman-id");
@@ -705,13 +714,16 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 filterCanton(work);
             })
         }
-        //滤镜
+        //表情滤镜代码d
+        //参考链接
+        //http://camanjs.com/
         function filterCanton(work){
             if(G.filterPhoto){
                 G.stopUserMove();
 //               G.$loading.show()
                 G.filterPhoto.revert();
 //               $("#transparentV").text($transparent.val())
+                // 亮度 对比度    以及自定义过滤透明像素  180表示
                 G.filterPhoto.brightness(5).saturation(-100).
                     contrast(parseFloat(G.$contrast.val()))./*.sharpen(6)*/
                     exposure(parseFloat(G.$exposure.val())).transparent(180).render(function(){
@@ -726,10 +738,11 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                     });
             }
         }
-        //前进后�??
+        //执行下一步逻辑代码
         function updateStep(step){
             var title;
             if(step!="drag-emoji"){
+                //非拖拽更新UI, 因为拖拽和choose-emoji公用了样式
                 G.currentStepDom.hide();
                 G.currentStepDom.removeClass("in")
                 G.currentStepDom= G.steps.filter('[data-step='+step+']:not(.wait)').show();
@@ -737,6 +750,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 if(step!='choose-emoji'){
                     G.currentStepDom.addClass("in")
                 }
+                //刷新滚动列表
                 for(var scrollName in G.scroll){
                     G.scroll[scrollName].refresh();
                 }
@@ -762,11 +776,14 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 case 'confirm-emoji':
                     title='确认提交';break;
             }
+            //更新标题
             document.title=title;
         }
+        //检查是否可以进行下一步j
         function checkIsLock(){
             switch (G.currentStep){
                 case "choose-emoji":
+                    //选择表情进行下一步需满足已选表情照片
                     if(G.emoji.photo&& G.emoji.mask){
                         G.stepLock=false;
                     }
@@ -779,6 +796,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             }
             return G.stepLock;
         }
+        //显示用户操作提示
         function showTips(dom){
             dom=dom||[]
             if(dom.length==0){
@@ -794,6 +812,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
         }
         //initialize
         init();
+        //滤镜调节滑块初始化c
         $("[data-rangeslider]").rangeslider({
 
             // Deactivate the feature detection
@@ -815,6 +834,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
             }
         });
 
+        //限制表情文本输入，并增加换行功能
         function getLineNum(dom,lineNum){
             var text=$(dom).val(),lineHeight=$(dom).css("line-height"),width=$(dom).width(),fontSize=$(dom).css("font-size"),fontFa=$(dom).css("font-family");;
             var $text=$("<div style='position: absolute;height:0;width: 0;'><div></div></div>"),textnum= 1,temp="",$textarea;
