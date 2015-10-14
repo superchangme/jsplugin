@@ -1,8 +1,353 @@
-var app=app||{};
+ app=app||{};
+ YAO.checkSupport(function(isSupport){
+     if(isSupport){
+         Game.supportYao=true;
+         $("[data-support-yao=true]").show();
+         $("[data-support-yao=false]").hide();
+     }else{
+         Game.supportYao=false;
+         $("[data-support-yao=true]").hide();
+         $("[data-support-yao=false]").show();
+         // debug.log("你的设备关闭了重力感应或者不支持")
+     }
+ })
 var jssdkURL="../php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
 $.ajax({url:visitUrl,success:function(){
     console.log("记录访问信息")
 }})
+$.extend(Game,{
+    currentGame:null,
+    $soundPage:$("#soundPage"),
+    $playPage:$("#playPage"),
+    $rulerPage:$("#rulerPage"),
+    $scorePage:$("#scorePage"),
+    $rankPage:$("#rankPage"),
+    init:function(){
+        $(document).delegate(".ans-words-list li","click",function(){
+            if(Game.isOver){
+                return;
+            }
+            var word=$(this).text(),role=Game.gameBox.role;
+            for(var i= 0,l=role.$rstList.length;i<l;i++){
+                var mword=role.$rstList.eq(i);
+                if(!mword.data("word")){
+                    $(this).addClass("fade")
+                    mword.text(word).data("word",word).data("wordIndex",$(this).index())
+                    role.myRst[i]=word
+                    Game.checkRoleAns();
+                    break;
+                }
+            }
+        })
+        $(document).delegate(".rst-list li","click",function() {
+            if(Game.isOver){
+                return;
+            }
+            if($(this).data("word")){
+                var index=$(this).data("wordIndex");
+                $(this).data("word","").text('');
+                Game.gameBox.role.myRst[$(this).index()]=""
+                app.$ansWordsList.find("li").eq(index).removeClass("fade")
+            }
+        });
+        $("#nextRoleBtn").on("click",Game.nextRole)
+        $("#beginRecord").on("touchstart",Game.playCandle)
+        $("#beginClickCandle").on("click",function(){
+            Game.addCandleCount();
+            Game.candleCountCb();
+        })
+        $("#beginRecord").on("touchend",Game.stopGame.bind(Game,"candle"))
+        Game.gameBox.candle.candleList=[];
+        app.$candleList.each(function(index){
+            Game.gameBox.candle.candleList[index]=({isPutOut:false,index:index})
+        })
+        Game.gameBox.candle.counts=0;
+        $("#rulerPage .btn-go").on("click",Game.play)
+        $(".btn-see-rank").on("click",function(){
+            Game.updatePage(Game.$rankPage)
+        })
+        $(".btn-play-next").on("click",function(){
+            if(Game.currentGameNames.length==1){
+                app.updateScreen(app.screens.chooseScreen)
+            }else{
+                var index=Math.floor(Math.random()*Game.currentGameNames.length)
+                Game.start(Game.currentGameNames[index])
+                Game.currentGameNames.splice(index,1)
+            }
+        })
+
+    },
+    playCandle:function(){
+        Game.countGame(Game.candleCountCb.bind(null,true))
+    },
+    openLoad:function(dfer){
+        app.screens.waitScreen.removeClass("hidden")
+        setTimeout(function(){
+            animateGroup({frameClass:["in"],loopTimes:1,noWaitLast:true,group:app.screens.waitScreen.find(".num"),duration:10,callback:function(){
+                app.screens.waitScreen.addClass("hidden");
+                dfer.resolve();
+            }});
+        },0)
+    },
+    allowRecord:function(cb){
+        if(Game.isOver||Game.recordAgree){
+            return;
+        }
+        if (navigator.getUserMedia) {
+            //do something
+            navigator.getUserMedia({
+                audio: true
+            }, onSuccess,function(){
+                if(Game.supportYao){
+                    Game.gameBox.candle.playType="shake"
+                }else{
+                    Game.gameBox.candle.playType="click"
+
+                }
+                Game.countGame()
+                $("[data-support-record=true]").hide();
+                $("[data-support-record=false]").show();
+                YAO.stop();
+                YAO.start(function(){
+                    Game.addCandleCount();
+                    Game.candleCountCb();
+                })
+            });
+        } else {
+            if(Game.supportYao){
+                Game.gameBox.candle.playType="shake"
+            }else{
+                Game.gameBox.candle.playType="click"
+            }
+            Game.countGame()
+            $("[data-support-record=true]").hide();
+            $("[data-support-record=false]").show();
+            YAO.stop();
+            YAO.start(function(){
+                Game.addCandleCount();
+                Game.candleCountCb();
+            })
+            console.log('your browser not support getUserMedia');
+        }
+    },
+    start:function(type){
+        app.screens.gameScreen.find("[data-game="+type+"]").removeClass("hidden").siblings("[data-game]").addClass("hidden");
+        app.updateScreen(app.screens.gameScreen);
+        Game.updatePage(Game.$soundPage)
+        setTimeout(function(){
+           Game.currentGame=Game.gameBox[type];
+           Game.currentGame.voice.one("play",function(){
+               Game.updatePage(Game.$rulerPage)
+           })[0].play()
+       },100)
+    },
+    play:function(){
+        var dfer= $.Deferred(),countCb=function(){},type=Game.currentGame.type;
+        console.time("hj")
+        Game.openLoad(dfer)
+        dfer.done(function(){
+            Game.updatePage(Game.$playPage)
+            Game.isOver=false;
+            switch(type){
+                case "panda":
+                    YAO.start(function(){
+                        Game.pandaShake();
+                    })
+                    break;
+                case "role":
+                    Game.startRole(0);
+                    break;
+                case "candle":
+                    Game.allowRecord();
+                    break;
+                case "tree":
+                    Game.currentGame.LTreeIndexInit();
+            }
+            if(type!='candle'){
+                Game.countGame(countCb);
+            }
+        })
+    },
+    candleCountCb:function(){
+        var candle=Game.gameBox.candle;
+        if(candle.candleList.length==0){
+            Game.stopGame("candle");
+            return;
+        }
+        if((!candle.lastCounts&&candle.counts>getRandom(candle.gapMin,candle.gapMax))||candle.counts-candle.lastCounts>getRandom(candle.gapMin,candle.gapMax)){
+            Game.putOutOneCandle();
+            candle.lastCounts=candle.counts;
+        }
+    },
+    addCandleCount:function(isRandom){
+        if(!isRandom){
+            Game.gameBox.candle.counts++;
+        }else{
+            Game.gameBox.candle.counts+=Math.random()*(16/1000)*10
+        }
+    },
+    putOutOneCandle:function(){
+      var candle=this.gameBox.candle,index=Math.floor(Math.random()*candle.candleList.length);
+        candleOne=candle.candleList[index]
+        candle.candleList.splice(index,1);
+        app.$candleList.eq(candleOne.index).addClass("put-out")
+    },
+    startRole:function(roleNo){
+        var role=Game.gameBox.role;
+        role.roleNo=roleNo;
+        role.rst=role.roleList[roleNo].rst;
+        role.myRst=new Array(role.rst.length);
+        role.ansWords=role.roleList[roleNo].ansWords.split("");
+        var rstList="",ansList="";
+        for(var i= 0,l=role.rst.length;i<l;i++){
+            rstList+="<li></li>"
+        }
+        for(var i= 0,l=role.ansWords.length;i<l;i++){
+            ansList+="<li>"+role.ansWords[i]+"</li>"
+        }
+        app.$rstList.html(rstList);
+        app.$ansWordsList.html(ansList);
+        app.$rolePhotoList.eq(role.roleNo).addClass("show").siblings().removeClass("show")
+        role.$rstList=app.$rstList.find("li")
+        this.drawRoleBg();
+    },
+    checkRoleAns:function(){
+        var role=Game.gameBox.role
+        if(role.rst==role.myRst.join("")){
+        //next question
+            if(role.roleNo==role.roleList.length-1){
+                //all answered
+            }else{
+                Game.currentGame.newScore+=100;
+                this.updateScore(true,100)
+                app.$ansWordsList.empty();
+                app.$nextRoleBox.show();
+            }
+        }else if(role.rst.length==role.myRst.join("").length){
+            //wrong tip
+            app.$rstList.animate("shake",600)
+            //animateGroup({group:app.$rstList,frameClass:["shake",""],loopTimes:1,duration:1400})
+        }
+    },
+    nextRole:function(){
+        app.$nextRoleBox.hide();
+        animateGroup({group:app.$roleAnsBox,frameClass:["next"],noWaitLast:true,duration:300,loopTimes:1,callback:function(){
+            Game.startRole(++Game.gameBox.role.roleNo)
+        }});
+    },
+    drawRoleBg:function(){
+      var width=app.$rstList.width();
+        var ctx=app.$ansBgCanvas[0].getContext("2d");
+        ctx.strokeStyle="#cd273d";
+        ctx.lineWidth=2;
+        ctx.roundRect(0,0,592,240,6,false,true);
+        ctx.clearRect((app.$ansBgCanvas[0].width-width)/2,0,width,4);
+    },
+    updatePage:function(page){
+        if(!Game.currentPage){
+            Game.currentPage=page;
+            Game.currentPage.show();
+        }else{
+            Game.currentPage.hide();
+            Game.currentPage=page.show();
+        }
+    },
+    countGame:function(countCb){
+        var start=+new Date;
+        Game.Timer.start=start;
+        function run(){
+            var now=+new Date;
+            var milliseconds=(now-start);
+            Game.Timer.now=now;
+            if(milliseconds<60000){
+                if(countCb){
+                    if(Game.currentGame==Game.gameBox.candle){
+                        Game.addCandleCount(true);
+                    }
+                    countCb();
+                }
+                requestAnimFrame(run)
+            }else{
+                Game.stopGame();
+            }
+            Game.displayTime="00:"+pad(Math.max(0,(60-Math.ceil((milliseconds)/1000))),2)+":"+(milliseconds+"").slice(-3);
+            Game.updateTime();
+        }
+        run();
+    },
+    stopGame:function(){
+        switch(Game.currentGame.type){
+            case "candle":
+                Game.gameBox.candle.counts=0;
+                Game.gameBox.candle.lastCounts=0;
+                app.$candleList.each(function(index){
+                    Game.gameBox.candle.candleList[index]=({isPutOut:false,index:index})
+                });
+                setTimeout(function(){
+                    app.$candleList.removeClass("put-out");
+                },100);
+                break;
+            case "tree":
+                Game.currentGame.LGameOver();
+        }
+        Game.isOver=true;
+        Game.recordAgree=false;
+        Game.updatePage(Game.$scorePage);
+        setTimeout(function(){
+            Game.resetGamesNewScore();
+        },500)
+    },
+    updateTime:function(){
+        app.$remainTime.text(Game.displayTime)
+    },
+    updateScore:function(isUp,score){
+        var dir=(isUp?"up":"down");
+        var op=(isUp?"+":"-");
+        app.$gameScore.html(Game.currentGame.newScore)
+        animateGroup({group:app.$scoreTip.html(op+score),duration:1000,loopTimes:1,frameClass:[dir,""]});
+    },
+    showScorePage:function(){
+
+    },
+    //摇一摇随机得分
+    pandaShake:function(){
+        if(Game.isOver==true||Game.shakeLock){
+            return;
+        }
+        Game.shakeLock=true;
+        var item;
+            var isUp=true,list;
+            if(Math.random()<Game.gameBox.panda.goodRatio){
+                list=app.$pandaFoodList.filter("[data-good]");
+                item=list.eq(Math.floor(Math.random()*list.length))
+                Game.currentGame.newScore+=100;
+            }else{
+                isUp=false;
+                list=app.$pandaFoodList.filter("[data-harm]");
+                item=list.eq(Math.floor(Math.random()*list.length))
+                Game.currentGame.newScore=Game.currentGame.newScore-50;
+            }
+            item.addClass("show");
+        setTimeout(function() {
+            Game.updateScore(isUp, isUp ? 100 : 50);
+        },1000);
+        animateGroup({
+            group:app.$pandaTop,frameClass:["open",""],loopTimes:1,duration:1000,callback:function(){
+            Game.shakeLock=false;
+            item.removeClass("show")
+            }
+        })
+    },
+    resetGamesNewScore:function(){
+          for(var game in Game.gameBox){
+              game.newScore=0;
+              game.currentTime=0;
+          }
+        app.$gameScore.text(0)
+        app.$remainTime.text("00:60:000");
+    }
+});
+
 function shareToWx(title, link, imgUrl, desc, cb) {
     wx.onMenuShareTimeline({
         title: title, // 分享标题
@@ -10,7 +355,7 @@ function shareToWx(title, link, imgUrl, desc, cb) {
         imgUrl: imgUrl, // 分享图标
         success: function () {
             cb();
-            // 用户确认分享后执行的回调函数
+            // 用户确认分享后执行的回调函数fcapp
         },
         cancel: function () {
             // 用户取消分享后执行的回调函数
@@ -73,6 +418,18 @@ $.extend(app,{
         "feng":0,
          "zhou":2
     },
+    $pandaFoodList:$("#pandaFoodList li"),
+    $candleList:$(".o-candle"),
+    $nextRoleBox:$("#nextRoleBox"),
+    $rolePhotoList:$("#rolePhotoList li"),
+    $roleAnsBox:$("#roleAnsBox"),
+    $ansWordsList:$("#ansWordsList"),
+    $rstList:$("#rstList"),
+    $ansBgCanvas:$("#ansBgCanvas"),
+    $scoreTip:$("#scoreTip i"),
+    $pandaTop:$("#pandaTop"),
+    $gameScore:$("#gameScore"),
+    $remainTime:$("#remainTime"),
     $checkList:$(".check-list li"),
     $chooseList: $("[data-choose-item]"),
    init:function(){
@@ -83,6 +440,7 @@ $.extend(app,{
                           self.updateScreen(self.getNextScreen(),$(this).data("choose"))
                    })
                     $("[data-screen]").on("click",function(){
+                        console.log(self.screens[$(this).data("screen")])
                         self.updateScreen(self.screens[$(this).data("screen")])
                     })
                     $("select").on("change",function(){
@@ -112,11 +470,9 @@ $.extend(app,{
    },
     screens:{
         startScreen:$("#startScreen"),
-        styleScreen:$("#styleScreen"),
-        qsScreen:$("#qsScreen"),
-        qsWrongScreen:$("#qsWrongScreen"),
-        qsRightScreen:$("#qsRightScreen"),
-        yueScreen:$("#yueScreen")
+        waitScreen:$("#waitScreen"),
+        gameScreen:$("#gameScreen"),
+        chooseScreen:$("#chooseScreen")
     },
     getNextScreen:function(){
         var stop=false;
@@ -155,8 +511,6 @@ $.extend(app,{
         }
     }
 });
-//加载省市代理商区域下拉
-new MyArea(["province","city","agency","area"],null,true); //初始化地区插件   三级第一个为已选择
 window.addEventListener("orientationchange",function(){
     if (window.orientation == 0 || window.orientation == 180) {
         //orientation = 'portrait';
@@ -472,13 +826,27 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==2){
+        if(loadedTimes==1){
             $('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active in');
             app.init();
+            Game.init();
+            indexInit();
             document.body.scrollTop=0;
+            $("img[lazyload]").each(function(){
+                $(this).prop("src",$(this).data("src"));
+            })
         }
+    }
+    for(var game in Game.gameBox){
+        (function(game){
+            loadAudio(Game.gameBox[game].media+"?"+Math.random(),function(audio){
+                Game.gameBox[game].voice=$(audio)
+                loadedTimes+=1;
+                checkLoaded()
+            })
+        })(game)
     }
     //loadBg music
     loadAudio("../media/bg.mp3",function(audio){
@@ -492,7 +860,7 @@ webpsupport(function (webpa) {
             bgAudio.play();
             bgAudio.isPaused=false
         }
-        image.src='../img/volume_on.png';
+        image.src='../img/btn_volume.png';
     })
 
 
@@ -579,88 +947,12 @@ var lightFrame;
 $(function(){
     resetMeta();
 var musicBtn=$(".music-btn"),$sharePage=$("#sharePage"),$readyPage=$("#rewardPage");
-    $(".btn-go-site").on("click",function(e){
-        e.stopImmediatePropagation();
-    })
-    $("a.btn").on("click",function(e){
-        e.preventDefault();
-    })
-    $(".btn-more-link").on("click",function(){
-        $sharePage.removeClass("hidden");
-    })
-    $sharePage.on("click",function(){
-        $sharePage.addClass("hidden");
-    })
-    $(".reward-u").on("click",function(){
-        $readyPage.removeClass("hidden");
-    })
-    $readyPage.on("click",function(){
-        $readyPage.addClass("hidden");
-    })
-
-    $("#submitFormBtn").on("click",function(e){
-        var $self=$(this);
-        if(isSubmited){
-            return;
-        }
-        if(isSubmiting){
-            alert("提交中......");
-            return;
-        }
-        //e.preventDefault();
-        var $form=$(this).parents("form")
-        var inputs=$form.find('input'),result=true,pattern;
-        inputs.each(function(index,item){
-            if(item.getAttribute("name")){
-                if(item.getAttribute('pattern')){
-                    pattern=new RegExp(item.getAttribute('pattern'));
-                }
-                if(/^\s*$/.test(item.value)){
-                    result=false
-                }
-                if(pattern&&!pattern.test(item.value)){
-                    result=false;
-                }
-                pattern=null;
-            }
-        })
-        if(!result){
-            alert("请检查填写的资料是否正确!")
-        }else{
-            isSubmiting=true;
-            //$(this).text("提交中...");
-            $.ajax({
-                type:"post",
-                data: $form.serializeArray(),
-                dataType:"json",
-                url:uploadUrl,
-                success:function(data){
-                    isSubmited=true;
-                    //$self.text("提交成功");
-                    alert(data.message);
-                },error:function(){
-                    alert("出错了，请重新提交！")
-                    //$self.text("重新提交");
-                } ,complete:function(){
-                    isSubmiting=false;
-                }
-            })
-        }
-        return result;
-    })
-
-    $("#musicPlayBtn").on('click',function(){
-        if(musicBtn.is(".off")){
-            bgAudio.play();
-            bgAudio.isPaused=false;
-            musicBtn.removeClass("off")
-        }else{
-            bgAudio.pause();
-            bgAudio.isPaused=true;
-            musicBtn.addClass("off")
-        }
-    })
-
+ $(".choose-list a").on("click",function(){
+     var gameType=$(this).data("game");
+     Game.start(gameType)
+     Game.currentGameNames=Game.gameNames.slice();
+ })
+    $("#pandaYaoBtn").on("click",Game.pandaShake)
 })
 //swipe plugin
 function mySwipe(opts,successCb,beforeSwipeCb){
@@ -951,3 +1243,143 @@ function ajax(url,cb){
     }
     xhr.send(null);
 }
+
+ function animateGroup(opts){
+
+     //group,frameClass,duration,gap,startIndex,loopTimes,cb
+     var animArr=opts.group,reset,duration=opts.duration+(opts.gap|| 0),curEl=animArr.eq(0),index=opts.startIndex||0;
+     function run(){
+         curEl.addClass(opts.frameClass[index]||opts.frameClass[0])
+     }
+     if(!opts.waitTime){
+         go();
+     }else{
+         setTimeout(function(){
+             go();
+         },opts.waitTime)
+     }
+     function go() {
+         run();
+         reset = setInterval(function () {
+             if (opts.classSwitch !== false) {
+                 curEl.removeClass(opts.frameClass[index] || opts.frameClass[0]);
+             }
+             index++;
+             if (index > animArr.length - 1) {
+                 opts.loopTimes--;
+                 index = 0;
+             }
+             curEl = animArr.eq(index);
+             if (opts.loopTimes == null || opts.loopTimes != 0) {
+                 run();
+             }
+             if (opts.loopTimes == 0) {
+                 clearInterval(reset);
+                 if(opts.noWaitLast){
+                     typeof opts.callback == "function" && opts.callback();
+                 }else{
+                     setTimeout(function(){
+                         typeof opts.callback == "function" && opts.callback();
+                     },duration)
+                 }
+
+             }
+         }, duration );
+     }
+     return reset;
+ }
+ function pad(num, n) {
+     return Array(n>num?(n-(''+num).length+1):0).join(0)+num;
+ }
+ CanvasRenderingContext2D.prototype.roundRect =function(x, y, width, height, radius, fill, stroke) {
+     if (typeof stroke == "undefined") {
+         stroke = true;
+     }
+     if (typeof radius === "undefined") {
+         radius = 5;
+     }
+     this.beginPath();
+     this.moveTo(x + radius, y);
+     this.lineTo(x + width - radius, y);
+     this.quadraticCurveTo(x + width, y, x + width, y + radius);
+     this.lineTo(x + width, y + height - radius);
+     this.quadraticCurveTo(x + width, y + height, x + width - radius, y+ height);
+     this.lineTo(x + radius, y + height);
+     this.quadraticCurveTo(x, y + height, x, y + height - radius);
+     this.lineTo(x, y + radius);
+     this.quadraticCurveTo(x, y, x + radius, y);
+     this.closePath();
+     if (stroke) {
+         this.stroke();
+     }
+     if (fill) {
+         this.fill();
+     }
+ };
+ navigator.getUserMedia ||
+ (navigator.getUserMedia = navigator.mozGetUserMedia ||  navigator.webkitGetUserMedia || navigator.msGetUserMedia);
+
+
+ var URL = window.URL && window.URL.createObjectURL ? window.URL :
+     window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
+         null;
+ function onSuccess(stream) {
+     if(Game.recordAgree){
+         return;
+     }
+     Game.gameBox.candle.playType="record"
+     $("[data-support-record=true]").show();
+     $("[data-support-record=false]").hide();
+     Game.recordAgree=true;
+     return;
+     //创建一个音频环境对像
+     audioContext = window.AudioContext || window.webkitAudioContext;
+     context = new audioContext();
+     //将声音输入这个对像
+     audioInput = context.createMediaStreamSources(stream);
+
+     //设置音量节点
+     volume = context.createGain();
+     audioInput.connect(volume);
+
+     //创建缓存，用来缓存声音
+     var bufferSize = 2048;
+
+     // 创建声音的缓存节点，createJavaScriptNode方法的
+     // 第二个和第三个参数指的是输入和输出都是双声道。
+     recorder = context.createJavaScriptNode(bufferSize, 2, 2);
+
+     // 录音过程的回调函数，基本上是将左右两声道的声音
+     // 分别放入缓存。
+     recorder.onaudioprocess = function(e){
+         console.log('recording');
+         var left = e.inputBuffer.getChannelData(0);
+         var right = e.inputBuffer.getChannelData(1);
+         // we clone the samples
+         leftchannel.push(new Float32Array(left));
+         rightchannel.push(new Float32Array(right));
+         recordingLength += bufferSize;
+     }
+
+     // 将音量节点连上缓存节点，换言之，音量节点是输入
+     // 和输出的中间环节。
+     volume.connect(recorder);
+
+     // 将缓存节点连上输出的目的地，可以是扩音器，也可以
+     // 是音频文件。
+     recorder.connect(context.destination);
+
+ }
+ function indexInit(){
+     //初始化lufy canvas，来到这个游戏页之后再初始化， 然后setTimeout 200ms 开始游戏调用函数：LTreeIndexInit(); 不然android会卡。
+     ysStage.init();
+     LInit(30, "LMainDiv", 640, 908,lMainLoader.init,LEvent.INIT);
+     //LGlobal.setDebug(true);
+     //LGlobal.backgroundColor="#000";
+     LGlobal.align = LStageAlign.MIDDLE;
+     LGlobal.stageScale = LStageScaleMode.EXACT_FIT;
+     LSystem.screen(LStage.FULL_SCREEN);
+ }
+ function getRandom(min,max){
+  return Math.random()*(max-min+1)   +min
+ }
