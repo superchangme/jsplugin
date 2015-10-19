@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/light.css">
+    <style>
+        body {
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <div class="light_frame">
+
+    </div>
+</body>
+<script src="../js/wxmoment.min.js"></script>
+<script>
+    function animateFrame(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, isLoopBoo, loopTimes, loopGapTime, callBackFun, stepFuc, waitFrame, waitTime) {
+        var plugin = el.data("plugin"), frameClass,$list,
+                isInit = plugin ? true : false, isPlay = plugin ? plugin.getPlayState() : false;
+        if (isPlay) {
+            return;
+        }
+        if (!isInit) {
+            for (var i = 0; i <= lastFrame; i++) {
+                frameClass="png-frame p" + (i + 1)+((i==0)? " show":"");
+                el.append("<div class='"+frameClass+"'></div>");
+            }
+            $list = el.find(".png-frame");
+            el.data("plugin", plugin = new Plugin());
+        } else {
+            plugin.reset();
+            $list = plugin.list;
+        }
+        function Plugin() {
+            var isPlay = true;
+            this.list = $list;
+            this.isInit = true;
+            this.reset = reset;
+            this.interval = null;
+            this.timeout = null;
+            this.isPlay = true;
+            this.stop = function(){
+                isPlay=false;
+            }
+            this.start = function(){
+                isPlay=true;
+            }
+            this.getPlayState=function(){
+                return isPlay
+            }
+        }
+
+        function reset() {
+            clearInterval(plugin.interval);
+            $list.filter(function (item, index) {
+                return index > 0
+            }).removeClass("show");
+            plugin.start();
+            clearTimeout(plugin.timeout);
+        }
+
+        (function () {
+            var count = firstFrame, next, time, prev;
+            function frameEvent() {
+                plugin.interval = setInterval(function () {
+                    if(!plugin.getPlayState()){
+                        return;
+                    }
+                    if (waitFrame && (waitFrame == count)) {
+                        if (!time) {
+                            time = +new Date;
+                            return;
+                        } else {
+                            if (+new Date - time < waitTime) {
+                                return;
+                            } else {
+                                waitFrame = null;
+                            }
+                        }
+                    }
+                    prev = count;
+                    if (!isGoToFirstBoo) {
+                        count++;
+                    }
+                    if (count == lastFrame) {
+                        if (loopTimes)loopTimes--;
+                        clearInterval(plugin.interval);
+                        if (isLoopBoo && (loopTimes != 0 || loopTimes == null)) {
+                            //循环播放 调用
+                            plugin.timeout = setTimeout(function () {
+                                if (isGoToFirstBoo) {
+                                    count = 0;
+                                }
+                                frameEvent();
+                            }, loopGapTime);
+                        }
+                        if (isLoopBoo && loopTimes == 0) {
+                            plugin.stop();
+                            if (typeof callBackFun == "function") {
+                                callBackFun();
+                            }
+                        } else if(!isLoopBoo) {
+                            plugin.stop();
+                        }
+                        if (typeof callBackFun == "function" && isLoopBoo == false) {
+                            callBackFun();
+                        }
+                    }
+
+                    if (isGoToFirstBoo) {
+                        count++;
+                    }
+                    if (count == lastFrame + 1) {
+                        count = 0;
+                    }
+                    $list.eq(count).addClass("show");
+                    $list.eq(prev).removeClass("show");
+                    if (typeof stepFuc == "function") {
+                        stepFuc(count);
+                    }
+
+                }, frameGapTime);
+            }
+            frameEvent();
+        })();
+        return plugin;
+    }
+    lightFrame=animateFrame($(".light_frame"),0,15-1,100,true,true,null,1000);
+
+</script>
+</html>

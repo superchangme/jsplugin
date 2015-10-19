@@ -1,0 +1,29 @@
+/* ----------------------------------------------------
+   created with http://www.codeandweb.com/texturepacker 
+   ----------------------------------------------------
+   $TexturePacker:SmartUpdate:cc8415ce8e5c5712face1dbbcc7be2cd:64a6e715405ff750f7d80af2404588af:2d4369af3f1fcaacc65035a9e9e98be4$
+   ----------------------------------------------------
+
+   usage: <span class="{-spritename-} sprite"></span>
+
+   replace {-spritename-} with the sprite you like to use
+
+*/
+
+.sprite {display:inline-block; overflow:hidden; background-repeat: no-repeat;background-image:url(light_slide.png);}
+
+.png-frame.p1 {width:219px; height:38px; background-position: -2px -2px}
+.png-frame.p10 {width:219px; height:38px; background-position: -2px -42px}
+.png-frame.p11 {width:219px; height:38px; background-position: -2px -82px}
+.png-frame.p12 {width:219px; height:38px; background-position: -223px -2px}
+.png-frame.p13 {width:219px; height:38px; background-position: -223px -42px}
+.png-frame.p14 {width:219px; height:38px; background-position: -223px -82px}
+.png-frame.p15 {width:219px; height:38px; background-position: -444px -2px}
+.png-frame.p2 {width:219px; height:38px; background-position: -444px -42px}
+.png-frame.p3 {width:219px; height:38px; background-position: -444px -82px}
+.png-frame.p4 {width:219px; height:38px; background-position: -665px -2px}
+.png-frame.p5 {width:219px; height:38px; background-position: -886px -2px}
+.png-frame.p6 {width:219px; height:38px; background-position: -665px -42px}
+.png-frame.p7 {width:219px; height:38px; background-position: -886px -42px}
+.png-frame.p8 {width:219px; height:38px; background-position: -665px -82px}
+.png-frame.p9 {width:219px; height:38px; background-position: -886px -82px}

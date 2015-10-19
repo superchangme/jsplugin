@@ -1,3 +1,61 @@
+document.addEventListener("touchmove",function(e){
+    e.preventDefault();
+},false)
+var browser={
+    versions:function(){
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+            iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+            weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+            qq: u.match(/\sQQ/i) == " qq" //是否QQ
+        };
+    }(),
+    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+}
+// Simple JavaScript Templating
+// John Resig - http://ejohn.org/ - MIT Licensed
+;(function(){
+    var cache = {};
+
+    this.tmpl = function tmpl(str, data){
+        // Figure out if we're getting a template, or if we need to
+        // load the template - and be sure to cache the result.
+        var fn = !/\W/.test(str) ?
+            cache[str] = cache[str] ||
+                tmpl(document.getElementById(str).innerHTML) :
+
+            // Generate a reusable function that will serve as a template
+            // generator (and which will be cached).
+            new Function("obj",
+                "var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+                    // Introduce the data as local variables using with(){}
+                "with(obj){p.push('" +
+
+                    // Convert the template into pure JavaScript
+                str
+                    .replace(/[\r\t\n]/g, " ")
+                    .split("<%").join("\t")
+                    .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+                    .replace(/\t=(.*?)%>/g, "',$1,'")
+                    .split("\t").join("');")
+                    .split("%>").join("p.push('")
+                    .split("\r").join("\\'")
+                + "');}return p.join('');");
+
+        // Provide some basic currying to the user
+        return data ? fn( data ) : fn;
+    };
+})();
  app=app||{};
  YAO.checkSupport(function(isSupport){
      if(isSupport){
@@ -11,17 +69,19 @@
          // debug.log("你的设备关闭了重力感应或者不支持")
      }
  })
-var jssdkURL="../php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
-$.ajax({url:visitUrl,success:function(){
-    console.log("记录访问信息")
-}})
 $.extend(Game,{
     currentGame:null,
+	$highScoreTips:$("[data-high]"),
+	$lowScoreTips:$("[data-low]"),
+	$myScore:$("#myScore"),
+	$myRank:$("#myRank"),
+    $myOneScore:$("#myOneScore"),
     $soundPage:$("#soundPage"),
     $playPage:$("#playPage"),
     $rulerPage:$("#rulerPage"),
     $scorePage:$("#scorePage"),
     $rankPage:$("#rankPage"),
+	$sharePage:$("#sharePage"),
     init:function(){
         $(document).delegate(".ans-words-list li","click",function(){
             if(Game.isOver){
@@ -64,35 +124,117 @@ $.extend(Game,{
         Game.gameBox.candle.counts=0;
         $("#rulerPage .btn-go").on("click",Game.play)
         $(".btn-see-rank").on("click",function(){
+			Game.$myScore.html(Game.$myScore.data("loading"))
+			Game.$myRank.html(Game.$myRank.data("loading"))
+			app.$rankList.html(app.$rankList.data("loading"))
             Game.updatePage(Game.$rankPage)
+            $.ajax({
+                url:rankListUrl,
+                dataType:"json",
+                success:function(data){
+                    var mydata;
+                   if(data.result==1){
+                       mydata=data.list.splice(-1,1)[0];
+					   Game.$myScore.text(mydata.total)
+					   Game.$myRank.text(mydata.rank)
+                       app.$rankList.html(app.tpl.ranklistTpl({list:data.list}))
+                   }else{
+                       alert(data.msg)
+                   }
+                },error:function(){
+                    alert("获取排行榜失败")
+					app.$rankList.html('<h2>获取数据失败!</h2>')
+                }
+            })
         })
         $(".btn-play-next").on("click",function(){
             if(Game.currentGameNames.length==1){
                 app.updateScreen(app.screens.chooseScreen)
-            }else{
+            }else
+            {
+                for(var i=0;i<Game.currentGameNames.length;i++){
+                    if(Game.currentGame.type==Game.currentGameNames[i]){
+                        Game.currentGameNames.splice(i,1)
+                    }
+                }
                 var index=Math.floor(Math.random()*Game.currentGameNames.length)
                 Game.start(Game.currentGameNames[index])
-                Game.currentGameNames.splice(index,1)
             }
         })
+        $(".btn-replay").on("click",Game.play)
+		$(".btn-see-more-rank").on("click",function(){
+			app.scroll.rankScroll.refresh();
+		})
+		$(".btn-go-share").on("click",function(){
+			Game.$sharePage.show();
+			  shareInfo.title=Game.currentGame.shareTitle.replace("xx",Game.currentGame.newScore)
+			  console.log(shareInfo.title);
+			shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
+				 $.ajax({
+					url:collectShareUrl ,
+					complete:function(){
 
+					}
+				})
+			})
+		})
+		Game.$sharePage.on("click",function(){
+			$(this).hide();
+		})
+		$(".btn-voice").on("click",function(){
+			Game.currentGame.voice.one("play",function(){
+               Game.updatePage(Game.$rulerPage)
+			   setTimeout(function(){
+				   bgAudio.play();
+			   },200)
+           })[0].play()
+		})
     },
     playCandle:function(){
-        Game.countGame(Game.candleCountCb.bind(null,true))
+        Game.allowRecord();
+        //Game.countGame(Game.candleCountCb.bind(null,true))
     },
     openLoad:function(dfer){
         app.screens.waitScreen.removeClass("hidden")
         setTimeout(function(){
-            animateGroup({frameClass:["in"],loopTimes:1,noWaitLast:true,group:app.screens.waitScreen.find(".num"),duration:10,callback:function(){
+            animateGroup({frameClass:["in"],loopTimes:1,noWaitLast:true,group:app.screens.waitScreen.find(".num"),duration:1000,callback:function(){
                 app.screens.waitScreen.addClass("hidden");
                 dfer.resolve();
             }});
         },0)
     },
     allowRecord:function(cb){
-        if(Game.isOver||Game.recordAgree){
+        if(Game.isOver||Game.recordAgree!==undefined){
             return;
         }
+		wx.startRecord({
+			success:function(){
+                Game.countGame(Game.candleCountCb.bind(null,true))
+				 Game.gameBox.candle.playType="record"
+				 $("[data-support-record=true]").show();
+				 $("[data-support-record=false]").hide();
+				 Game.recordAgree=true;
+			}
+			,
+		  cancel: function () {
+			//alert('用户拒绝授权录音');
+			   if(Game.supportYao){
+                    Game.gameBox.candle.playType="shake"
+                }else{
+                    Game.gameBox.candle.playType="click"
+
+                }
+                Game.countGame()
+                $("[data-support-record=true]").hide();
+                $("[data-support-record=false]").show();
+                YAO.stop();
+                YAO.start(function(){
+                    Game.addCandleCount();
+                    Game.candleCountCb();
+                })
+		  }
+		});
+		/*
         if (navigator.getUserMedia) {
             //do something
             navigator.getUserMedia({
@@ -128,22 +270,25 @@ $.extend(Game,{
                 Game.candleCountCb();
             })
             console.log('your browser not support getUserMedia');
-        }
+        }*/
     },
     start:function(type){
-        app.screens.gameScreen.find("[data-game="+type+"]").removeClass("hidden").siblings("[data-game]").addClass("hidden");
+		var curTypeDoms=app.screens.gameScreen.find("[data-game="+type+"]")
+        app.screens.gameScreen.attr("data-game",type)
+        curTypeDoms.removeClass("hidden").siblings("[data-game]").addClass("hidden in");
+		setTimeout(function(){
+			curTypeDoms.addClass("in")
+		},150)
         app.updateScreen(app.screens.gameScreen);
         Game.updatePage(Game.$soundPage)
-        setTimeout(function(){
-           Game.currentGame=Game.gameBox[type];
-           Game.currentGame.voice.one("play",function(){
-               Game.updatePage(Game.$rulerPage)
-           })[0].play()
-       },100)
+		setTimeout(function(){
+			bgAudio.pause();
+		},1000)
+		Game.currentGame=Game.gameBox[type];
     },
     play:function(){
+		Game.currentGame.newScore=0;
         var dfer= $.Deferred(),countCb=function(){},type=Game.currentGame.type;
-        console.time("hj")
         Game.openLoad(dfer)
         dfer.done(function(){
             Game.updatePage(Game.$playPage)
@@ -158,7 +303,10 @@ $.extend(Game,{
                     Game.startRole(0);
                     break;
                 case "candle":
-                    Game.allowRecord();
+                  //
+                  setTimeout(function(){
+                      Game.allowRecord();
+                  },100);
                     break;
                 case "tree":
                     Game.currentGame.LTreeIndexInit();
@@ -190,6 +338,8 @@ $.extend(Game,{
       var candle=this.gameBox.candle,index=Math.floor(Math.random()*candle.candleList.length);
         candleOne=candle.candleList[index]
         candle.candleList.splice(index,1);
+        Game.currentGame.newScore+=100;
+        Game.updateScore(true,100)
         app.$candleList.eq(candleOne.index).addClass("put-out")
     },
     startRole:function(roleNo){
@@ -256,10 +406,13 @@ $.extend(Game,{
         var start=+new Date;
         Game.Timer.start=start;
         function run(){
+            if(Game.isOver){
+                return;
+            }
             var now=+new Date;
             var milliseconds=(now-start);
             Game.Timer.now=now;
-            if(milliseconds<60000){
+            if(milliseconds<Game.lastSecnds*1000){
                 if(countCb){
                     if(Game.currentGame==Game.gameBox.candle){
                         Game.addCandleCount(true);
@@ -270,14 +423,23 @@ $.extend(Game,{
             }else{
                 Game.stopGame();
             }
-            Game.displayTime="00:"+pad(Math.max(0,(60-Math.ceil((milliseconds)/1000))),2)+":"+(milliseconds+"").slice(-3);
+            Game.displayTime="00:"+pad(Math.max(0,(Game.lastSecnds-Math.ceil((milliseconds)/1000))),2)+":"+(milliseconds+"").slice(-3);
             Game.updateTime();
         }
         run();
     },
     stopGame:function(){
+        Game.$myOneScore.text(Game.currentGame.newScore)
+		if(Game.currentGame.newScore>=Game.currentGame.scoreDivide){
+			Game.$lowScoreTips.hide();
+			Game.$highScoreTips.show();
+		}else{
+			Game.$highScoreTips.hide();
+			Game.$lowScoreTips.show();
+		}
         switch(Game.currentGame.type){
             case "candle":
+				wx.stopRecord();
                 Game.gameBox.candle.counts=0;
                 Game.gameBox.candle.lastCounts=0;
                 app.$candleList.each(function(index){
@@ -291,11 +453,19 @@ $.extend(Game,{
                 Game.currentGame.LGameOver();
         }
         Game.isOver=true;
-        Game.recordAgree=false;
-        Game.updatePage(Game.$scorePage);
+        Game.recordAgree=undefined;
+		Game.$playPage.addClass("gameOver")
+		setTimeout(function(){
+			Game.updatePage(Game.$scorePage);
+		},1000)
+		//更新分数
+        $.ajax({
+            url:updateScoreUrl+"?"+Game.currentGame.gameName+"="+Game.currentGame.newScore
+        })
         setTimeout(function(){
             Game.resetGamesNewScore();
-        },500)
+			Game.$playPage.removeClass("gameOver")
+        },1200)
     },
     updateTime:function(){
         app.$remainTime.text(Game.displayTime)
@@ -344,7 +514,7 @@ $.extend(Game,{
               game.currentTime=0;
           }
         app.$gameScore.text(0)
-        app.$remainTime.text("00:60:000");
+        app.$remainTime.text("00:"+Game.lastSecnds+":000");
     }
 });
 
@@ -377,29 +547,12 @@ function shareToWx(title, link, imgUrl, desc, cb) {
         }
     });
 }
-var shareInfo={
-    title:'好声音10月7日决战鸟巢之巅！四大门派你看好谁？',
-    link:location.href.split('#')[0],
-    imgUrl:location.href.replace("html/index.html","img/wx_share.jpg"),
-    desc:'想拿赏金？一试即知！'
-}
-
 init_wx_jsapi(jssdkURL,function(config){
-    config.debug=false;
+    config.debug=isDebug;
     wx.config(config);
     wx.ready(function(){
-        shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
-            $.ajax({
-                url:collectShareUrl ,
-                complete:function(){
-
-                }
-            })
-        })
     });
 });
-
-
 FastClick.attach(document.body);
 var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
 var MYSWIPER;
@@ -418,6 +571,7 @@ $.extend(app,{
         "feng":0,
          "zhou":2
     },
+    $rankList:$("#rankList"),
     $pandaFoodList:$("#pandaFoodList li"),
     $candleList:$(".o-candle"),
     $nextRoleBox:$("#nextRoleBox"),
@@ -435,39 +589,38 @@ $.extend(app,{
    init:function(){
           var self=this,selLock;
          return (function(){
-                   this.currentScreen=this.screens.startScreen;
-                    this.$chooseList.on("click",function(){
-                          self.updateScreen(self.getNextScreen(),$(this).data("choose"))
-                   })
-                    $("[data-screen]").on("click",function(){
-                        console.log(self.screens[$(this).data("screen")])
-                        self.updateScreen(self.screens[$(this).data("screen")])
-                    })
-                    $("select").on("change",function(){
-                        $(this).addClass("in")
-                    })
-                    $('input[type=radio]').on("change",function(){
-                        if(selLock){return}
-                        selLock=true;
+                $("[data-screen]").on("click",function(){
+                    console.log(self.screens[$(this).data("screen")])
+                    self.updateScreen(self.screens[$(this).data("screen")])
+                })
 
-                        var updateScreen,chooseName=$(this).attr("name"),ansIndex=self.ansList[chooseName],checkList=$(this).parents(".check-list").find("li"),index=checkList.index($(this).parent("li"));
-                        if(ansIndex==index){
-                            checkList.eq(ansIndex).addClass("right")
-                            updateScreen=self.screens.qsRightScreen
-                        }else{
-                            updateScreen=self.screens.qsWrongScreen
-                        }
-                        checkList.eq(index).addClass("choose")
-                        setTimeout(function(){
-                            self.updateScreen(updateScreen,chooseName)
-
-                        },1000)
-                        setTimeout(function(){
-                            selLock=false;
-                        },2000)
-                    })
+                 app.scroll.rankScroll=new IScroll('#rankScroller', {
+                     //click:iScrollClick(),
+                     preventDefault:false,
+                     preventDefaultException:{tagName:/^(INPUT|TEXTAREA|BUTTON|SELECT|A)/},
+                     scrollbars: true,
+                     mouseWheel:true,
+                     shrinkScrollbars: 'scale',
+                     fadeScrollbars: false
+                });
+			 $(".btn-game-pause").on("click",function(){
+				 if(bgAudio.paused){
+					 bgAudio.play();
+				 }else{
+					 bgAudio.play();
+				 }
+				 $(this).toggleClass("stoped")
+				 bgAudio.paused=!bgAudio.paused;
+			 })
+             app.updateScreen(app.screens.startScreen);
          }).bind(app)()
    },
+    scroll:{
+       rankScroll:null
+    },
+    tpl:{
+        ranklistTpl:tmpl("ranklistTpl")
+    },
     screens:{
         startScreen:$("#startScreen"),
         waitScreen:$("#waitScreen"),
@@ -490,6 +643,7 @@ $.extend(app,{
         newScreen.find('[data-choose='+choose+"]").show().addClass("hover").siblings('[data-choose]').removeClass("hover").hide();
     } ,
     updateScreen:function(newScreen,choose){
+        var isStart=false;
         if(choose){
             app.changeStyle(newScreen,choose)
         }
@@ -499,14 +653,22 @@ $.extend(app,{
         if(newScreen==app.screens.qsScreen){
            app.$checkList.removeClass().find("input").prop("checked",false)
         }
-        if(!app.currentScreen){
-            newScreen.addClass("in")
-        }else{
+        if(app.currentScreen){
             app.currentScreen.addClass("out").removeClass("in current")
-            newScreen.removeClass("out").addClass("in")
         }
+        newScreen.removeClass("out").addClass("in")
         app.currentScreen=newScreen.addClass("current")
-        if(newScreen!=app.screens.playScreen){
+        if(newScreen==app.screens.startScreen){
+            setTimeout(function(){
+                YAO.start(function(){
+                    if(!isStart){
+                           app.updateScreen(app.screens.chooseScreen);
+                        isStart=false;
+                    }else{
+                        YAO.stop();
+                    }
+                })
+            },1000)
             //app.stopEvent();
         }
     }
@@ -705,108 +867,101 @@ webpsupport(function (webpa) {
     var loader = new WxMoment.Loader(),
         fileList =
             [
-                'img/volume_off.png',
-                'img/volume_on.png',
-                'img/ans_feng.png',
-                'img/ans_lin.png',
-                'img/ans_more_feng.png',
-                'img/ans_more_lin.png',
-                'img/ans_more_ying.png',
-                'img/ans_more_zhou.png',
-                'img/ans_wrong_feng.png',
-                'img/ans_wrong_lin.png',
-                'img/ans_wrong_ying.png',
-                'img/ans_wrong_zhou.png',
-                'img/ans_ying.png',
-                'img/ans_zhou.png',
-                'img/ask_lin.png',
-                'img/big_titile.png',
-                'img/btn_back_text.png',
-                'img/btn_isu_text.png',
-                'img/btn_iwant_text.png',
-                'img/btn_more_text.png',
-                'img/btn_onlyu_text.png',
-                'img/btn_refuse_text.png',
-                'img/btn_replay.png',
-                'img/btn_selme_text.png',
-                'img/btn_sel_feita.png',
-                'img/btn_submit_text.png',
-                'img/btn_yue_text.png',
-                'img/car_logo.png',
-                'img/cry.png',
-                'img/dialog_bg.png',
-                'img/dialog_long_bg.png',
-                'img/feng_portrait.png',
-                'img/feng_portrait_s.png',
-                'img/feng_style.png',
-                'img/form_bg.png',
-                'img/form_label.png',
-                'img/form_title.png',
-                'img/halin_s.png',
-                'img/ha_portrait.png',
-                'img/ha_style.png',
-                'img/ico_right.png',
-                'img/jielun_s.png',
-                'img/jielun_s2.png',
-                'img/label_reward.png',
-                'img/lin_portrait_s.png',
-                'img/modal_bg.png',
-                'img/naying_s.png',
-                'img/p1_bg.jpg',
-                'img/p1_bg.png',
-                'img/p1_check.png',
-                'img/p1_check_h.png',
-                'img/p1_circle1.png',
-                'img/p1_circle2.png',
-                'img/p1_circle3.png',
-                'img/p1_cool_man.png',
-                'img/p1_reward1.png',
-                'img/p1_reward2.png',
-                'img/p1_reward3.png',
-                'img/p1_stamp.png',
-                'img/p1_stamp2.png',
-                'img/p1_t_1.png',
-                'img/p1_t_2.png',
-                'img/p1_t_3.png',
-                'img/p1_t_4.png',
-                'img/p2_sel.png',
-                'img/p2_sel_h.png',
-                'img/person_bg.png',
-                'img/pn_bg.jpg',
-                'img/pn_bg.png',
-                'img/qrcode.png',
-                'img/qs_bg.png',
-                'img/qs_feng.png',
-                'img/qs_lin.png',
-                'img/qs_right.png',
-                'img/qs_ying.png',
-                'img/qs_zhou.png',
-                'img/radio_bg.png',
-                'img/red_car.png',
-                'img/reward_bg.jpg',
-                'img/reward_title.png',
-                'img/select_bg.png',
-                'img/share-arrow.png',
-                'img/share.png',
-                'img/share_logo.png',
-                'img/text_notrust.png',
-                'img/text_onemore.png',
-                'img/text_trymore.png',
-                'img/text_ur_right.png',
-                'img/text_ur_right_feng.png',
-                'img/text_ur_right_lin.png',
-                'img/text_ur_right_ying.png',
-                'img/text_ur_right_zhou.png',
-                'img/throne.png',
-                'img/voice-logo.png',
-                'img/volume_off.png',
-                'img/volume_on.png',
-                'img/wangfeng_s.png',
-                'img/ying_portrait.png',
-                'img/ying_s2.png',
-                'img/ying_style.png',
-                'img/zhou_portrait.png',
-                'img/zhou_style.png'
+              'img/1.png',
+  'img/btn_rescan.png',
+  'img/btn_volume.png',
+  'img/candle.png',
+  'img/candle_bg.jpg',
+  'img/candle_fire.png',
+  'img/candle_flame_sprite.png',
+  'img/candle_sprite.png',
+  'img/chlist_portrait_candle.png',
+  'img/chlist_portrait_panda.png',
+  'img/chlist_portrait_role.png',
+  'img/chlist_portrait_tree.png',
+  'img/chlist_text_candle.png',
+  'img/chlist_text_panda.png',
+  'img/chlist_text_role.png',
+  'img/chlist_text_tree.png',
+  'img/choose_bg.jpg',
+  'img/choose_circle.png',
+  'img/choose_list.png',
+  'img/choose_title.png',
+  'img/game_bar.png',
+  'img/game_bg.png',
+  'img/headimg.png',
+  'img/ico_bamboo.png',
+  'img/ico_good_1.png',
+  'img/ico_good_2.png',
+  'img/ico_good_3.png',
+  'img/ico_harm_1.png',
+  'img/ico_harm_2.png',
+  'img/ico_hat.png',
+  'img/ico_micro.png',
+  'img/ico_num1.png',
+  'img/ico_num2.png',
+  'img/ico_num3.png',
+  'img/ico_panda.png',
+  'img/ico_spread_voice.png',
+  'img/ico_tree.png',
+  'img/LBtn.png',
+  'img/LEarthBg.png',
+  'img/LEF1.png',
+  'img/LEF2.png',
+  'img/LEF3.png',
+  'img/list_2bt_bg.png',
+  'img/list_3bt_bg.png',
+  'img/list_bt1_bg.png',
+  'img/list_title_cong.png',
+  'img/list_title_friendscore.png',
+  'img/list_title_rank.png',
+  'img/list_title_rule.png',
+  'img/LLine.png',
+  'img/loading_five.png',
+  'img/load_bg.jpg',
+  'img/LTreeSp.png',
+  'img/nfc1_text.png',
+  'img/nfc2_intro.png',
+  'img/nfc2_title.png',
+  'img/nfc_bg.jpg',
+  'img/panda.png',
+  'img/panda_bg.png',
+  'img/panda_bottom.png',
+  'img/photo_line.png',
+  'img/portrait_blue.png',
+  'img/portrait_green.png',
+  'img/portrait_orange.png',
+  'img/portrait_purple.png',
+  'img/qr_code.png',
+  'img/qr_intro.png',
+  'img/role_photo_1.png',
+  'img/role_photo_10.png',
+  'img/role_photo_2.png',
+  'img/role_photo_3.png',
+  'img/role_photo_4.png',
+  'img/role_photo_5.png',
+  'img/role_photo_6.png',
+  'img/role_photo_7.png',
+  'img/role_photo_8.png',
+  'img/role_photo_9.png',
+  'img/ruler_candle.png',
+  'img/ruler_panda.png',
+  'img/ruler_role.png',
+  'img/ruler_tree.png',
+  'img/shake_hand.png',
+  'img/shake_line.png',
+  'img/share_arrow.png',
+  'img/start_logo.png',
+  'img/start_ming.png',
+  'img/start_shake_bg.png',
+  'img/start_shake_hand.png',
+  'img/start_text.png',
+  'img/sun_bg.jpg',
+  'img/text_go.png',
+  'img/text_ur_right.png',
+  'img/Thumbs.db',
+  'img/wait_circle.png',
+  'img/welcome_xo.png'
             ],
         $numText=$('.loading-num').find('span');
     for (var i = 0; i < fileList.length; i++) {
@@ -826,7 +981,7 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==1){
+        if(loadedTimes==5){
             $('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active in');
@@ -941,6 +1096,9 @@ function resetMeta(){
   /*   setTimeout(function(){
          alert(window.innerHeight+'-'+window.innerWidth)
      })*/
+    setTimeout(function(){
+             document.body.classList.add("reset")
+    },100)
 }
 //init
 var lightFrame;
@@ -1316,21 +1474,14 @@ function ajax(url,cb){
          this.fill();
      }
  };
- navigator.getUserMedia ||
- (navigator.getUserMedia = navigator.mozGetUserMedia ||  navigator.webkitGetUserMedia || navigator.msGetUserMedia);
+
 
 
  var URL = window.URL && window.URL.createObjectURL ? window.URL :
      window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
          null;
  function onSuccess(stream) {
-     if(Game.recordAgree){
-         return;
-     }
-     Game.gameBox.candle.playType="record"
-     $("[data-support-record=true]").show();
-     $("[data-support-record=false]").hide();
-     Game.recordAgree=true;
+
      return;
      //创建一个音频环境对像
      audioContext = window.AudioContext || window.webkitAudioContext;
@@ -1383,3 +1534,4 @@ function ajax(url,cb){
  function getRandom(min,max){
   return Math.random()*(max-min+1)   +min
  }
+

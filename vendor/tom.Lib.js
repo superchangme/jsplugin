@@ -524,6 +524,7 @@
     if (noGlobal===true ) {
         window.tomLib =  _;
     }
+    _.fillNumByWord =function(num,word,len){return (Array(len).join(word)).slice(0,len).slice(-len,-(num+'').length)+num}
     _.browser={
             versions:function(){
                 var u = navigator.userAgent, app = navigator.appVersion;

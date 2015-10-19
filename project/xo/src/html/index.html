@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
-    <meta name="format-detection" content="telephone=no">
-    <meta content="no-cache" http-equiv="Cache-Control">
-    <meta content="no-cache" http-equiv="Pragma">
-    <title>长安铃木</title>
-    <link rel="stylesheet" href="../css/style-promo.css"/>
-    <style>
-        html, body {
+    <title>人头马XO</title>
+	<style>
+	*{
+	margin:0;
+	}
+	html, body {
             height: 100%;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             /*overflow: hidden;*/
-            background-color: #caa47b;
+            background-color: #5A1215;
         }
         body{
             position: relative;
@@ -26,15 +23,7 @@
                height: 100%;
                overflow: hidden;*/
         }
-        .loading{
-            position: relative;
-            width: 100%;
-            height: 100%;
-            z-index: 999;
-            background:url(../img/load_bg.jpg) no-repeat #6c1416;
-        background-size: cover;
-        }
-        .loading__inner{
+		 .loading__inner{
             position: absolute;
             left: 50%;
             top: 50%;
@@ -46,13 +35,14 @@
             color: black;
             font-size: 12px;
         }
-
-        .loading__img{
-            width: 166px;
-            height: 20px;
-            background: url(../img/car_logo.png) no-repeat;
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background:url(../img/load_bg.jpg) no-repeat #6c1416;
+        background-size: cover;
         }
-
         .loading-num{
             position: absolute;
             left: 0;
@@ -125,10 +115,13 @@
                 background-position-y:-354px ;
             }
         }
-    </style>
+		.qr-box.tip{
+			position:absolute;
+			display:block!important;
+		}
+	</style>
 </head>
 <body>
-<img src="../img/wx_share.jpg" style="display: none"/>
 <div class="loading">
     <div class="loading__inner">
         <div class="loading_box">
@@ -138,684 +131,66 @@
 
     </div>
 </div>
-<div class="outer">
-    <!--容器-->
-    <div class="wrap" >
-        <div class="share-bg page hidden" id="sharePage">
-            <div class="share-car centerXY"></div>
-            <div class="share-tip"></div>
-        </div>
-        <div class="share-bg page hidden" id="rewardPage">
-            <div class="intro-tip centerXY"></div>
-        </div>
-        <div class="wait-page page hidden full-p" id="waitScreen" >
-            <div class="num num3 fade centerXY"><b></b><i></i></div>
-            <div class="num num2 fade centerXY"><b></b><i></i></div>
-            <div class="num num1 fade centerXY"><b></b><i></i></div>
-        </div>
-        <div class="voice-logo fixDom"></div>
-        <div class="header-voice fixDom">
-            <div class="car-logo "></div>
-            <div  id="musicPlayBtn">
-                <a class="music-btn  btn"></a>
-            </div>
-        </div>
-
-        <section class="screen screen1 " id="startScreen" >
-            <div class="screen-inner full-p ">
-                <div class="main-content center-child">
-                    <div class="logo "></div>
-                    <div class="ming "></div>
-                    <div class="text "></div>
-                    <div class="bottom-bd abs bottom">
-                        <div class="shake-box center" data-screen='chooseScreen' >
-                            <div class="shake-hand center"></div>
-                        </div>
-                            <div class="s-tips text-center" data-support-yao="true">摇一摇进入游戏</div>
-                            <div class=" btn s-tips text-center" data-support-yao='false'>点击摇一摇开始游戏</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section  class="screen screen2 out text-center" id="chooseScreen">
-            <div class="screen-inner full-p">
-                <div class="main-content center-child">
-                    <div class="title"></div>
-                    <div class="choose-list">
-                        <a class="btn btn-choose-role" data-game="role"></a>
-                        <a class="btn btn-choose-panda" data-game="panda"></a>
-                        <a class="btn btn-choose-candle" data-game="candle"></a>
-                        <a class="btn btn-choose-tree" data-game="tree"></a>
-                    </div>
-                    <div class="bottom-bd abs bottom">
-                        <div class="s-tips text-center">点击你想要挖掘的天赋，进入游戏</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="screen screen3 out text-center" id="gameScreen">
-            <div class="screen-inner full-p">
-                <div class="main-content">
-                    <div class="game-bar">
-                        <div class="score" id="gameScore">0</div>
-                        <a class="btn btn-game-pause"></a>
-                        <div class="time" id="remainTime">00:60:000</div>
-                    </div>
-                    <div class="game-container case-page"  id="playPage">
-                        <div id="scoreTip" class=" centerXY">
-                            <i class="fade"></i>
-                        </div>
-                        <div data-game="role" class="full-p hidden">
-                            <div class="game-box">
-                                <div class='answer-box' id="roleAnsBox">
-                                    <ul class="photo-list" id="rolePhotoList">
-                                        <li><img src="../img/role_photo_1.png" /></li>
-                                        <li><img data-src="../img/role_photo_2.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_3.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_4.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_5.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_6.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_7.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_8.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_9.png" lazyload/></li>
-                                        <li><img data-src="../img/role_photo_10.png" lazyload/></li>
-                                    </ul>
-                                    <canvas class="ans-bg" id="ansBgCanvas" width="592" height="240"></canvas>
-                                    <ul class="rst-list" id="rstList">
-                                    </ul>
-                                    <div>
-                                        <ul class="ans-words-list" id="ansWordsList">
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                            <li></li>
-                                        </ul>
-                                    </div>
-                                    <div class="next-role-box hidden" id="nextRoleBox">
-                                        <div class="text-ur-right"></div>
-                                        <a class="btn btn-circle" id="nextRoleBtn">下一题</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div data-game="panda" class=" full-p hidden">
-                            <div class="panda-top" id="pandaTop">
-                                <div class="bg"></div>
-                                <div class="line"></div>
-                                <div class="panda abs"></div>
-                            </div>
-                            <ul class="food-list" id="pandaFoodList">
-                                <li data-good><img  data-src="../img/ico_good_1.png" lazyload/></li>
-                                <li data-good><img data-good data-src="../img/ico_good_2.png" lazyload/></li>
-                                <li data-good><img data-good data-src="../img/ico_good_3.png" lazyload/></li>
-                                <li data-harm><img data-harm data-src="../img/ico_harm_1.png" lazyload/></li>
-                                <li data-harm><img data-harm data-src="../img/ico_harm_2.png" lazyload/></li>
-                            </ul>
-                            <div class="panda-bottom">
-                                <div class="line"></div>
-                                <div class="bg"></div>
-                            </div>
-                            <div class="bottom-bd abs bottom">
-                                <a  class="btn btn-shake2 " data-support-yao="true">
-                                </a>
-                                <a class="btn btn-circle btn-go "  id="pandaYaoBtn" data-support-yao="false"></a>
-                                <div class="s-tips text-center" >
-                                    <span data-support-yao="true">用力摇手机</span>
-                                    <span data-support-yao="false">点击GO开始游戏</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div data-game="tree" class=" full-p hidden">
-                            <div id="LMainDiv"></div>
-                        </div>
-                        <div data-game="candle" class="full-p hidden">
-                            <div class="candle-box">
-                                <div class="o-candle p1"><div class="flame"></div>
-                                    <div class="candle"></div></div>
-                                <div class="o-candle p2"><div class="flame"></div>
-                                    <div class="candle"></div></div>
-                                <div class="o-candle p3"><div class="flame"></div>
-                                    <div class="candle"></div></div>
-                                <div class="o-candle p4"><div class="flame"></div>
-                                    <div class="candle"></div></div>
-                                <div class="o-candle p5"><div class="flame"></div>
-                                    <div class="candle"></div></div>
-                                <div class="o-candle p6"><div class="flame"></div>
-                                    <div class="candle"></div></div>
-                                <div class="o-candle p7"><div class="flame"></div>
-                                    <div class="candle"></div></div>
-                            </div>
-                            <div data-support-record="true" class="hidden">
-                                <a class="btn btn-go btn-circle" id="beginRecord"></a>
-                            </div>
-                            <div data-support-record="false" class="hidden">
-                                <a class="btn btn-go btn-circle hidden" data-support-yao="false" id="beginClickCandle"></a>
-                                <a class="btn btn-shake2"   data-support-yao="true"></a>
-                            </div>
-                            <div class="s-tips text-center">
-                                <span data-support-record="true"  class="hidden">按住GO朝麦克风开始吹气</span>
-                                <div data-support-record="false"  class="hidden">
-                                    <span data-support-yao="true" style="display: none;">用力摇手机</span>
-                                    <span data-support-yao="false">不停按GO点灭蜡烛</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="ming-sound-page case-page" id="soundPage">
-                        <div data-game="role">
-                            <div class="photo-box">
-                                <div class="photo">
-                                    <img class='photo-img' data-src="../img/chlist_portrait_role.png" lazyload/>
-
-                                    <div class="photo-line"></div>
-                                    <div class="text"><img data-src="../img/chlist_text_role.png" lazyload/></div>
-                                </div>
-                            </div>
-                            <a class="btn btn-circle btn-voice">
-                                <span data-voice-duration>6"</span>
-                            </a>
-                        </div>
-                        <div data-game="panda">
-                            <div class="photo-box">
-                                <div class="photo">
-                                    <img class='photo-img' data-src="../img/chlist_portrait_panda.png" lazyload/>
-
-                                    <div class="photo-line"></div>
-                                    <div class="text"><img data-src="../img/chlist_text_panda.png" lazyload/></div>
-                                </div>
-                            </div>
-                            <a class="btn btn-circle btn-voice">
-                                <span data-voice-duration>6"</span>
-                            </a>
-                        </div>
-                        <div data-game="tree">
-                            <div class="photo">
-                                <img class='photo-img' data-src="../img/chlist_portrait_tree.png" lazyload/>
-
-                                <div class="photo-line"></div>
-                                <div class="text"><img data-src="../img/chlist_text_tree.png" lazyload/></div>
-                            </div>
-                            <a class="btn btn-circle btn-voice">
-                                <span data-voice-duration>6"</span>
-                            </a>
-                        </div>
-                        <div data-game="candle">
-                            <div class="photo">
-                                <img  class='photo-img' data-src="../img/chlist_portrait_candle.png" lazyload/>
-
-                                <div class="photo-line"></div>
-                                <div class="text"><img data-src="../img/chlist_text_candle.png" lazyload/></div>
-                            </div>
-                            <a class="btn btn-circle btn-voice">
-                                <span data-voice-duration>6"</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="game-rulers case-page" id="rulerPage">
-                        <div class="title"></div>
-                        <div data-game="role">
-                            <img data-src="../img/ruler_role.png" lazyload/>
-                        </div>
-                        <div data-game="panda">
-                            <img data-src="../img/ruler_panda.png" lazyload/>
-                        </div>
-                        <div data-game="tree">
-                            <img data-src="../img/ruler_tree.png" lazyload/>
-                        </div>
-                        <div data-game="candle">
-                            <img data-src="../img/ruler_candle.png" lazyload/>
-                        </div>
-                        <a class="btn btn-circle btn-go" ></a>
-                    </div>
-
-                    <div id='scorePage' class="game-score case-page full-p hidden">
-                        <div class="rank-bg full-p"></div>
-                        <div class="rank-box">
-                            <div class="title hidden-text">恭喜您</div>
-                            <h3>得分</h3>
-                            <h1 data-score>0</h1>
-                            <ul class="text-cong">
-                                <li data-game="role">
-                                    <div data-low>
-                                      你离演技实力派<br/>只有一字之遥。
-                                    </div>
-                                    <div data-high>
-                                       对，实力演技就是
-                                        <br/>你的潜在天赋！
-                                    </div>
-                                </li>
-                                <li data-game="panda">
-                                    <div data-low>
-                                       你。毫无保留的爱意<br/>你值得再次尝试！
-                                    </div>
-                                    <div data-high>
-                                       爱心价高，尽情释放
-                                        <br/>这份潜在天赋吧！
-                                    </div>
-                                </li>
-                                <li data-game="tree">
-                                    <div data-high>
-                                        环保达人<br/>舍你其谁？
-                                    </div>
-                                    <div data-low>
-                                        环保之路<br/>你还能再踏出一步！
-                                    </div>
-                                </li>
-                                <li data-game="candle">
-                                    <div data-high>
-                                        对，铁肺唱功就是<br/>你的潜在天赋！
-                                    </div>
-                                    <div data-low>
-                                        再鼓一口气，你就是<br/>铁肺唱将！
-                                    </div>
-                                </li>
-                            </ul>
-                            <a class="btn btn-see-rank">
-                                查看排行榜
-                            </a>
-                            <div class="btn-group">
-                                <a class="btn btn-circle btn-replay">勇夺高分</a>
-                                <a class="btn btn-circle btn-go-share">
-                                    <div data-game="role">晒出演技</div>
-                                    <div data-game="panda">晒出爱心</div>
-                                    <div data-game="tree">分享环保</div>
-                                    <div data-game="candle">晒肺活量</div>
-                                </a>
-                                <a class="btn btn-circle btn-play-next">
-                                    继续挑战
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id='rankPage' class="game-rank case-page full-p hidden" >
-                        <div class="rank-bg full-p"></div>
-                        <div class="rank-box">
-                            <div class="title">排行榜</div>
-                            <div id="rankScroller">
-                                <div class="scroller">
-                                    <ul class="rank-title">
-                                        <li class="rank-no title">排名</li><li class="nickname title">昵称</li><li class="score title">分数</li>
-                                    </ul>
-                                    <ul class="inline vm step-tip">
-    <li>
-        <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
-    </li>
-                                        <li>
-                                            <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
-                                        </li>
-                                        <li>
-                                            <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a  class="btn btn-see-rank">
-                                —查看排行榜前十名—
-                            </a>
-                            <diva class="your-score">
-                                <div>您当前的积分：<span data-my-score>0</span></div>
-                                <div>排名：<span data-my-rank>暂无</span></div>
-                            </diva>
-                        </div>
-                        <div class="btn-group">
-                            <a class="btn btn-play-next">
-                                继续挑战
-                            </a>
-                            <a class="btn btn-go-share">
-                                邀请好友
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="screen screen4 out text-center" id="qsWrongScreen">
-            <div class="screen-inner full-p">
-                <div class="main-content">
-                    <div class="reward-title pull-right"></div>
-                    <ul class="wrong-tip-list">
-                        <li data-choose="halin">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="lin-portrait"></div>
-                                    <div class="lin-words words"></div>
-                                </div>
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="you-portrait"></div>
-                                    <div class="ans-words-lin words"></div>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li data-choose="zhou">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="zhou-portrait"></div>
-                                    <div class="zhou-words words"></div>
-
-                                </div>
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="you-portrait"></div>
-                                    <div class="ans-words-zhou "></div>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li data-choose="ying">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="ying-portrait"></div>
-                                    <div class="ying-words words"></div>
-
-                                </div>
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="you-portrait"></div>
-                                    <div class="ans-words-ying"></div>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li data-choose="feng">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="feng-portrait"></div>
-                                    <div class="feng-words words"></div>
-
-                                </div>
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="you-portrait"></div>
-                                    <div class="ans-words-feng"></div>
-
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="roll-back">
-                        <div class="title center"></div>
-                        <a class="btn btn-roll-back" data-screen="qsScreen"></a>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <section class="screen screen4 out text-center" id="qsRightScreen">
-            <div class="screen-inner full-p">
-                <div class="main-content">
-                    <div class="reward-title pull-right"></div>
-                    <ul class="right-tip-list">
-                        <li data-choose="halin">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="lin-portrait portrait"><div class="bg"></div></div>
-                                    <div class="lin-words words"></div>
-                                    <div class="red-car"></div>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li data-choose="zhou">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="zhou-portrait portrait"><div class="bg"></div></div>
-                                    <div class="zhou-words words"></div>
-                                    <div class="red-car"></div>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li data-choose="ying">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="ying-portrait portrait"><div class="bg"></div></div>
-                                    <div class="ying-words  words"></div>
-                                    <div class="red-car"></div>
-
-                                </div>
-                            </div>
-                        </li>
-                        <li data-choose="feng">
-                            <div class="dialog">
-                                <div class="edict-column">
-                                    <div class="column"></div>
-
-                                    <div class="feng-portrait portrait"><div class="bg"></div></div>
-                                    <div class="feng-words words"></div>
-                                    <div class="red-car"></div>
-
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="btn-group">
-                        <a class="btn btn-go-form" data-screen="yueScreen"></a>
-                        <a class='btn btn-go-site' href="http://m.changansuzuki.com/jsp/gn.jsp?cid=101|107"></a>
-                    </div>
-                    <a class="btn reward-u center" ></a>
-                </div>
-            </div>
-        </section>
-
-        <section class="screen screen5 text-center" id="yueScreen">
-            <div class="screen-inner full-p">
-                <div class="main-content">
-                    <div class=" form-wrapper inline center abs">
-                        <div class="center  p5-title"></div>
-                        <form class="center" onsubmit="return false;" novalidate>
-                            <div class="form-box  inline">
-                                <div class="row">
-                                    <label>
-                                        <span>真实姓名:</span>
-                                        <input name="name" type="text" required pattern="\S*"/>
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <label>
-                                        <span>手机号码:</span>
-                                        <input name="phone" type="text" required pattern="^\d{11}$"/>
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <label for="province">
-                                        <span>省&emsp;&emsp;份:</span>
-                                        <label class="select-wrap">
-                                            <select id="province" name="province" class="form-control">
-                                            </select>
-                                        </label>
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <label for="city">
-                                        <span>城&emsp;&emsp;市:</span>
-                                        <label class="select-wrap">
-                                            <select id="city" name="city" class="form-control">
-                                            </select>
-                                        </label>
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <label for="agency">
-                                        <span>区&emsp;&emsp;域:</span>
-                                        <label class="select-wrap">
-                                            <select id="agency" name="agency" class="form-control">
-                                            </select>
-                                        </label>
-                                    </label>
-                                    <label for="area">
-                                        <span>经&ensp;销&ensp;商:</span>
-                                        <label class="select-wrap">
-                                            <select id="area" name="area" class="form-control">
-                                            </select>
-                                        </label>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <a onclick="javascript:this.form.submit()" id="submitFormBtn" class="hover btn"></a>
-                                <a class="btn btn-more-link" ></a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
-<script >
-    /*    window.onerror=function(err){
-     alert(err)
-     }*/
-    var Game=
-    {Timer:{start:null,now:null},
-        isOver:true,
-        gameCounter:null,
-        displayTime:"",
-        lastTime:60,
-        supportYao:false,
-        gameNames:["tree",'role','panda','candle'],
-        gameBox:{
-            tree:{
-                media:"../media/yinqing3.mp3",
-                type:"tree",
-                gameName:"game4",
-                score:0,
-                newScore:0,
-                currentTime:0,
-                goodRatio:0.7
-            },
-            candle:{
-                media:"../media/yinqing2.mp3",
-                type:"candle",
-                gameName:"game3",
-                score:0,
-                newScore:0,
-                currentTime:0,
-                gapMin:3,//最小灭烛间隔
-                gapMax:7,//最大灭烛间隔
-                divideTime:20,//启用最大最小间隔时间分界点
-                remainCandleNums:7
-            },
-            //game1
-            panda:{
-                media:"../media/yinqing1.mp3",
-                type:"panda",
-                gameName:"game1",
-                score:0,
-                newScore:0,
-                currentTime:0,
-                goodRatio:0.7
-            },
-            role:{
-                media:"../media/yinqing.mp3",
-                type:"role",
-                gameName:"game2",
-                score:0,
-                newScore:0,
-                currentTime:0,
-                roleList:
-                        [{
-                            rst:"新上海滩",
-                            ansWords:"大之上绣新中飞海合精滩记人锦风记鼎泡沫飞"
-                        },
-                            {
-                            rst:"泡沫之夏",
-                            ansWords:"大泡上绣新中飞海合夏滩记人锦风记鼎沫飞之"
-                        },{
-                            rst:"鹿鼎记",
-                            ansWords:"上绣新中飞海合夏鹿子滩记人锦风记鼎沫飞之"
-                        },{
-                            rst:"大汉天子",
-                            ansWords:"滩大人锦风汉鼎沫飞之上绣新中天海合夏鹿子"
-                        },{
-                            rst:"天上人间",
-                            ansWords:"上天新中人海合夏鹿子滩大间锦风汉鼎沫飞之"
-                        },{
-                            rst:"锦绣缘",
-                            ansWords:"合大间锦风汉绣沫飞之上天新中人海缘夏鹿子"
-                        },{
-                            rst:"神雕侠侣",
-                            ansWords:"神大间雕风汉绣沫飞之上伙新侠人海侣夏鹿子"
-                        },{
-                            rst:"中国合伙人",
-                            ansWords:"中大间雕国汉绣沫上伙新侠人海侣夏鹿子合鼎"
-                        },{
-                            rst:"风声",
-                            ansWords:"声精间雕国风绣沫合之上伙夏鹿子新岳人海飞"
-                        },{
-                            rst:"精忠岳飞",
-                            ansWords:"声精间雕国忠绣沫合之上伙新岳人海飞夏鹿子"
-                        }]
-            }
-        }
-        //game2
-    }
-    var app={}
-    var uploadUrl="../php/main.php?a=saveform";
-    var collectShareUrl="../php/main.php?a=share";
-    var visitUrl='../php/main.php?a=visit'
-</script>
-<!--<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>-->
-<script src="../js/wxmoment.min.js"></script>
-<!--<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
-<!-- build:js ../js/lib.js -->
-<script type="text/javascript" src="../js/zepto.data.js"></script>
-<script type="text/javascript" src="../js/zepto.callbacks.js"></script>
-<script type="text/javascript" src="../js/zepto.deferred.js"></script>
-<script type="text/javascript" src="../js/zepto.fx.js"></script>
-<script type="text/javascript" src="../js/fastclick.js"></script>
-<script  type="text/javascript" src="../js/getWXSDK.js"></script>
-<script type="text/javascript" src="../js/yaoyiyao.js"></script>
-<script type="text/javascript" src="../js/lufylegend-1.9.9.min.js"></script>
-<script type="text/javascript" src="../js/ysStage.js"></script>
-<script type="text/javascript" src="../js/lMain.js?var=20141217"></script>
-<script type="text/javascript" src="../js/lMainLoader.js?var=20141217"></script>
-<script  type="text/javascript"  src="../js/main.js"></script>
-<!-- endbuild -->
-<div style="display: none">
-    <script>
-   /*     var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?387f37b60dec0f825a68fef0e15242ac";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();*/
-    </script>
-</div>
 </body>
+<script>
+var params=getParams(),isProduction=false,barParamName='fromBar',isFromBar=params[barParamName],shareid=params["shareid"];
+var wechatCheckUrl=window.location.href.replace(/\/html\/index\.html.*/,"")+"/index";
+var id=params["id"];
+var gameUrl="game.html?id=";
+var shareUrl="share.html?shareid="+shareid;
+if(isFromBar){
+	wechatCheckUrl+="?"+barParamName+'=true'
+	gameUrl+="&"+barParamName+'=true';
+}
+function xhrRequest(){
+    var xmlHttp=null;
+    try{
+        xmlHttp=new XMLHttpRequest();
+    }
+    catch(e){
+        try {
+            xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e) {
+            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+    return xmlHttp;
+}
+
+			
+//΢�ŵ�½��֤			
+ var xhr=xhrRequest();
+xhr.open("GET",wechatCheckUrl,true);
+xhr.onreadystatechange=function(){
+	if(xhr.status == 200&&xhr.readyState == 4 ){
+		var data=JSON.parse(xhr.responseText);
+		if(data.result==1){
+            if(shareid){
+                window.location.href=shareUrl;
+            }else{
+			if(data.id){
+				id=data.id;
+			}
+			gameUrl+=id;
+                window.location.href=gameUrl;
+            }
+		}else{
+		//����Ȩ
+			window.location.href=data.url;
+		}
+	}
+}
+xhr.send(null);
+
+function getParams(){
+    var search=window.location.search.slice(1),list=search.split("&"),length= 0,r={},temp;
+    for(var j= 0,l=list.length;j<l;j++){
+        temp=list[j].split("=");
+        list[j]={};
+        if(temp.length==2){r[temp[0]]=temp[1]
+        }
+    }
+    return r
+}
+</script>
 </html>

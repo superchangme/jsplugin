@@ -6,6 +6,7 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
     var waitLoad=$(".loading")
     //缩放页面
     function resetMeta(){
+        console.log(window.innerWidth)
         var g=window.innerWidth,h=window.innerHeight,k;
         (g/h)>=320/504?k=h/1008:k=g/640;
         document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
