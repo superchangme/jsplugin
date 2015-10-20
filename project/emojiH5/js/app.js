@@ -356,6 +356,9 @@ require(["jquery",'tomLib','iscroll-lite','fastclick','hammer','hammer.fake','ha
                 }else{
                     G.photoBg.src=G.defaultPhotoSrc;
                 }
+                if(!G.emoji.background){
+                    G.emoji.background="../img/emoji_bg_white.png";
+                }
                 /*G.$photoCanvas.drawImage({
                  source:  this,
                  groups:['emojiGroup'],

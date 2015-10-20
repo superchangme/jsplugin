@@ -1,12 +1,17 @@
 var jssdkURL="../php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
 var app=app||{};
+var animateTipArr=new Array(8);
 var oneTime=new MyTimer();
 $.extend(app,{
     headBar:$("#headBar"),
     $dateTime:$("[data-time]"),
     $dateDate:$("[data-date]"),
-    $dateWeek:$("[data-week]")
+    $dateWeek:$("[data-week]"),
+    currentSlide:null,
+    $lingmuBanner:$("#lingmuBanner"),
+    $valueOfLingmu:$("#valueOfLingmu")
 })
+
 oneTime.addCb(function(time){
     var hoursAndMins="",date="",week="",weekArrs=['天',"一","二",'三','四','五','六'];
     hoursAndMins+=fillNumByWord(time.getHours(),0,2)+":"+fillNumByWord(time.getMinutes(),0,2);
@@ -16,9 +21,12 @@ oneTime.addCb(function(time){
     app.$dateTime.html(hoursAndMins)
     app.$dateWeek.html(week)
 })
+app.headBar.hide();
+
 $.ajax({url:visitUrl,success:function(){
     console.log("记录访问信息")
 }})
+
 function shareToWx(title, link, imgUrl, desc, cb) {
     wx.onMenuShareTimeline({
         title: title, // 分享标题
@@ -49,14 +57,14 @@ function shareToWx(title, link, imgUrl, desc, cb) {
     });
 }
 var shareInfo={
-    title:'重要的事情说三遍！启悦只要69800元！69800元！69800元！',
+    title:'FBI绝密任务！身为传奇特工的你能否侦破？',
     link:location.href.split('#')[0],
     imgUrl:location.href.replace("html/index.html","img/wx_share.jpg"),
-    desc:'内有彩蛋，分享即有惊喜！'
+    desc:'点击获取线索，秘密就藏在里面！'
 }
 
 init_wx_jsapi(jssdkURL,function(config){
-    config.debug=false;
+    config.debug=isDebug;
     wx.config(config);
     wx.ready(function(){
         shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
@@ -76,7 +84,7 @@ var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
 var MYSWIPER;
 var TRANSFORM=prefixStyle("transform")
 var TRANSITION_END=prefixEvent("transitionEnd");
-var carAudio;
+var startAudio;
 var bgAudio;
 var isSubmiting=false;
 var isSubmited=false;
@@ -94,176 +102,6 @@ window.addEventListener("orientationchange",function(){
     }
 })
 
-var Tween = {
-    Linear: function(t, b, c, d) { return c*t/d + b; },
-    Quad: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return -c *(t /= d)*(t-2) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
-            return -c / 2 * ((--t) * (t-2) - 1) + b;
-        }
-    },
-    Cubic: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t * t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * ((t = t/d - 1) * t * t + 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t*t + b;
-            return c / 2*((t -= 2) * t * t + 2) + b;
-        }
-    },
-    Quart: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t * t*t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return -c * ((t = t/d - 1) * t * t*t - 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
-            return -c / 2 * ((t -= 2) * t * t*t - 2) + b;
-        }
-    },
-    Quint: {
-        easeIn: function(t, b, c, d) {
-            return c * (t /= d) * t * t * t * t + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * ((t = t/d - 1) * t * t * t * t + 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
-            return c / 2*((t -= 2) * t * t * t * t + 2) + b;
-        }
-    },
-    Sine: {
-        easeIn: function(t, b, c, d) {
-            return -c * Math.cos(t/d * (Math.PI/2)) + c + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * Math.sin(t/d * (Math.PI/2)) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            return -c / 2 * (Math.cos(Math.PI * t/d) - 1) + b;
-        }
-    },
-    Expo: {
-        easeIn: function(t, b, c, d) {
-            return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return (t==d) ? b + c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if (t==0) return b;
-            if (t==d) return b+c;
-            if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
-            return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
-        }
-    },
-    Circ: {
-        easeIn: function(t, b, c, d) {
-            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
-        },
-        easeOut: function(t, b, c, d) {
-            return c * Math.sqrt(1 - (t = t/d - 1) * t) + b;
-        },
-        easeInOut: function(t, b, c, d) {
-            if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
-            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
-        }
-    },
-    Elastic: {
-        easeIn: function(t, b, c, d, a, p) {
-            var s;
-            if (t==0) return b;
-            if ((t /= d) == 1) return b + c;
-            if (typeof p == "undefined") p = d * .3;
-            if (!a || a < Math.abs(c)) {
-                s = p / 4;
-                a = c;
-            } else {
-                s = p / (2 * Math.PI) * Math.asin(c / a);
-            }
-            return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-        },
-        easeOut: function(t, b, c, d, a, p) {
-            var s;
-            if (t==0) return b;
-            if ((t /= d) == 1) return b + c;
-            if (typeof p == "undefined") p = d * .3;
-            if (!a || a < Math.abs(c)) {
-                a = c;
-                s = p / 4;
-            } else {
-                s = p/(2*Math.PI) * Math.asin(c/a);
-            }
-            return (a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b);
-        },
-        easeInOut: function(t, b, c, d, a, p) {
-            var s;
-            if (t==0) return b;
-            if ((t /= d / 2) == 2) return b+c;
-            if (typeof p == "undefined") p = d * (.3 * 1.5);
-            if (!a || a < Math.abs(c)) {
-                a = c;
-                s = p / 4;
-            } else {
-                s = p / (2  *Math.PI) * Math.asin(c / a);
-            }
-            if (t < 1) return -.5 * (a * Math.pow(2, 10* (t -=1 )) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-            return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p ) * .5 + c + b;
-        }
-    },
-    Back: {
-        easeIn: function(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            return c * (t /= d) * t * ((s + 1) * t - s) + b;
-        },
-        easeOut: function(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            return c * ((t = t/d - 1) * t * ((s + 1) * t + s) + 1) + b;
-        },
-        easeInOut: function(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
-            return c / 2*((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
-        }
-    },
-    Bounce: {
-        easeIn: function(t, b, c, d) {
-            return c - Tween.Bounce.easeOut(d-t, 0, c, d) + b;
-        },
-        easeOut: function(t, b, c, d) {
-            if ((t /= d) < (1 / 2.75)) {
-                return c * (7.5625 * t * t) + b;
-            } else if (t < (2 / 2.75)) {
-                return c * (7.5625 * (t -= (1.5 / 2.75)) * t + .75) + b;
-            } else if (t < (2.5 / 2.75)) {
-                return c * (7.5625 * (t -= (2.25 / 2.75)) * t + .9375) + b;
-            } else {
-                return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b;
-            }
-        },
-        easeInOut: function(t, b, c, d) {
-            if (t < d / 2) {
-                return Tween.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
-            } else {
-                return Tween.Bounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
-            }
-        }
-    }
-}
-Math.tween = Tween;
-
 //var basePath = 'http://wximg.gtimg.com/tmt/_events/promo/EyxiHkkq';
 var basePath ="../";
 if (!(typeof webpsupport == 'function')) {
@@ -275,31 +113,59 @@ if (!(typeof webpsupport == 'function')) {
 webpsupport(function (webpa) {
     var loader = new WxMoment.Loader(),
         fileList =
-            ['img/bg_mask.png',
-                'img/btn_form.png',
-                'img/btn_go.png',
-                'img/btn_itry.png',
+            ['img/btn_accept.png',
+                'img/btn_go_form.png',
+                'img/btn_lock.png',
                 'img/btn_more.png',
-                'img/car_logo.png',
-                'img/finger.png',
+                'img/btn_next.png',
+                'img/btn_submit_form.png',
+                'img/car_logo_white.png',
+                'img/disk.png',
+                'img/form_bg.png',
+                'img/h5_bg.jpg',
+                'img/hand.png',
+                'img/light_slide.png',
+                'img/lingmu_wall_banner.png',
                 'img/p1_bg.jpg',
-                'img/p1_text.png',
-                'img/p1_text1.png',
-                'img/p2_bg.jpg',
-                'img/p2_text.png',
+                'img/p2_bg.png',
+                'img/p2_led.png',
+                'img/p2_light.png',
+                'img/p2_mission_dur.png',
+                'img/p2_mission_pwd.png',
+                'img/p2_mission_title.png',
                 'img/p3_bg.jpg',
-                'img/p3_car.png',
-                'img/p3_text.png',
+                'img/p3_paper.png',
+                'img/p3_qs.png',
                 'img/p4_bg.jpg',
-                'img/p4_car.png',
                 'img/p4_deng.png',
-                'img/p4_start.png',
-                'img/p4_text.png',
+                'img/p4_qs.png',
+                'img/p4_wall1.png',
+                'img/p4_wall2.png',
+                'img/p55_bg.jpg',
+                'img/p5_bg.jpg',
+                'img/p5_qs.png',
+                'img/p6_bg.jpg',
+                'img/p6_qs.png',
+                'img/p8_bg.png',
+                'img/p8_fbi.png',
+                'img/p8_star.png',
+                'img/p8_text.png',
+                'img/p8_thumb.png',
+                'img/p8_title.png',
+                'img/p9_bg.png',
+                'img/p9_star.png',
+                'img/pd_bg.png',
+                'img/pd_text_bg.png',
+                'img/pd_tip.png',
                 'img/rocket.png',
+                'img/share-arrow.png',
+                'img/share_logo.png',
+                'img/tip_circle.png',
                 'img/video_bg.jpg',
                 'img/voice-logo.png',
                 'img/volume_off.png',
-                'img/volume_on.png'
+                'img/volume_on.png',
+                'img/wx_share.jpg'
             ],
         $numText=$('.loading-num').find('span');
     for (var i = 0; i < fileList.length; i++) {
@@ -320,43 +186,71 @@ webpsupport(function (webpa) {
 
     function checkLoaded(){
         if(loadedTimes==3){
-            app.headBar.hide();
-            MYSWIPER=new Swiper('.swiper-container', {
-                parallax: true,
-                speed: 600
-            });
-            MYSWIPER.on("onSlideChangeStart",function(swiper){
-                       if(swiper.activeIndex==0){
-                           app.headBar.hide();
-                           bgAudio.pause();
-                       }else{
-                           app.headBar.show();
-                           playAudio(bgAudio)
-                       }
-            })
-            lightFrame=animateFrame($(".light_frame"),0,15-1,100,true,true,null,1000);
-            lightFrame.stop();
-            setTimeout(function(){
-              $('.loading').remove();
-              //$(document.documentElement).addClass("auto")
-              $('.screen').eq(0).addClass('active');
-                lightFrame.start();
-          },100)
-
-
+             init_h5();
         }
     }
+    function init_h5(){
+        MYSWIPER=new Swiper('.swiper-container', {
+            speed: 600 ,
+            initialSlide:0
+        });
+        MYSWIPER.lockSwipeToPrev()
+        MYSWIPER.on("onSlideChangeStart",function(swiper){
+            var index=swiper.activeIndex;
+            if(index==0){
+                MYSWIPER.unlockSwipeToNext()
+                app.headBar.hide();
+                bgAudio.pause();
+            }else{
+                MYSWIPER.lockSwipeToNext()
+                app.headBar.show();
+                playAudio(bgAudio)
+            }
+        }).on("onSlideChangeEnd",function(swiper){
+            app.currentSlide=$(swiper.slides[swiper.activeIndex]);
+            var agroup=animateTipArr[swiper.activeIndex];
+            if(agroup){
+                setTimeout(function(){
+                    agroup.start();
+                },3000)
+            }
+        })
+        $("[data-next]").on("click",function(){
+            setTimeout(function(){
+                MYSWIPER.unlockSwipeToNext()
+                MYSWIPER.slideNext();
+            },$(this).data("delay"));
+        })
+        $("[data-bind-tip]").on("click",function(){
+            $(this).parent().addClass("success")
+        })
+        lightFrame=animateFrame($(".light_frame"),0,15-1,100,true,true,null,1000);
+        lightFrame.stop();
+        setTimeout(function(){
+           $('.loading').remove();
+            startAudio.play();
+            //$(document.documentElement).addClass("auto")
+            $('.screen').eq(0).addClass('active');
+            lightFrame.start();
+        },100)
+        animateTipArr[2]=animateGroup({frameClass:["shake"," "],isStop:true,group:$("#paper"),duration:3100});
+        animateTipArr[3]=animateGroup({frameClass:["flash"," "],isStop:true,group:$("#wallFrame"),duration:3100});
+        animateTipArr[4]=animateGroup({frameClass:["rotate"," "],isStop:true,group:$("#disk"),duration:3100});
+    }
+    //init_h5();
     //loadBg music
-    loadAudio("../media/bg.mp3",function(){
+    loadAudio("../media/bg.mp3",function(audio){
         loadedTimes+=1;
         checkLoaded()
-        bgAudio=document.createElement("audio");
-        bgAudio.src='../media/bg.mp3';
-        bgAudio.autoplay="autoplay"
+        bgAudio=audio;
         bgAudio.loop="loop"
         bgAudio.volume=0.5
-        document.body.appendChild(bgAudio)
+    })
 
+    loadAudio("../media/text_notify.mp3",function(audio){
+        loadedTimes+=1;
+        checkLoaded()
+        startAudio=audio;
     })
 
     function playAudio(audio){
@@ -367,14 +261,6 @@ webpsupport(function (webpa) {
         }
         image.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=';
     }
-
-    loadAudio("../media/yinqing.mp3",function(){
-        loadedTimes+=1;
-        checkLoaded()
-        carAudio=document.createElement("audio");
-        carAudio.src='../media/yinqing.mp3';
-        document.body.appendChild(carAudio);
-    })
 
 
     //loading 进度监听
@@ -446,20 +332,44 @@ webpsupport(function (webpa) {
 })();
 function resetMeta(){
     var g=window.innerWidth,h=window.innerHeight,k;
-    (g/h)>=320/506?k=h/1012:k=g/640;
+    (g/h)>=320/504?k=h/1008:k=g/640;
     document.getElementById("eqMobileViewport").setAttribute("content","width=640,initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
 }
 //init
 var lightFrame;
+var wallFrame;
 $(function(){
     resetMeta();
-var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg"),$readyPage=$("#readyPage");
+var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$awardPage=$("#awardPage"),$sharePage=$("#shareBg"),$readyPage=$("#readyPage");
+    $(".btn-go-site").on("click",function(e){
+        e.stopImmediatePropagation();
+    })
     $("a.btn").on("click",function(e){
         e.preventDefault();
     })
+    $('a.btn-go-award').on("click",function(){
+        $awardPage.show();
+    })
+    $("#closeBtn").on("click",function(){
+        $awardPage.hide();
+    })
     var touchTime=0;
     setTimeout(function(){
-        $(".page").height(window.innerHeight);
+        var scale=window.innerWidth/640,hscale=window.innerHeight/1008;
+        if(isBgHeightCover()){
+       /*     //isBgHeightCover
+            1
+            //getScale
+            bottom:imgHeight/1008     left:46
+            0
+//
+            bottom:imgHeight      left :46/window.innerWidth*/
+            scale=hscale;
+        }
+        app.$lingmuBanner.css({bottom:573*scale,right:18*scale+window.innerWidth/2})[0].style[TRANSFORM]="scale("+scale+") translate3d("+297*(1-scale)/2+"px,"+166*(1-scale)/2+"px,0)"
+        $("#paper").css({top:515*scale,right:-246*scale+window.innerWidth/2})[0].style[TRANSFORM]="scale("+scale+") translate3d("+297*(1-scale)/2+"px,"+166*(scale-1)/2+"px,0)"
+        $("#disk").css({top:140*scale,right:-88*scale+window.innerWidth/2})[0].style[TRANSFORM]="scale("+scale+") translate3d("+106*(1-scale)/2+"px,"+106*(scale-1)/2+"px,0)"
+        $("#wallFrame").css({top:209*scale,right:110*scale+window.innerWidth/2})[0].style[TRANSFORM]="scale("+scale+") translate3d("+136*(1-scale)/2+"px,"+223*(scale-1)/2+"px,0)"
 
     },500)
 
@@ -470,20 +380,6 @@ var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg")
                     MYSWIPER.pageLock=false;
                     MYSWIPER.next();
                 })
-    })
-
-    $("#carStartBtn").one("click",function(){
-        bgAudio.pause();
-        //musicBtn.addClass("off")
-        var one=false;
-        carAudio.play();
-        $(this).addClass("in")
-        $("#comeInCar").addClass("in");
-        setTimeout(function(){
-            MYSWIPER.pageLock=false;
-            MYSWIPER.next();
-            //carAudio.pause();
-        },3300)
     })
 
     $("#submitFormBtn").on("click",function(e){
@@ -525,6 +421,9 @@ var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg")
                 success:function(data){
                     isSubmited=true;
                     $self.text("提交成功");
+                    $sharePage.removeClass("hidden");
+                    //MYSWIPER.unlockSwipeToNext();
+                    //MYSWIPER.slideNext();
                     alert(data.message);
                 },error:function(){
                     alert("出错了，请重新提交！")
@@ -557,10 +456,10 @@ var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg")
         $(this).addClass('in')
 
     })
-    $(".btn-more").on("click",function(){
+  /*  $(".btn-share").on("click",function(){
         $sharePage.removeClass("hidden")
         MYSWIPER.pageLock=true;
-    })
+    })*/
     $("#btnReady").on("click",function(){
         $readyPage.removeClass("hidden")
         MYSWIPER.pageLock=true;
@@ -569,7 +468,19 @@ var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$sharePage=$("#shareBg")
         $(this).addClass("hidden")
         MYSWIPER.pageLock=false;
     })
-
+    $("#btnGoForm").on("click",function(){
+        var screen=$(".screen6 ");
+        if(app.$valueOfLingmu.val()==69800){
+            MYSWIPER.unlockSwipeToNext();
+            MYSWIPER.slideNext();
+        }else{
+            app.$valueOfLingmu.prop('placeholder','密码错误').val("");
+            screen.addClass("tip")
+            setTimeout(function(){
+                screen.removeClass("tip")
+            },2000)
+        }
+    })
 })
 //swipe plugin
 function mySwipe(opts,successCb,beforeSwipeCb){
@@ -819,13 +730,18 @@ function animateFrame(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, i
 }
 
 function loadAudio(src,cb){
-    var audio=document.createElement("image");
+    var audio=document.createElement("audio");
+    audio.preload="preload";
+    audio.src=src;
+    document.body.appendChild(audio)
     $.ajax({
         url:src,
         success:function(result){
-        cb.call(null,audio);
-    }})
-    audio.src=src;
+            setTimeout(function(){
+                cb.call(null,audio);
+
+            },0)
+        }})
 }
 function ajax(url,cb){
     function sendRequest(){
@@ -855,7 +771,7 @@ function ajax(url,cb){
     xhr.send(null);
 }
 
-function fillNumByWord(num,word,len){return (Array(len).join(word)).slice(0,len).slice(-len,-(num+'').length)+num}
+function fillNumByWord(num,word,len){return (Array(len+1).join(word)).slice(0,len).slice(-len,-(num+'').length)+num}
 function MyTimer(cb){
     var myCallbacks=[],self=this;
     var time;
@@ -868,4 +784,73 @@ function MyTimer(cb){
             myCallbacks[index].call(null,time);
         }
     },1000)
+}
+
+function isBgHeightCover(imgWidth,imgHeight){
+       if(window.innerHeight/window.innerWidth<1008/640){
+           return             0
+       }
+      return 1;
+}
+
+function animateGroup(opts){
+    //group,frameClass,duration,gap,startIndex,loopTimes,cb
+    var animArr=opts.group,reset,duration=opts.duration+(opts.gap|| 0),curEl=animArr.eq(0),clsIndex= 0,index=opts.startIndex|| 0,reset={isStop:opts.isStop,start:start};
+    function run(){
+        if(!reset.isStop){
+            curEl.addClass(opts.frameClass[clsIndex]||opts.frameClass[0])
+        }
+    }
+    function start(){
+        reset.isStop=false;
+        init();
+    }
+    if(!reset.isStop){
+        init();
+    }
+    function init(){
+        if(!opts.waitTime){
+            go();
+        }else{
+            setTimeout(function(){
+                go();
+            },opts.waitTime)
+        }
+    }
+    function go() {
+        run();
+        reset.interval = setInterval(function () {
+            if(reset.isStop){
+                return;
+            }
+            if (opts.classSwitch !== false) {
+                curEl.removeClass(opts.frameClass[clsIndex] || opts.frameClass[0]);
+            }
+            index++;
+            clsIndex++;
+            if (index > animArr.length - 1) {
+                opts.loopTimes--;
+                index = 0;
+            }
+            if(clsIndex>opts.frameClass.length-1){
+                clsIndex=0;
+            }
+            curEl = animArr.eq(index);
+            if (opts.loopTimes == null || opts.loopTimes != 0) {
+                run();
+            }
+            if (opts.loopTimes == 0) {
+                clearInterval(reset);
+                if(opts.noWaitLast){
+                    typeof opts.callback == "function" && opts.callback();
+                }else{
+                    setTimeout(function(){
+                        typeof opts.callback == "function" && opts.callback();
+                    },duration)
+                }
+
+            }
+        }, duration );
+    }
+    return reset;
 }

@@ -7,7 +7,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta content="no-cache" http-equiv="Cache-Control">
     <meta content="no-cache" http-equiv="Pragma">
-    <title>长安铃木</title>
+    <title> </title>
     <link rel="stylesheet" href="../css/style-promo.css"/>
     <style>
         html, body {
@@ -15,7 +15,7 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             /*overflow: hidden;*/
-            background-color: #070709;
+            background-color: #2E1E0F;
         }
         body{
             position: relative;
@@ -30,7 +30,7 @@
             width: 100%;
             height: 100%;
             z-index: 999;
-            background-color: #070709;
+            background-color: #2E1E0F;
         }
         .loading__inner{
             position: absolute;
@@ -43,13 +43,13 @@
             text-align: center;
             color: #666;
             font-size: 12px;
-            background-color: #070709;
+            background-color: #2E1E0F;
         }
 
         .loading__img{
             width: 166px;
             height: 20px;
-            background: url(../img/car_logo.png) no-repeat;
+            background: url(../img/car_logo_white.png) no-repeat;
         }
 
         .loading-num{
@@ -58,7 +58,7 @@
             bottom: -10px;
             width: 100%;
             text-align: center;
-            color: white;
+            color: #fff;
             font-size: 20px;
         }
          .loading-num img{
@@ -75,6 +75,17 @@
         <div class="loading-num"><span> 0%</span></div>
     </div>
 </div>
+<div class="share-bg page hidden" id="shareBg">
+    <div class="share-car centerXY"></div>
+    <div class="share-tip"></div>
+</div>
+<div class="screen5  full-p hidden"  id="awardPage">
+    <div class="main-body">
+        <div class="light-box center-parent"  >
+            <div class="star abs" id="closeBtn"></div>
+        </div>
+    </div>
+</div>
 <div id="headBar">
     <div class="voice-logo fixDom"></div>
     <div class="fixDom"  id="musicPlayBtn">
@@ -85,15 +96,8 @@
   <div class="outer swiper-container" dir="rtl">
       <!--容器-->
       <div class="wrap swiper-wrapper " >
-          <div class="share-bg page hidden" id="shareBg">
 
-              <div class="share-car centerXY"></div>
-            <div class="share-tip"></div>
-          </div>
-          <div class="share-bg page hidden" id="readyPage">
 
-              <div class="intro-tip centerXY"></div>
-          </div>
           <section class="screen screen1 swiper-slide">
               <div class="time-box">
                   <div class="time" data-time></div>
@@ -103,71 +107,115 @@
               </div>
                              <div class="light_frame centerXY"></div>
           </section>
-          <section class="screen swiper-slide">
-                        2
+
+          <section class="screen screen2 swiper-slide">
+                        <div class="main-body">
+                            <div class="light-box"  >
+                                <div class="led-on abs"></div>
+                                <div class="mission mission-title"></div>
+                                <div class="mission mission-pwd"></div>
+                                <div class="mission mission-dur"></div>
+                            </div>
+                            <a class="btn btn-accept" data-next></a>
+                        </div>
           </section>
-          <section class="screen swiper-slide">
-                            3
+
+          <section class="screen station1 swiper-slide">
+              <div class="tip-box">
+              </div>
+              <div class="paper" id="paper" data-bind-tip><i class="full-p"></i></div>
+             <div class="tip-circle" data-bind-tip><i></i></div>
+              <div class="next-box abs">
+                  <a class="btn btn-next" data-next></a>
+              </div>
           </section>
-          <section class="screen swiper-slide">
-                       4
+
+          <section class="screen station2 swiper-slide">
+              <div class="tip-box">
+              </div>
+              <div class="wall-frame" id="wallFrame" data-bind-tip>
+                      <div class="p1 png-frame show"></div>
+              </div>
+
+              <div class="tip-circle" data-bind-tip><i></i></div>
+              <div class="next-box abs">
+                  <a class="btn btn-next" data-next></a>
+              </div>
           </section>
-          <section class="screen screen7 text-center">
-              <div class=" form-wrapper inline center abs">
-                  <div class="center  p7-text"></div>
-                  <div class="center  p7-title"></div>
-                 <form onsubmit="return false;" novalidate>
-                <div class="form-box  inline">
-                    <div class="row">
-                        <label>
-                            <span>真实姓名:</span>
-                            <input name="name" type="text" required pattern="\S*"/>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label>
-                            <span>手机号码:</span>
-                            <input name="phone" type="text" required pattern="^\d{11}$"/>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label>
-                            <span>省&emsp;&emsp;份:</span>
-                            <label class="select-wrap">
-                                <select id="province" name="province" class="form-control">
-                                </select>
-                            </label>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <label>
-                            <span>城&emsp;&emsp;市:</span>
-                            <label class="select-wrap">
-                                <select id="city" name="city" class="form-control">
-                                </select>
-                            </label>
-                        </label>
-                    </div>
-                     <div class="row">
-                         <label>
-                             <span>区&emsp;&emsp;域:</span>
-                             <label class="select-wrap">
-                                 <select id="agency" name="agency" class="form-control">
-                                 </select>
-                             </label>
-                         </label>
-                         <label>
-                             <span>经&ensp;销&ensp;商:</span>
-                             <label class="select-wrap">
-                                 <select id="area" name="area" class="form-control">
-                                 </select>
-                             </label>
-                         </label>
-                     </div>
-                </div>
-                 <button type="submit" id="submitFormBtn" class="center">确认提交</button>
-                 </form>
-             </div>
+
+          <section class="screen station3 swiper-slide ">
+          <div class="tip-box">
+          </div>
+              <div class="disk" id="disk" data-bind-tip><i class="full-p"></i></div>
+
+              <div class="tip-circle" data-bind-tip><i></i></div>
+          <div class="next-box abs">
+              <a class="btn btn-next" data-next></a>
+          </div>
+      </section>
+
+          <section class="screen station4 swiper-slide">
+              <div class="tip-box">
+              </div>
+              <div class="tip-circle" data-bind-tip data-next data-delay="1200"><i></i></div>
+              <div class="lingmu-banner" id="lingmuBanner" data-bind-tip data-next data-delay="1200"><i  class="full-p"></i></div>
+              <div class="next-box abs">
+                  <a class="btn btn-next btn-lock" ></a>
+              </div>
+          </section>
+          <section class="screen screen6 swiper-slide">
+              <div class="main-body ">
+                  <div class="light-box center-parent"  >
+                      <div class="led-on abs"></div>
+                      <div class="hand"></div>
+                      <input class="text_bg" placeholder="填写密码" type="text" id="valueOfLingmu"/>
+                      <div class="tip abs"></div>
+                  </div>
+                  <a class="btn btn-confirm" id="btnGoForm"></a>
+              </div>
+          </section>
+          <section class="screen screen3 swiper-slide">
+              <div class="main-body ">
+                  <div class="light-box center-parent world "  >
+                      <div class="inner">
+                          <div class="title"></div>
+                          <div class="thumb"></div>
+                          <div class="star-box">
+                              <div class="star p1"></div><div class="star p2"></div><div class="star p3"></div><div class="star p4"></div><div class="star p5"></div>
+                          </div>
+                          <div class="fbi-text"></div>
+                          <div class="text-award abs"></div>
+                          <div class="fbi"></div>
+                          <a class="btn btn-go-award"></a>
+                      </div>
+                      <form onsubmit="return false;" novalidate>
+                          <div class="form-box  inline">
+                              <div class="row">
+                                  <label>
+                                      <span>姓名:</span>
+                                      <input name="name" type="text" required pattern="\S+"/>
+                                  </label>
+                              </div>
+                              <div class="row">
+                                  <label>
+                                      <span>手机号码:</span>
+                                      <input name="phone" type="text" required pattern="^\d{11}$"/>
+                                  </label>
+                              </div>
+                              <div class="row">
+                                  <label>
+                                      <span>地址:</span>
+                                      <input name="address" type="text" required pattern="\S+"/>
+                                  </label>
+                              </div>
+                          </div>
+                             <div class="btn-group">
+                                 <button type="submit" id="submitFormBtn" class="center">确认提交</button>
+                                 <a class="btn btn-share btn-go-site center" href="http://m.changansuzuki.com/jsp/gn.jsp?cid=101|107">确认提交</a>
+                             </div>
+                      </form>
+                  </div>
+              </div>
           </section>
       </div>
   </div>
@@ -175,12 +223,19 @@
 /*    window.onerror=function(err){
         alert(err)
     }*/
+    var isDebug=false;
+  window.onerror=function(err){
+      if(isDebug){
+          alert(err)
+      }
+ }
     var uploadUrl="../php/main.php?a=saveform";
     var collectShareUrl="../php/main.php?a=share";
     var visitUrl='../php/main.php?a=visit'
 </script>
 <script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>
 <script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<!--<script src="../js/wxmoment.min.js"></script>-->
 <!-- build:js ../js/lib.js -->
 <script type="text/javascript" src="../js/zepto.data.js"></script>
 <script src="../js/swiper.jquery.min.js"></script>

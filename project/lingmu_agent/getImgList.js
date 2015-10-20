@@ -7,8 +7,8 @@ var files=fs.readdirSync(folder)
 var result=[];
 console.log(files)
 files.forEach(function(item){
-    if(item.match(/p1_|p4|p2|p3/)){
-        result.push(folder+item);
-    }
+    //if(item.match(/p1_|p4|p2|p3/)){
+        result.push((folder+item).replace("src/",""));
+    //}
 })
 console.log(result)
