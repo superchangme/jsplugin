@@ -2368,28 +2368,24 @@ body {
   opacity: 0;
   -webkit-transform: scale(0.5);
   transform: scale(0.5);
+  width: 442px;
+  height: 132px;
 }
 .screen2 .mission-title {
   background: url(../img/p2_mission_title.png);
-  width: 387px;
-  height: 74px;
-  margin-top: 168px;
+  margin-top: 139px;
 }
 .screen2 .mission-pwd {
   background: url(../img/p2_mission_pwd.png);
-  width: 433px;
-  height: 120px;
-  margin-top: 46px;
+  margin-top: 34px;
   position: relative;
-  left: 10px;
+  left: 0px;
 }
 .screen2 .mission-dur {
   background: url(../img/p2_mission_dur.png);
-  width: 393px;
-  height: 96px;
-  margin-top: 78px;
+  margin-top: 31px;
   position: relative;
-  left: -6px;
+  left: 0;
 }
 .screen2 .btn-accept {
   background: url(../img/btn_accept.png);

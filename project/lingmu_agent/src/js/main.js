@@ -192,7 +192,7 @@ webpsupport(function (webpa) {
     function init_h5(){
         MYSWIPER=new Swiper('.swiper-container', {
             speed: 600 ,
-            initialSlide:0
+            initialSlide:1
         });
         MYSWIPER.lockSwipeToPrev()
         MYSWIPER.on("onSlideChangeStart",function(swiper){
