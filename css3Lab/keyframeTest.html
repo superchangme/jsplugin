@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+                 .demo1{
+                     display: none;
+                     -webkit-animation:flash 1s 2s;
+                 }
+                 .demo1.on{
+                     display: block;
+                 }
+                 .demo2{
+                     visibility: hidden;
+                 }
+                 .demo2.on{
+                     visibility: visible;
+                     transition:0s 2s;
+                     -webkit-animation:flash 1s 2s forwards;
+                 }
+                 @keyframes flash  {
+                       0%,20%,40%,60%,80%,100%{
+                           opacity: 0;
+                       }
+                     10%,30%,50%,70%,90%{
+                         opacity: 1;
+                     }
+                 }
+    </style>
+</head>
+<body>
+        <h1>test1</h1>
+<div class="demo1">123131</div>
+        <button onclick="startFrame('.demo1')">Test1</button>
+        <h2>test2</h2>
+        <div class="demo2">Testdasda2</div>
+        <button  onclick="startFrame('.demo2')">Test2</button>
+        <button  onclick="startFrame('.demo1,.demo2,true')">Test1&2</button>
+
+</body>
+<Script>
+    function startFrame(selecor,all){
+        if(all){
+            var    frames=document.querySelectorAll(selecor)
+                for(var i= 0,l=frames.length;i<l;i++){
+                    run(frames[i])
+                }
+        }else{
+            var    frames=document.querySelector(selecor)
+            run(frames)
+        }
+       function run(frame){
+               frame.classList.add("on")
+               setTimeout(function(){
+                   frame.classList.remove("on")
+               },15000)
+       }
+
+    }
+</Script>
+</html>
