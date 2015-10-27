@@ -29,14 +29,15 @@
         }
     }
     function initFrame(frameId){
-           var ratio=window.devicePixelRatio||1,
+           var wratio=window.devicePixelRatio||1,
+                   ratio=wratio,
                    frame=height=window.innerHeight*ratio,
                    width=window.innerWidth*ratio,
                    transform=prefixCss3("transform"),
                    origin=transform+"-origin",
                    scale=1/ratio
                    ,frame= document.getElementById(frameId);
-                                                                           console.log(origin)
+        console.log(ratio)
         frame.style.cssText="position:absolute;top:0;left:0;z-index:999;height:"+height+"px;width:"+width+"px;"+transform+":scale("+scale+");"+origin+":0% 0%";
         console.log("height:"+height+"px;width:"+width+"px;"+transform+":scale("+scale+")")
     }
