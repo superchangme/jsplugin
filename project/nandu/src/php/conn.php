@@ -89,7 +89,6 @@ function saveHistory($form){ //$form = array('name'=>'value');
         if($result->num_rows>=$form['total']){
         	return 0;
     	}
-        
        $toadyStartTime=strtotime(date('Y-m-d',time()));
        $todayEndTime=$toadyStartTime+86400;
        
@@ -259,4 +258,25 @@ function resetData(){
     //echo $sql;
     $result=$mysqli->multi_query($sql);
     return $result;
+}
+
+function addPrizeData($prizeNum=0,$pid=0){
+    global $mysqli;
+   // $sql='LOCK TABLES '.TABLE_PREFIX.'prize_memory WRITE,'.TABLE_PREFIX.'prizey WRITE;';
+    //$mysqli->query($sql);
+    $sql='update '.TABLE_PREFIX.'prize_memory set remain=remain+'.$prizeNum.' where pid ='.$pid.';update '.TABLE_PREFIX.'prize set remain=remain+'.$prizeNum.',total=total+'.$prizeNum.',daily_limit=50 where id ='.$pid.';';
+    $result=$mysqli->multi_query($sql);
+   // $sql='UNLOCK TABLES;';
+   // $mysqli->query($sql);
+    return $result;
+}
+
+
+function getTaleData($tableName=""){
+    global $mysqli;
+    $sql='select * from '.TABLE_PREFIX.$tableName;
+     echo $sql;
+    $result=$mysqli->query($sql);
+    return $result;
+    
 }

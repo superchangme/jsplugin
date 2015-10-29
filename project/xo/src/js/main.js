@@ -71,6 +71,8 @@ var browser={
  })
 $.extend(Game,{
     currentGame:null,
+    waitTime:1000,
+    $bambooList:$(".bamboo-list li"),
 	$highScoreTips:$("[data-high]"),
 	$lowScoreTips:$("[data-low]"),
 	$myScore:$("#myScore"),
@@ -83,6 +85,10 @@ $.extend(Game,{
     $rankPage:$("#rankPage"),
 	$sharePage:$("#sharePage"),
     init:function(){
+        if(isDebug){
+            Game.waitTime=0;
+        }
+
         $(document).delegate(".ans-words-list li","click",function(){
             if(Game.isOver){
                 return;
@@ -197,7 +203,7 @@ $.extend(Game,{
     openLoad:function(dfer){
         app.screens.waitScreen.removeClass("hidden")
         setTimeout(function(){
-            animateGroup({frameClass:["in"],loopTimes:1,noWaitLast:true,group:app.screens.waitScreen.find(".num"),duration:1000,callback:function(){
+            animateGroup({frameClass:["in"],loopTimes:1,noWaitLast:true,group:app.screens.waitScreen.find(".num"),duration:Game.waitTime,callback:function(){
                 app.screens.waitScreen.addClass("hidden");
                 dfer.resolve();
             }});
@@ -515,6 +521,7 @@ $.extend(Game,{
           }
         app.$gameScore.text(0)
         app.$remainTime.text("00:"+Game.lastSecnds+":000");
+        Game.$bambooList.data("step",0);
     }
 });
 
@@ -589,6 +596,9 @@ $.extend(app,{
    init:function(){
           var self=this,selLock;
          return (function(){
+             $(".screen").each(function(index){
+               $(this).data("index",index);
+        })
                 $("[data-screen]").on("click",function(){
                     console.log(self.screens[$(this).data("screen")])
                     self.updateScreen(self.screens[$(this).data("screen")])
@@ -613,6 +623,11 @@ $.extend(app,{
 				 bgAudio.paused=!bgAudio.paused;
 			 })
              app.updateScreen(app.screens.startScreen);
+             $(document).on("swipeUp",function(){
+                 if(app.currentScreen==app.screens.startScreen){
+                     app.updateScreen(app.screens.chooseScreen);
+                 }
+             })
          }).bind(app)()
    },
     scroll:{
@@ -644,6 +659,7 @@ $.extend(app,{
     } ,
     updateScreen:function(newScreen,choose){
         var isStart=false;
+        if(app.pageLock){app.pageLock=true;return}
         if(choose){
             app.changeStyle(newScreen,choose)
         }
@@ -654,10 +670,25 @@ $.extend(app,{
            app.$checkList.removeClass().find("input").prop("checked",false)
         }
         if(app.currentScreen){
-            app.currentScreen.addClass("out").removeClass("in current")
+            app.currentScreen.removeClass("down up in current")
+            newScreen.removeClass("out")
+            console.log(app.currentScreen.data("index"),newScreen.data("index"))
+            if(app.currentScreen.data("index")<newScreen.data("index")){
+                newScreen.addClass(" down")
+                app.currentScreen.addClass("out up")
+            }else{
+                newScreen.addClass(" up")
+                app.currentScreen.addClass("out down")
+            }
         }
-        newScreen.removeClass("out").addClass("in")
-        app.currentScreen=newScreen.addClass("current")
+        setTimeout(function(){
+            newScreen.addClass("in")
+        },0)
+        setTimeout(function(){
+            //newScreen.removeClass("up down");
+            app.pageLock=false;
+            app.currentScreen=newScreen.addClass("current in")
+        },750)
         if(newScreen==app.screens.startScreen){
             setTimeout(function(){
                 YAO.start(function(){
@@ -982,7 +1013,7 @@ webpsupport(function (webpa) {
 
     function checkLoaded(){
         if(loadedTimes==5){
-            $('.loading').remove();
+            //$('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active in');
             app.init();

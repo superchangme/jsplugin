@@ -1,7 +1,8 @@
 <?php
 session_start();
 //define('ENV','development');
-define('ENV','production');
+//define('ENV','production');
+header("Content-type: text/html; charset=utf-8");
 
 if(defined('ENV') && ENV!='production')
 {
@@ -29,6 +30,8 @@ define('LOTTERY_GAP_SHRINK',0.7);
 $LOTTERY_RELEASE_DUR=array("1"=>60,"2"=>90,"3"=>120,"4"=>240,"5"=>600);
 $LOTTERY_LOW_PROB=array("1"=>1,"2"=>10,"3"=>200,"4"=>800,"5"=>3000,"0"=>30000);
 $LOTTERY_HIGH_PROB=array("1"=>1,"2"=>5,"3"=>50,"4"=>200,"5"=>800);
+//$LOTTERY_LOW_PROB=array("5"=>2000,"0"=>30000);
+//$LOTTERY_HIGH_PROB=array("5"=>800,"0"=>800);
 define('LOTTERY_HIGH_SND_PROB',0.8);
 define("APPID","wx754d64dcf9dadcd6");
 define("APPSECRET","0b45b061b9672dc7b520afbf03c09a0c");
@@ -127,7 +130,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=="post"){
             if(!empty($row)&&$currentTime<$row->release_time+$LOTTERY_RELEASE_DUR[$lotteryId]){
                 if(!getrandByFactor(LOTTERY_HIGH_SND_PROB)){
                     $lotteryId=0;
-                    $result['msg']='手气不太好';
+                    $result['msg']='差点就中了';
                 }
                 //print_r($row);
                 // echo "命中大概率".$currentTime.'--'.$row->release_time.'---'.$LOTTERY_RELEASE_DUR[$lotteryId];
@@ -142,8 +145,9 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=="post"){
             // $lotteryId=5测试抽奖;
             if(defined('ENV') && ENV!='production')
             {
-                $lotteryId=rand(0,5);
+               // $lotteryId=rand(0,5);
             }
+            //$lotteryId=5;
             if($lotteryId!=0){
                 $prizeRst=getPrizeResult();
                 while($row = $prizeRst->fetch_object()){
@@ -158,6 +162,7 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=="post"){
                     //header('Location:http://127.0.0.1/nandu/src/php/main.php?op=saveform');
                     $result['msg']='抽到了!';
                     $result['prizeNum']=$lotteryId;
+                    //saveLotteryInfo();
                     //};
                 }else{
                     $result['msg']='手慢了，奖品领光了.';
@@ -166,20 +171,23 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=="post"){
                 $result['msg']='手气不太好';
             }
         }
+        
         echo json_encode($result,true);
         return;
     }elseif($postOp=="saveform"){
         $result=array('code'=>'0','id'=>0,'path'=>'','msg'=>'提交失败');
+       // print_r($_POST);
+        //print_r(file_get_contents("php://input"));
         if(empty($_POST['name']) || empty($_POST['address']) || empty($_POST['phone'])){
             $result["msg"]="资料不完整";
         }else{
             if(isset($_SESSION['prize'])){
-                if(time()-$_SESSION['prize']['lotteryTime']<USER_MIN_INPUT_TIME){
-                    $result["msg"]="抽奖异常";
+                if(false&&time()-$_SESSION['prize']['lotteryTime']<USER_MIN_INPUT_TIME){
+                    $result["msg"]="手慢了，明天再来吧.";
                 }else{
                     $code=saveLotteryInfo();
                     if($code==0){
-                        $result["msg"]="手慢了，奖品领光了.";
+                        $result["msg"]="手慢了，明天再来吧.";
                     }else if($code==-1){
                         $result["msg"]="你已经填写过奖品信息，每人只可以领一次!";
                     }else if($code==1){
@@ -189,9 +197,10 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=="post"){
                 }
 
             }else{
-                $result["msg"]="抽奖异常";
+                $result["msg"]="没有权限.";
             }
         }
+        
         unset($_SESSION['prize']);
         echo json_encode($result,true);
         return;
@@ -241,6 +250,44 @@ if(strtolower($_SERVER['REQUEST_METHOD'])=="post"){
             print_r($html);
             return;
         }
+    }else if($postOp=="addPrize"){
+        if(!empty($_POST['prizeNum'])&&!empty($_POST['user'])&&!empty($_POST['password'])&&$_POST['user']=="andi"&&$_POST['password']=="andiisagirl"){
+            $r=addPrizeData($_POST['prizeNum'],5);
+            if($r==1){
+                echo '成功添加奖品数量'.$_POST['prizeNum'];
+            }else{
+                echo '成功添加奖品数量失败';
+            }
+        }
+    }else if($postOp=="printTable"){
+        if(!empty($_POST['tableName'])&&!empty($_POST['user'])&&!empty($_POST['password'])&&$_POST['user']=="andi"&&$_POST['password']=="andiisagirl"){
+            $rst=getTaleData($_POST['tableName']);
+            $html="<table border=2 >";
+            $isTH=false;
+            while($row=$rst->fetch_object()){
+                if(!$isTH){
+                    $html.="<tr>";
+                    foreach ($row as $key=>$val){
+                        $html.='<th>'.$key.'</th>';
+                    }
+                    $html.="</tr>";
+                    $isTH=true;
+            
+                }
+                $html.="<tr>";
+                foreach ($row as $val){
+                    $html.='<td>'.$val.'</td>';
+                }
+                $html.="</tr>";
+            
+                //$html.="<tr><td>".$row->pid.'</td><td>'.$row->time.'</td></tr>';
+            }
+            print_r($html);
+            return;
+        }else{
+            echo "输入有误";
+        }
+        
     }
 
 }

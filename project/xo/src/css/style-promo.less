@@ -5,6 +5,9 @@
  * 2. Prevent iOS text size adjust after orientation change, without disabling
  *    user zoom.
  */
+@import "lib-animation";
+@import "lib-mixins-mobile";
+@import "lib-reset-mobile";
 @-webkit-keyframes flash{0%,100%,50%{opacity:1}25%,75%{opacity:0}}@keyframes flash{0%,100%,50%{opacity:1}25%,75%{opacity:0}}
 @-webkit-keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}@keyframes bounceInUp{0%,100%,60%,75%,90%{-webkit-animation-timing-function:cubic-bezier(0.215,.61,.355,1);animation-timing-function:cubic-bezier(0.215,.61,.355,1)}0%{opacity:0;-webkit-transform:translate3d(0,3000px,0);transform:translate3d(0,3000px,0)}60%{opacity:1;-webkit-transform:translate3d(0,-20px,0);transform:translate3d(0,-20px,0)}75%{-webkit-transform:translate3d(0,10px,0);transform:translate3d(0,10px,0)}90%{-webkit-transform:translate3d(0,-5px,0);transform:translate3d(0,-5px,0)}100%{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}
 @keyframes fadeInRight{0%{opacity:0;-webkit-transform:translate3d(100%,0,0);transform:translate3d(100%,0,0)}100%{opacity:1;-webkit-transform:none;transform:none}}.fadeInRight{-webkit-animation-name:fadeInRight;animation-name:fadeInRight}@-webkit-keyframes fadeInRightBig{0%{opacity:0;-webkit-transform:translate3d(2000px,0,0);transform:translate3d(2000px,0,0)}100%{opacity:1;-webkit-transform:none;transform:none}}@keyframes fadeInRightBig{0%{opacity:0;-webkit-transform:translate3d(2000px,0,0);transform:translate3d(2000px,0,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
@@ -1594,14 +1597,7 @@ body {
     padding: 11px;
     float: right;
 }
-.music-btn {
-    background: url(../img/volume_on.png) no-repeat;
-    width: 38px;
-    height: 38px;
-}
-.music-btn.off {
-    background: url(../img/volume_off.png) no-repeat;
-}
+
 .screen-inner {
     z-index: 10;
 }
@@ -1701,11 +1697,7 @@ body {
 .png-frame.show {
     display: block;
 }
-.screen.out {
-    visibility: hidden;
-    opacity: 0;
-    z-index: 0;
-}
+
 .screen.in {
     visibility: visible;
     z-index: 12;
@@ -1722,24 +1714,8 @@ body {
     z-index: 999;
     background: transparent;
 }
-.share-bg .share-car {
-    background: url(../img/share_logo.png);
-    width: 353px;
-    height: 341px;
-}
-.share-bg .share-tip {
-    position: absolute;
-    top: 32px;
-    right: 64px;
-    background: url(../img/share-arrow.png) no-repeat right top;
-    width: 113px;
-    height: 151px;
-}
-.intro-tip {
-    background: url(../img/reward_bg.jpg);
-    width: 567px;
-    height: 795px;
-}
+
+
 .world {
     perspective: 200px;
     -webkit-perspective: 200px;
@@ -2532,17 +2508,6 @@ sm{
     -webkit-animation:fadeInUp 0.6s 1s ;
     animation:fadeInUp 0.6s 1s ;
 }
-.screen1  .line{
-    background: url(../img/start_line.png);
-    width: 386px;
-    height: 587px;
-    position: absolute;
-    right: 82px;
-    top: 277px;
-    z-index-1;
-
-
-}
 
 .ming-sound-page
 .photo{
@@ -2606,4 +2571,34 @@ sm{
 .game-container.gameOver .panda,.game-container.gameOver .game-box  ,.game-container.gameOver .candle-box{
     -webkit-animation:flash 0.6s  2;
     animation:flash 0.6s 2;
+}
+.screen{
+}
+.screen.switch{
+    .transition(none);
+}
+.screen.in{
+    .transform(e('translate3d(0,0,0)!important'));
+    .transition(e('0.7s ease-out!important'));
+}
+.screen2{
+    background: url(../img/load_bg.jpg) no-repeat;
+    background-size: cover;
+}
+.screen.out {
+    opacity: 0;
+    z-index: 0;
+    .transition(e('0.9s ease-in!important'));
+}
+.screen.down{
+    .transform(translate3d(0,100%,0));
+}
+.screen.up{
+    .transform(translate3d(0,-100%,0));
+}
+.screen.has-animate .screen-inner {
+    display: none;
+}
+.screen.current .screen-inner {
+    display: block;
 }

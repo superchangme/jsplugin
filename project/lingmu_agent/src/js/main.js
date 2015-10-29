@@ -382,6 +382,7 @@ var musicBtn=$(".music-btn"),$modalPages=$(".share-bg"),$awardPage=$("#awardPage
                 })
     })
 
+
     $("#submitFormBtn").on("click",function(e){
         var $self=$(this);
         if(isSubmited){
