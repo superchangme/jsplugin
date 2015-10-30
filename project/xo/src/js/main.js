@@ -77,6 +77,7 @@ $.extend(Game,{
 	$lowScoreTips:$("[data-low]"),
 	$myScore:$("#myScore"),
 	$myRank:$("#myRank"),
+    $allScore:$("[data-score]"),
     $myOneScore:$("#myOneScore"),
     $soundPage:$("#soundPage"),
     $playPage:$("#playPage"),
@@ -84,6 +85,7 @@ $.extend(Game,{
     $scorePage:$("#scorePage"),
     $rankPage:$("#rankPage"),
 	$sharePage:$("#sharePage"),
+    $shareAllPage:$("#shareAllPage"),
     init:function(){
         if(isDebug){
             Game.waitTime=0;
@@ -154,7 +156,9 @@ $.extend(Game,{
             })
         })
         $(".btn-play-next").on("click",function(){
-            if(Game.currentGameNames.length==1){
+            app.updateScreen(app.screens.chooseScreen)
+
+            /*if(Game.currentGameNames.length==1){
                 app.updateScreen(app.screens.chooseScreen)
             }else
             {
@@ -165,36 +169,36 @@ $.extend(Game,{
                 }
                 var index=Math.floor(Math.random()*Game.currentGameNames.length)
                 Game.start(Game.currentGameNames[index])
-            }
+            }*/
         })
         $(".btn-replay").on("click",Game.play)
 		$(".btn-see-more-rank").on("click",function(){
 			app.scroll.rankScroll.refresh();
 		})
 		$(".btn-go-share").on("click",function(){
-			Game.$sharePage.show();
-			  shareInfo.title=Game.currentGame.shareTitle.replace("xx",Game.currentGame.newScore)
-			  console.log(shareInfo.title);
-			shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
-				 $.ajax({
-					url:collectShareUrl ,
-					complete:function(){
+            Game.$sharePage.show();
+            shareInfo.title=Game.currentGame.shareTitle.replace("xx",Game.currentGame.newScore)
+            shareInfo.imgUrl=Game.currentGame.sharePic;
+            saveShare();
 
-					}
-				})
-			})
-		})
-		Game.$sharePage.on("click",function(){
+        })
+        $(".btn-go-share2").on("click",function(){
+            Game.$shareAllPage.show();
+            shareInfo.title=Game.shareTitle;
+            shareInfo.imgUrl=Game.sharePic;
+            saveShare();
+        })
+		Game.$shareAllPage.on("click",function(){
 			$(this).hide();
 		})
-		$(".btn-voice").on("click",function(){
+	/*	$(".btn-voice").on("click",function(){
 			Game.currentGame.voice.one("play",function(){
                Game.updatePage(Game.$rulerPage)
 			   setTimeout(function(){
 				   bgAudio.play();
 			   },200)
            })[0].play()
-		})
+		})*/
     },
     playCandle:function(){
         Game.allowRecord();
@@ -400,6 +404,9 @@ $.extend(Game,{
         ctx.clearRect((app.$ansBgCanvas[0].width-width)/2,0,width,4);
     },
     updatePage:function(page){
+        if(app.currentScreen!=app.screens.gameScreen){
+            app.updateScreen(app.screens.gameScreen)
+        }
         if(!Game.currentPage){
             Game.currentPage=page;
             Game.currentPage.show();
@@ -466,7 +473,13 @@ $.extend(Game,{
 		},1000)
 		//更新分数
         $.ajax({
-            url:updateScoreUrl+"?"+Game.currentGame.gameName+"="+Game.currentGame.newScore
+            url:updateScoreUrl+"?"+Game.currentGame.gameName+"="+Game.currentGame.newScore,
+            dataType:"json",
+            success:function(data){
+                        if(data.result==1){
+                            Game.$allScore.text(data.total)
+                        }
+            }
         })
         setTimeout(function(){
             Game.resetGamesNewScore();
@@ -626,6 +639,9 @@ $.extend(app,{
              $(document).on("swipeUp",function(){
                  if(app.currentScreen==app.screens.startScreen){
                      app.updateScreen(app.screens.chooseScreen);
+                 }
+                 if(Game.currentPage==Game.$soundPage){
+                     Game.updatePage(Game.$rulerPage)
                  }
              })
          }).bind(app)()
@@ -1012,8 +1028,8 @@ webpsupport(function (webpa) {
     });
 
     function checkLoaded(){
-        if(loadedTimes==5){
-            //$('.loading').remove();
+        if(true&&loadedTimes==5){
+            $('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active in');
             app.init();
@@ -1566,3 +1582,13 @@ function ajax(url,cb){
   return Math.random()*(max-min+1)   +min
  }
 
+function saveShare(){
+    shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
+        $.ajax({
+            url:collectShareUrl ,
+            complete:function(){
+
+            }
+        })
+    })
+}
