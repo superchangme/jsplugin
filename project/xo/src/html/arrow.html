@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            background: black;
+        }
+        .arrow-box{
+            width: 84px;
+            animation:fade-in-out 2s ease-in-out infinite;
+        }
+          .p1{
+              background: url(../img/ico_arrow_bold.png);
+              width: 84px;
+              height: 41px;
+              margin: 0 auto;
+              animation:arrow1 2s steps(5) infinite;
+          }
+        .p2{
+            background: url(../img/ico_arrow.png) ;
+            width: 68px;
+            height: 24px;
+            margin: -12px auto;
+            animation:arrow2 2s steps(5) infinite;
+        }
+        @-webkit-keyframes fade-in-out {
+            0%{
+                transform: translate3d(0,0,0);
+            }
+            100%{
+                transform: translate3d(0,15px,0);
+            }
+        }
+        @-webkit-keyframes arrow1 {
+            0% {
+                opacity: 0;
+            }
+            25%{
+                opacity: 0.5;
+
+            }
+            50%{
+                opacity: 1;
+
+            }
+            75%{
+                opacity: 1;
+
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        @-webkit-keyframes arrow2 {
+            0% {
+                opacity: 0;
+            }
+            25%{
+                opacity: 0;
+
+            }
+            50%{
+                opacity: 1;
+
+            }
+            75%{
+                opacity: 0;
+
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+           <div class="arrow-box">
+               <div class="p1"></div>
+               <div class="p2"></div>
+
+           </div>
+</body>
+</html>
