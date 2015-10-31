@@ -32,13 +32,17 @@
 <button  onclick="fullScreen('0')">偷偷喝了这杯人头马</button>
 
           <div id="videoBox" class="video-box" >
-              <video src="media/v3.mp4" autoplay webkit-playsinline="true" x-webkit-airplay="true"></video>
+              <video src="media/v3.mp4" id="video" autoplay webkit-playsinline="true" x-webkit-airplay="true"></video>
           </div>
 </body>
 <script>
              var videoBox=document.querySelector("#videoBox");
+             var video=document.querySelector("#video")
     function fullScreen(isFull){
         videoBox.style.display='block'
+        myVideo.currentTime = 0;
+
+        video.play();
         if(isFull==1){
             var docElm = document.documentElement;
             if (docElm.requestFullscreen) {
