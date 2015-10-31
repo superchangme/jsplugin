@@ -38,9 +38,15 @@
 <script>
              var videoBox=document.querySelector("#videoBox");
              var video=document.querySelector("#video")
+             video.addEventListener("click",function(){
+                 if(video.paused){
+                     videoBox.style.display='none'
+
+                 }
+             })
     function fullScreen(isFull){
         videoBox.style.display='block'
-        myVideo.currentTime = 0;
+        video.currentTime = 0;
 
         video.play();
         if(isFull==1){
