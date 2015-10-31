@@ -1,0 +1,155 @@
+<?php
+//define('ENV','production');
+date_default_timezone_set('Asia/Taipei');
+ini_set('session.cookie_lifetime', '0'); // Expired session once browser closed
+define('ENV','development');
+define('TABLE_PREFIX','');
+define('START_TIME',strtotime('2015-10-23 00:00:00'));
+define('END_TIME',strtotime('2015-10-31 23:59:59'));
+define('MY_LUCKNUM',9);
+define('LOTTERY_HOUR_GAP',6);
+define('LOTTERY_GAP_SHRINK',0.7);
+$LOTTERY_TIME_FACTOR=array(0.005,0.05,0.1,0.5);
+$LOTTERY_TIME_FACTOR=array(0.005,0.05,0.1,0.5);
+$LOTTERY_LOW_PROB=array(1,100,300,1000,6555);
+$LOTTERY_HIGH_PROB=array(1,10,50,200);
+define('LOTTERY_HIGH_SND_PROB',20);
+define("APPID","wx754d64dcf9dadcd6");
+define("APPSECRET","0b45b061b9672dc7b520afbf03c09a0c");
+define('BASE_PATH',dirname(__FILE__));
+session_start();
+require 'conn.php';
+require 'jssdk.php';
+$action='';
+$postOp='';
+if(isset($_GET['a']))
+	$action=$_GET['a'];
+if(isset($_GET['op']))
+	$postOp=$_GET['op'];
+if($action=='share')
+{
+//TODO fetch wechat info
+	$id=saveData('share'); //conn.php
+	echo $id;
+//end
+}
+if($action=='count')
+{
+//TODO fetch wechat info
+	echo countShared(),'---'; //conn.php
+//end
+}
+else if($action=='getsharedata')
+{
+//TODO fetch wechat info
+	$data=getSharedData();
+	$tr='';
+	foreach($data as $item)
+	{
+		$tr.='<tr><td>'.$item->openid.'</td><td>'.$item->created.'</td></tr>';
+	}
+	echo '<table>'.$tr.'</table>';
+//end
+}
+elseif($action=='wechatsign')
+{
+	//TODO fetch wechat token
+	$url='';
+	if(!empty($_GET['url']))
+		$url=urldecode($_GET['url']);
+	$jssdk = new JSSDK(APPID, APPSECRET);
+	$signPackage = $jssdk->GetSignPackage($url);
+	echo json_encode($signPackage);
+	return;
+	//end
+}elseif($action=="saveform"){
+		
+}elseif($action=='testXss'){
+      $result=testXss($_GET);
+      $table="<table><tr><th>name</th><th>phone</th>";
+      while($row=$result->fetch_array()){
+               $table.='<tr><td>'.$row['name'].'</td><td>'.$row['phone'].'</td><tr>';
+      }
+      $table.='</table>';
+      echo $table;
+}elseif($action=="visit"){   
+    $id=saveData(); //conn.php
+    echo $id;
+}elseif($action=="loadpool"){
+if(getPrizePoolResult()->num_rows==0){
+	initLotteryData();
+	};
+}
+
+if($postOp=='lottery'){
+			$result=array('result'=>'0','id'=>0,'path'=>'','message'=>'提交失败');
+
+		$lotteryId=1;
+    
+    $prizeRst=getPrizeResult();
+    while($row = $prizeRst->fetch_object()){
+    	//print_r($row);
+    	if($row->id==$lotteryId){
+    		break;	
+    	};
+    }
+    if($row->remain>0){
+    	if(updatePrize($row->id,$row->remain-1)){
+    		$_SESSION['prize']=array("pid"=>$row->id,"describe"=>$row->describe,'total'=>$row->total);
+    		//header('Location:http://127.0.0.1/nandu/src/php/main.php?op=saveform');
+$result=array('result'=>'0','id'=>0,'path'=>'','message'=>'保存领奖信息失败');
+	if(isset($_SESSION['prize'])){
+		
+		$form=array();
+     $form["name"]="tom";//$_POST['name'];
+      $form['phone']="13660371985";//$_POST['phone'];
+      $form['address']="登封市";//$_POST['address'];
+      $form['desribe']=$_SESSION['prize']['pid'];
+     $form['pid']=$_SESSION['prize']['describe'];
+     $form['total']=$_SESSION['prize']['total'];
+     $id=saveHistory($form);
+     if(!empty($id)){
+            $result['result']=1;
+            $result['message']='保存领奖信息成功';
+     }
+     unset($_SESSION['prize']);
+	}		
+	echo json_encode($result);
+    	};
+    }
+    echo json_encode($result);   
+}elseif($postOp=="saveform"){
+	$result=array('result'=>'0','id'=>0,'path'=>'','message'=>'保存领奖信息失败');
+	if(isset($_SESSION['prize'])){
+		
+		$form=array();
+     $form["name"]="tom";//$_POST['name'];
+      $form['phone']="13660371985";//$_POST['phone'];
+      $form['address']="登封市";//$_POST['address'];
+      $form['desribe']=$_SESSION['prize']['pid'];
+     $form['pid']=$_SESSION['prize']['describe'];
+     $id=saveHistory($form);
+     if(!empty($id)){
+            $result['result']=1;
+            $result['message']='保存领奖信息成功';
+     }
+     unset($_SESSION['prize']);
+	}		
+	echo json_encode($result);
+	return;
+}
+
+
+function initLotteryData(){
+	
+	$LOTTERY_ID=array(1,2,3,4);
+	$gapSeconds=LOTTERY_HOUR_GAP*3600;
+	$nextTime=START_TIME;
+	while(($nextTime=$nextTime+$gapSeconds)<END_TIME){		
+		foreach($LOTTERY_ID as $id){
+					$randRelaseTime=rand(-$gapSeconds*LOTTERY_GAP_SHRINK,$gapSeconds*LOTTERY_GAP_SHRINK)+$nextTime;
+			insertPrizePool($id,$randRelaseTime);
+		}
+	}
+	
+}

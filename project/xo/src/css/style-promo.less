@@ -127,9 +127,7 @@ i {
 .fade.in {
     opacity: 1;
 }
-.abs {
-    z-index: 2;
-}
+
 button {
     border: none;
 }
@@ -1765,6 +1763,8 @@ body {
 .abs {
     position: absolute!important;
     width: 100%;
+    z-index: 2;
+
 }
 .center,
 a,
@@ -2160,13 +2160,12 @@ body {
 }
 .btn-go {
     background: url(../img/text_go.png) center no-repeat;
-    border: none;
     width: 116px;
     height: 116px;
   i{
     display: block;
-  background:url(../img/ico_circle.png) center no-repeat ;
-    width: 116px;
+      background:url(../img/ico_circle.png) center no-repeat ;
+      width: 116px;
     height: 116px;
   }
 }
@@ -2186,13 +2185,14 @@ body {
     height: 49px;
 }
 .game-container [data-game=candle] {
-    background: url(../img/candle_bg.jpg) no-repeat;
+    //background: url(../img/candle_bg.jpg) no-repeat;
     background-size: cover;
 }
 .game-container [data-game=candle] .candle {
     margin: 0 auto;
     background-repeat: no-repeat;
     background-image: url(../img/candle_sprite.png);
+    position: relative;
 }
 .game-container [data-game=candle] .o-candle {
     position: absolute;
@@ -2215,7 +2215,7 @@ body {
 }
 .game-container [data-game=candle] .p1 .candle {
     width: 62px;
-    height: 384px;
+    height: 422px;
     background-position: -2px -642px;
 }
 .game-container [data-game=candle] .p2 {
@@ -2224,7 +2224,7 @@ body {
 }
 .game-container [data-game=candle] .p2 .candle {
     width: 53px;
-    height: 320px;
+    height: 299px;
     background-position: -178px -2px;
 }
 .game-container [data-game=candle] .p3 {
@@ -2233,7 +2233,7 @@ body {
 }
 .game-container [data-game=candle] .p3 .candle {
     width: 84px;
-    height: 633px;
+    height: 617px;
     background-position: -92px -2px;
 }
 .game-container [data-game=candle] .p4 {
@@ -2242,8 +2242,9 @@ body {
 }
 .game-container [data-game=candle] .p4 .candle {
     width: 59px;
-    height: 448px;
-    background-position: -66px -642px;
+    height: 434px;
+    background-position: -66px -638px;
+    left: 3px;
 }
 .game-container [data-game=candle] .p5 {
     left: 314px;
@@ -2261,7 +2262,9 @@ body {
 .game-container [data-game=candle] .p6 .candle {
     width: 87px;
     height: 511px;
-    background-position: -127px -637px;
+    background-position: -127px -628px;
+    left: 4px;
+    top: -2px;
 }
 .game-container [data-game=candle] .p7 {
     left: 523px;
@@ -2270,7 +2273,7 @@ body {
 .game-container [data-game=candle] .p7 .candle {
     width: 52px;
     height: 299px;
-    background-position: -178px -324px;
+    background-position: -178px -324px;       left: -2px;
 }
 .game-container [data-game=candle] .p1 .flame {
     width: 99px;
@@ -2379,8 +2382,8 @@ body {
 }
 .ming-sound-page [data-game=candle] .photo-img {
     position: relative;
-    top: 52px;
-    left: 16px;
+    top: 77px;
+    left: 25px;
 }
 .ming-sound-page [data-game=role] .photo-img {
     position: relative;
@@ -2389,13 +2392,13 @@ body {
 }
 .ming-sound-page [data-game=panda] .photo-img {
     position: relative;
-    top: 81px;
-    left: 10px;
+    top: 53px;
+    left: -19px;
 }
 .ming-sound-page [data-game=tree] .photo-img {
     position: relative;
-    left: 65px;
-    top: 67px;
+    left: 42px;
+    top: 52px;
 }
 .btn-voice {
     width: 102px;
@@ -2430,7 +2433,7 @@ body {
 .game-rulers .btn-go {
     width: 116px;
     height: 116px;
-    border-color: #e7c087;
+    border: none;
     background: url(../img/text_go.png) center no-repeat transparent;
     position: absolute;
     top: 813px;
@@ -2633,13 +2636,20 @@ sm{
     background:rgba(0,0,0,0.85);
 }
 .share-box{
-    color: white;
+    color: #ebce8f;
     font-size: 30px;
     line-height:50px;
     border-radius:16px;
     padding:55px 80px;
     white-space: nowrap;
-    border: 2px solid white;
+    border: 2px solid #ebce8f;
+}
+.share-tip{
+    color: white;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .share-wrap{
     top:353px;
@@ -2822,4 +2832,109 @@ sm{
 .case-page{
     background: url(../img/all_bg.png) center;
     background-size: cover;
+}
+
+
+.ground{
+    width: 100%;
+    height: 872px;
+    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    .bg{
+        background: url(../img/hill.png) center top no-repeat;
+        width: 100%;
+        height: 330px;
+        background-size: cover;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        z-index: 2;
+    }
+    .panda-box{
+        .abs;
+        z-index: 3;
+        bottom:80px;
+        left:0;
+    }
+}
+.bamboo-list{    position: absolute;
+    z-index: 1;
+    left: 50%;
+    transform: translate3d(-50%,0,0);
+    bottom: 273px;width:236px; height:82px;display:block;margin: 0 auto; overflow:hidden; background-repeat: no-repeat;background-image:url(../img/bamboo_sprite.png);}
+[data-step='1'] .bamboo-list {width:236px; height:82px; background-position: -1646px -795px}
+[data-step='10'] .bamboo-list {width:376px; height:301px; background-position: -2px -574px}
+[data-step='11'] .bamboo-list {width:378px; height:375px; background-position: -1522px -2px}
+[data-step='12'] .bamboo-list {width:378px; height:365px; background-position: -1142px -392px}
+[data-step='13'] .bamboo-list {width:378px; height:388px; background-position: -1142px -2px}
+[data-step='14'] .bamboo-list {width:378px; height:459px; background-position: -762px -2px}
+[data-step='15'] .bamboo-list {width:378px; height:500px; background-position: -382px -2px}
+[data-step='16'] .bamboo-list {width:378px; height:570px; background-position: -2px -2px}
+[data-step='2'] .bamboo-list {width:245px; height:92px; background-position: -1399px -795px}
+[data-step='3'] .bamboo-list {width:263px; height:162px; background-position: -1134px -759px}
+[data-step='4'] .bamboo-list {width:374px; height:166px; background-position: -758px -701px}
+[data-step='5'] .bamboo-list {width:376px; height:166px; background-position: -1522px -627px}
+[data-step='6'] .bamboo-list {width:376px; height:166px; background-position: -382px -504px}
+[data-step='7'] .bamboo-list {width:376px; height:229px; background-position: -380px -672px}
+[data-step='8'] .bamboo-list {width:376px; height:246px; background-position: -1522px -379px}
+[data-step='9'] .bamboo-list {width:376px; height:236px; background-position: -762px -463px}
+
+#feedBox{
+    .panda{
+        background: url(../img/panda.png);
+        width: 143px;
+        height: 153px;
+        .transition(0.3s);
+        -webkit-transform-origin: 50% 100%;
+        transform-origin: 50% 100%;
+        margin: 0 auto -85px;
+        .transform( scale(0.36));
+
+    }
+    & {
+        .gender(16);
+        @op:0.36;
+        @step:0.04;
+        .gender(@n,@i:1) when (@i =< @n) {
+            &[data-step='@{i}'] .panda{
+                .transform( scale(@op+@i*@step));
+            }
+            .gender(@n, @i+1);
+        }
+    }
+}
+.btn-yang{
+    background: url(../img/btn_feed.png);
+    width: 267px;
+    height: 282px;
+    line-height: 263px;
+    border: none;
+}
+[data-game].in .btn-yang{
+                     .animation(pulse 1s 2s infinite );
+}
+.skip-btn{
+    position: absolute;
+    bottom: 30px;
+    width: 80px;
+    height: 80px;
+    line-height: 78px;
+    left: 50%;
+    margin-left: -40px;
+}
+.game-bar .score{
+    font-style: normal;
+}
+.btn-start{
+    display: block;
+    border: none;
+    background:url(../img/ico_circle.png) center no-repeat ;
+    width: 116px;
+    height: 116px;
+    font-size: 30px;
+}
+.ruler-page{
+    z-index: 999;
+    background: url(../img/rule_bg.png) center 70px no-repeat rgba(0, 0, 0, 0.85)
 }

@@ -153,7 +153,7 @@
             <div class="num num2 fade centerXY"><b></b><i></i></div>
             <div class="num num1 fade centerXY"><b></b><i></i></div>
         </div>
-        <div class="share-page page hidden full-p game-share" id="shareAllPage">
+        <div class="share-page page hidden full-p game-share modal-page" id="shareAllPage">
             <div class='share-arrow'></div>
             <div class='share-wrap centerXY text-center'>
                 <div class='share-box inline text-left'>
@@ -164,8 +164,8 @@
                 </div>
             </div>
         </div>
-        <div class="ruler-page page hidden full-p " id="rulerPage">
-
+        <div class=" ruler-page page hidden full-p modal-page " id="rulerAllPage">
+            <div class="share-tip">点击任意区域关闭浮层</div>
         </div>
         <section class="screen screen1  " id="startScreen" >
             <div class="screen-inner full-p ">
@@ -259,13 +259,14 @@
                                     </div>
                                     <div class="next-role-box hidden" id="nextRoleBox">
                                         <div class="text-ur-right"></div>
-                                        <a class="btn btn-circle" id="nextRoleBtn">下一题</a>
+                                        <a class="btn btn-circle nextRoleBtn" >下一题</a>
                                     </div>
+                                    <a class="btn btn-circle nextRoleBtn skip-btn" >跳过</a>
                                 </div>
                             </div>
 
                         </div>
-                        <div data-game="panda" class=" full-p hidden">
+                        <div data-game="panda" class=" full-p hidden" id="feedBox" data-step="0">
                           <!--  <div class="panda-top" id="pandaTop">
                                 <div class="bg"></div>
                                 <div class="line"></div>
@@ -291,20 +292,16 @@
                                     <span data-support-yao="false">点击GO开始游戏</span>
                                 </div>
                             </div>-->
-                            <div class="bg"> </div>
                             <div class="ground">
+                                <div class="bg"> </div>
+                                <div class="bamboo-list">
+                                </div>
+                                <div class="panda-box">
+                                    <div class="panda"></div>
+                                    <a class="btn btn-circle btn-yang "  id="pandaFeedBtn">助养</a>
+                                </div>
+                            </div>
 
-                                <ul class="bamboo-list">
-                                    <li class="bl1" data-step="0"></li>
-                                    <li class="bl1" data-step="0"></li>
-                                    <li class="bl1" data-step="0"></li>
-                                    <li class="bl1" data-step="0"></li>
-                                </ul>
-                            </div>
-                            <div class="panda-box">
-                                <div class="panda"></div>
-                                <a class="btn btn-circle btn-yang "  id="pandaYangBtn"></a>
-                            </div>
                         </div>
                         <div data-game="tree" class=" full-p hidden">
                             <div id="LMainDiv"></div>
@@ -332,6 +329,9 @@
                             <div data-support-record="false" class="hidden">
                                 <a class="btn btn-go btn-circle hidden" data-support-yao="false" id="beginClickCandle"></a>
                                 <a class="btn btn-shake2"   data-support-yao="true"></a>
+                            </div>
+                            <div  data-support-record="true" class="hidden" >
+                                <a class="btn btn-start btn-circle hidden" data-support-yao="false" id="beginRecord" >START</a>
                             </div>
                             <div class="s-tips text-center">
                                 <span data-support-record="true"  class="hidden">用力吹蜡烛</span>
@@ -441,6 +441,7 @@
                                     <br/>炫出你的铁肺本色!
                                 </div>
                             </div>
+                            <div class="share-tip">点击任意区域关闭浮层</div>
                         </div>
 
 
@@ -560,7 +561,7 @@
     </div>
 </div>
 <script >
-    var isDebug=false;
+    var isDebug=true;
     window.onerror=function(err,url,line){
         if(isDebug){
             alert(err+":url--:"+url+":lineNo:"+line)
@@ -574,11 +575,11 @@
         isOver:true,
         gameCounter:null,
         displayTime:"",
-        lastSecnds:10,
         supportYao:false,
         gameNames:["tree",'role','panda','candle'],
         gameBox:{
             tree:{
+                lastSeconds:10,
                 shareTitle:"我在绿化地球中获得xx分！环保天赋如此可贵，你要不要来发掘？",
                 media:"../media/ming_tree.mp3",
                 type:"tree",
@@ -590,6 +591,8 @@
                 goodRatio:0.85
             },
             candle:{
+                lastSeconds:10,
+
                 shareTitle:"我“一口气”就获得xx分！发现自己天生铁肺，你要不要来发掘？",
                 media:"../media/ming_candle.mp3",
                 type:"candle",
@@ -605,6 +608,8 @@
             },
             //game1
             panda:{
+                lastSeconds:3000,
+
                 shareTitle:"我喂养大熊猫获得xx分!原来爱心就是我的天赋礼物，你要不要来发掘？",
                 scoreDivide:500,
                 media:"../media/ming_panda.mp3",
@@ -613,9 +618,13 @@
                 score:0,
                 newScore:0,
                 currentTime:0,
-                goodRatio:0.7
+                goodRatio:0.7,
+                feedClick:0,
+                maxFeedStep:16
             },
             role:{
+                lastSeconds:60,
+
                 shareTitle:"我与黄晓明共彪演技获得xx分！发现自己天生演艺实力派，你要不要来发掘？",
 
                 media:"../media/ming_role.mp3",

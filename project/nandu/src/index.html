@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>有豪华专机接送和总裁范很配哦，大奖抽起来！</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=640,target-densitydpi=device-dpi,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="format-detection" content="address=no">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/swiper3.05.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/component.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .loading-box{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .loading-box .loader {
+
+            position: relative;
+            border-top: 0.4em solid rgba(172, 41, 43, 0.4);
+            border-right: 0.4em solid rgba(172, 41, 43, 0.4);
+            border-bottom: 0.4em solid rgba(172, 41, 43, 0.4);
+            border-left: 0.4em solid #ebe7b5;
+            -webkit-animation: loading 1.1s infinite linear;
+            animation: loading 1.1s infinite linear;
+        }
+        .loading-box .loader,
+        .loading-box .loader:after {
+            position: absolute;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            left: 50%;
+            margin-left: -25px;
+            top: 45%;
+            margin-top: -25px;
+        }
+        @-webkit-keyframes loading {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes loading {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        .loader_txt{
+            position: absolute;
+            font-size: 22px;
+            color: #ebe7b5;
+            width: 640px;
+            height: auto;
+            text-align: center;
+            top: 51%;
+        }
+    </style>
+</head>
+<body>
+<!--分享图片-->
+<img class="sharePic" src="img/sharePic.jpg" style="height: 0;z-index: 9999;">
+
+<!--loading -->
+<div class="loading-box">
+    <div class="loader"></div>
+    <div class="loader_txt">加载中...<span id='loadPer'>5%</span></div>
+</div>
+
+<!--main-->
+<div class="main" style='display:none'>
+    <div class="arrow_tips"></div>
+    <div class="arrow_txt">嘉宾介绍</div>
+    <div class="bg"></div>
+
+    <div class="shareTips"></div>
+
+
+    <!--      抽奖页       -->
+    <div class="page2">
+        <div class="bg"></div>
+        <div class="p2_card"></div>
+        <div class="p2_jt_box">
+            <div class="p2_jt"></div>
+            <div class="p2_jt_txt">抽起来嗨</div>
+        </div>
+
+        <!--<div class="shineBox scalePage">-->
+            <!--<div class="shine1"></div>-->
+            <!--<div class="shine2"></div>-->
+            <!--<div class="shine3"></div>-->
+            <!--<div class="shine4"></div>-->
+            <!--<div class="shine5"></div>-->
+            <!--<div class="shine6"></div>-->
+        <!--</div>-->
+        <div class="p2_t1"></div>
+
+        <!--中奖结果-->
+        <div class="prize_box">
+            <div class="shineBox scalePage">
+                <div class="shine1"></div>
+                <div class="shine2"></div>
+                <div class="shine3"></div>
+                <div class="shine4"></div>
+                <div class="shine5"></div>
+                <div class="shine6"></div>
+            </div>
+            <img class="prize_result" src=""/>
+
+            <div class="getTipsTxt">已成功登记领取</div>
+            <div class="p3_getBtn"></div>
+            <div class="closeP3Btn"></div>
+            <div class="p3_shareBtn"></div>
+        </div>
+    </div>
+
+    <!--       提交资料       -->
+    <div class="page4">
+        <div class="bg"></div>
+        <div class="p4_prizeBg"></div>
+        <div class="p4_t1"></div>
+        <div class="p4_inputBox">
+<form id='myform'>
+            <div class="p4_inputBg1"></div>
+            <div class="p4_inputBg2"></div>
+            <div class="p4_inputBg3"></div>
+
+            <input id="name_input" class="input-name input-css" type="text" name="name" value=""
+                   placeholder="姓名" maxlength="6"/>
+            <input id="tel_input" class="input-tel input-css" type="text" name="phone" value=""
+                   placeholder="手机号码"
+                   maxlength="11"/>
+            <input id="addr_input" class="input-addr input-css" type="text" name="address" value=""
+                   placeholder="邮寄地址"/>
+ </form>
+        </div>
+        <div class="p4_btn0"></div>
+        <div class="closeP4Btn"></div>
+    </div>
+
+    <div class="swiper-container frame allPage">
+        <div class="swiper-wrapper frame" id="wrapper1">
+            <!--      第1页         -->
+            <div class="swiper-slide s1 pageCon">
+                <div class="ndLogo"></div>
+                <div class="scalePage p1">
+                    <div class="p1_logo"></div>
+                    <div class="p1_t1"></div>
+                    <div class="p1_t2"></div>
+                    <div class="p1_t3"></div>
+                    <div class="p1_btn1"></div>
+                    <div class="p1_btn2"></div>
+                </div>
+
+                <div class="p1_man"></div>
+                <div class="p1_car"></div>
+            </div>
+            <!--      第2-3页  抽奖       -->
+            <!--<div class="swiper-slide s2_3 pageCon">-->
+
+            <!--</div>-->
+            <!--      第4页   提交资料       -->
+            <!--<div class="swiper-slide s4 pageCon">-->
+
+            <!--</div>-->
+            <!--      第5页   出席嘉宾    -->
+            <div class="swiper-slide s5 pageCon">
+
+                <div class="scalePage p5">
+                    <div class="p5_jbBg"></div>
+                    <div class="swiper-container p_swiper-container">
+                        <div class="swiper-wrapper p_swiper-wrapper">
+                            <div class="swiper-slide p5_slide p5_p1"></div>
+                            <div class="swiper-slide p5_slide p5_p2"></div>
+                            <div class="swiper-slide p5_slide p5_p3"></div>
+                            <div class="swiper-slide p5_slide p5_p4"></div>
+                            <div class="swiper-slide p5_slide p5_p5"></div>
+                            <div class="swiper-slide p5_slide p5_p6"></div>
+                            <div class="swiper-slide p5_slide p5_p7"></div>
+                            <div class="swiper-slide p5_slide p5_p8"></div>
+                            <div class="swiper-slide p5_slide p5_p9"></div>
+                     </div>
+                    </div>
+                    <!-- 左右按钮 -->
+                    <div class="r_btn"></div>
+                    <div class="l_btn"></div>
+                    <div class="p5_jbLogo"></div>
+                    <div class="name_txt"> </div>
+                    <div class="p5_t1"></div>
+                    <div class="getPrize_btn"></div>
+                </div>
+
+            </div>
+            <!--      第6页   总冠名      -->
+            <div class="swiper-slide s6 pageCon">
+                <div class="p6_zgm"></div>
+                <div class="p6_lnLogo"></div>
+                <div class="p6_t1"></div>
+                <div class="p6_car"></div>
+                <div class="getPrize_btn6"></div>
+            </div>
+            <!--      第7页    合作框架     -->
+            <div class="swiper-slide s7">
+               <div class="p7_brand1"></div>
+            </div>
+
+            <div class="swiper-slide s8">
+                <div class="p8_brand1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+var userData={};
+userData.visitURL="php/main.php?a=visit";
+userData.shareURL="php/main.php?a=share";
+userData.getPrizeURL="php/main.php?op=lottery";
+userData.saveDataURL="php/main.php?op=saveform";
+
+</script>
+<script src="js/plugins.js"></script>
+<script src="js/zepto.js"></script>
+
+<script src="js/main.js"></script>
+<script src="js/swiper.animate.min.js"></script>
+<script src="js/swiper3.05.min.js"></script>
+
+<script>
+var isDebug=false;
+if(isDebug){
+	document.write('<script src="js/debug.js"><\/script>');
+}
+    //横屏检测
+    window.addEventListener('orientationchange', landscapeListener);
+    function landscapeListener() {
+        if (window["orientation"] == 90 || window["orientation"] == -90) {
+            alert("为了最佳体验，请使用竖屏浏览！");
+        }
+    }
+    //屏高小于i5缩放
+    function scalePage(e) {
+        if (window.innerHeight < 1008 || e != null) {
+            $(".scalePage").animate({scale: window.innerHeight / 1008}, 0)
+        } else {
+            $(".scalePage").animate({scale: 1}, 0)
+        }
+    }
+    scalePage();
+    //为了防止input布局错乱，缩放页面
+    $(window).on("resize", scalePage);
+
+    //禁止屏幕的自动滑动
+    document.addEventListener("touchmove", function (e) {
+        e.preventDefault();
+    }, false);
+
+
+
+
+    $(".allPage").css("display","none");
+
+    //预加载load图
+    loadFramesFun();
+    //预加载loading函数
+    function loadFramesFun() {
+        var allFrames = ["img/bg.jpg","img/closeBtn.png","img/getPrize_btn.png","img/l_btn.png","img/ndLogo.png","img/p/1.png","img/p/2.png",
+            "img/p/3.png","img/p/4.png","img/p/5.png","img/p/6.png","img/p/7.png","img/p/8.png","img/p/9.png",
+            "img/p/10.png","img/p/11.png","img/p1_btn1.png","img/p1_btn2.png","img/p1_car.png","img/p1_logo.png","img/p1_man.png",
+            "img/p1_t1.png","img/p1_t2.png","img/p1_t3.png","img/p2_card.png","img/p2_jt.png","img/p2_t1.png","img/p3_shareBtn.png",
+            "img/p4_btn0.png","img/p4_btn1.png","img/p4_inputBg.png","img/p4_prizeBg.png","img/p4_t1.png","img/p5_jbBg.png",
+            "img/p5_jbLogo.png","img/p5_n1.png","img/p5_n2.png","img/p5_n3.png","img/p5_n4.png","img/p5_n5.png",
+            "img/p5_p1.png","img/p5_p2.png","img/p5_p3.png","img/p5_p4.png","img/p5_p5.png","img/p5_t1.png",
+            "img/p6_car.png","img/p6_lnLogo.png","img/p6_t1.png","img/p6_zgm.png","img/p7_brand1.png","img/p7_t1.png",
+            "img/p8_brand1.png","img/prize0.png","img/prize1.png","img/prize2.png","img/prize3.png","img/prize4.png",
+            "img/prize5.png","img/r_btn.png","img/shareTips.png"
+        ];
+        var loaded = 0;
+        var isloaded=false;
+        var $loadPer=$("#loadPer");
+        var imgPer = 100/allFrames.length;
+        for (var i = 0, j = allFrames.length; i < j; i++) {
+            var img = new Image;
+            img.onload = update;
+            img.src = allFrames[i];
+        }
+        function update() {
+            loaded = Math.min(100, (imgPer + loaded));
+            $loadPer.html(Math.floor(loaded)+"%");
+            console.log(loaded)
+            if(parseInt(loaded)==100){
+            	console.log("in")
+                $(".loading-box").css("display", "none");
+                $(".allPage").css("display","block");
+                $(".main").css("display","block");
+
+                initStage();
+            }
+        }
+    }
+
+    var mySwiper,mySwiper1;
+    function initStage() {
+		var $tipArrow=$(".arrow_tips");
+        mySwiper = new Swiper('.allPage', {
+            direction: 'vertical',
+            speed: 500,
+            observer:true,
+            mousewheelControl: true,
+            onSlideChangeStart:function(){
+            	$tipArrow.show();
+            },
+            onInit: function (swiper) {
+                swiperAnimateCache(swiper);
+                swiperAnimate(swiper);
+            },
+            onSlideChangeEnd: function (swiper) {
+                swiperAnimate(swiper);
+            },
+            onTransitionEnd: function (swiper) {
+                swiperAnimate(swiper);
+                if(mySwiper.activeIndex==0){
+                    mySwiper.lockSwipes();
+                }
+                else if(mySwiper.activeIndex==1){
+                    mySwiper.lockSwipeToPrev();
+                    mySwiper.unlockSwipeToNext();
+                    if(isGetPrizeBoo==true){
+                        $(".arrow_txt").html("");
+                    }
+                }else{
+                    mySwiper.unlockSwipeToPrev();
+                }
+            },
+            onReachEnd:function(){
+            	setTimeout(function(){
+                	$tipArrow.hide();
+            	},30)
+            }
+        });
+        //mySwiper.lockSwipes();
+//        mySwiper.slideTo(3,1000,false)
+
+        mySwiper1 = new Swiper('.p_swiper-container', {
+            direction: 'horizontal',
+            speed: 500,
+            observer:true,
+            mousewheelControl: true,
+            onInit: function (swiper) {
+                swiperAnimateCache(swiper);
+                swiperAnimate(swiper);
+            },
+            onSlideChangeEnd: function (swiper) {
+                swiperAnimate(swiper);
+            },
+            onTransitionEnd: function (swiper) {
+                swiperAnimate(swiper);
+                $(".name_txt").css("background-image",'url('+"'"+'img/p5_n'+(swiper.activeIndex+1).toString()+'.png'+"'"+')');
+            }
+        });
+        $(".r_btn").tap(function(){
+        	mySwiper1.slideNext();
+        })
+        $(".l_btn").tap(function(){
+        	mySwiper1.slidePrev();
+        })
+    }
+
+</script>
+</html>

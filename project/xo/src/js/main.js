@@ -72,6 +72,7 @@ var browser={
 $.extend(Game,{
     currentGame:null,
     waitTime:1000,
+    $feedBox:$("#feedBox"),
     $bambooList:$(".bamboo-list li"),
 	$highScoreTips:$("[data-high]"),
 	$lowScoreTips:$("[data-low]"),
@@ -86,6 +87,8 @@ $.extend(Game,{
     $rankPage:$("#rankPage"),
 	$sharePage:$("#sharePage"),
     $shareAllPage:$("#shareAllPage"),
+    $rulerAllPage:$("#rulerAllPage"),
+    $modalPage:$(".modal-page"),
     init:function(){
         if(isDebug){
             Game.waitTime=0;
@@ -118,8 +121,13 @@ $.extend(Game,{
                 app.$ansWordsList.find("li").eq(index).removeClass("fade")
             }
         });
-        $("#nextRoleBtn").on("click",Game.nextRole)
-        $("#beginRecord").on("touchstart",Game.playCandle)
+        $(".nextRoleBtn").on("click",Game.nextRole)
+        $("#beginRecord").on("touchstart",function(){
+            if(Game.recordAgree){
+                Game.countGame(Game.candleCountCb.bind(null,true))
+
+            }
+        })
         $("#beginClickCandle").on("click",function(){
             Game.addCandleCount();
             Game.candleCountCb();
@@ -188,17 +196,22 @@ $.extend(Game,{
             shareInfo.imgUrl=Game.sharePic;
             saveShare();
         })
-		Game.$shareAllPage.on("click",function(){
+        $(".btn-see-ruler").on("click",function(){
+            Game.$rulerAllPage.show();
+        })
+		Game.$modalPage.on("click",function(){
 			$(this).hide();
 		})
-	/*	$(".btn-voice").on("click",function(){
-			Game.currentGame.voice.one("play",function(){
-               Game.updatePage(Game.$rulerPage)
-			   setTimeout(function(){
-				   bgAudio.play();
-			   },200)
-           })[0].play()
-		})*/
+        $("#pandaFeedBtn").on("click",Game.pandaFeed)
+
+        /*	$(".btn-voice").on("click",function(){
+                Game.currentGame.voice.one("play",function(){
+                   Game.updatePage(Game.$rulerPage)
+                   setTimeout(function(){
+                       bgAudio.play();
+                   },200)
+               })[0].play()
+            })*/
     },
     playCandle:function(){
         Game.allowRecord();
@@ -214,12 +227,18 @@ $.extend(Game,{
         },0)
     },
     allowRecord:function(cb){
+
         if(Game.isOver||Game.recordAgree!==undefined){
+            return;
+        }
+        if(isDebug){
+            Game.countGame()
+            $("[data-support-record=true]").hide();
+            $("[data-support-record=false]").show();
             return;
         }
 		wx.startRecord({
 			success:function(){
-                Game.countGame(Game.candleCountCb.bind(null,true))
 				 Game.gameBox.candle.playType="record"
 				 $("[data-support-record=true]").show();
 				 $("[data-support-record=false]").hide();
@@ -232,7 +251,6 @@ $.extend(Game,{
                     Game.gameBox.candle.playType="shake"
                 }else{
                     Game.gameBox.candle.playType="click"
-
                 }
                 Game.countGame()
                 $("[data-support-record=true]").hide();
@@ -305,9 +323,9 @@ $.extend(Game,{
             Game.isOver=false;
             switch(type){
                 case "panda":
-                    YAO.start(function(){
+                  /*  YAO.start(function(){
                         Game.pandaShake();
-                    })
+                    })*/
                     break;
                 case "role":
                     Game.startRole(0);
@@ -398,7 +416,7 @@ $.extend(Game,{
     drawRoleBg:function(){
       var width=app.$rstList.width();
         var ctx=app.$ansBgCanvas[0].getContext("2d");
-        ctx.strokeStyle="#cd273d";
+        ctx.strokeStyle="#e7c087";
         ctx.lineWidth=2;
         ctx.roundRect(0,0,592,240,6,false,true);
         ctx.clearRect((app.$ansBgCanvas[0].width-width)/2,0,width,4);
@@ -416,8 +434,9 @@ $.extend(Game,{
         }
     },
     countGame:function(countCb){
-        var start=+new Date;
+        var start=+new Date,game=Game.currentGame;
         Game.Timer.start=start;
+        app.$remainTime.text("00:"+game.lastSeconds+":000");
         function run(){
             if(Game.isOver){
                 return;
@@ -425,7 +444,7 @@ $.extend(Game,{
             var now=+new Date;
             var milliseconds=(now-start);
             Game.Timer.now=now;
-            if(milliseconds<Game.lastSecnds*1000){
+            if(milliseconds<game.lastSeconds*1000){
                 if(countCb){
                     if(Game.currentGame==Game.gameBox.candle){
                         Game.addCandleCount(true);
@@ -436,7 +455,7 @@ $.extend(Game,{
             }else{
                 Game.stopGame();
             }
-            Game.displayTime="00:"+pad(Math.max(0,(Game.lastSecnds-Math.ceil((milliseconds)/1000))),2)+":"+(milliseconds+"").slice(-3);
+            Game.displayTime="00:"+pad(Math.max(0,(game.lastSeconds-Math.ceil((milliseconds)/1000))),2)+":"+(milliseconds+"").slice(-3);
             Game.updateTime();
         }
         run();
@@ -452,7 +471,10 @@ $.extend(Game,{
 		}
         switch(Game.currentGame.type){
             case "candle":
-				wx.stopRecord();
+                wx;
+                if(typeof wx!="undefined"&&!isDebug){
+                    wx.stopRecord();
+                }
                 Game.gameBox.candle.counts=0;
                 Game.gameBox.candle.lastCounts=0;
                 app.$candleList.each(function(index){
@@ -498,6 +520,16 @@ $.extend(Game,{
     showScorePage:function(){
 
     },
+    //熊猫喂养
+    pandaFeed:function(){
+        var game=Game.gameBox.panda,step=parseInt(Game.$feedBox.attr("data-step"));
+        game.feedClick++;
+        if(game.feedClick%2==0){
+           if(step<game.maxFeedStep){
+               Game.$feedBox.attr("data-step",step+1);
+           }
+        }
+    },
     //摇一摇随机得分
     pandaShake:function(){
         if(Game.isOver==true||Game.shakeLock){
@@ -531,10 +563,11 @@ $.extend(Game,{
           for(var game in Game.gameBox){
               game.newScore=0;
               game.currentTime=0;
+              game.feedClick=0;
           }
         app.$gameScore.text(0)
-        app.$remainTime.text("00:"+Game.lastSecnds+":000");
         Game.$bambooList.data("step",0);
+        Game.$feedBox.data("step",0);
     }
 });
 
@@ -1157,7 +1190,7 @@ var musicBtn=$(".music-btn"),$sharePage=$("#sharePage"),$readyPage=$("#rewardPag
      Game.start(gameType)
      Game.currentGameNames=Game.gameNames.slice();
  })
-    $("#pandaYaoBtn").on("click",Game.pandaShake)
+    //$("#pandaYaoBtn").on("click",Game.pandaShake)
 })
 //swipe plugin
 function mySwipe(opts,successCb,beforeSwipeCb){

@@ -1,0 +1,1196 @@
+/*! HTML5 Boilerplate v4.3.0 | MIT License | http://h5bp.com/ */
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+@import "animate.min.css";
+
+html,
+button,
+input,
+select,
+textarea {
+  color: #222;
+
+}
+
+html, body {
+  position: relative;
+  font-family: "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei", "黑体", Arial, sans-serif;
+  font-size: 16px;
+  height: 100%;
+  width: 100%;
+  line-height: 1;
+  overflow: hidden; /*隐藏滚动条*/
+  background-color: #190b01;
+}
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/*
+ * Remove the gap between images, videos, audio and canvas and the bottom of
+ * their containers: h5bp.com/i/440
+ */
+
+audio,
+canvas,
+img,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  resize: vertical;
+}
+
+/* ==========================================================================
+   Browse Happy prompt
+   ========================================================================== */
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+/*CSS 函数*/
+.animation(@val) {
+  -webkit-animation: @val;
+  animation: @val;
+}
+
+.arrow_tips {
+  position: absolute;
+  background: url("../img/arrow.png") no-repeat center;
+  width: 49px;
+  height: 25px;
+  z-index: 600;
+  left: 50%;
+  margin-left: -25px;
+  bottom: 1.5%;
+  display: none;
+
+  .animation(slideTips 1s ease-in-out infinite);
+}
+
+.arrow_txt {
+  position: absolute;
+  width: 640px;
+  height: auto;
+  z-index: 888;
+  text-align: center;
+  font-family: "Microsoft YaHei";
+  font-size: 24px;
+  color: #d8d8d8;
+  bottom: 5%;
+  font-weight: 100;
+  display: none;
+}
+
+//上下滑动
+@-webkit-keyframes slideTips {
+  0% {
+    -webkit-transform: translate3d(0, 8px, 0)
+  }
+  50% {
+    -webkit-transform: translate3d(0, -8px, 0)
+  }
+  100% {
+    -webkit-transform: translate3d(0, 8px, 0)
+  }
+}
+
+@keyframes slideTips {
+  0% {
+    -webkit-transform: translate3d(0, 8px, 0)
+  }
+  50% {
+    -webkit-transform: translate3d(0, -8px, 0)
+  }
+  100% {
+    -webkit-transform: translate3d(0, 8px, 0)
+  }
+}
+
+.main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.pageCon {
+  position: relative;
+  height: 100%;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+}
+
+.frame {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.bg {
+  position: absolute;
+  background: url("../img/bg.jpg") no-repeat bottom;
+//  left: 0;
+//  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+
+
+.scalePage {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.shareTips {
+  background: url("../img/shareTips.png") no-repeat top;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 9999;
+}
+//=================================================================   第1页  =========
+
+.p1 {
+  -webkit-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+}
+.ndLogo {
+  //  display: none;
+  background: url("../img/ndLogo.png") no-repeat center;
+  position: absolute;
+  left: 498px;
+  top: 23px;
+  width: 112px;
+  height: 33px;
+  z-index: 90;
+}
+.p1_logo {
+  background: url("../img/p1_logo.png") no-repeat center;
+  position: absolute;
+  left: 252px;
+  top: 37px;
+  width: 137px;
+  height: 145px;
+  .animation(bounceInDown 1.2s 0.2s ease-out both);
+}
+
+.p1_t1 {
+  background: url("../img/p1_t1.png") no-repeat center;
+  position: absolute;
+  left: 95px;
+  top: 186px;
+  width: 452px;
+  height: 116px;
+  .animation(bounceInLeft 1.4s 0.6s ease-out both);
+}
+
+.p1_t2 {
+  background: url("../img/p1_t2.png") no-repeat center;
+  position: absolute;
+  left: 111px;
+  top: 273px;
+  width: 435px;
+  height: 112px;
+  .animation(bounceInRight 1.4s 0.8s ease-out both);
+}
+
+.p1_t3 {
+  background: url("../img/p1_t3.png") no-repeat center;
+  position: absolute;
+  left: 114px;
+  top: 373px;
+  width: 413px;
+  height: 116px;
+  .animation(bounceIn 1.4s 1.6s ease-out both);
+}
+
+.p1_btn1 {
+  background: url("../img/p1_btn1.png") no-repeat center;
+  position: absolute;
+  left: 84px;
+  top: 541px;
+  width: 259px;
+  height: 115px;
+  .animation(bounceInUp 1.4s 1.8s ease-out both);
+}
+
+.p1_btn2 {
+  background: url("../img/p1_btn2.png") no-repeat center;
+  position: absolute;
+  left: 84px;
+  top: 655px;
+  width: 259px;
+  height: 115px;
+  .animation(bounceInUp 1.4s 2.0s ease-out both);
+}
+
+.p1_car {
+  background: url("../img/p1_car.png") no-repeat center;
+  position: absolute;
+  left: -36px;
+  bottom: 0.3%;
+  width: 517px;
+  height: 210px;
+  .animation(bounceInRight 1.4s 2.2s ease-out both);
+}
+
+//车
+@-webkit-keyframes carMoveIn {
+
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(150px, 0, 0)
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes carMoveIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(150px, 0, 0)
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0)
+  }
+}
+
+.p1_man {
+  background: url("../img/p1_man.png") no-repeat center;
+  position: absolute;
+  left: 405px;
+  bottom: 6.9%;
+  width: 153px;
+  height: 350px;
+  .animation(bounceInRight 1.4s 2.4s ease-out both);
+}
+
+@-webkit-keyframes runMan {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(90px, 90px, 0) scale3d(0.3,0.3,0.3);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale3d(1,1,1);
+  }
+}
+
+@keyframes runMan {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(90px, 90px, 0) scale3d(0.3,0.3,0.3);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0) scale3d(1,1,1);
+  }
+}
+
+//=================================================================   第2 -3页  =========
+.page2 {
+  z-index: 1200;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: none;
+  .bg {
+    position: absolute;
+    background: url("../img/bg.jpg") no-repeat bottom;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+  .animation(bounceInDown 1.2s ease-out both);
+  .full-p {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .p2_card {
+    position: absolute;
+    left: 50px;
+    top: 8%;
+    width: 540px;
+    height: 587px;
+    //  background: url("../img/p/1.png") no-repeat center;
+    .png-frame {
+      .gender(11);
+      .gender(@n,@i:1) when (@i =< @n) {
+        &.p@{i} {
+          background: url("../img/p/@{i}.png");
+        }
+        .gender(@n, @i+1);
+      }
+    }
+  }
+
+  .png-frame {
+    .full-p;
+    //  background-size: 100% auto!important ;
+    display: none;
+    &.show {
+      display: block;
+    }
+  }
+
+  //.p2_card {
+  //  background: url("../img/p2_card.png") no-repeat center;
+  //  position: absolute;
+  //  left: -8px;
+  //  top: 95px;
+  //  width: 656px;
+  //  height: 409px;
+  //}
+  .shineBox{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    -webkit-transform-origin-y: 40%;
+    z-index: 1111;
+    .shine1{
+      background: url("../img/shine.png") no-repeat center;
+      position: absolute;
+      left: -60px;
+      top: 92px;
+      width: 270px;
+      height: 231px;
+      .animation(scaleBig 2s ease-out infinite both);
+    }
+    .shine5{
+      background: url("../img/shine.png") no-repeat center;
+      position: absolute;
+      left: 400px;
+      top: 35px;
+      width: 270px;
+      height: 231px;
+      .animation(scaleBig 1.9s ease-out infinite both);
+    }
+    .shine6{
+      background: url("../img/shine.png") no-repeat center;
+      position: absolute;
+      left: 220px;
+      top: 288px;
+      width: 270px;
+      height: 231px;
+      .animation(scaleBig 1.6s ease-out infinite both);
+    }
+  }
+
+  .p2_t1 {
+    background: url("../img/p2_t1.png") no-repeat center;
+    position: absolute;
+    left: 25px;
+    bottom: 1%;
+    width: 589px;
+    height: 295px;
+  }
+
+  .p2_jt_box {
+    position: absolute;
+    left: 0;
+    height: auto;
+    width: 640px;
+    top: 50%;
+    .p2_jt {
+      position: absolute;
+      background: url("../img/p2_jt.png") no-repeat center;
+      position: absolute;
+      left: 50%;
+      margin-left: -20px;
+      width: 39px;
+      height: 101px;
+      .animation(slideTips 1s ease-in-out infinite);
+    }
+    .p2_jt_txt {
+      position: absolute;
+      font-family: "Microsoft YaHei";
+      font-size: 24px;
+      color: #d8d8d8;
+      width: 640px;
+      text-align: center;
+      top: 95px;
+    }
+  }
+
+  .p2_jt_boxMoveOut{
+    .animation(fadeOut 0.6s ease-out both);
+  }
+
+  .prize_box {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: none;
+    .animation(fadeIn 0.5s ease-out both);
+
+
+    .shineBox{
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      -webkit-transform-origin-y: 40%;
+      z-index: 1111;
+      .shine1{
+        background: url("../img/shine.png") no-repeat center;
+          position: absolute;
+          left: 400px;
+          top: 312px;
+          width: 270px;
+          height: 231px;
+        .animation(scaleBig 2s ease-out infinite both);
+      }
+      .shine2{
+        background: url("../img/shine1.png") no-repeat center;
+        position: absolute;
+        left: 44px;
+        top: 352px;
+        width: 150px;
+        height: 128px;
+        .animation(scaleBig 1.4s ease-out infinite both);
+      }
+
+      .shine3{
+        background: url("../img/shine1.png") no-repeat center;
+        position: absolute;
+        left: 200px;
+        top: 552px;
+        width: 150px;
+        height: 128px;
+        .animation(scaleBig 1.2s ease-out infinite both);
+      }
+
+      .shine4{
+        background: url("../img/shine.png") no-repeat center;
+        position: absolute;
+        left: -40px;
+        top: 520px;
+        width: 270px;
+        height: 231px;
+        .animation(scaleBig 1s ease-out infinite both);
+      }
+      .shine5{
+        background: url("../img/shine.png") no-repeat center;
+        position: absolute;
+        left: 400px;
+        top: 505px;
+        width: 270px;
+        height: 231px;
+        .animation(scaleBig 1.9s ease-out infinite both);
+      }
+      .shine6{
+        background: url("../img/shine.png") no-repeat center;
+        position: absolute;
+        left: 220px;
+        top: 288px;
+        width: 270px;
+        height: 231px;
+        .animation(scaleBig 1.6s ease-out infinite both);
+      }
+    }
+    .prize_result {
+      z-index: 700;
+      position: absolute;
+      left: 50px;
+      top: 13.5%;
+      width: 540px;
+      //    background-image: url("../img/prize0.png");
+//      background-repeat: no-repeat;
+//      background-position: center;
+    }
+    .getTipsTxt{
+      display: none;
+      position: absolute;
+      text-align: center;
+      width: 640px;
+      font-family: "Microsoft YaHei";
+      font-size: 24px;
+      color: #fcf89c;;
+      top: 70%;
+    }
+
+    .p3_getBtn {
+//      display: none;
+      background: url("../img/p3_getBtn.png") no-repeat center;
+      position: absolute;
+      left: 48px;
+      bottom: 14%;
+      width: 256px;
+      height: 66px;
+      z-index:1300;
+    }
+
+    .closeP3Btn{
+      display: none;
+      background: url("../img/closeBtn.png") no-repeat center;
+      position: absolute;
+      left: 48px;
+      bottom: 14%;
+      width: 256px;
+      height: 66px;
+      z-index: 1300;
+    }
+    .p3_shareBtn {
+      background: url("../img/p3_shareBtn.png") no-repeat center;
+      position: absolute;
+      left: 339px;
+      bottom: 14%;
+      width: 256px;
+      height: 66px;
+      z-index: 1300;
+    }
+  }
+}
+
+
+@-webkit-keyframes scaleBig {
+  0% {
+    -webkit-transform:scale3d(0.5,0.5,0.5);
+  }
+  50%{
+    -webkit-transform:scale3d(1,1,1);
+  }
+  100% {
+
+    -webkit-transform:scale3d(0.5,0.5,0.5);
+  }
+}
+
+@keyframes scaleBig {
+  0% {
+    -webkit-transform:scale3d(0.5,0.5,0.5);
+  }
+  50%{
+    -webkit-transform:scale3d(1,1,1);
+  }
+  100% {
+
+    -webkit-transform:scale3d(0.5,0.5,0.5);
+  }
+}
+
+//=================================================================   第4页  =========
+
+.page4 {
+  z-index: 1300;
+  .animation(bounceInDown 1.2s ease-out both);
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .bg {
+    position: absolute;
+    background: url("../img/bg.jpg") no-repeat bottom;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+  .p4_prizeBg {
+    background: url("../img/p4_prizeBg.png") no-repeat center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 640px;
+    height: 324px;
+  }
+  .p4_t1 {
+    background: url("../img/p4_t1.png") no-repeat center;
+    position: absolute;
+    left: 316px;
+    top: 207px;
+    width: 282px;
+    height: 87px;
+  }
+  .p4_inputBox {
+    position: absolute;
+    width: 538px;
+    height: 311px;
+    left: 50%;
+    margin-left: -269px;
+    top: 330px;
+    .p4_inputBg1 {
+      background: url("../img/p4_inputBg.png") no-repeat center;
+      position: absolute;
+      width: 538px;
+      height: 78px;
+    }
+    .p4_inputBg2 {
+      background: url("../img/p4_inputBg.png") no-repeat center;
+      position: absolute;
+      width: 538px;
+      height: 78px;
+      top: 114px;
+    }
+    .p4_inputBg3 {
+      background: url("../img/p4_inputBg.png") no-repeat center;
+      position: absolute;
+      width: 538px;
+      height: 78px;
+      top: 228px;
+    }
+
+    .input-name {
+      top: 0px;
+    }
+    .input-tel {
+      top: 114px;
+    }
+
+    .input-addr {
+      top: 228px;
+    }
+    .input-css {
+      border-width: 0px;
+      border-color: #a48559;
+      border-style: solid;
+      position: absolute;
+      width: 538px;
+      height: 78px;
+      font-size: 30px;
+      float: left;
+      box-sizing: border-box;
+      background-color: transparent;
+      color: #ffffff;
+      text-align: left;
+      padding-left: 40px;
+    }
+    .input_css::-webkit-input-placeholder {
+      color: #ffffff;
+    }
+  }
+
+  .p4_btn0 {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../img/p4_btn0.png");
+    position: absolute;
+//    left: 196px;
+//    top: 714px;
+    left: 339px;
+    bottom: 14%;
+    width: 256px;
+    height: 66px;
+  }
+  .closeP4Btn,.closeP3Btn{
+//    display: none;
+    background: url("../img/closeBtn.png") no-repeat center;
+    position: absolute;
+//    left: 196px;
+//    top: 814px;
+    left: 48px;
+    bottom: 14%;
+    width: 256px;
+    height: 66px;
+  }
+}
+
+//=================================================================   第5页  =========
+
+.p5{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+}
+.p5_jbBg{
+  position: absolute;
+  background: url("../img/p5_jbBg.png") no-repeat center;
+  width: 525px;
+  height: 645px;
+  left: 50%;
+  margin-left: -263px;
+  top: 56px;
+}
+.p_swiper-container{
+  position: relative;
+  width: 381px;
+  height: 423px;
+  top: 135px;
+  z-index: 3;
+  .p_swiper-wrapper{
+    position: absolute;
+    width: 381px;
+    height: 423px;
+    left: 0;
+    top: 0;
+  }
+  .p5_slide {
+    position: relative;
+    width: 381px;
+    height: 423px;
+    left: 0;
+    top: 0;
+  }
+  .p5_p1{
+    background: url("../img/p5_p1.png") no-repeat center;
+  }
+  .p5_p2{
+    background: url("../img/p5_p2.png") no-repeat center;
+  }
+  .p5_p3{
+    background: url("../img/p5_p3.png") no-repeat center;
+  }
+  .p5_p4{
+    background: url("../img/p5_p4.png") no-repeat center;
+  }
+  .p5_p5{
+    background: url("../img/p5_p5.png") no-repeat center;
+  }
+
+}
+.p5_jbLogo{
+  background: url("../img/p5_jbLogo.png") no-repeat center;
+    position: absolute;
+    left: 56px;
+    top: 28px;
+    width: 119px;
+    height: 126px;
+  z-index: 5;
+}
+.name_txt{
+  background: url("../img/p5_n1.png") no-repeat center;
+  position: absolute;
+  top: 589px;
+  width: 640px;
+  height: 31px;
+}
+.l_btn{
+  background: url("../img/l_btn.png") no-repeat center;
+  position: absolute;
+  left: 86px;
+  top: 343px;
+  width: 25px;
+  height: 49px;
+  z-index: 9;
+}
+.r_btn{
+  background: url("../img/r_btn.png") no-repeat center;
+  position: absolute;
+  left: 528px;
+  top: 343px;
+  width: 25px;
+  height: 49px;
+  z-index: 10;
+}
+.p5_t1{
+  background: url("../img/p5_t1.png") no-repeat center;
+    position: absolute;
+    left: 28px;
+    top: 691px;
+    width: 580px;
+    height: 202px;
+}
+.getPrize_btn{
+  background: url("../img/getPrize_btn.png") no-repeat center;
+    position: absolute;
+    left: 452px;
+    top: 924px;
+    width: 153px;
+    height: 50px;
+}
+//=================================================================   第6页  =========
+.p6_zgm {
+  background: url("../img/p6_zgm.png") no-repeat center;
+  position: absolute;
+  left: 81px;
+  top: 42px;
+  width: 132px;
+  height: 44px;
+}
+
+.p6_lnLogo {
+  background: url("../img/p6_lnLogo.png") no-repeat center;
+  position: absolute;
+  left: 63px;
+  top: 132px;
+  width: 499px;
+  height: 153px;
+}
+
+.p6_t1 {
+  background: url("../img/p6_t1.png") no-repeat center;
+  position: absolute;
+  left: 46px;
+  top: 295px;
+  width: 541px;
+  height: 284px;
+}
+
+.p6_car {
+  background: url("../img/p6_car.png") no-repeat center;
+  position: absolute;
+  left: -69px;
+  bottom: 4%;
+  width: 580px;
+  height: 233px;
+}
+
+.getPrize_btn6 {
+  background: url("../img/getPrize_btn.png") no-repeat center;
+  position: absolute;
+  left: 452px;
+  bottom: 2.5%;
+  width: 153px;
+  height: 50px;
+}
+
+//=================================================================   第7页  =========
+.p7_brand1 {
+  background: url("../img/p7_brand1.png") no-repeat center;
+    position: absolute;
+    left: 74px;
+    top: 42px;
+    width: 500px;
+    height: 685px;
+}
+//=================================================================   第8页  =========
+.p8_brand1 {
+  background: url("../img/p8_brand1.png") no-repeat center;
+    position: absolute;
+    left: 74px;
+    top: 42px;
+    width: 472px;
+    height: 584px;
+}
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Image replacement
+ */
+
+.ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  /* IE 6/7 fallback */
+  *text-indent: -9999px;
+}
+
+.ir:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 150%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+  display: none !important;
+  visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+  visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+  *zoom: 1;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+//iphone 4s 屏幕
+@media only screen and (max-height: 832px) {
+  /* Style adjustments for viewports that meet the condition */
+  .p2_t1 {
+    bottom: 1%;
+  }
+  .page2{
+    .prize_box {
+      .p3_shareBtn,.closeP3Btn,.p3_getBtn{
+        bottom: 5%;
+      }
+    }
+    .p2_card {
+      top: 6%;
+    }
+    .prize_box {
+       .prize_result {
+         top: 15.5%;
+       }
+      .getTipsTxt{
+        top: 80%;
+      }
+     }
+  }
+
+  .page4{
+    .p4_btn0,.closeP4Btn{
+      bottom: 8%;
+    }
+  }
+
+
+
+}
+
+//i5-i4之间
+@media only screen and (max-height: 1008px) and (min-height: 833px) {
+
+  .p2_t1 {
+    bottom: 5%;
+  }
+
+  .page2{
+    .prize_box {
+      .p3_shareBtn,.closeP3Btn,.p3_getBtn{
+        bottom: 8%;
+      }
+    }
+    .p2_card {
+      top: 6%;
+    }
+    .prize_box {
+      .prize_result {
+        top: 14.5%;
+      }
+      .getTipsTxt{
+        top: 76%;
+      }
+    }
+  }
+}
+
+//i6-i5之间
+@media only screen and (max-height: 1040px) and (min-height: 1009px) {
+
+  .p2_t1 {
+    bottom: 6%;
+  }
+  .page2{
+    .prize_box {
+      .prize_result {
+        top: 15.5%;
+      }
+      .p3_shareBtn {
+        bottom: 15%;
+      }
+      .p3_getBtn {
+        bottom: 15%;
+      }
+    }
+  }
+}
+
+
+@media print,
+(-o-min-device-pixel-ratio: 5/4),
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+  * {
+    background: transparent !important;
+    color: #000 !important; /* Black prints faster: h5bp.com/s */
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  /*
+   * Don't show links for images, or javascript/internal links
+   */
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group; /* h5bp.com/t */
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  @page {
+    margin: 0.5cm;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}

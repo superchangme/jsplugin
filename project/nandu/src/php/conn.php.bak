@@ -1,0 +1,123 @@
+﻿<?php
+
+require './common.php';
+
+if(defined('ENV') && ENV=='production')
+{
+
+	//$conn=mysqli_connect('192.168.205.184', 'weiliang', 'weiliang') or die(mysqli_error());
+	//mysqli_select_db("bfd", $conn);
+	 $mysqli=new mysqli("localhost","root","lansurabc123","lingmu");
+}
+else
+{
+	 $mysqli=new mysqli("localhost","root","209917","nandu");
+}
+//mysqli_query();
+$mysqli->query("SET NAMES utf8");
+
+function saveData($type='visit')
+{
+	global $mysqli;
+	$ua=determineBrowser();
+	//$time=new Zend_Db_Expr($db->quoteInto("FROM_UNIXTIME(?,'%Y-%m-%d %H:%i:%s')", time()));
+	//$time=new Zend_Db_Expr($db->quoteInto("FROM_UNIXTIME(?)", time()));
+	$data=array('openid'=>null,'position'=>'home','action'=>$type,'ip_address'=>getIP(),'user_agent'=>$_SERVER['HTTP_USER_AGENT'],'browser'=>$ua[0],'browser_version'=>$ua[1],'mobile'=>getDeviceType(),'platform'=>getDeviceType(true),'date_add'=>'now()');
+	$sql='insert into '.TABLE_PREFIX.'data (`position`,`action`,`ip_address`,`user_agent`,`browser`,`browser_version`,`mobile`,`platform`) values(\''.$data['position'].'\',\''.$data['action'].'\',\''.$data['ip_address'].'\',\''.$data['user_agent'].'\',\''.$data['browser'].'\',\''.$data['browser_version'].'\',\''.$data['mobile'].'\',\''.$data['platform'].'\')';
+	$mysqli->query($sql);
+	$id=$mysqli->insert_id;
+	$mysqli->close();
+	return $id;
+}
+
+function countShared()
+{
+	global $conn;
+	$sql="select count(id) num from ".TABLE_PREFIX."shared";
+	$r=mysqli_query($sql);
+	$r=mysqli_fetch_object($r);
+	return $r->num;
+}
+
+function getSharedData()
+{
+	global $conn;
+	$sql="select * from ".TABLE_PREFIX."shared";
+	$r=mysqli_query($sql);
+	$data=array();
+	while($item=mysqli_fetch_object($r))
+		$data[]=$item;
+	return $data;
+}
+
+function saveHistory($form){ //$form = array('name'=>'value');
+	global $mysqli;
+      // $sql="select id from ".TABLE_PREFIX."history  where name=? and phone=?";    //准备一条语句放到服务器中
+             $sql="select id from ".TABLE_PREFIX."history  where pid=?";    //准备一条语句放到服务器中
+
+       	 $stmt=$mysqli->prepare($sql);    //放到数据库教程
+       	 	// $stmt->bind_param("ss",$form['name'],$form['phone']);  //给占位符传值,类型-变量(不能是值)
+       	 	$stmt->bind_param("s",$form['pid']);
+        $r=$stmt->execute();
+		 $result=$stmt->get_result();
+       /* while(false&&$row=$result->fetch_array())
+        {
+        	if(!empty($row['id'])){
+        		return false;
+        	}
+        }
+        */
+        if($result->num_rows>=$form['total']){
+        	return false;
+        	}
+          /*$stmt->bind_result($id);
+                while($stmt->fetch())
+                {
+                	if(!empty($id)){
+                		return false;
+                	}
+                }
+                */
+        //print_r($stmt);exit;
+	 $sql="insert into ".TABLE_PREFIX."history  (`name`,`phone`,`address`,`pid`,`describe`) values(?,?,?,?,?)";    //准备一条语句放到服务器中
+	 $stmt=$mysqli->prepare($sql);    //放到数据库教程
+	 $stmt->bind_param("sssss",$form['name'],$form['phone'],$form['address'],$form['pid'],$form['describe']);  //给占位符传值,类型-变量(不能是值)
+	 $stmt->execute();    //执行
+	  $id=$stmt->insert_id;
+	 $stmt->close();
+	return $id;
+}
+
+function testXss($form){
+      	global $mysqli;
+      	$sql='select * from '.TABLE_PREFIX.'user_form where name="'.$form['name']."\"";
+      	//echo $sql;exit;
+      	print_r($sql);
+		$result=$mysqli->multi_query($sql);
+	  return $result;
+}
+
+function getPrizeResult(){
+	global $mysqli;
+	$sql='select * from '.TABLE_PREFIX.'prize ';
+	$result=$mysqli->query($sql);
+	return $result;
+}
+
+function updatePrize($id,$remain){
+	global $mysqli;
+	$sql='update '.TABLE_PREFIX.'prize set remain="'.$remain.'" where id="'.$id.'"';
+	$result=$mysqli->query($sql);
+	return $result;
+}
+	
+function insertPrizePool($pid,$release_time){
+	global $mysqli;
+	$sql="insert into ".TABLE_PREFIX."prize_pool  (`pid`,`release_time`) values('".$pid."','".$release_time."')";    //准备一条语句放到服务器中
+	$result=$mysqli->query($sql);
+	return $result;
+
+}	
+
+
+

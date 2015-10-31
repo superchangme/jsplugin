@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
+
+    <style>
+        *{
+            margin: 0;;
+        }
+        html,body{
+            position: relative;
+            height: 100%;
+            width: 100%;
+            font-size: 60px;;
+        }
+        .video-box {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top:0;
+            left:0;
+            background-color: #000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<button id="btn" onclick="fullScreen('1')">全屏喝了这杯人头马</button>
+<button  onclick="fullScreen('0')">偷偷喝了这杯人头马</button>
+
+          <div id="videoBox" class="video-box">
+              <video src="media/v3.mp4" autoplay></video>
+          </div>
+</body>
+<script>
+             var videoBox=document.querySelector("#videoBox");
+    function fullScreen(isFull){
+        videoBox.style.display='block'
+        if(isFull==1){
+            var docElm = document.documentElement;
+            if (docElm.requestFullscreen) {
+                docElm.requestFullscreen();
+            }
+            else if (docElm.mozRequestFullScreen) {
+                docElm.mozRequestFullScreen();
+            }
+            else if (docElm.webkitRequestFullScreen) {
+                docElm.webkitRequestFullScreen();
+            }
+        }
+
+    }
+    document.addEventListener("touchstart",function(){
+        fullScreen()
+    })
+</script>
+
+</html>
