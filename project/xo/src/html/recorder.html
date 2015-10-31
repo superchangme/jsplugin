@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" id="eqMobileViewport" content="width=640,user-scalable=no" />
+
+    <title></title>
+</head>
+<body>
+<button onclick="beginRecord()" >开始录音</button>
+</body>
+<script>
+    var recorder={gain:null,source:null};
+    navigator.getUserMedia ||
+    (navigator.getUserMedia = navigator.mozGetUserMedia ||  navigator.webkitGetUserMedia || navigator.msGetUserMedia);
+    function beginRecord(){
+        if (navigator.getUserMedia) {
+            //do something
+            navigator.getUserMedia({
+                audio: true
+            }, onSuccess,function(){});
+        } else {
+            console.log('your browser not support getUserMedia');
+        }
+    }
+    function stopRecord(){
+        recorder.source.disconnect(0);
+        recorder.gain.disconnect(0);
+        recorder.audio.pause();
+    }
+    var URL = window.URL && window.URL.createObjectURL ? window.URL :
+            window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL:null;
+    function onSuccess(){
+
+    }
+    window.onerror=function(err){
+        alert(err)
+    }
+</script>
+</html>

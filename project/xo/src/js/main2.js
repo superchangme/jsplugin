@@ -1,0 +1,9 @@
+init_wx_jsapi(jssdkURL,function(config){
+    config.debug=isDebug;
+    alert("hi")
+    alert(JSON.stringify(config));
+    wx.config(config);
+    wx.ready(function(){
+        alert("ready")
+    });
+});

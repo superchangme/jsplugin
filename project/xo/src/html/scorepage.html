@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" id="eqMobileViewport" content="width=640,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+    <title>长安铃木</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            /*overflow: hidden;*/
+            background-color: #caa47b;
+        }
+        body{
+            position: relative;
+            /*   position: absolute;
+               left: 0;
+               top: 0;
+               width: 100%;
+               height: 100%;
+               overflow: hidden;*/
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background:url(../img/load_bg.jpg) no-repeat #6c1416;
+            background-size: cover;
+        }
+        .loading__inner{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -83px;
+            margin-top: -54px;
+            width: 166px;
+            height: 108px;
+            text-align: center;
+            color: black;
+            font-size: 12px;
+        }
+
+        .loading__img{
+            width: 166px;
+            height: 20px;
+            background: url(../img/car_logo.png) no-repeat;
+        }
+
+        .loading-num{
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .loading-num img{
+            vertical-align: middle;
+            margin-right: 5px;;
+        }
+        .loading_five{
+            background: url(../img/loading_five.png) top no-repeat;
+            width: 114px;
+            height: 108px;
+            -webkit-animation: loading 2s steps(5) infinite;
+            animation: loading 2s steps(5) infinite;
+            margin: 0 auto;
+            position: relative;
+            top: 32px;
+        }
+        .outer{
+            position: absolute;
+            height: 100%;
+            top:0;
+            left:0;
+            width: 100%;
+        }
+        .loading_box{
+            background: url(../img/wait_circle.png);
+            width: 177px;
+            height: 177px;
+            -webkit-animation: loading_bg 0.4s steps(2) infinite;
+            animation: loading_bg 0.4s steps(2) infinite;
+            margin: 0 auto;
+
+        }
+        @-webkit-keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @-webkit-keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-354px ;
+            }
+        }
+        @keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-354px ;
+            }
+        }
+        .btn-go{
+            border: 3px solid #d5ac79;
+            width: 108px;
+            height: 108px;
+            border-radius: 100%;
+            line-height: 106px;
+            color: #d5ac79;
+            text-align: center;
+            text-decoration: none;
+            font-size: 24px;
+            display: block;
+            position: absolute;
+            left:50%;
+            margin-left: -54px;
+            top:773px;
+        }
+        .score-bd{
+            margin-top: 60px;
+            font-size: 30px;
+            line-height: 1.48;
+        }
+        .score-bd b{
+            font-size: 42px;
+            font-style: italic
+        }
+        #photo{
+            width: 135px;
+            border-radius: 100%;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+        }
+        .page{
+            color: white;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            background: url(../img/list_bt1_bg.png) center 104px no-repeat,url(../img/sun_bg.jpg) center/cover;
+        }
+        .title{
+            background: url(../img/list_title_friendscore.png) center  no-repeat;
+            width: 100%;
+            height: 54px;
+            position: relative;
+            top: 75px;
+        }
+        .photo-box{
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/wx_share.jpg" style="display: none"/>
+<div class="loading">
+    <div class="loading__inner">
+        <div class="loading_box">
+            <div class="loading_five">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <div class="title"></div>
+    <div class="photo-box">
+        <img id="photo" src="../img/headimg.png"/>
+        <h2 id="username">会飞的鱼</h2>
+    </div>
+    <div class="score-bd">
+        <div>当前得分：<b id="score">1100</b></div>
+        <div>排名：<b id="rank">111</b></div>
+    </div>
+    <a href="" class="btn-go">我要挑战</a>
+</div>
+</body>
+<script src="../js/getWXSDK.js"></script>
+
+<script>
+    window.addEventListener("load",function(){
+        document.querySelector(".loading").style.display='none'
+    })
+</script>
+</html>

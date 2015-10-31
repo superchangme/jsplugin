@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" id="eqMobileViewport" content="width=640,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+    <title>人头马</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            /*overflow: hidden;*/
+            background-color: #5A1215;
+        }
+        body{
+            position: relative;
+            /*   position: absolute;
+               left: 0;
+               top: 0;
+               width: 100%;
+               height: 100%;
+               overflow: hidden;*/
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background:url(../img/load_bg.jpg) no-repeat #6c1416;
+            background-size: cover;
+        }
+        .loading__inner{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -83px;
+            margin-top: -54px;
+            width: 166px;
+            height: 108px;
+            text-align: center;
+            color: black;
+            font-size: 12px;
+        }
+        .loading-num{
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .loading-num img{
+            vertical-align: middle;
+            margin-right: 5px;;
+        }
+        .loading_five{
+            background: url(../img/loading_five.png) top no-repeat;
+            width: 114px;
+            height: 108px;
+            -webkit-animation: loading 2s steps(5) infinite;
+            animation: loading 2s steps(5) infinite;
+            margin: 0 auto;
+            position: relative;
+            top: 32px;
+        }
+        .outer{
+            position: absolute;
+            height: 100%;
+            top:0;
+            left:0;
+            width: 100%;
+        }
+        .loading_box{
+            background: url(../img/wait_circle.png);
+            width: 177px;
+            height: 177px;
+            -webkit-animation: loading_bg 0.4s steps(2) infinite;
+            animation: loading_bg 0.4s steps(2) infinite;
+            margin: 0 auto;
+
+        }
+        @-webkit-keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @-webkit-keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-354px ;
+            }
+        }
+        @keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-354px ;
+            }
+        }
+        .btn-go{
+            border: 3px solid #d5ac79;
+            width: 108px;
+            height: 108px;
+            border-radius: 100%;
+            line-height: 106px;
+            color: #d5ac79;
+            text-align: center;
+            text-decoration: none;
+            font-size: 24px;
+            display: block;
+            position: absolute;
+            left:50%;
+            margin-left: -54px;
+            top:773px;
+        }
+        .score-bd{
+            margin-top: 60px;
+            font-size: 30px;
+            line-height: 1.48;
+        }
+        .score-bd b{
+            font-size: 42px;
+            font-style: italic
+        }
+        #photo{
+            width: 135px;
+            border-radius: 100%;
+            margin: 30px auto;
+            display: block;
+            box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+        }
+        .page{
+            color: white;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            background: url(../img/list_bt1_bg.png) center 104px no-repeat,url(../img/sun_bg.jpg) center/cover;
+        }
+        .title{
+            background: url(../img/list_title_friendscore.png) center  no-repeat;
+            width: 100%;
+            height: 54px;
+            position: relative;
+            top: 75px;
+        }
+        .photo-box{
+            margin-top: 200px;
+        }
+        #username img{
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/wx_share.jpg" style="display: none"/>
+<div class="loading">
+    <div class="loading__inner">
+        <div class="loading_box">
+            <div class="loading_five">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <div class="title"></div>
+    <div class="photo-box">
+        <img id="photo" src="../img/headimg.png"/>
+        <h2 id="username">会飞的鱼</h2>
+    </div>
+    <div class="score-bd">
+        <div>当前得分：<b id="score">无</b></div>
+        <div>排名：<b id="rank">无</b></div>
+    </div>
+    <a href="index.html" class="btn-go">我要挑战</a>
+</div>
+</body>
+<script>
+    var isDebug=false;
+</script>
+<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script  type="text/javascript"  src="../js/getWXSDK.js"></script>
+<script  type="text/javascript" >
+    window.onerror=function(err){
+        if(isDebug){
+            alert(err)
+        }
+    }
+    var sitePath=window.location.href.replace(/\/html\/share\.html.*/,"")
+    var photo=document.getElementById("photo")
+    var score=document.getElementById("score")
+    var rank=document.getElementById("rank")
+    var username=document.getElementById("username")
+    var params=getParams(),userid=params["shareid"];
+    var jssdkURL=sitePath+"/wechat/jssdksign?url="+encodeURIComponent(window.location.href.split("#")[0]);
+    var  rankPageUrl=sitePath+"/index/rankinfo/"+userid;
+    var collectShareUrl=sitePath+"/index/captureshare";
+    var shareInfo={
+        title:'人头马XO',
+        link:sitePath+"/share.html?id="+userid,
+        imgUrl:sitePath+"/img/wx_share.jpg",
+        desc:'人头马'
+    }
+
+    var getRankXhr=new xhrRequest();
+    getRankXhr.open("GET",rankPageUrl,true);
+    getRankXhr.onreadystatechange=function(){
+        if(getRankXhr.status == 200&&getRankXhr.readyState == 4 ) {
+            var data = JSON.parse(getRankXhr.responseText);
+            if(data.result==1){
+                photo.src=data.img;
+                rank.innerHTML=data.rank
+                score.innerHTML=data.total;
+                username.innerHTML=data.name;
+            }
+        }
+    }
+    getRankXhr.send();
+
+    init_wx_jsapi(jssdkURL,function(config){
+        config.debug=isDebug;
+        wx.config(config);
+        wx.ready(function() {
+            shareToWx(shareInfo.title, shareInfo.link, shareInfo.imgUrl, shareInfo.desc, function () {
+                var xhr = new xhrRequest();
+                xhr.open("GET", collectShareUrl, true);
+                xhr.send();
+            })
+        });
+    })
+
+    window.addEventListener("load",function(){
+        document.querySelector(".loading").style.display='none'
+    })
+
+    function shareToWx(title, link, imgUrl, desc, cb) {
+        wx.onMenuShareTimeline({
+            title: title, // 分享标题
+            link: link, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            success: function () {
+                cb();
+                // 用户确认分享后执行的回调函数fcapp
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: title, // 分享标题
+            desc: desc, // 分享描述
+            link: link, // 分享链接
+            imgUrl: imgUrl, // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                cb();
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    }
+    function getParams(){
+        var search=window.location.search.slice(1),list=search.split("&"),length= 0,r={},temp;
+        for(var j= 0,l=list.length;j<l;j++){
+            temp=list[j].split("=");
+            list[j]={};
+            if(temp.length==2){
+                r[temp[0]]=temp[1]
+            }
+        }
+        return r
+    }
+</script>
+</html>

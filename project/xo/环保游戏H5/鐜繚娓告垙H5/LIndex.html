@@ -1,0 +1,38 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640,target-densityDpi=device-dpi,user-scalable=no">
+    <title>环保游戏</title>
+</head>
+<body style="font-size:0;margin: 0px;overflow:hidden;background-color: #000000" scroll="no">
+
+//
+<div id="LMainDiv"></div>
+<script type="text/javascript" src="js/lufylegend-1.9.9.min.js"></script>
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/ysStage.js"></script>
+<script type="text/javascript" src="js/lMain.js?var=20141217"></script>
+<script type="text/javascript" src="js/lMainLoader.js?var=20141217"></script>
+<script>
+
+    $(window).on("load",function(){
+        indexInit();
+    });
+    function indexInit(){
+        //初始化lufy canvas，来到这个游戏页之后再初始化， 然后setTimeout 200ms 开始游戏调用函数：LTreeIndexInit(); 不然android会卡。
+        ysStage.init();
+        LInit(30, "LMainDiv", 640, 1008,function(){
+
+        },LEvent.INIT);
+        //LGlobal.setDebug(true);
+        LGlobal.backgroundColor="#000";
+        LGlobal.align = LStageAlign.MIDDLE;
+        LGlobal.stageScale = LStageScaleMode.EXACT_FIT;
+        LSystem.screen(LStage.FULL_SCREEN);
+    }
+
+</script>
+</body>
+</html>
