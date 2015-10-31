@@ -45,7 +45,8 @@
 <script>
              var videoBox=document.querySelector("#videoBox");
              var video=document.querySelector("#video")
-             videoBox.addEventListener("click",function(){
+             videoBox.addEventListener("click",function(e){
+                 e.preventDefault();
                  if(video.paused){
                      videoBox.style.display='none'
 
