@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script>
+        var browser={
+            versions:function(){
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                    weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+                    qq: u.match(/\sQQ/i) == " qq" //是否QQ
+                };
+            }(),
+            language:(navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+        if(browser.versions.weixin){
+            window.location.href="index.html";
+        }
+        var scaleFactor=localStorage.getItem("pageScale");
+        if(scaleFactor&&scaleFactor<1){
+            document.write('<meta name="viewport" id="eqMobileViewport" content="initial-scale='+scaleFactor+',maximum-scale='+scaleFactor+',user-scalable=no" />')
+        }else{
+            localStorage.setItem("pageScale","")
+            scaleFactor=null;
+            document.write('<meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />');
+        }
+    </script>
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+    <title>才华挑战</title>
+    <link rel='stylesheet' href="../css/style-promo.css"/>
+    <style>
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            /*overflow: hidden;*/
+            background:url(../img/all_bg.png) center no-repeat #5f6165;
+            background-size: cover;
+        }
+        body{
+            position: relative;
+            /*   position: absolute;
+               left: 0;
+               top: 0;
+               width: 100%;
+               height: 100%;
+               overflow: hidden;*/
+        }
+        .hidden{
+            display: none;
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background:url(../img/all_bg.png) center no-repeat #5f6165;
+            background-size: cover;
+        }
+        .loading__inner{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -83px;
+            margin-top: -54px;
+            width: 166px;
+            height: 108px;
+            text-align: center;
+            color: black;
+            font-size: 12px;
+        }
+
+        .loading-num{
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .loading-num img{
+            vertical-align: middle;
+            margin-right: 5px;;
+        }
+        .loading_five{
+            background: url(../img/loading_five.png) top no-repeat;
+            width: 114px;
+            height: 108px;
+            -webkit-animation: loading 1.618s steps(5) infinite;
+            animation: loading 1.618s  steps(5) infinite;
+            margin: 0 auto;
+            position: relative;
+            top: 32px;
+        }
+        .outer{
+            position: absolute;
+            height: 100%;
+            top:0;
+            left:0;
+            width: 100%;
+        }
+        body.reset .loading_box{
+            opacity: 1;
+        }
+        .loading_box{
+            background: url(../img/wait_circle.png);
+            width: 169px;
+            height: 169px;
+            margin: 0 auto;
+
+        }
+        @-webkit-keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @-webkit-keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-338px ;
+            }
+        }
+        @keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-338px ;
+            }
+        }
+        .logo {
+            background: url(../img/main_title.png) center 60px  no-repeat;
+            height: 130px;
+        }
+    </style>
+</head>
+<script>
+    if(scaleFactor){
+        document.write('<body>')
+    }else{
+        document.write('<body class="hidden">');
+    }
+</script>
+
+<div class="loading">
+    <div class="logo"></div>
+    <div class="loading__inner">
+        <div class="loading_box">
+            <div class="loading_five">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="share-page page hidden full-p game-share modal-page" id="shareAllPage">
+    <div class="logo"></div>
+    <div class='share-wrap centerX text-center'>
+        <div class='share-box inline text-left' style='text-align:left!important;'>
+            <div>
+                点击右上角，分享到<img src='../img/pyq.png' style='vertical-align:-8px;margin-left:20px;'/><br/>
+                挑战全方位发展的黄晓明！
+            </div>
+        </div>
+    </div>
+    <div class="share-tip">点击任意区域关闭浮层</div>
+</div>
+<section class="screen screen1 current  " id="startScreen" >
+    <div class="screen-inner full-p ">
+        <div class="main-content center-child">
+            <div class="logo "></div>
+            <div class="ming "></div>
+            <div class="text "></div>
+            <div class="bottom-bd abs bottom" style="bottom: 50px!important">
+                <a class="btn  btn-voice" id="playMingVoiceBtn" >
+                    <i class="voice  "></i>
+                </a>
+                <div class="s-tips text-center">按住按钮，听听黄晓明的声音</div>
+                <a class="btn btn-normal btn-200" onclick='openShare()' style="margin-top:30px;">GO</a>
+            </div>
+        </div>
+    </div>
+</section>
+<audio id="mingAudio" ></audio>
+</body>
+<script>
+
+    function resetMeta(){
+        var g=window.innerWidth,h=window.innerHeight,k;
+        (g/h)>=320/504?k=h/1008:k=g/640;
+        //alert(window.innerHeight+'-'+window.innerWidth)
+        document.getElementById("eqMobileViewport").setAttribute("content","initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+        localStorage.setItem("pageScale",k);
+        //alert(k);
+        /*   setTimeout(function(){
+         alert(window.innerHeight+'-'+window.innerWidth)
+         })*/
+    }
+    var mingAudio=document.getElementById("mingAudio")
+    var shareAllPage=document.getElementById("shareAllPage");
+    var btnPlayAudio= document.getElementById("playMingVoiceBtn");
+    mingAudio.src='../media/ming_voice'+(Math.floor(Math.random()*2)+1)+".mp3";
+	window.onload=function(){
+		if(!scaleFactor){
+			resetMeta();
+			setTimeout(function(){
+				pageIn();
+	//            $('body').removeClass("hidden")
+			},60)
+		}else{
+			pageIn()
+		}
+	}
+    function pageIn(){
+        document.body.classList.remove("hidden")
+        document.getElementsByClassName("loading")[0].style.display='none'
+        document.getElementById("startScreen").classList.add("in")
+    }
+    btnPlayAudio.onclick=function(){
+        btnPlayAudio.classList.add("playing")
+        mingAudio.play();
+        ga('send','event','weixin_go', 'click', 'hxm');
+
+    }
+    mingAudio.addEventListener("ended",function(){
+        btnPlayAudio.classList.remove("playing")
+
+    })
+    function openShare(){
+        shareAllPage.style.display='block'
+        ga('send','event','weixin_go', 'click', 'go');
+        mingAudio.pause();
+        btnPlayAudio.classList.remove("playing")
+    }
+    shareAllPage.onclick=function(){
+        shareAllPage.style.display='none'
+
+    }
+    document.addEventListener("touchmove",function(e){
+        e.preventDefault();
+    },false)
+
+</script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-66736018-5', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+</html>

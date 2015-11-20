@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script src='../vendor/jquery-2.1.4.js'></script>
+<script>
+    var workNum=10;
+    function WorkList(){
+            var workList=[]
+            var self=this;
+            this.debug=false;
+             this.addWork=function(cb){
+                    var work= $.Deferred(),prevWork=workList[workList.length-1];
+                    work.index=workList.push(work)-1;
+                    work.addTime=+new Date
+                    if(prevWork&&prevWork.state!='resolved'){
+                        prevWork.done(function(){
+                            if(self.debug){
+                                console.log(prevWork.index,+new Date-prevWork.addTime);
+                            }
+                            cb.call(null,work)
+                        })
+                    }else{
+                        cb.call(null,work)
+                    }
+                 return work;
+             }
+    }
+    var workList=new WorkList;
+    workList.debug=true;
+    for(var i= 0;i<workNum;i++){
+        (function(i){
+            workList.addWork(function(work){
+                setTimeout(function(){
+                    work.resolve();
+                },Math.random()*1000)
+            })
+        })(i);
+    }
+</script>
+</html>

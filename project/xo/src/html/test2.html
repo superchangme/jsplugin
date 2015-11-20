@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>才华挑战</title>
+  <meta name="viewport" id="eqMobileViewport" content="width=640,user-scalable=no" />
+</head>
+<body>
+<img src='http://wechat.remymartin.com/nfcsite/img/psb.jpg' width='50'/>
+</body>
+<script>
+img =document.querySelector("img");
+img.addEventListener("touchstart",function(e){
+e.stopPropagation();
+})
+img.addEventListener("touchmove",function(e){
+e.stopPropagation();
+})
+</script>
+</html>

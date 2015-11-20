@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        @keyframes moveLoop {
+            100%{
+                -webkit-transform:translate3d(130%,0,0);
+                transform:translate3d(130%,0,0);
+            }
+        }
+        @-webkit-keyframes moveLoop {
+            100%{
+                -webkit-transform:translate3d(130%,0,0);
+                transform:translate3d(130%,0,0);
+            }
+        }
+        .moveLoop{
+            animation:moveLoop 10s infinite linear;
+            -webkit-animation:moveLoop 10s infinite linear;
+        }
+    </style>
+</head>
+<body>
+       <div class="demo moveLoop">131312313131313131</div>
+</body>
+</html>

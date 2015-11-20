@@ -8,12 +8,15 @@
             background: red;
             width: 400px;
             height: 400px;
-            visibility: hidden;
-            -webkit-transition:all 0 0.5s;
+            /*visibility: hidden;*/
+            display: none;
+            /*-webkit-transition:all 0s 0.5s;*/
         }
         div#demo.run{
             visibility: visible;
-            -webkit-animation:scale 1s  0.5s;
+            display: block;
+            -webkit-animation: scale 1s 2s;
+            /*-webkit-animation:scale 1s  0.5s;*/
         }
         @-webkit-keyframes scale {
             0%{
@@ -40,4 +43,7 @@
         }
     }
 </script>
+<Script>
+
+</Script>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" id="eqMobileViewport" content="width=640,user-scalable=no" />
+<style>
+    video{
+        display: none;
+    }
+</style>
+</head>
+<body>
+<video src="../media/v5.mp4" width="600"  height=600 id="video" x-webkit-airplay='true' webkit-playsinline="true"></video>
+<button onclick="play()">play video</button>
+</body>
+<script>
+    function play(){
+        alert(1)
+        document.getElementById("video").style.display='block'
+        setTimeout(function(){
+            document.getElementById("video").play();
+        },0)
+    }
+</script>
+</html>

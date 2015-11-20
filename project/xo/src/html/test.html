@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script>
+    var canvas=document.createElement("canvas");
+    document.body.appendChild(canvas);
+    var ctx=canvas.getContext("2d");
+    img =new Image;
+    img.onload=function(){
+        canvas.width=img.naturalWidth;
+        canvas.height=img.naturalHeight;
+        ctx.drawImage(img,0,0);console.log(canvas.toDataURL('image/jpeg'));console.log(canvas.toDataURL('image/jpeg').substr(23));
+    }
+    img.src='../img/all_bg.png';
+</script>
+</html>

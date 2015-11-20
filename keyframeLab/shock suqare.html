@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+     <style>
+         @-webkit-keyframes shockSquare {
+             100%{
+                 transform:rotate(360deg);
+                -webkit-transform:rotate(360deg);
+             }
+         }
+         .in img{
+             -webkit-transform-origin: 0px 66px;
+             -webkit-animation: shockSquare 0.5s  linear 3 reverse;
+         }
+         .square{
+             -webkit-transform-origin: -5px 71px;
+             position: relative;
+             width: 66px;
+             height: 66px;
+             margin: 100px;
+         }
+         .square.in {
+             -webkit-animation: shockSquare 0.5s linear 3;
+         }
+         .square img{
+             position: absolute;
+             bottom:-0px;
+             right: -0px;;
+         }
+     </style>
+</head>
+<body>
+<div class="square">
+    <img src="headimg.png">
+</div>
+<button onclick="rotate()">转转</button>
+</body>
+<script>
+    function rotate(){
+          document.querySelector('.square').classList.add("in")
+
+    }
+    document.querySelector(".square").addEventListener("webkitAnimationEnd",function(){
+        this.classList.remove('in')
+    })
+</script>
+</html>

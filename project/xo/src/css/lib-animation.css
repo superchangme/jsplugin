@@ -411,17 +411,6 @@
     -webkit-transform: translate3d(0, -10px, 0);
   }
 }
-@-webkit-keyframes fade-in-out {
-  0% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 @-webkit-keyframes tada {
   0% {
     -webkit-transform: scale3d(1, 1, 1);

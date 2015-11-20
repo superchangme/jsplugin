@@ -2,20 +2,70 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>人头马XO</title>
-	<style>
-	*{
-	margin:0;
-	}
-	html, body {
+    <title>才华挑战</title>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66736018-6', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+    <script>
+        var browser={
+            versions:function(){
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                    weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+                    qq: u.match(/\sQQ/i) == " qq" //是否QQ
+                };
+            }(),
+            language:(navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+        if(browser.versions.mobile){
+            if(!browser.versions.weixin){
+                window.location.href='mobileshow.html'
+            }
+        }else{
+            window.location.href='pcshow.html'
+        }
+        var scaleFactor=localStorage.getItem("pageScale");
+        if(scaleFactor&&scaleFactor<1){
+            document.write('<meta name="viewport" id="eqMobileViewport" content="initial-scale='+scaleFactor+',maximum-scale='+scaleFactor+',user-scalable=no" />')
+        }else{
+            localStorage.removeItem("pageScale");
+            scaleFactor=null;
+            document.write('<meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />');
+        }
+    </script>
+    <style>
+        *{
+            margin:0;
+        }
+        html, body {
             height: 100%;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
             /*overflow: hidden;*/
-            background-color: #5A1215;
+
         }
         body{
             position: relative;
+            background:url(../img/all_bg.png) center no-repeat #5f6165;
+            background-size: cover;
             /*   position: absolute;
                left: 0;
                top: 0;
@@ -23,7 +73,20 @@
                height: 100%;
                overflow: hidden;*/
         }
-		 .loading__inner{
+        .logo {
+            background: url(../img/main_title.png) center 60px  no-repeat;
+            height: 130px;
+        }
+        .loading{
+            position: relative;
+            background:url(../img/all_bg.png) no-repeat #5f6165;
+            background-size: cover;
+
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+        }
+        .loading__inner{
             position: absolute;
             left: 50%;
             top: 50%;
@@ -34,14 +97,6 @@
             text-align: center;
             color: black;
             font-size: 12px;
-        }
-        .loading{
-            position: relative;
-            width: 100%;
-            height: 100%;
-            z-index: 999;
-            background:url(../img/load_bg.jpg) no-repeat #6c1416;
-        background-size: cover;
         }
         .loading-num{
             position: absolute;
@@ -61,8 +116,8 @@
             background: url(../img/loading_five.png) top no-repeat;
             width: 114px;
             height: 108px;
-            -webkit-animation: loading 2s steps(5) infinite;
-            animation: loading 2s steps(5) infinite;
+            -webkit-animation: loading 1.618s steps(5) infinite;
+            animation: loading 1.618s steps(5) infinite;
             margin: 0 auto;
             position: relative;
             top: 32px;
@@ -76,21 +131,18 @@
         }
         .loading_box{
             background: url(../img/wait_circle.png);
-            width: 177px;
-            height: 177px;
-            -webkit-animation: loading_bg 0.4s steps(2) infinite;
-            animation: loading_bg 0.4s steps(2) infinite;
+            width: 169px;
+            height: 169px;
             margin: 0 auto;
-
         }
-@-webkit-keyframes loading {
-    0%{
-        background-position-y:0px ;
-    }
-    100%{
-        background-position-y:-540px ;
-    }
-}
+        @-webkit-keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
         @keyframes loading {
             0%{
                 background-position-y:0px ;
@@ -104,7 +156,7 @@
                 background-position-y:0px ;
             }
             100%{
-                background-position-y:-354px ;
+                background-position-y:-338px ;
             }
         }
         @keyframes loading_bg {
@@ -112,17 +164,23 @@
                 background-position-y:0px ;
             }
             100%{
-                background-position-y:-354px ;
+                background-position-y:-338px ;
             }
         }
-		.qr-box.tip{
-			position:absolute;
-			display:block!important;
-		}
-	</style>
+        .hidden{
+            display:none;
+        }
+    </style>
 </head>
-<body>
+<script>
+    if(scaleFactor){
+        document.write('<body>')
+    }else{
+        document.write('<body class="hidden">');
+    }
+</script>
 <div class="loading">
+    <div class="logo"></div>
     <div class="loading__inner">
         <div class="loading_box">
             <div class="loading_five">
@@ -133,64 +191,90 @@
 </div>
 </body>
 <script>
-var params=getParams(),isProduction=false,barParamName='fromBar',isFromBar=params[barParamName],shareid=params["shareid"];
-var wechatCheckUrl=window.location.href.replace(/\/html\/index\.html.*/,"")+"/index";
-var id=params["id"];
-var gameUrl="game.html?id=";
-var shareUrl="share.html?shareid="+shareid;
-if(isFromBar){
-	wechatCheckUrl+="?"+barParamName+'=true'
-	gameUrl+="&"+barParamName+'=true';
-}
-function xhrRequest(){
-    var xmlHttp=null;
-    try{
-        xmlHttp=new XMLHttpRequest();
+    var params=getParams(),isProduction=false,barParamName='bar',isFromBar=params[barParamName],shareid=params["shareid"];
+    var wechatCheckUrl=window.location.href.replace(/\/html\/index\.html.*/,"")+"/index";
+    var id=params["id"];
+    var gameUrl="game.html?id=";
+    var shareUrl="share.html?shareid="+shareid;
+    if(isFromBar){
+        wechatCheckUrl+="?"+barParamName+'='+isFromBar
     }
-    catch(e){
-        try {
-            xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-    }
-    return xmlHttp;
-}
 
-			
-//΢�ŵ�½��֤			
- var xhr=xhrRequest();
-xhr.open("GET",wechatCheckUrl,true);
-xhr.onreadystatechange=function(){
-	if(xhr.status == 200&&xhr.readyState == 4 ){
-		var data=JSON.parse(xhr.responseText);
-		if(data.result==1){
-            if(shareid){
-                window.location.href=shareUrl;
-            }else{
-			if(data.id){
-				id=data.id;
-			}
-			gameUrl+=id;
-                window.location.href=gameUrl;
+    if(!scaleFactor){
+        resetMeta();
+        setTimeout(function(){
+            document.body.classList.remove("hidden")
+            //$('body').removeClass("hidden")
+        },60)
+    }
+
+    function resetMeta(){
+        var g=window.innerWidth,h=window.innerHeight,k;
+        (g/h)>=320/504?k=h/1008:k=g/640;
+        //alert(window.innerHeight+'-'+window.innerWidth)
+        document.getElementById("eqMobileViewport").setAttribute("content","initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+        localStorage.setItem("pageScale",k);
+        //alert(k);
+        /*   setTimeout(function(){
+         alert(window.innerHeight+'-'+window.innerWidth)
+         })*/
+    }
+
+    if(browser.versions.weixin){
+        var xhr=xhrRequest();
+        xhr.open("GET",wechatCheckUrl,true);
+        xhr.onreadystatechange=function(){
+            if(xhr.status == 200&&xhr.readyState == 4 ){
+                var data=JSON.parse(xhr.responseText);
+                if(data.result==1){
+                    if(shareid){
+                        window.location.href=shareUrl;
+                    }else{
+                        if(data.id){
+                            id=data.id;
+                        }
+                        gameUrl+=id;
+                        if(isFromBar){
+                            gameUrl+="&"+barParamName+'='+isFromBar;
+                        }
+                        window.location.href=gameUrl;
+                    }
+                }else{
+                    //����Ȩ
+                    window.location.href=data.url;
+                }
             }
-		}else{
-		//����Ȩ
-			window.location.href=data.url;
-		}
-	}
-}
-xhr.send(null);
-
-function getParams(){
-    var search=window.location.search.slice(1),list=search.split("&"),length= 0,r={},temp;
-    for(var j= 0,l=list.length;j<l;j++){
-        temp=list[j].split("=");
-        list[j]={};
-        if(temp.length==2){r[temp[0]]=temp[1]
         }
+        xhr.send(null);
     }
-    return r
-}
+
+    function xhrRequest(){
+        var xmlHttp=null;
+        try{
+            xmlHttp=new XMLHttpRequest();
+        }
+        catch(e){
+            try {
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        }
+        return xmlHttp;
+    }
+
+
+
+
+    function getParams(){
+        var search=window.location.search.slice(1),list=search.split("&"),length= 0,r={},temp;
+        for(var j= 0,l=list.length;j<l;j++){
+            temp=list[j].split("=");
+            list[j]={};
+            if(temp.length==2){r[temp[0]]=temp[1]
+            }
+        }
+        return r
+    }
 </script>
 </html>

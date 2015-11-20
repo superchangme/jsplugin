@@ -1,6 +1,45 @@
+FastClick.attach(document.body);
+var $sharePage=$("#shareAllPage")
+var dataCaptureUrl=sitePath+"/index/datacapture";
+var chooseCaptureUrl=dataCaptureUrl+"?position=chooseGame&type=visit"
+var playGameCaputureUrl=dataCaptureUrl+"?type=visit&position="
+var gameShareCaptureUrl=       dataCaptureUrl+"?type=share&position="
+var seeVideoCaptureUrl=       dataCaptureUrl+"?type=visit&position=seeVideo"
+var seeFullVideoCaptureUrl=       dataCaptureUrl+"?type=visit&position=seeFullVideo"
 document.addEventListener("touchmove",function(e){
-    e.preventDefault();
+    //if($sharePage.style.display!="block"){
+        e.preventDefault();
+    //}
 },false)
+$(".btn").on("touchmove click",function(e){
+    e.preventDefault();
+})
+$("img:not(.qr-code)").on("touchmove click",function(e){
+    e.preventDefault();
+})
+$("img.qr-code").on("touchstart touchmove touchend",function(e){
+    e.stopPropagation();
+}).on("click",function(){
+    $sharePage.hide();
+})
+if(!scaleFactor){
+    resetMeta();
+    setTimeout(function(){
+        $('body').removeClass("hidden")
+    },60)
+}
+function resetMeta(){
+    var g=window.innerWidth,h=window.innerHeight,k;
+    (g/h)>=320/504?k=h/1008:k=g/640;
+    //alert(window.innerHeight+'-'+window.innerWidth)
+    document.getElementById("eqMobileViewport").setAttribute("content","initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+    localStorage.setItem("pageScale",k);
+    //alert(k);
+    /*   setTimeout(function(){
+     alert(window.innerHeight+'-'+window.innerWidth)
+     })*/
+}
+var androidIsDead=true;
 var browser={
     versions:function(){
         var u = navigator.userAgent, app = navigator.appVersion;
@@ -21,6 +60,9 @@ var browser={
     }(),
     language:(navigator.browserLanguage || navigator.language).toLowerCase()
 }
+    if(browser.versions.android){
+        $("body").addClass("android")
+    }
 // Simple JavaScript Templating
 // John Resig - http://ejohn.org/ - MIT Licensed
 ;(function(){
@@ -72,6 +114,7 @@ var browser={
 $.extend(Game,{
     currentGame:null,
     waitTime:1000,
+    $videoBox:$(".video-box"),
     $feedBox:$("#feedBox"),
     $bambooList:$(".bamboo-list li"),
 	$highScoreTips:$("[data-high]"),
@@ -81,6 +124,7 @@ $.extend(Game,{
     $allScore:$("[data-score]"),
     $myOneScore:$("#myOneScore"),
     $soundPage:$("#soundPage"),
+    $gameScreen:$("#gameScreen"),
     $playPage:$("#playPage"),
     $rulerPage:$("#rulerPage"),
     $scorePage:$("#scorePage"),
@@ -89,12 +133,14 @@ $.extend(Game,{
     $shareAllPage:$("#shareAllPage"),
     $rulerAllPage:$("#rulerAllPage"),
     $modalPage:$(".modal-page"),
+    $scoreDom:$("[data-score]"),
+    $scoreRulerPage:$("#scoreRulerPage"),
     init:function(){
         if(isDebug){
             Game.waitTime=0;
         }
 
-        $(document).delegate(".ans-words-list li","click",function(){
+        $(document).delegate(".ans-words-list li","touchend",function(){
             if(Game.isOver){
                 return;
             }
@@ -110,7 +156,7 @@ $.extend(Game,{
                 }
             }
         })
-        $(document).delegate(".rst-list li","click",function() {
+        $(document).delegate(".rst-list li","touchend",function() {
             if(Game.isOver){
                 return;
             }
@@ -122,10 +168,11 @@ $.extend(Game,{
             }
         });
         $(".nextRoleBtn").on("click",Game.nextRole)
-        $("#beginRecord").on("touchstart",function(){
+        $("#beginRecord").on("touchstart",function(e){
+            e.preventDefault();
+            e.stopPropagation();
             if(Game.recordAgree){
                 Game.countGame(Game.candleCountCb.bind(null,true))
-
             }
         })
         $("#beginClickCandle").on("click",function(){
@@ -143,7 +190,11 @@ $.extend(Game,{
 			Game.$myScore.html(Game.$myScore.data("loading"))
 			Game.$myRank.html(Game.$myRank.data("loading"))
 			app.$rankList.html(app.$rankList.data("loading"))
-            Game.updatePage(Game.$rankPage)
+            Game.$rankPage.show();
+            shareInfo.title=Game.shareTitle.replace("xx",Game.totalScore)
+            shareInfo.imgUrl=Game.sharePic;
+            saveShare(gameShareCaptureUrl+"rankShare");
+            //Game.updatePage(Game.$rankPage)
             $.ajax({
                 url:rankListUrl,
                 dataType:"json",
@@ -154,6 +205,7 @@ $.extend(Game,{
 					   Game.$myScore.text(mydata.total)
 					   Game.$myRank.text(mydata.rank)
                        app.$rankList.html(app.tpl.ranklistTpl({list:data.list}))
+                      // app.scroll.rankScroll.refresh();
                    }else{
                        alert(data.msg)
                    }
@@ -164,7 +216,10 @@ $.extend(Game,{
             })
         })
         $(".btn-play-next").on("click",function(){
-            app.updateScreen(app.screens.chooseScreen)
+            Game.$rankPage.hide();
+            if(app.currentScreen!=app.screens.chooseScreen){
+                app.updateScreen(app.screens.chooseScreen)
+            }
 
             /*if(Game.currentGameNames.length==1){
                 app.updateScreen(app.screens.chooseScreen)
@@ -180,29 +235,27 @@ $.extend(Game,{
             }*/
         })
         $(".btn-replay").on("click",Game.play)
-		$(".btn-see-more-rank").on("click",function(){
+/*		$(".btn-see-more-rank").on("click",function(){
 			app.scroll.rankScroll.refresh();
-		})
+		})*/
+        //单个游戏
 		$(".btn-go-share").on("click",function(){
             Game.$sharePage.show();
-            shareInfo.title=Game.currentGame.shareTitle.replace("xx",Game.currentGame.newScore)
-            shareInfo.imgUrl=Game.currentGame.sharePic;
-            saveShare();
-
         })
+        // 个人分数页分享
         $(".btn-go-share2").on("click",function(){
             Game.$shareAllPage.show();
-            shareInfo.title=Game.shareTitle;
-            shareInfo.imgUrl=Game.sharePic;
-            saveShare();
         })
         $(".btn-see-ruler").on("click",function(){
             Game.$rulerAllPage.show();
         })
+        $(".btn-see-score-ruler").on("click",function(){
+            Game.$scoreRulerPage.show();
+        })
 		Game.$modalPage.on("click",function(){
 			$(this).hide();
 		})
-        $("#pandaFeedBtn").on("click",Game.pandaFeed)
+        $("#pandaFeedBtn").on("touchend click",Game.pandaFeed)
 
         /*	$(".btn-voice").on("click",function(){
                 Game.currentGame.voice.one("play",function(){
@@ -212,6 +265,39 @@ $.extend(Game,{
                    },200)
                })[0].play()
             })*/
+
+        $("#playMingVoiceBtn").on("click",function(){
+                Game.mingAudio[0].play();
+            $(this).addClass("playing")
+             //app.pageLock=true;
+            //$(".arrow-box").hide();
+        })
+        Game.mingAudio.on("ended",function(){
+            Game.mingAudio[0].pause();
+            app.pageLock=false;
+            $("#playMingVoiceBtn").removeClass("playing")
+            //$(".arrow-box").show();
+        })
+        $(".btn-rank-share").on("click",function(){
+              //  if(app.currentScreen!=app.screens.gameScreen){
+            Game.$shareAllPage.show();
+            //    }
+        })
+        Game.gameBox.role.roleList.forEach(function(item,index){
+            item.oIndex=index+1;
+        })
+        Game.shuffleRoleList();
+        Game.fetchScore(true)
+        Game.gameBox.candle.lastCounts=0;
+    },
+    shuffleRoleList:function(){
+        Game.gameBox.role.roleList=shuffle(Game.gameBox.role.roleList);
+        Game.gameBox.role.roleList.forEach(function(item,index){
+            var rolePhoto=app.$rolePhotoList.eq(index).find("img");
+            rolePhoto.attr("src",rolePhoto.attr("src").replace(/\d+/,item.oIndex))
+            item.index=index;
+        })
+        Game.gameBox.role.roleListBak= Game.gameBox.role.roleList.slice();
     },
     playCandle:function(){
         Game.allowRecord();
@@ -224,10 +310,9 @@ $.extend(Game,{
                 app.screens.waitScreen.addClass("hidden");
                 dfer.resolve();
             }});
-        },0)
+        },50)
     },
     allowRecord:function(cb){
-
         if(Game.isOver||Game.recordAgree!==undefined){
             return;
         }
@@ -301,14 +386,16 @@ $.extend(Game,{
         }*/
     },
     start:function(type){
-		var curTypeDoms=app.screens.gameScreen.find("[data-game="+type+"]")
+		var curTypeDoms=$("body").find("[data-game="+type+"]")
         app.screens.gameScreen.attr("data-game",type)
         curTypeDoms.removeClass("hidden").siblings("[data-game]").addClass("hidden in");
 		setTimeout(function(){
 			curTypeDoms.addClass("in")
 		},150)
-        app.updateScreen(app.screens.gameScreen);
         Game.updatePage(Game.$soundPage)
+        if(app.currentScreen!=app.screens.gameScreen){
+            app.updateScreen(app.screens.gameScreen);
+        }
 		setTimeout(function(){
 			bgAudio.pause();
 		},1000)
@@ -318,6 +405,9 @@ $.extend(Game,{
 		Game.currentGame.newScore=0;
         var dfer= $.Deferred(),countCb=function(){},type=Game.currentGame.type;
         Game.openLoad(dfer)
+        app.$remainTime.show();
+        $(".btn-game-pause").show();
+
         dfer.done(function(){
             Game.updatePage(Game.$playPage)
             Game.isOver=false;
@@ -326,17 +416,22 @@ $.extend(Game,{
                   /*  YAO.start(function(){
                         Game.pandaShake();
                     })*/
+                    toggleAudio(bgAudio,true);
                     break;
                 case "role":
-                    Game.startRole(0);
+                    Game.startRole();
+                    toggleAudio(bgAudio,true);
                     break;
                 case "candle":
                   //
+                    app.$remainTime.hide();
+                    $(".btn-game-pause").hide();
                   setTimeout(function(){
                       Game.allowRecord();
-                  },100);
+                  },200);
                     break;
                 case "tree":
+                    toggleAudio(bgAudio,true);
                     Game.currentGame.LTreeIndexInit();
             }
             if(type!='candle'){
@@ -350,8 +445,8 @@ $.extend(Game,{
             Game.stopGame("candle");
             return;
         }
-        if((!candle.lastCounts&&candle.counts>getRandom(candle.gapMin,candle.gapMax))||candle.counts-candle.lastCounts>getRandom(candle.gapMin,candle.gapMax)){
-            Game.putOutOneCandle();
+        if(candle.candleList.length&&(candle.counts-candle.lastCounts)>getRandom(candle.gapMin,candle.gapMax)){
+            Game.putOutCandle();
             candle.lastCounts=candle.counts;
         }
     },
@@ -359,47 +454,106 @@ $.extend(Game,{
         if(!isRandom){
             Game.gameBox.candle.counts++;
         }else{
-            Game.gameBox.candle.counts+=Math.random()*(16/1000)*10
+            Game.gameBox.candle.counts+=Math.random()*(1/16) *3
         }
     },
-    putOutOneCandle:function(){
-      var candle=this.gameBox.candle,index=Math.floor(Math.random()*candle.candleList.length);
-        candleOne=candle.candleList[index]
+    putOutOneCandle:function(index){
+        var candleOne,candle=this.gameBox.candle;
+        candle.candleList.forEach(function(item,dex){
+            if(item.index==index){
+                candleOne=item;
+                index=dex;
+            }
+        })
         candle.candleList.splice(index,1);
-        Game.currentGame.newScore+=100;
-        Game.updateScore(true,100)
-        app.$candleList.eq(candleOne.index).addClass("put-out")
+        setTimeout(function(){
+            app.$candleList.eq(candleOne.index).addClass("put-out")
+        },getRandom(0,1000));
+
     },
-    startRole:function(roleNo){
-        var role=Game.gameBox.role;
+    putOutCandle:function(){
+      var candle=this.gameBox.candle,putoutNum=Math.min(getRandom(3,7),candle.candleList.length),
+          index,putOutIndexArr=[],highArr=[],lastArr=[];
+        if(candle.candleList.length!=app.$candleList.length){
+            return;
+        }
+        //step1
+        candle.candleList.forEach(function(item){
+            if(candle.frontCandle.indexOf(item.index)>-1){
+                highArr.push(item)
+            }else{
+                lastArr.push(item)
+            }
+        })
+
+        if(putoutNum<=highArr.length){
+            putOutIndexArr= shuffle(candle.frontCandle).slice(0,putoutNum);
+        }else{
+            if(highArr.length>0){
+                putOutIndexArr=putOutIndexArr.concat(highArr.map(function(item){return item.index}))
+            }
+            putoutNum-=putOutIndexArr.length;
+            putOutIndexArr=putOutIndexArr.concat(shuffle(lastArr.map(function(item){return item.index})).slice(0,putoutNum));
+        }
+
+        putOutIndexArr.forEach(function(item){
+            Game.putOutOneCandle(item);
+        })
+        //step2
+
+        Game.currentGame.newScore=100*putOutIndexArr.length;
+        Game.updateScore(true,100*putOutIndexArr.length)
+        setTimeout(function(){
+            Game.stopGame();
+        },2500)
+    },
+    startRole:function(){
+        var role=Game.gameBox.role,roleNo=role.roleNo;
         role.roleNo=roleNo;
         role.rst=role.roleList[roleNo].rst;
         role.myRst=new Array(role.rst.length);
         role.ansWords=role.roleList[roleNo].ansWords.split("");
-        var rstList="",ansList="";
+        var rstList="",ansList="",first;
         for(var i= 0,l=role.rst.length;i<l;i++){
-            rstList+="<li></li>"
+          rstList+='<li></li>'
         }
         for(var i= 0,l=role.ansWords.length;i<l;i++){
             ansList+="<li>"+role.ansWords[i]+"</li>"
         }
+        role.ansWords.forEach(function(item,index){
+            if(item==role.rst[0]){
+                first=index
+            }
+        })
         app.$rstList.html(rstList);
         app.$ansWordsList.html(ansList);
         app.$rolePhotoList.eq(role.roleNo).addClass("show").siblings().removeClass("show")
         role.$rstList=app.$rstList.find("li")
         this.drawRoleBg();
+        var index
+        app.$ansWordsList.find("li").eq(first).trigger("touchend");
     },
     checkRoleAns:function(){
         var role=Game.gameBox.role
-        if(role.rst==role.myRst.join("")){
+        if(role.rst==role.myRst.join("")&&role.roleListBak.length!=0){
         //next question
-            if(role.roleNo==role.roleList.length-1){
-                //all answered
-            }else{
-                Game.currentGame.newScore+=100;
-                this.updateScore(true,100)
+            Game.currentGame.newScore+=100;
+            this.updateScore(true,100)
+            //role.roleListBak.splice(role.roleNo,1)
+                role.roleListBak.forEach(function(item,index){
+                    if(item.index==role.roleNo){
+                        role.roleListBak.splice(index,1)
+                    }
+                })
                 app.$ansWordsList.empty();
-                app.$nextRoleBox.show();
+                //app.$nextRoleBox.show();
+            if(role.roleListBak.length==0) {
+                //all answered
+                setTimeout(function(){
+                    Game.stopGame()
+                },300)
+            }else{
+                Game.nextRole();
             }
         }else if(role.rst.length==role.myRst.join("").length){
             //wrong tip
@@ -408,22 +562,38 @@ $.extend(Game,{
         }
     },
     nextRole:function(){
-        app.$nextRoleBox.hide();
+        //app.$nextRoleBox.hide();
+        if(Game.gameBox.role.lock==true){
+            return
+        }
+        Game.gameBox.role.lock=true;
+        var nextNo,list=Game.gameBox.role.roleListBak;
+
+        list.forEach(function(item,index){
+            if(nextNo==null&&item.index>Game.gameBox.role.roleNo){
+                nextNo=item.index;
+            }
+        })
+        if(nextNo==null){
+            nextNo=list[0].index
+        }
+        Game.gameBox.role.roleNo=nextNo
         animateGroup({group:app.$roleAnsBox,frameClass:["next"],noWaitLast:true,duration:300,loopTimes:1,callback:function(){
-            Game.startRole(++Game.gameBox.role.roleNo)
+            Game.startRole()
+            Game.gameBox.role.lock=false;
         }});
     },
     drawRoleBg:function(){
       var width=app.$rstList.width();
         var ctx=app.$ansBgCanvas[0].getContext("2d");
         ctx.strokeStyle="#e7c087";
-        ctx.lineWidth=2;
-        ctx.roundRect(0,0,592,240,6,false,true);
+        ctx.lineWidth=4;
+        ctx.roundRect(0,0,592,200,6,false,true);
         ctx.clearRect((app.$ansBgCanvas[0].width-width)/2,0,width,4);
     },
     updatePage:function(page){
-        if(app.currentScreen!=app.screens.gameScreen){
-            app.updateScreen(app.screens.gameScreen)
+        if(Game.pageLock){
+            return;
         }
         if(!Game.currentPage){
             Game.currentPage=page;
@@ -434,33 +604,37 @@ $.extend(Game,{
         }
     },
     countGame:function(countCb){
-        var start=+new Date,game=Game.currentGame;
-        Game.Timer.start=start;
-        app.$remainTime.text("00:"+game.lastSeconds+":000");
-        function run(){
-            if(Game.isOver){
-                return;
-            }
-            var now=+new Date;
-            var milliseconds=(now-start);
-            Game.Timer.now=now;
-            if(milliseconds<game.lastSeconds*1000){
-                if(countCb){
-                    if(Game.currentGame==Game.gameBox.candle){
-                        Game.addCandleCount(true);
-                    }
-                    countCb();
+        setTimeout(function(){
+            var start=+new Date,game=Game.currentGame;
+            Game.Timer.start=start;
+            app.$remainTime.text("00:"+game.lastSeconds+":000");
+            function run(){
+                if(Game.isOver){
+                    return;
                 }
-                requestAnimFrame(run)
-            }else{
-                Game.stopGame();
+                var now=+new Date;
+                var milliseconds=(now-start);
+                Game.Timer.now=now;
+                if(milliseconds<game.lastSeconds*1000){
+                    if(countCb){
+                        if(Game.currentGame==Game.gameBox.candle){
+                            Game.addCandleCount(true);
+                        }
+                        countCb();
+                    }
+                    requestAnimFrame(run)
+                }else{
+                    Game.stopGame();
+                }
+                Game.displayTime="00:"+pad(Math.max(0,(game.lastSeconds-Math.ceil((milliseconds)/1000))),2)+":"+(milliseconds+"").slice(-3,-1);
+                Game.updateTime();
             }
-            Game.displayTime="00:"+pad(Math.max(0,(game.lastSeconds-Math.ceil((milliseconds)/1000))),2)+":"+(milliseconds+"").slice(-3);
-            Game.updateTime();
-        }
-        run();
+            run();
+        },618)
     },
     stopGame:function(){
+        toggleAudio(bgAudio,false)
+        Game.currentGame.played=true;
         Game.$myOneScore.text(Game.currentGame.newScore)
 		if(Game.currentGame.newScore>=Game.currentGame.scoreDivide){
 			Game.$lowScoreTips.hide();
@@ -471,7 +645,6 @@ $.extend(Game,{
 		}
         switch(Game.currentGame.type){
             case "candle":
-                wx;
                 if(typeof wx!="undefined"&&!isDebug){
                     wx.stopRecord();
                 }
@@ -489,43 +662,113 @@ $.extend(Game,{
         }
         Game.isOver=true;
         Game.recordAgree=undefined;
-		Game.$playPage.addClass("gameOver")
+		Game.$gameScreen.addClass("gameOver")
 		setTimeout(function(){
 			Game.updatePage(Game.$scorePage);
-		},1000)
-		//更新分数
+            Game.resetGamesNewScore();
+        },1500)
+        Game.currentGame.oldScore=Game.currentGame.score
+        setTimeout(function(){
+			Game.$gameScreen.removeClass("gameOver")
+            Game.checkShowVideo();
+        },1200)
+        Game.fetchScore();
+        $.get(playGameCaputureUrl+Game.currentGame.gameName)
+
+        shareInfo.title=Game.currentGame.shareTitle.replace("xx",Game.currentGame.newScore)
+        shareInfo.imgUrl=sitePath+Game.currentGame.sharePic;
+        saveShare(gameShareCaptureUrl+Game.currentGame.gameName);
+    },
+    checkShowVideo:function(){
+        var canPlayVideo=false,isAllPlayed=true;
+		if(Game.firstAllPlayed!='yes'){
+			for(var game in Game.gameBox){
+				if(typeof Game.gameBox[game].played=="undefined"){
+					isAllPlayed=false;
+				}
+			}	
+		}
+        
+        if(isAllPlayed){
+            Game.firstAllPlayed="yes";
+			Game.alreadyAllPlayed='yes';
+			localStorage.setItem("alreadyAllPlayed","yes")
+        }
+		if(Game.firstAllPlayed=='yes'||(Game.alreadyAllPlayed=='yes'&&Game.currentGame.oldScore<Game.currentGame.newScore)){
+			Game.mingVideo[0].Paused=false;
+			Game.$videoBox.addClass("in")
+			superPlay(Game.mingVideo[0]);
+            $.get(seeVideoCaptureUrl);
+		}
+    },
+    fetchScore:function(isFirst){
+        var url=updateScoreUrl ;
+        if(!isFirst){
+            url+="?"+Game.currentGame.gameName+"="+Game.currentGame.newScore
+        }
+        //更新分数
         $.ajax({
-            url:updateScoreUrl+"?"+Game.currentGame.gameName+"="+Game.currentGame.newScore,
+            url:url,
             dataType:"json",
             success:function(data){
-                        if(data.result==1){
-                            Game.$allScore.text(data.total)
+                if(data.result==1){
+					var isPlayedAll=true;
+                    Game.$allScore.each(function(index){
+                        var game=Game.gameBox[$(this).data('score')];
+                        if(game) {
+                            game.score=data[game.gameName];
+                            $(this).text(data[game.gameName]);
+							if(game.score==0){
+								isPlayedAll=false;
+							}
                         }
+                        if($(this).data('score')=="total"){
+                            $(this).text(data.total)
+                            Game.totalScore=data.total;
+                        }
+                        if(isFirst){
+                            shareInfo.title=Game.shareTitle.replace("xx",Game.totalScore)
+                            saveShare();	
+                        }
+                    })
+					if(isPlayedAll){
+						Game.alreadyAllPlayed="yes";
+					}else{
+						if(localStorage.getItem("alreadyAllPlayed")){
+							Game.alreadyAllPlayed="yes";
+						}	
+					}
+                }
             }
         })
-        setTimeout(function(){
-            Game.resetGamesNewScore();
-			Game.$playPage.removeClass("gameOver")
-        },1200)
     },
     updateTime:function(){
         app.$remainTime.text(Game.displayTime)
     },
     updateScore:function(isUp,score){
-        var dir=(isUp?"up":"down");
-        var op=(isUp?"+":"-");
         app.$gameScore.html(Game.currentGame.newScore)
-        animateGroup({group:app.$scoreTip.html(op+score),duration:1000,loopTimes:1,frameClass:[dir,""]});
+        app.$scoreTip.animate("tada",1000,'ease-out')
+        /*    var dir=(isUp?"up":"down");
+            var op=(isUp?"+":"-");
+            app.$scoreTip.parent().addClass("in")
+            animateGroup({group:app.$scoreTip.html(op+score),duration:1000,loopTimes:1,noWaitLast:true,frameClass:[dir,""],callback:function(){
+                app.$scoreTip.parent().removeClass("in")
+            }});*/
     },
     showScorePage:function(){
 
     },
     //熊猫喂养
     pandaFeed:function(){
+        if(Game.isOver==true){
+            return;
+        }
         var game=Game.gameBox.panda,step=parseInt(Game.$feedBox.attr("data-step"));
         game.feedClick++;
-        if(game.feedClick%2==0){
-           if(step<game.maxFeedStep){
+        Game.currentGame.newScore+=10;
+        Game.updateScore(true,10)
+        if(game.feedClick%4==0){
+            if(step<game.maxFeedStep){
                Game.$feedBox.attr("data-step",step+1);
            }
         }
@@ -566,12 +809,19 @@ $.extend(Game,{
               game.feedClick=0;
           }
         app.$gameScore.text(0)
-        Game.$bambooList.data("step",0);
-        Game.$feedBox.data("step",0);
+        Game.$feedBox.attr("data-step",0);
+        Game.shuffleRoleList()
+/*        Game.gameBox.role.roleList.forEach(function(item){
+            item.isAnswered=false;
+        })*/
+        Game.gameBox.role.roleNo=0
     }
 });
 
 function shareToWx(title, link, imgUrl, desc, cb) {
+    if(isDebug){
+        return;
+    }
     wx.onMenuShareTimeline({
         title: title, // 分享标题
         link: link, // 分享链接
@@ -585,8 +835,8 @@ function shareToWx(title, link, imgUrl, desc, cb) {
         }
     });
     wx.onMenuShareAppMessage({
-        title: title, // 分享标题
-        desc: desc, // 分享描述
+        title: Game.friendTitle, // 分享标题
+        desc: title, // 分享描述
         link: link, // 分享链接
         imgUrl: imgUrl, // 分享图标
         type: '', // 分享类型,music、video或link，不填默认为link
@@ -601,12 +851,13 @@ function shareToWx(title, link, imgUrl, desc, cb) {
     });
 }
 init_wx_jsapi(jssdkURL,function(config){
-    config.debug=isDebug;
+    config.debug=false;
     wx.config(config);
     wx.ready(function(){
+
     });
 });
-FastClick.attach(document.body);
+//
 var IS_IPHONE=window.navigator.userAgent.indexOf('iPhone') > -1||true;
 var MYSWIPER;
 var TRANSFORM=prefixStyle("transform")
@@ -633,7 +884,7 @@ $.extend(app,{
     $ansWordsList:$("#ansWordsList"),
     $rstList:$("#rstList"),
     $ansBgCanvas:$("#ansBgCanvas"),
-    $scoreTip:$("#scoreTip i"),
+    $scoreTip:$(".game-bar .score"),
     $pandaTop:$("#pandaTop"),
     $gameScore:$("#gameScore"),
     $remainTime:$("#remainTime"),
@@ -644,13 +895,13 @@ $.extend(app,{
          return (function(){
              $(".screen").each(function(index){
                $(this).data("index",index);
-        })
+           })
                 $("[data-screen]").on("click",function(){
                     console.log(self.screens[$(this).data("screen")])
                     self.updateScreen(self.screens[$(this).data("screen")])
                 })
 
-                 app.scroll.rankScroll=new IScroll('#rankScroller', {
+              /*   app.scroll.rankScroll=new IScroll('#rankScroller', {
                      //click:iScrollClick(),
                      preventDefault:false,
                      preventDefaultException:{tagName:/^(INPUT|TEXTAREA|BUTTON|SELECT|A)/},
@@ -658,24 +909,24 @@ $.extend(app,{
                      mouseWheel:true,
                      shrinkScrollbars: 'scale',
                      fadeScrollbars: false
-                });
+                });*/
 			 $(".btn-game-pause").on("click",function(){
-				 if(bgAudio.paused){
-					 bgAudio.play();
-				 }else{
-					 bgAudio.play();
-				 }
-				 $(this).toggleClass("stoped")
-				 bgAudio.paused=!bgAudio.paused;
-			 })
-             app.updateScreen(app.screens.startScreen);
-             $(document).on("swipeUp",function(){
+				 toggleAudio(bgAudio)
+             })
+             //app.updateScreen(app.screens.startScreen);
+             $(document).on("swipeUp",function(e){
+                 if(app.pageLock==true){return}
+                 Game.mingAudio[0].pause();
                  if(app.currentScreen==app.screens.startScreen){
                      app.updateScreen(app.screens.chooseScreen);
                  }
                  if(Game.currentPage==Game.$soundPage){
                      Game.updatePage(Game.$rulerPage)
                  }
+             })
+             $("[data-next-screen]").on("click",function(){
+                 Game.mingAudio[0].pause();
+                 $(document).trigger("swipeUp");
              })
          }).bind(app)()
    },
@@ -708,7 +959,8 @@ $.extend(app,{
     } ,
     updateScreen:function(newScreen,choose){
         var isStart=false;
-        if(app.pageLock){app.pageLock=true;return}
+        if(app.pageLock){return}
+        app.pageLock=true;
         if(choose){
             app.changeStyle(newScreen,choose)
         }
@@ -719,41 +971,36 @@ $.extend(app,{
            app.$checkList.removeClass().find("input").prop("checked",false)
         }
         if(app.currentScreen){
-            app.currentScreen.removeClass("down up in current")
             newScreen.removeClass("out")
-            console.log(app.currentScreen.data("index"),newScreen.data("index"))
+            app.currentScreen.removeClass("  current").addClass("active");
             if(app.currentScreen.data("index")<newScreen.data("index")){
                 newScreen.addClass(" down")
                 app.currentScreen.addClass("out up")
-            }else{
+            }else {
                 newScreen.addClass(" up")
                 app.currentScreen.addClass("out down")
             }
         }
         setTimeout(function(){
-            newScreen.addClass("in")
+            newScreen.addClass("in current")
         },0)
         setTimeout(function(){
             //newScreen.removeClass("up down");
             app.pageLock=false;
-            app.currentScreen=newScreen.addClass("current in")
-        },750)
-        if(newScreen==app.screens.startScreen){
-            setTimeout(function(){
-                YAO.start(function(){
-                    if(!isStart){
-                           app.updateScreen(app.screens.chooseScreen);
-                        isStart=false;
-                    }else{
-                        YAO.stop();
-                    }
-                })
-            },1000)
-            //app.stopEvent();
-        }
+            if(app.currentScreen){
+                app.currentScreen.removeClass('in out up down active')
+            }
+            app.currentScreen=newScreen.removeClass("up down")
+            if(app.currentScreen==app.screens.chooseScreen){
+                $.get(chooseCaptureUrl)
+                shareInfo.title=Game.shareTitle.replace("xx",Game.totalScore)
+                shareInfo.imgUrl=Game.sharePic;
+                saveShare(gameShareCaptureUrl+"playShare");
+            }
+        },1000)
     }
 });
-window.addEventListener("orientationchange",function(){
+window.addEventListener("orientationchange",function(e){
     if (window.orientation == 0 || window.orientation == 180) {
         //orientation = 'portrait';
         document.body.scrollTop=scrollTop;
@@ -946,102 +1193,74 @@ if (!(typeof webpsupport == 'function')) {
 webpsupport(function (webpa) {
     var loader = new WxMoment.Loader(),
         fileList =
-            [
-              'img/1.png',
-  'img/btn_rescan.png',
-  'img/btn_volume.png',
-  'img/candle.png',
-  'img/candle_bg.jpg',
-  'img/candle_fire.png',
-  'img/candle_flame_sprite.png',
-  'img/candle_sprite.png',
-  'img/chlist_portrait_candle.png',
-  'img/chlist_portrait_panda.png',
-  'img/chlist_portrait_role.png',
-  'img/chlist_portrait_tree.png',
-  'img/chlist_text_candle.png',
-  'img/chlist_text_panda.png',
-  'img/chlist_text_role.png',
-  'img/chlist_text_tree.png',
-  'img/choose_bg.jpg',
-  'img/choose_circle.png',
-  'img/choose_list.png',
-  'img/choose_title.png',
-  'img/game_bar.png',
-  'img/game_bg.png',
-  'img/headimg.png',
-  'img/ico_bamboo.png',
-  'img/ico_good_1.png',
-  'img/ico_good_2.png',
-  'img/ico_good_3.png',
-  'img/ico_harm_1.png',
-  'img/ico_harm_2.png',
-  'img/ico_hat.png',
-  'img/ico_micro.png',
-  'img/ico_num1.png',
-  'img/ico_num2.png',
-  'img/ico_num3.png',
-  'img/ico_panda.png',
-  'img/ico_spread_voice.png',
-  'img/ico_tree.png',
-  'img/LBtn.png',
-  'img/LEarthBg.png',
-  'img/LEF1.png',
-  'img/LEF2.png',
-  'img/LEF3.png',
-  'img/list_2bt_bg.png',
-  'img/list_3bt_bg.png',
-  'img/list_bt1_bg.png',
-  'img/list_title_cong.png',
-  'img/list_title_friendscore.png',
-  'img/list_title_rank.png',
-  'img/list_title_rule.png',
-  'img/LLine.png',
-  'img/loading_five.png',
-  'img/load_bg.jpg',
-  'img/LTreeSp.png',
-  'img/nfc1_text.png',
-  'img/nfc2_intro.png',
-  'img/nfc2_title.png',
-  'img/nfc_bg.jpg',
-  'img/panda.png',
-  'img/panda_bg.png',
-  'img/panda_bottom.png',
-  'img/photo_line.png',
-  'img/portrait_blue.png',
-  'img/portrait_green.png',
-  'img/portrait_orange.png',
-  'img/portrait_purple.png',
-  'img/qr_code.png',
-  'img/qr_intro.png',
-  'img/role_photo_1.png',
-  'img/role_photo_10.png',
-  'img/role_photo_2.png',
-  'img/role_photo_3.png',
-  'img/role_photo_4.png',
-  'img/role_photo_5.png',
-  'img/role_photo_6.png',
-  'img/role_photo_7.png',
-  'img/role_photo_8.png',
-  'img/role_photo_9.png',
-  'img/ruler_candle.png',
-  'img/ruler_panda.png',
-  'img/ruler_role.png',
-  'img/ruler_tree.png',
-  'img/shake_hand.png',
-  'img/shake_line.png',
-  'img/share_arrow.png',
-  'img/start_logo.png',
-  'img/start_ming.png',
-  'img/start_shake_bg.png',
-  'img/start_shake_hand.png',
-  'img/start_text.png',
-  'img/sun_bg.jpg',
-  'img/text_go.png',
-  'img/text_ur_right.png',
-  'img/Thumbs.db',
-  'img/wait_circle.png',
-  'img/welcome_xo.png'
+            [ 'img/all_bg.png',
+                'img/bamboo_sprite.png',
+                'img/btn_ear.png',
+                'img/btn_feed.png',
+                'img/btn_rescan.png',
+                'img/btn_ruler_score.png',
+                'img/btn_volume.png',
+                'img/candle_fire.png',
+                'img/candle_flame_sprite.png',
+                'img/candle_sprite.png',
+                'img/chlist_portrait_candle.png',
+                'img/chlist_portrait_panda.png',
+                'img/chlist_portrait_role.png',
+                'img/chlist_portrait_tree.png',
+                'img/chlist_text_candle.png',
+                'img/chlist_text_panda.png',
+                'img/chlist_text_role.png',
+                'img/chlist_text_tree.png',
+                'img/choose_circle.png',
+                'img/choose_title.png',
+                'img/headimg.png',
+                'img/hill.png',
+                'img/ico_arrow.png',
+                'img/ico_arrow_bold.png',
+                'img/ico_circle.png',
+                'img/ico_num1.png',
+                'img/ico_num2.png',
+                'img/ico_num3.png',
+                'img/ico_square.png',
+                'img/ico_voice.png',
+                'img/LBtn.png',
+                'img/LEarthBg.png',
+                'img/LEF1.png',
+                'img/LEF2.png',
+                'img/LEF3.png',
+                'img/list_frame.png',
+                'img/list_title_cong.png',
+                'img/list_title_friendscore.png',
+                'img/list_title_rank.png',
+                'img/list_title_rule.png',
+                'img/LLine.png',
+                'img/loading_five.png',
+                'img/LTreeSp.png',
+                'img/main_title.png',
+                'img/ming_candle.png',
+                'img/ming_panda.png',
+                'img/ming_role.png',
+                'img/ming_tree.png',
+                'img/panda.png',
+                'img/photo_line.png',
+                'img/qr_code.png',
+                'img/qr_code2.png',
+                'img/qr_intro.png',
+                'img/ruler_candle.png',
+                'img/ruler_panda.png',
+                'img/ruler_role.png',
+                'img/ruler_score.png',
+                'img/ruler_tree.png',
+                'img/rule_bg.png',
+                'img/shake_hand.png',
+                'img/share_arrow.png',
+                'img/start_logo.png',
+                'img/start_ming.png',
+                'img/start_text.png',
+                'img/text_go.png',
+                'img/text_intro.png',
+                'img/text_rank.png',
+                'img/wait_circle.png'
             ],
         $numText=$('.loading-num').find('span');
     for (var i = 0; i < fileList.length; i++) {
@@ -1056,47 +1275,89 @@ webpsupport(function (webpa) {
 
     loader.addCompletionListener(function () {
         loadedTimes+=1;
+        var link=document.createElement("link");
+        link.rel='stylesheet';
+        link.href='../css/style-promo.css';
+        document.head.appendChild(link)
             checkLoaded()
-        $('.screen').addClass("loaded");
     });
 
+    setTimeout(function(){
+
+        loadAudio(Game.mingAudioSrcArr[Math.floor(Math.random()*Game.mingAudioSrcArr.length)],function(audio){
+            Game.mingAudio=$(audio)
+            loadedTimes+=1;
+            checkLoaded()
+        })
+        //loadBg music
+        loadAudio("../media/bg.mp3",function(audio){
+            loadedTimes+=1;
+            checkLoaded()
+            bgAudio=audio;
+            bgAudio.loop="loop"
+            bgAudio.volume=0.5
+            var image=new Image;
+            image.onload=function(){
+                //bgAudio.play();
+                //bgAudio.isPaused=false
+            }
+            image.src='../img/btn_volume.png';
+        });
+    },2000)
     function checkLoaded(){
-        if(true&&loadedTimes==5){
-            $('.loading').remove();
-            $(document.documentElement).addClass("auto")
-            $('.screen').eq(0).addClass('active in');
-            app.init();
-            Game.init();
-            indexInit();
-            document.body.scrollTop=0;
+        console.log(loadedTimes)
+        if(loadedTimes==3){
+            setTimeout(function(){
+               $('.loading').addClass("out");
+                $('.screen').eq(0).addClass("active")
+                    $(document.documentElement).addClass("auto")
+                setTimeout(function(){
+                    $('.screen').eq(0).addClass('in');
+                },350)
+                app.currentScreen=app.screens.startScreen
+                app.init();
+                Game.init();
+                indexInit();
+                document.body.scrollTop=0;
+            },500)
             $("img[lazyload]").each(function(){
                 $(this).prop("src",$(this).data("src"));
             })
+            function closeVideo(){
+                setTimeout(function(){
+                    Game.mingVideo[0].Paused=true;
+                    Game.mingVideo[0].pause();
+                    Game.mingVideo[0].currentTime=0;
+                    Game.$videoBox.removeClass("in playing played");
+                },0)
+            }
+            Game.mingVideoSrc=browser.versions.android?Game.mingVideoSrc.android:Game.mingVideoSrc.ios
+            loadAudio(Game.mingVideoSrc+"?"+Math.random(),function(video){
+                Game.mingVideo=$(video).attr({
+                    'webkit-playsinline':"true",
+                    'x-webkit-airplay':"true" ,
+                    "autobuffer":"true"
+                }).on("touchstart",function(){
+                    if(Game.mingVideo[0].Paused){
+
+                    }
+                }).on("ended",function(){
+                    closeVideo()
+                    $.get(seeFullVideoCaptureUrl);
+                })
+                if(browser.versions.android){
+                    Game.mingVideo.attr({width:600,height:600})
+                }
+                $('.btn-go-on').click(closeVideo)
+                $(".btn-play-video").on("touchstart",function(){
+                    Game.$videoBox.addClass("playing")
+                })
+                $(".btn-play-video").on("touchend",function(){
+                    Game.mingVideo[0].play();
+                })
+            },"video",$(".video-inner")[0])
         }
     }
-    for(var game in Game.gameBox){
-        (function(game){
-            loadAudio(Game.gameBox[game].media+"?"+Math.random(),function(audio){
-                Game.gameBox[game].voice=$(audio)
-                loadedTimes+=1;
-                checkLoaded()
-            })
-        })(game)
-    }
-    //loadBg music
-    loadAudio("../media/bg.mp3",function(audio){
-        loadedTimes+=1;
-        checkLoaded()
-        bgAudio=audio;
-        bgAudio.loop="loop"
-        bgAudio.volume=0.5
-        var image=new Image;
-        image.onload=function(){
-            bgAudio.play();
-            bgAudio.isPaused=false
-        }
-        image.src='../img/btn_volume.png';
-    })
 
 
 
@@ -1167,28 +1428,17 @@ webpsupport(function (webpa) {
         })
     }
 })();
-function resetMeta(){
-    var g=window.innerWidth,h=window.innerHeight,k;
-    (g/h)>=320/504?k=h/1008:k=g/640;
-    //alert(window.innerHeight+'-'+window.innerWidth)
-    document.getElementById("eqMobileViewport").setAttribute("content","initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
-    //alert(k);
-  /*   setTimeout(function(){
-         alert(window.innerHeight+'-'+window.innerWidth)
-     })*/
-    setTimeout(function(){
-             document.body.classList.add("reset")
-    },100)
-}
+
 //init
 var lightFrame;
 $(function(){
-    resetMeta();
 var musicBtn=$(".music-btn"),$sharePage=$("#sharePage"),$readyPage=$("#rewardPage");
  $(".choose-list a").on("click",function(){
-     var gameType=$(this).data("game");
-     Game.start(gameType)
-     Game.currentGameNames=Game.gameNames.slice();
+     if(!Game.pageLock){
+         var gameType=$(this).data("game");
+         Game.start(gameType)
+         Game.currentGameNames=Game.gameNames.slice();
+     }
  })
     //$("#pandaYaoBtn").on("click",Game.pandaShake)
 })
@@ -1438,11 +1688,12 @@ function animateFrame(el, firstFrame, lastFrame, frameGapTime, isGoToFirstBoo, i
     return plugin;
 }
 
-function loadAudio(src,cb){
-    var audio=document.createElement("audio");
+function loadAudio(src,cb,type,container){
+    var audio=document.createElement(type||'audio');
+    container=container||document.body;
     audio.preload="preload";
     audio.src=src;
-    document.body.appendChild(audio)
+    container.appendChild(audio)
     $.ajax({
         url:src,
         success:function(result) {
@@ -1554,74 +1805,81 @@ function ajax(url,cb){
          this.fill();
      }
  };
-
-
-
- var URL = window.URL && window.URL.createObjectURL ? window.URL :
-     window.webkitURL && window.webkitURL.createObjectURL ? window.webkitURL :
-         null;
- function onSuccess(stream) {
-
-     return;
-     //创建一个音频环境对像
-     audioContext = window.AudioContext || window.webkitAudioContext;
-     context = new audioContext();
-     //将声音输入这个对像
-     audioInput = context.createMediaStreamSources(stream);
-
-     //设置音量节点
-     volume = context.createGain();
-     audioInput.connect(volume);
-
-     //创建缓存，用来缓存声音
-     var bufferSize = 2048;
-
-     // 创建声音的缓存节点，createJavaScriptNode方法的
-     // 第二个和第三个参数指的是输入和输出都是双声道。
-     recorder = context.createJavaScriptNode(bufferSize, 2, 2);
-
-     // 录音过程的回调函数，基本上是将左右两声道的声音
-     // 分别放入缓存。
-     recorder.onaudioprocess = function(e){
-         console.log('recording');
-         var left = e.inputBuffer.getChannelData(0);
-         var right = e.inputBuffer.getChannelData(1);
-         // we clone the samples
-         leftchannel.push(new Float32Array(left));
-         rightchannel.push(new Float32Array(right));
-         recordingLength += bufferSize;
-     }
-
-     // 将音量节点连上缓存节点，换言之，音量节点是输入
-     // 和输出的中间环节。
-     volume.connect(recorder);
-
-     // 将缓存节点连上输出的目的地，可以是扩音器，也可以
-     // 是音频文件。
-     recorder.connect(context.destination);
-
- }
  function indexInit(){
      //初始化lufy canvas，来到这个游戏页之后再初始化， 然后setTimeout 200ms 开始游戏调用函数：LTreeIndexInit(); 不然android会卡。
      ysStage.init();
+
+
      LInit(30, "LMainDiv", 640, 908,lMainLoader.init,LEvent.INIT);
-     //LGlobal.setDebug(true);
+     LGlobal.setDebug(true);
      //LGlobal.backgroundColor="#000";
      LGlobal.align = LStageAlign.MIDDLE;
-     LGlobal.stageScale = LStageScaleMode.EXACT_FIT;
+     LGlobal.stageScale = LStageScaleMode.NO_BORDER;
      LSystem.screen(LStage.FULL_SCREEN);
+
+     //LGlobal.preventDefault = false;
+     LMouseEventContainer.set(LMouseEvent.MOUSE_MOVE,true);
  }
  function getRandom(min,max){
-  return Math.random()*(max-min+1)   +min
+  return Math.floor(Math.random()*(max-min+1))   +min
  }
 
-function saveShare(){
+function saveShare(shareUrl){
+    shareUrl=shareUrl||collectShareUrl;
     shareToWx(shareInfo.title,shareInfo.link,shareInfo.imgUrl,shareInfo.desc,function(){
         $.ajax({
-            url:collectShareUrl ,
+            url:shareUrl ,
             complete:function(){
 
             }
         })
     })
+}
+function toggleAudio(audio,play){
+    if(play==true){
+        audio.Paused=false;
+    }else if(play==false){
+        audio.Paused=true;
+    }else{
+        audio.Paused=!audio.Paused;
+    }
+    if(audio.Paused){
+        audio.pause();
+        $(".btn-game-pause").addClass("stoped")
+    }else{
+        audio.play();
+        $(".btn-game-pause").removeClass("stoped")
+    }
+}
+function superPlay(media){
+	media.currentTime=0;
+    media.Paused=false;
+    if(browser.versions.android) {
+        if(!androidIsDead){
+            document.addEventListener("touchmove", function (e) {
+                androidIsDead=true;
+                media.play();
+            });
+        }
+
+    }else{
+            var image=new Image;
+            image.onload=function(){
+                media.play();
+            }
+            image.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQIW2NkAAIAAAoAAggA9GkAAAAASUVORK5CYII=';
+    }
+}
+
+document.querySelector("#rankList").addEventListener("touchmove",function(e){
+    e.stopPropagation();
+})
+
+function shuffle(arr){
+    var r=[],s=arr.slice(),t;
+    for(var i= 0;i<s.length;){
+        t=s.splice(Math.floor(Math.random()*s.length),1);
+        r=r.concat(t);
+    }
+    return r
 }

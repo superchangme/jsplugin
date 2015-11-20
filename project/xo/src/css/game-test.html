@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script>
+        var scaleFactor=localStorage.getItem("pageScale");
+        if(scaleFactor&&scaleFactor<1&&scaleFactor>0.3){
+            document.write('<meta name="viewport" id="eqMobileViewport" content="initial-scale='+scaleFactor+',maximum-scale='+scaleFactor+',user-scalable=no" />')
+        }else{
+            localStorage.removeItem("pageScale");
+            scaleFactor=null;
+            document.write('<meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />');
+        }
+    </script>
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+    <title>才华挑战</title>
+    <link rel="stylesheet" href="../css/style-promo.css"/>
+    <style>
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            /*overflow: hidden;*/
+            background:url(../img/all_bg.png) center no-repeat #5f6165;
+            background-size: cover;
+        }
+        body{
+            position: relative;
+            /*   position: absolute;
+               left: 0;
+               top: 0;
+               width: 100%;
+               height: 100%;
+               overflow: hidden;*/
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background:url(../img/all_bg.png) center no-repeat #5f6165;
+            background-size: cover;
+        }
+        .loading__inner{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -83px;
+            margin-top: -54px;
+            width: 166px;
+            height: 108px;
+            text-align: center;
+            color: black;
+            font-size: 12px;
+        }
+
+        .loading-num{
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            text-align: center;
+            color: #000;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .loading-num img{
+            vertical-align: middle;
+            margin-right: 5px;;
+        }
+        .loading_five{
+            background: url(../img/loading_five.png) top no-repeat;
+            width: 114px;
+            height: 108px;
+            -webkit-animation: loading 1.618s steps(5) infinite;
+            animation: loading 1.618s  steps(5) infinite;
+            margin: 0 auto;
+            position: relative;
+            top: 32px;
+        }
+        .outer{
+            position: absolute;
+            height: 100%;
+            top:0;
+            left:0;
+            width: 100%;
+        }
+        body.reset .loading_box{
+            opacity: 1;
+        }
+        .loading_box{
+            background: url(../img/wait_circle.png);
+            width: 169px;
+            height: 169px;
+            margin: 0 auto;
+
+        }
+        @-webkit-keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @keyframes loading {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-540px ;
+            }
+        }
+        @-webkit-keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-338px ;
+            }
+        }
+        @keyframes loading_bg {
+            0%{
+                background-position-y:0px ;
+            }
+            100%{
+                background-position-y:-338px ;
+            }
+        }
+        .logo {
+            background: url(../img/main_title.png) center 60px  no-repeat;
+            height: 130px;
+        }
+    </style>
+</head>
+<script>
+    if(scaleFactor){
+        document.write('<body>')
+    }else{
+        document.write('<body class="hidden">');
+    }
+</script>
+<img src="../img/wx_share.jpg" style="display: none"/>
+<div class="loading">
+    <div class="logo"></div>
+    <div class="loading__inner">
+        <div class="loading_box">
+            <div class="loading_five">
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="outer">
+    <!--容器-->
+    <div class="wrap" >
+
+
+        <div class="wait-page page hidden full-p" id="waitScreen" >
+            <div class="logo"></div>
+            <div class="num num3 fade centerXY"><b></b><i></i></div>
+            <div class="num num2 fade centerXY"><b></b><i></i></div>
+            <div class="num num1 fade centerXY"><b></b><i></i></div>
+        </div>
+        <div class="share-page page hidden full-p game-share modal-page" style="display: block" id="shareAllPage">
+            <!--<div class='share-arrow'></div>-->
+            <div class="centerXY" style="text-align:center;z-index: 8888">
+                <img src="../img/psb.jpg" width="360" style="margin:310px auto 20px"/>
+            </div>
+            <div class="share-tip">点击任意区域关闭浮层</div>
+        </div>
+        <div id='sharePage' style="z-index: 9998" class="game-share  modal-page full-p hidden" >
+            <!--<div class='share-arrow'></div>-->
+            <div class="logo"></div>
+            <div class='share-wrap centerX text-center'>
+                <div class='share-box inline'>
+                    <div data-game="role">
+                        点击右上角，分享朋友圈，
+                        <br/>秀出您的实力演技!
+                    </div>
+                    <div data-game="panda">
+                        点击右上角，分享朋友圈，
+                        <br/>邀请朋友，看Ta是否比您<br/>更加爱心爆棚!
+                    </div>
+                    <div data-game="tree">
+                        点击右上角，分享朋友圈，
+                        <br/>让好友也来为您的环保才华喝彩!<br>
+                    </div>
+                    <div data-game="candle">
+                        点击右上角，分享朋友圈，
+                        <br/>炫出您的铁肺本色!
+                    </div>
+                </div>
+
+            </div>
+            <div class="share-tip">点击任意区域关闭浮层</div>
+        </div>
+
+        <div class=" ruler-page page hidden full-p modal-page " id="rulerAllPage">
+            <div class="share-tip">点击任意区域关闭浮层</div>
+        </div>
+        <div class="score-ruler-page page hidden full-p modal-page " style="z-index: 9999" id="scoreRulerPage">
+            <div class="share-tip">点击任意区域关闭浮层</div>
+        </div>
+        <div id='rankPage' style="z-index: 8888" class="game-rank case-page full-p hidden" >
+            <div class="rank-bg full-p"></div>
+            <div class="rank-box" style="text-align: center">
+                <div class="title hidden-text">排行榜</div>
+                <ul class="rank-title">
+                    <li class="rank-no t-title">排名</li><li class="nickname t-title">昵称</li><li class="score t-title">分数</li>
+                </ul>
+                <div id="rankScroller">
+                    <div class="scroller">
+                        <ul class="rank-list" id="rankList" data-loading='<div class="a-loading centerXY"><img src="../img/choose_circle.png"/></div>'>
+                            <!-- <li>
+                                 <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
+                             </li>
+                                                                 <li>
+                                                                     <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
+                                                                 </li>
+                                                                 <li>
+                                                                     <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
+                                                                 </li>
+                                                                 <li>
+                                                                     <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
+                                                                 </li>
+                                                                 <li>
+                                                                     <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
+                                                                 </li>
+                                                                 <li>
+                                                                     <div class="rank-no">1.</div><div class="nickname"><img src="../img/headimg.png"/>我是你的包</div><div class="score">500</div>
+                                                                 </li>
+                                                                 -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="arrow-box" >
+                    <div class="p1"></div>
+                    <div class="p2"></div>
+
+                </div>
+                <a  class="btn btn-see-score-ruler">
+                </a>
+                <div class="your-score">
+                    <div>当前分数：<span id='myScore' data-loading='<sm>加载中...</sm>'></span></div>
+                    <div>排名：<span id='myRank'  data-loading='<sm>加载中...</sm>'>暂无</span></div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <a class="btn btn-circle btn-play-next">
+                    继续挑战
+                </a>
+                <a class="btn btn-circle btn-rank-share">
+                    分享
+                </a>
+            </div>
+        </div>
+
+        <section class="screen screen1  " id="startScreen" >
+            <div class="screen-inner full-p ">
+                <div class="main-content center-child">
+                    <div class="logo "></div>
+                    <div class="ming "></div>
+                    <div class="text "></div>
+                    <div class="bottom-bd abs bottom">
+                        <a class="btn  btn-voice" id="playMingVoiceBtn" >
+                            <i class="voice  "></i>
+                        </a>
+                        <div class="s-tips text-center">按下按钮，听听黄晓明说什么</div>
+
+                    </div>
+                    <div class="arrow-box" data-next-screen>
+                        <div class="p1"></div>
+                        <div class="p2"></div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section  class="screen screen2  down text-center" id="chooseScreen">
+            <div class="screen-inner full-p">
+                <div class="main-content center-child">
+                    <div class="title"></div>
+                    <div class="my-score" > 我的当前总分<span data-score="total" class="score">0</span></div>
+                    <div class="choose-list-box">
+                        <div class="choose-list">
+                            <o class="square"></o>
+                            <a class="btn btn-choose-panda" data-game="role"><i ><span data-score="role">0</span>分</i></a><a class="btn btn-choose-candle" data-game="candle">
+                            <i ><span data-score="candle">0</span>分</i></a><a class="btn btn-choose-role " data-game="panda"><i ><span data-score="panda">0</span>分</i>
+                        </a><a class="btn btn-choose-tree" data-game="tree"><i ><span data-score="tree">0</span>分</i></a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn btn-normal btn-450 btn-see-ruler">游戏说明</a>
+                        <a class="btn btn-normal pull-left btn-200 btn-see-rank">排行榜</a>
+                        <a class="btn  btn-normal pull-right  btn-200 btn-go-share2">分享</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="screen screen3 has-animate down text-center" id="gameScreen" >
+            <div class="screen-inner full-p">
+                <div class="main-content">
+                    <div class="game-bar">
+                        <div class="score" ><span id="gameScore">0</span>分</div>
+                        <a class="btn btn-game-pause"></a>
+                        <div class="time" id="remainTime">00:60:000</div>
+                    </div>
+                    <div class="game-container case-page"  id="playPage">
+                        <div id="scoreTip" class=" centerXY">
+                            <i class="fade"></i>
+                        </div>
+                        <div data-game="role" class="full-p hidden">
+                            <div class="game-box">
+                                <div class='answer-box' id="roleAnsBox">
+                                    <ul class="photo-list" id="rolePhotoList">
+                                        <li><img src="../img/role_photo_1.png" /></li>
+                                        <li><img data-src="../img/role_photo_2.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_3.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_4.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_5.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_6.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_7.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_8.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_9.png" lazyload/></li>
+                                        <li><img data-src="../img/role_photo_10.png" lazyload/></li>
+                                    </ul>
+                                    <div><img style="position:relative;top:-55px" src="../img/share_arrow.png" width="30"></div>
+                                    <canvas class="ans-bg" id="ansBgCanvas" width="592" height="200"></canvas>
+                                    <ul class="rst-list" id="rstList">
+                                    </ul>
+                                    <div>
+                                        <ul class="ans-words-list" id="ansWordsList">
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                    <a class="btn btn-circle nextRoleBtn skip-btn" >跳过</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div data-game="panda" class=" full-p hidden" id="feedBox" data-step="0">
+                            <!--  <div class="panda-top" id="pandaTop">
+                                  <div class="bg"></div>
+                                  <div class="line"></div>
+                                  <div class="panda abs"></div>
+                              </div>
+                              <ul class="food-list" id="pandaFoodList">
+                                  <li data-good><img  data-src="../img/ico_good_1.png" lazyload/></li>
+                                  <li data-good><img data-good data-src="../img/ico_good_2.png" lazyload/></li>
+                                  <li data-good><img data-good data-src="../img/ico_good_3.png" lazyload/></li>
+                                  <li data-harm><img data-harm data-src="../img/ico_harm_1.png" lazyload/></li>
+                                  <li data-harm><img data-harm data-src="../img/ico_harm_2.png" lazyload/></li>
+                              </ul>
+                              <div class="panda-bottom">
+                                  <div class="line"></div>
+                                  <div class="bg"></div>
+                              </div>
+                              <div class="bottom-bd abs bottom">
+                                  <a  class="btn btn-shake2 " data-support-yao="true">
+                                  </a>
+                                  <a class="btn btn-circle btn-go "  id="pandaYaoBtn" data-support-yao="false"></a>
+                                  <div class="s-tips text-center" >
+                                      <span data-support-yao="true">用力摇手机</span>
+                                      <span data-support-yao="false">点击GO开始游戏</span>
+                                  </div>
+                              </div>-->
+                            <div class="ground">
+                                <div class="bg"> </div>
+                                <div class="bamboo-list">
+                                </div>
+                                <div class="panda-box">
+                                    <div class="panda"></div>
+                                    <a class="btn btn-circle btn-yang "  id="pandaFeedBtn">助养</a>
+                                </div>
+                            </div>
+                            <div style="color:white!important" class="s-tips text-center bottom-bd bottom abs">
+                                迅速点击按钮
+                                <br/>助养熊猫成长
+                            </div>
+                        </div>
+                        <div data-game="tree" class=" full-p hidden">
+                            <div id="LMainDiv"></div>
+                            <div style='color:white!important' class="abs bottom-bd bottom s-tips text-center">
+                                点击小树<br/>种植于空地上
+                            </div>
+                        </div>
+                        <div data-game="candle" class="full-p hidden">
+                            <div class="candle-box">
+                                <div class="o-candle p1"><div class="flame"></div>
+                                    <div class="candle"></div></div>
+                                <div class="o-candle p2"><div class="flame"></div>
+                                    <div class="candle"></div></div>
+                                <div class="o-candle p3"><div class="flame"></div>
+                                    <div class="candle"></div></div>
+                                <div class="o-candle p4"><div class="flame"></div>
+                                    <div class="candle"></div></div>
+                                <div class="o-candle p5"><div class="flame"></div>
+                                    <div class="candle"></div></div>
+                                <div class="o-candle p6"><div class="flame"></div>
+                                    <div class="candle"></div></div>
+                                <div class="o-candle p7"><div class="flame"></div>
+                                    <div class="candle"></div></div>
+                            </div>
+                            <!-- <div data-support-record="true" class="hidden">
+                                 <a class="btn btn-go btn-circle" id="beginRecord"></a>
+                             </div>-->
+                            <div data-support-record="false" class="hidden">
+                                <a class="btn btn-go btn-circle hidden" data-support-yao="false" id="beginClickCandle"></a>
+                                <a class="btn btn-shake2"   data-support-yao="true"></a>
+                            </div>
+                            <div  data-support-record="true" class="hidden" >
+                                <div class="btn btn-start btn-circle center"  id="beginRecord" >START</div>
+                            </div>
+                            <div class="s-tips text-center" style="color: white!important">
+                                <span data-support-record="true"  class="hidden">
+                                    按住按钮不放
+                                    <br>向麦克风吹气
+                                </span>
+                                <div data-support-record="false"  class="hidden">
+                                    <span data-support-yao="true" style="display: none;">用力摇手机</span>
+                                    <span data-support-yao="false">不停按GO点灭蜡烛</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ming-sound-page case-page" id="soundPage">
+                        <div data-game="role">
+                            <div class="photo-box">
+                                <div class="photo">
+                                    <img class='photo-img' data-src="../img/chlist_portrait_role.png" lazyload/>
+
+                                    <div class="photo-line"></div>
+                                    <div class="text"><img data-src="../img/chlist_text_role.png" lazyload/></div>
+                                </div>
+                            </div>
+                            <div class="arrow-box" data-next-screen>
+                                <div class="p1"></div>
+                                <div class="p2"></div>
+
+                            </div>
+                        </div>
+                        <div data-game="panda">
+                            <div class="photo-box">
+                                <div class="photo">
+                                    <img class='photo-img' data-src="../img/chlist_portrait_panda.png" lazyload/>
+
+                                    <div class="photo-line"></div>
+                                    <div class="text"><img data-src="../img/chlist_text_panda.png" lazyload/></div>
+                                </div>
+                            </div>
+                            <div class="arrow-box" data-next-screen>
+                                <div class="p1"></div>
+                                <div class="p2"></div>
+
+                            </div>
+                        </div>
+                        <div data-game="tree">
+                            <div class="photo">
+                                <img class='photo-img' data-src="../img/chlist_portrait_tree.png" lazyload/>
+
+                                <div class="photo-line"></div>
+                                <div class="text"><img data-src="../img/chlist_text_tree.png" lazyload/></div>
+                            </div>
+                            <div class="arrow-box" data-next-screen>
+                                <div class="p1"></div>
+                                <div class="p2"></div>
+
+                            </div>
+                        </div>
+                        <div data-game="candle">
+                            <div class="photo">
+                                <img  class='photo-img' data-src="../img/chlist_portrait_candle.png" lazyload/>
+
+                                <div class="photo-line"></div>
+                                <div class="text"><img data-src="../img/chlist_text_candle.png" lazyload/></div>
+                            </div>
+                            <div class="arrow-box" data-next-screen>
+                                <div class="p1"></div>
+                                <div class="p2"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-rulers case-page" id="rulerPage">
+                        <div class="title"></div>
+                        <div data-game="role">
+                            <img data-src="../img/ruler_role.png" lazyload/>
+                        </div>
+                        <div data-game="panda">
+                            <img data-src="../img/ruler_panda.png" lazyload/>
+                        </div>
+                        <div data-game="tree">
+                            <img data-src="../img/ruler_tree.png" lazyload/>
+                        </div>
+                        <div data-game="candle">
+                            <img data-src="../img/ruler_candle.png" lazyload/>
+                        </div>
+                        <a class="btn btn-circle btn-go" ><i></i></a>
+                    </div>
+
+
+                    <div id='scorePage' class="game-score case-page full-p hidden">
+                        <div class="rank-bg full-p"></div>
+                        <div class="rank-box">
+                            <div class="title hidden-text">恭喜您</div>
+                            <h3>得分</h3>
+                            <h1  id="myOneScore">0</h1>
+                            <ul class="text-cong">
+                                <li data-game="role">
+                                    <div data-low>
+                                        您离演技实力派<br/>只有一字之遥。
+                                    </div>
+                                    <div data-high>
+                                        对，您就是传说中的
+                                        <br/>实力演技派！
+                                    </div>
+                                </li>
+                                <li data-game="panda">
+                                    <div data-low>
+                                        你毫无保留的爱心<br/>值得再次尝试！
+                                    </div>
+                                    <div data-high>
+                                        爱心价高，尽情释放
+                                        <br/>这份潜在才华吧！
+                                    </div>
+                                </li>
+                                <li data-game="tree">
+                                    <div data-high>
+                                        环保达人&emsp;<br/>舍你其谁？
+                                    </div>
+                                    <div data-low>
+                                        环保之路<br/>您还能再踏出一步！
+                                    </div>
+                                </li>
+                                <li data-game="candle">
+                                    <div data-high>
+                                        对，铁肺唱功就是<br/>您的潜在才华！
+                                    </div>
+                                    <div data-low>
+                                        再鼓一口气，您就是<br/>铁肺唱将！
+                                    </div>
+                                </li>
+                            </ul>
+                            <a class="btn btn-see-rank">
+                                查看排行榜
+                            </a>
+                            <div class="btn-group">
+                                <a class="btn btn-circle btn-play-next">
+                                    挑战更多
+                                </a>
+                                <a class="btn btn-circle btn-go-share">
+                                    <div data-game="role">晒出演技</div>
+                                    <div data-game="panda">晒出爱心</div>
+                                    <div data-game="tree">晒出环保</div>
+                                    <div data-game="candle">晒肺活量</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="video-box">
+    <div class="logo"></div>
+    <div class="full-p video-inner">
+        <div class="video-mask">
+            <a class="btn btn-play-video"></a>
+            <div class="share-tip">点击播放</div>
+        </div>
+        <a class="btn btn-go-on"></a>
+    </div>
+</div>
+<div class="hidden">
+    <img   lazyload data-src="../img/wx_share_02.jpg"/>
+    <img   lazyload data-src="../img/wx_share_03.jpg"/>
+    <img   lazyload data-src="../img/wx_share_04.jpg"/>
+    <img   lazyload data-src="../img/wx_share_05.jpg"/>
+</div>
+<script >
+    var isDebug=false;
+    var sitePath=window.location.href.replace(/\/html\/game\.html.*/,"")
+
+    window.onerror=function(err,url,line){
+        if(isDebug){
+            alert(err+":url--:"+url+":lineNo:"+line)
+        }
+    }
+    var Game=
+    {
+        shareTitle:'我挑战黄晓明的才华获得xx分，等你来挑战！',
+        friendTitle:"才华挑战，与黄晓明举杯欢庆",
+        sharePic:sitePath+"/img/wx_share.jpg",
+        Timer:{start:null,now:null},
+        isOver:true,
+        totalScore:0,
+        gameCounter:null,
+        displayTime:"",
+        supportYao:false,
+        gameNames:["tree",'role','panda','candle'],
+        mingVideoSrc:{android:"../media/v5.mp4",ios:'../media/v3.mp4'},
+        mingAudioSrcArr:['../media/ming_voice1.mp3','../media/ming_voice2.mp3','../media/ming_voice3.mp3'],
+        gameBox:{
+            tree:{
+                lastSeconds:30,
+                shareTitle:"我在绿化地球中获得xx分！就等你来挑战！",
+                type:"tree",
+                gameName:"game4",
+                scoreDivide:500,
+                score:0,
+                newScore:0,
+                currentTime:0,
+                goodRatio:0.85,
+                sharePic:'/img/wx_share_05.jpg',
+            },
+            candle:{
+                lastSeconds:30,
+                shareTitle:"我“一口气”就获得xx分！不服气？等你来挑战！",
+                type:"candle",
+                gameName:"game3",
+                scoreDivide:500,
+                score:0,
+                newScore:0,
+                currentTime:0,
+                gapMin:3,//最小灭烛间隔
+                gapMax:7,//最大灭烛间隔
+                divideTime:20,//启用最大最小间隔时间分界点
+                remainCandleNums:7,
+                sharePic:'/img/wx_share_03.jpg',
+                lastCounts:0,
+                frontCandle:[2,4,5]
+            },
+            //game1
+            panda:{
+                lastSeconds:20,
+                shareTitle:"我喂养大熊猫获得xx分！等你一起来挑战！",
+                scoreDivide:500,
+                type:"panda",
+                gameName:"game1",
+                score:0,
+                newScore:0,
+                currentTime:0,
+                goodRatio:0.7,
+                feedClick:0,
+                maxFeedStep:16,
+                sharePic:'/img/wx_share_04.jpg'
+            },
+            role:{
+                sharePic:'/img/wx_share_02.jpg',
+                lastSeconds:60,
+                shareTitle:"我与黄晓明共飙演技获得xx分！你想来挑战吗？",
+                type:"role",
+                scoreDivide:500,
+                gameName:"game2",
+                score:0,
+                newScore:0,
+                currentTime:0,
+                roleNo:0,
+                roleList:
+                        [{
+                            rst:"新上海滩",
+                            ansWords:"大之上绣新中飞海合精滩记人锦风记鼎泡沫飞"
+                        },{
+                            rst:"锦绣缘",
+                            ansWords:"合大间锦风汉绣沫飞之上天新中人海缘夏鹿子"
+                        },{
+                            rst:"何以笙箫默",
+                            ansWords:"大之上何新中飞笙箫一默记以锦风记鼎泡沫飞"
+                        },
+                            {
+                                rst:"暴疯语",
+                                ansWords:"上天坞太暴海合好鹿子莱大间锦撞平疯语飞轮"
+                            },{
+                            rst:"太平轮",
+                            ansWords:"上天坞太暴海合好鹿子莱大间锦撞平风雨飞轮"
+                        },{
+                            rst:"横冲直撞好莱坞",
+                            ansWords:"横天坞中冲海合好鹿子莱大间锦撞汉鼎直飞之"
+                        },{
+                            rst:"风声",
+                            ansWords:"声精间雕国风绣沫合之上伙夏鹿子新岳人海飞"
+                        },{
+                            rst:"中国合伙人",
+                            ansWords:"中大间雕国汉绣沫上伙新侠人海侣夏鹿子合鼎"
+                        },{
+                            rst:"神雕侠侣",
+                            ansWords:"神大间雕风汉绣沫飞之上伙新侠人海侣夏鹿子"
+                        },{
+                            rst:"撒娇女人最好命",
+                            ansWords:"上天新中命海合女鹿命最好人锦风汉娇沫好撒"
+                        }]
+            }
+        }
+        //game2
+    }
+    var params=getParams(),isProduction=false,barParamName='bar',isFromBar=params[barParamName],userid=params["id"];
+
+    var shareInfo={
+        link:sitePath+"/html/share.html?shareid=",
+        imgUrl:sitePath+"/img/wx_share.jpg",
+        desc:'每个人的才华不止一面。全方位发展的黄晓明，等您来挑战！'
+    }
+    var app={};
+    var collectShareUrl=sitePath+"/index/captureshare";
+    var updateScoreUrl=sitePath+"/index/updatescore";
+    var rankListUrl=sitePath+"/index/ranking";
+    var jssdkURL=sitePath+"/wechat/jssdksign?url="+encodeURIComponent(window.location.href.split("#")[0]);
+    if(isFromBar){
+        app.rankListUrl+="?"+barParamName+"="+isFromBar;
+    }
+
+    function getParams(){
+        var search=window.location.search.slice(1),list=search.split("&"),length= 0,r={},temp;
+        for(var j= 0,l=list.length;j<l;j++){
+            temp=list[j].split("=");
+            list[j]={};
+            if(temp.length==2){r[temp[0]]=temp[1]
+            }
+        }
+        return r
+    }
+</script>
+
+<script>
+    function xhrRequest(){
+        var xmlHttp=null;
+        try{
+            xmlHttp=new XMLHttpRequest();
+        }
+        catch(e){
+            try {
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        }
+        return xmlHttp;
+    }
+    var xhr=xhrRequest();
+    var wechatCheckUrl=window.location.href.replace(/\/html\/game\.html.*/,"")+"/index";
+    xhr.open("GET",wechatCheckUrl,true);
+    xhr.onreadystatechange=function(){
+        if(xhr.status == 200&&xhr.readyState == 4 ){
+            var data=JSON.parse(xhr.responseText);
+            if(data.result==1){
+                //atuhed
+                shareInfo.link+=data.id;
+            }else{
+                //����Ȩ
+                window.location.href=data.url;
+            }
+        }
+    }
+    xhr.send(null);
+
+
+</script>
+<script id="ranklistTpl" type="text/html">
+    <%if(list.length==0){%>
+    <h2>暂无排行榜数据</h2>
+    <%}else{%>
+    <%for(var i= 0,l=list.length;i<l;i++){%>
+    <li>
+        <div class="rank-no"><%=i+1%>.</div><div class="nickname"><img src="<%=list[i].img%>"/><span>
+        <%=list[i].name%></span></div><div class="score"><%=list[i].total%></div>
+    </li>
+    <%}}%>
+</script>
+
+</body>
+</html>

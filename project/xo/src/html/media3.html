@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" id="eqMobileViewport" content="width=640,user-scalable=no" />
+    <style>
+        video{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<video src="../media/v5.mp4" width="600"  height=600 id="video" x-webkit-airplay='true' webkit-playsinline="true"></video>
+<button id='button' onclick="play()">play video</button>
+</body>
+<script>
+    var button=document.getElementById("button");
+    button.addEventListener("touchstart",function(){
+        document.getElementById("video").style.display='block'
+    })
+    button.addEventListener("touchend",function(){
+        document.getElementById("video").play();
+    })
+</script>
+</html>
