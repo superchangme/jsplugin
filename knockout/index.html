@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery-tmpl/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="knockout.js"></script>
+</head>
+<body>
+Choose a ticket class:
+<select data-bind="options: tickets,
+                       optionsCaption: 'Choose...',
+                       optionsText: 'name',
+                       value: chosenTicket">
+</select>
+</p>
+<button data-bind="click:changeName">我改</button>
+<p data-bind="template: 'ticketTemplate'">
+</p>
+<script id="ticketTemplate" type="text/x-jquery-tmpl">
+        {{if chosenTicket}}
+            You have chosen <b>${ chosenTicket().name }</b>
+            ($${ chosenTicket().price })
+            <button data-bind="click: resetTicket">Clear</button>
+        {{/if}}
+</script>
+<script type="text/javascript">
+
+       var viewModel = {
+           changeName:function(){
+               console.log(this.chosenTicket())
+               this.chosenTicket().name('hahaha')
+           },
+           tickets: [
+               { name: "Economy", price: 199.95 },
+               { name: "Business", price: 449.22 },
+               { name: "First Class", price: 1199.99 }
+           ],
+           chosenTicket: ko.observable( { name: "Economy", price: 199.95 }),
+           resetTicket: function () { this.chosenTicket(null) }
+       };
+       ko.applyBindings(viewModel);
+       viewModel.chosenTicket.subscribe(function (newValue) {
+           alert("The person's new name is " + newValue);
+       });
+       viewModel.formattedPrice = ko.dependentObservable({
+
+           read: function () {
+               return "$" + this.chosenTicket().price.toFixed(2);
+           },
+
+           write: function (value) {
+               // Strip out unwanted characters, parse as float, then write the raw data back to the underlying "price" observable
+               value = parseFloat(value.replace(/[^\.\d]/g, ""));
+               this.chosenTicket().price(isNaN(value) ? 0 : value); // Write to underlying storage
+           },
+           owner: viewModel
+       });
+       viewModel.fullName = function () {
+           return this.name + " " + this.price;
+       };
+</script>
+</body>
+</html>

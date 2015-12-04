@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" id="eqMobileViewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div style="background:#000;width:100%;height:200px;color:#fff;border-radius:5px;">
+    <div id="pointer" style="display:none;height:50px;width:50px;background:#fff;position:relative;border-radius:10px;-webkit-transition:all 0.1s ease-in;-moz-transition:all 0.1s ease-in">
+
+    </div>
+</div>
+<div id="test" style="font-size:12px;-webkit-text-size-adjust:none;margin:6px;"></div>
+<div id="log"></div>
+
+</body>
+<script src="uuid.js"></script>
+
+<script type='text/javascript' src='http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2'></script>
+<script src="fancywebsocket.js"></script>
+<script>
+    var Server;
+    var Ball={width:50,$dom:$("#pointer"),isInit:false,canMove:false,
+        init:function(){
+            this.canMove=true;
+            this.$dom.show();
+    }}
+    var User={uuid:Math.uuid()}
+    var Friend={uuid:""};
+    function Orientation(selector) {
+
+    }
+
+    Orientation.prototype.init = function(){
+        window.addEventListener('deviceorientation', this.orientationListener, false);
+        window.addEventListener('MozOrientation', this.orientationListener, false);
+        window.addEventListener('devicemotion', this.orientationListener, false);
+    }
+
+    Orientation.prototype.orientationListener = function(evt) {
+        var winWidth=window.innerWidth;
+        // For FF3.6+
+        if (!evt.gamma && !evt.beta) {
+            // angle=radian*180.0/PI 在firefox中x和y是弧度值,
+            evt.gamma = (evt.x * (180 / Math.PI)); //转换成角度值,
+            evt.beta = (evt.y * (180 / Math.PI)); //转换成角度值
+            evt.alpha = (evt.z * (180 / Math.PI)); //转换成角度值
+        }
+        /* beta:  -180..180 (rotation around x axis) */
+        /* gamma:  -90..90  (rotation around y axis) */
+        /* alpha:    0..360 (rotation around z axis) (-180..180) */
+
+        var gamma = evt.gamma
+        var beta = evt.beta
+        var alpha = evt.alpha
+
+        if(evt.accelerationIncludingGravity){
+            // window.removeEventListener('deviceorientation', this.orientationListener, false);
+            gamma = event.accelerationIncludingGravity.x*10
+            beta = -event.accelerationIncludingGravity.y*10
+            alpha = event.accelerationIncludingGravity.z*10
+        }
+
+
+
+        if (this._lastGamma != gamma || this._lastBeta != beta) {
+            document.querySelector("#test").innerHTML = "x: "+ beta.toFixed(2) + " y: " + gamma.toFixed(2) + " z: " + (alpha != null?alpha.toFixed(2):0)
+
+
+            var style = document.querySelector("#pointer").style;
+            style.left = gamma/90 * winWidth + 200 +"px";
+            style.top = beta/90 * 100 + 100 +"px";
+            if(Server&&Ball.canMove){
+                if(gamma/90 * winWidth + 200<0){
+                       send({"horizontalReach":"left","uuid":User.uuid});
+                    Ball.$dom.hide();
+                    Ball.canMove=false;
+                    Ball.horizontalReach="left";
+                 }else if(gamma/90 * winWidth + 200>winWidth-Ball.width){
+                    send({"horizontalReach":"right","uuid":User.uuid});
+                    Ball.$dom.hide();
+                    Ball.canMove=false;
+                    Ball.horizontalReach="right";
+                }else{
+                    //send({"horizontalReach":"","uuid":User.uuid});
+                    Ball.horizontalReach="";
+                }
+            }
+            this._lastGamma = gamma;
+            this._lastBeta = beta;
+        }
+    };
+    (new Orientation()).init();
+
+
+    function log( text ) {
+        $log = $('#log');
+        //Add text to log
+        $log.append(($log.val()?"\n":'')+text);
+        //Autoscroll
+        $log[0].scrollTop = $log[0].scrollHeight - $log[0].clientHeight;
+    }
+
+    function send( text ) {
+        if(typeof text=="object"){
+            text=JSON.stringify(text);
+        }
+        Server.send( 'message', text );
+    }
+
+    $(document).ready(function() {
+        var winWidth=window.innerWidth;
+
+        log('Connecting...');
+        Server = new FancyWebSocket('ws://10.4.1.76:9300');
+
+
+        //Let the user know we're connected
+        Server.bind('open', function() {
+            send({uuid:User.uuid})
+            log( "Connected." );
+        });
+
+        //OH NOES! Disconnection occurred.
+        Server.bind('close', function( data ) {
+            log( "Disconnected." );
+        });
+
+        setTimeout(function(){
+            if(Ball.isInit==false&&!Friend.uuid){
+                Ball.isInit=true;
+                Ball.init();
+            }
+        },2000)
+        //Log any messages sent from server
+        Server.bind('message', function( payload ) {
+           // log( payload );
+            if(payload.indexOf("{")==0){
+                var mess=JSON.parse(payload);
+
+                if(User.uuid==mess.uuid){
+                    return;
+                }
+                if(Friend.uuid){
+                    if(Friend.uuid!=mess.uuid){
+                        return;
+                    }
+                }else{
+                    Friend.uuid=mess.uuid
+                    send({uuid:User.uuid})
+                }
+
+              /*  if(mess.horizontalReach=="right"&&Ball.horizontalReach=="left"){
+                    console.log('碰撞了')
+                    Ball.horizontalReach=""
+                    send({"horizontalReach":"left","uuid":User.uuid});
+                     Ball.$dom.animate({"left":Math.min(winWidth-Ball.width,Math.random()*winWidth+200)},500);
+                }
+                if(mess.horizontalReach=="left"&&Ball.horizontalReach=="right"){
+                    console.log('碰撞了')
+                    Ball.horizontalReach=""
+                    send({"horizontalReach":"right","uuid":User.uuid});
+                    Ball.$dom.animate({"left":Math.max(0,winWidth/2)},500);
+                }*/
+                if(mess.horizontalReach=="right"){
+                    Ball.$dom.css("left",0);
+                    Ball.$dom.show();
+                    Ball.$dom.animate({"left":Math.max(0,winWidth/2)},500,function(){
+                        Ball.canMove=true;
+                    });
+                }
+                if(mess.horizontalReach=="left"){
+                    Ball.$dom.css("left",winWidth);
+                    Ball.$dom.show();
+                    Ball.$dom.animate({"left":Math.min(winWidth/2,Math.random()*winWidth+200)},500,function(){
+                        Ball.canMove=true;
+                    });
+                }
+            }else{
+                log( payload );
+
+            }
+
+
+        });
+
+        Server.connect();
+    });
+</script>
+</html>

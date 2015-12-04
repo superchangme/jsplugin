@@ -5,6 +5,13 @@
     <title></title>
 </head>
 <body>
-   <img src="wx_qrcode.jpg" width="300"/>
+   <img src="wx_qrcode.jpg" id='img' width="300"/>
+<canvas width="50" height="50" id="canvasMe"></canvas>
 </body>
+<script>
+setTimeout(function(){
+    ctx=canvasMe.getContext('2d');
+    ctx.drawImage(img,0,0,50,50)
+},200)
+</script>
 </html>

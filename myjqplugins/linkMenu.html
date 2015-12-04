@@ -1,0 +1,269 @@
+<style type="text/css">
+    ul,li {
+        margin: 0;
+        padding: 0;
+    }
+     .container{
+         width: 1000px;
+         margin: 0 auto;
+         position: relative;
+     }
+    .sub-menu-wrap{
+        position: absolute;
+        width: 100%;
+        display: none;
+        top: 0;
+        left: 0;
+        height: 500px;
+    }
+     .sub-menu{
+         position: absolute;
+     }
+     .demo-cnt{
+         height: 200px;
+     }
+   .demo-cnt li{
+       list-style: none;
+       display: inline-block;
+   }
+</style>
+<div class="container demo-cnt">
+    <nav class="top-menu" data-bind-menu="#subMenuList">
+        <ul >
+            <li class="current"><a href="/home.html" class="pjax " >首页</a></li><!--single-->
+            <li class=""><a href="/company-intro.html" data-sub="0" class="pjax"><span>关于我们</span></a></li>
+            <li><a href="/company-responsibility.html" data-sub="1" class="pjax"><span>品牌文化</span></a></li>
+            <li><a href="" data-sub="2" class="pjax"><span>我们的产品</span></a></li>
+            <li ><a href="" data-sub="3" class="pjax"><span>企业动态</span></a></li><!--single-->
+            <li class="single"><a href=""  class="pjax"><span>加入我们</span></a></li><!--single-->
+        </ul>
+    </nav>
+    <div  id="subMenuList" class="sub-menu-wrap">
+        <!--about us-->
+        <div class="sub-menu sb-0" >
+            <ul>
+                <li>
+                    <a href="" class="pjax">企业介绍</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">企业文化</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">企业社会责任</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">卓越成就</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">工业旅游基地</a>
+                </li>
+            </ul>
+        </div>
+        <!--品牌理念-->
+        <div class="sub-menu sb-1">
+            <ul>
+                <li>
+                    <a href="" class="pjax">品牌故事</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">品牌内涵</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">广告片</a>
+                </li>
+            </ul>
+        </div>
+        <!--我们的产品-->
+        <div class="sub-menu sb-2">
+            <ul>
+                <li>
+                    <a href="" class="pjax">精类系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">味精系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">酱油系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">调味汁系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">酱类系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">油品系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">香辛料系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">VIP组合系列</a>
+                </li>
+                <li>
+                    <a href="" class="pjax">新增系列</a>
+                </li>
+            </ul>
+        </div>
+        <!--企业动态-->
+        <div class="sub-menu sb-3">
+            <ul>
+                <li>
+                    <a href="" class="pjax">新闻中心</a>
+                </li>
+                <li>
+                    <a href="company-science.html" class="pjax">鲜味科普</a>
+                </li>
+                <li>
+                    <a href="news-health-list.html" class="pjax">营养健康</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script type="syntaxhighlighter" class="brush: xml;">
+<![CDATA[
+         <!--有一个外容器会更好-->
+         <div class="container demo-cnt">
+             <!--导航菜单-->
+             <nav class="top-menu" data-bind-menu="#subMenuList">
+                 <ul >
+                     <li class="current"><a href="/home.html" class="pjax " >首页</a></li><!--single-->
+                     <li class=""><a href="/company-intro.html" data-sub="0" class="pjax"><span>关于我们(我有更多需要加上data-sub属性)</span></a></li>
+                 </ul>
+             </nav>
+             <!--子菜单-->
+             <div class="sub-menu-wrap">
+                 <!--about us-->
+                 <div class="sub-menu sb-0" >
+                     <ul>
+                         <li>
+                             <a href="" class="pjax">企业介绍</a>
+                         </li>
+                         <li>
+                             <a href="" class="pjax">企业文化</a>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+         </div>
+     ]]>
+</script>
+
+<script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+
+<script>
+    $.fn.linkMenu=function(opts){
+        opts= $.extend({threshold:0,linkSelector:"a[data-sub]",subMenuClass:".sub-menu",position:true},opts)
+        $.fn.linkMenu.uid=0;
+        var threshold =0;//the interval of link-leave to menu-enter
+        var linkEvent=function(subMenuWrap,linkList,link,menu){
+            var self=this;
+            this.linkLeave = true;
+            this.menuLeave = true;
+            this.link = $(link).bind("leave:check",function(){
+                setTimeout(function(){
+                    if(self.linkLeave==true&&self.menuLeave==true){
+                        self.hide();
+                    }
+                },opts.threshold);//100ms内
+            });
+            this.menu = $(menu);
+            this.state = 0;//
+            this.reset = function(){
+                this.linkLeave = true;
+                this.menuLeave = true;
+                this.state = 0;
+            }
+            this.hide = function(){
+                if(self.state) {
+                    self.link.removeClass("linkMenu-hover");
+                    self.menu.hide();
+                    self.reset();
+                    if(linkList.filter(".linkMenu-hover").length==0){
+                        subMenuWrap.css("display", "none");
+                    }
+                }
+            }
+            this.show = function(){
+                if(!self.state){
+                    subMenuWrap.css("display","block");
+                    self.link.addClass("linkMenu-hover");
+                    self.menu.show().siblings().hide();
+                    self.state=1;
+                }
+            }
+        }
+
+
+        function menuController(event){
+            if(event.data.el.indexOf("link")>-1){
+                var linkEvent = $(this).data("linkEvent");
+            }else{
+                var linkEvent = $($(this).data("link")).data("linkEvent");
+            }
+            switch(event.data.el){
+                case "link-enter":
+                    linkEvent.linkLeave=false;
+                    break;
+                case "link-leave":
+                    linkEvent.linkLeave=true;
+                    break;
+                case "menu-enter":
+                    linkEvent.menuLeave=false;
+                    break;
+                case "menu-leave":
+                    linkEvent.menuLeave=true;
+                    break;
+            }
+            linkEvent.link.trigger("leave:check");
+            if(event.data.el=="link-enter"){
+                linkEvent.show();
+            }
+        }
+        return this.each(function(){
+           var $linkList=$(this).find(opts.linkSelector).prop("link-menu-pid",++$.fn.linkMenu);
+            var subMenuWrap=$($(this).data("bind-menu"));
+            var subMenuList=subMenuWrap.find(opts.subMenuClass);
+            if(opts.position){
+                subMenuWrap.css({top:$(this).outerHeight()});
+            }
+            $linkList.each(function(){
+
+                var menu=subMenuList.eq($(this).data("sub")).data("link",this),
+                        pos=$(this).position(),width =$(this).outerWidth(),right=45;
+                if(opts.position){
+                    menu.css({"left":pos.left,width:width+right});
+                }
+                //初始化位置
+                $(this).data("linkEvent",new linkEvent(subMenuWrap,$linkList,this,menu));
+            });
+            $(this).on("mouseover",opts.linkSelector,{el:"link-enter"},menuController)
+                    .on("mouseleave",opts.linkSelector,{el:"link-leave"},menuController);
+            subMenuWrap.on("mouseenter",opts.subMenuClass,{el:"menu-enter"},menuController)
+                    .on("mouseleave",opts.subMenuClass,{el:"menu-leave"},menuController);
+        })
+    }
+
+    //调用方式 threshold：延迟消失时间  position:是否自动定位
+    //dom书写方式
+    //menu-class : .top-menu 绑定 data-bind-menu:"#subMenuList"
+    //基本dom结构
+    //
+
+    $(".top-menu").linkMenu({threshold:100,position:true});
+
+</script>
+<script type="text/javascript" src="../bower_components/SyntaxHighlighter/scripts/XRegExp.js"></script>
+<script type="text/javascript" src="../bower_components/SyntaxHighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="../bower_components/SyntaxHighlighter/scripts/shAutoloader.js"></script>
+<script>
+    SyntaxHighlighter.autoloader(
+            'xml xhtml xslt html	../bower_components/SyntaxHighlighter/scripts/shBrushXml.js'
+    );
+    SyntaxHighlighter.all();
+
+</script>
+<link type="text/css" rel="stylesheet" href="../bower_components/SyntaxHighlighter/styles/shCore.css"/>
+<link type="text/css" rel="stylesheet" href="../bower_components/SyntaxHighlighter/styles/shThemeDefault.css"/>

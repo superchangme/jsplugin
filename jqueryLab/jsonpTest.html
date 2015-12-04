@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+         <form target="hahah" action="http://127.0.0.1/tom/wechat_tongji/capture.php" method="post">
+                      <input value="" name="jsonFile"/>
+             <button type="submit">haha</button>
+         </form>
+<iframe id="hahah" name="hahah"></iframe>
+</body>
+<script type='text/javascript' src='http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2'></script>
+
+<script>
+    function WorkList(){
+        var workList=[]
+        var self=this;
+        this.debug=false;
+        this.addWork=function(cb){
+            var work= $.Deferred(),prevWork=workList[workList.length-1];
+            work.index=workList.push(work)-1;
+            work.addTime=+new Date
+            if(prevWork&&prevWork.state!='resolved'){
+                prevWork.done(function(){
+                    if(self.debug){
+                        console.log(prevWork.index,+new Date-prevWork.addTime);
+                    }
+                    cb.call(null,work)
+                })
+            }else{
+                cb.call(null,work)
+            }
+            return work;
+        }
+    }
+    var workList=new WorkList;
+    var  data=[1,2,3,4,5,6]
+    data.forEach(function(item,index){
+      //  item.messImg.forEach(function(item,index){
+            workList.addWork(function(work){
+                setTimeout(function(){
+                    console.log(index,item)
+                    work.resolve();
+                },Math.random())
+            });
+        })
+   // })
+
+    //workList.debug=true;
+    $.ajax({
+        dataType:"jsonp",
+        jsonp:"jsoncallback",
+        data:"getJson=1",
+       url:"http://127.0.0.1/tom/wechat_tongji/capture.php",
+        success:function(data){
+               console.log(data);
+            data.forEach(function(item){
+                item.messImg.forEach(function(src,index){
+                    workList.addWork(function(work){
+                        var img=document.createElement("img");
+                        img.width=0;
+                        img.onload=upload;
+                        img.onerror=upload.bind(null,true)
+                        function upload(){
+                            setTimeout(function(){
+                                console.log(src)
+                                work.resolve();
+                            },Math.random())
+                        }
+                        img.src=src;
+                    });
+                })
+            })
+        }
+    })
+
+    var hasData,collectionData;
+    $.ajax({
+        aysnc:false,
+        url:"http://127.0.0.1/tom/wechat_tongji/capture.php",
+        dataType:"jsonp",
+        jsonp:"jsoncallback",
+        data:"getJson=true",
+        success:function(data){
+            if(!data){
+                hasData=data;
+            }else{
+                hasData=false;
+            }
+        }
+    })
+
+</script>
+</html>
