@@ -854,7 +854,6 @@ init_wx_jsapi(jssdkURL,function(config){
     config.debug=false;
     wx.config(config);
     wx.ready(function(){
-
     });
 });
 //
@@ -1308,17 +1307,36 @@ webpsupport(function (webpa) {
         console.log(loadedTimes)
         if(loadedTimes==3){
             setTimeout(function(){
+                var $hePage=$(".he-page");
                $('.loading').addClass("out");
-                $('.screen').eq(0).addClass("active")
+                if($hePage.length){
+                    $hePage.addClass("in")
+                    setTimeout(function(){
+                        $('.screen').eq(0).addClass("active")
+                        $(document.documentElement).addClass("auto")
+                        $hePage.removeClass("in");
+                        setTimeout(function(){
+                            $('.screen').eq(0).addClass('in');
+                        },800)
+                        app.currentScreen=app.screens.startScreen
+                        app.init();
+                        Game.init();
+                        indexInit();
+                        document.body.scrollTop=0;
+                    },3600)
+                }else{
+                    $('.screen').eq(0).addClass("active")
                     $(document.documentElement).addClass("auto")
-                setTimeout(function(){
-                    $('.screen').eq(0).addClass('in');
-                },350)
-                app.currentScreen=app.screens.startScreen
-                app.init();
-                Game.init();
-                indexInit();
-                document.body.scrollTop=0;
+                    setTimeout(function(){
+                        $('.screen').eq(0).addClass('in');
+                    },350)
+                    app.currentScreen=app.screens.startScreen
+                    app.init();
+                    Game.init();
+                    indexInit();
+                    document.body.scrollTop=0;
+                }
+
             },500)
             $("img[lazyload]").each(function(){
                 $(this).prop("src",$(this).data("src"));
