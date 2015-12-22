@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+	<meta charset="UTF-8">
+    <title>送礼精选-徐福记</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script type="application/javascript">
+        var scaleFactor=localStorage.getItem("pageScale");
+        if(scaleFactor&&scaleFactor<1&&scaleFactor>0.3){
+            document.write('<meta name="viewport" id="eqMobileViewport" content="initial-scale='+scaleFactor+',maximum-scale='+scaleFactor+',user-scalable=no" />')
+        }else{
+            localStorage.removeItem("pageScale");
+            scaleFactor=null;
+            document.write('<meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />');
+        }
+    </script>
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="Pragma">
+    <style>
+        *{
+            margin: 0;
+        box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            background-color: #d82823;
+        }
+        body{
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .loading{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 99999;
+            background:  #cb271f;
+            background-size: cover;
+        }
+        .loading.fade{
+            opacity: 0;
+            transition:1s;
+            -webkit-transition:1s;
+        }
+        .load_inner{
+            position: relative;
+            width: 100%;
+        }
+        .loading-num{
+            position: absolute;
+            left: 50%;
+            transform:translate3d(-50%,0,0);
+            -webkit-transform:translate3d(-50%,0,0);
+            top: 140px;
+            text-align: left;
+            color: white;
+            font-size: 28px;
+            white-space: nowrap;
+        }
+        .load_wrapper{
+            position: absolute;
+            width: 100%;
+            top:50%;
+            left:50%;
+            -webkit-transform:translate3d(-50%,-50%,0);
+            transform:translate3d(-50%,-50%,0);
+        }
+         .loading-num img{
+               vertical-align: middle;
+             margin-right: 5px;;
+         }
+        .cover-page2{
+            z-index: 888;
+            height: 180px!important;
+        }
+        #bottomFrame{
+            top:auto;
+            bottom:-10px;
+            height: 0;
+            z-index: 886;
+        }
+        .loading-logo{
+             background: url(../img/logo.png) no-repeat;
+            width: 135px;
+            height: 134px;
+            margin: 0 auto;
+            animation:flipInX 1s infinite;
+            -webkit-animation:flipInX 3s infinite;
+            -webkit-backface-visibility: visible;
+            backface-visibility: visible;
+        }
+        @-webkit-keyframes flipInX {
+            40% {
+                -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+                transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+                -webkit-transition-timing-function: ease-in;
+                transition-timing-function: ease-in;
+            }
+
+            60% {
+                -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+                transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+                opacity: 1;
+            }
+
+            80% {
+                -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+                transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            }
+
+            100% {
+                -webkit-transform: perspective(400px);
+                transform: perspective(400px);
+            }
+        }
+
+        @keyframes flipInX {
+
+            40% {
+                -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+                transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+                -webkit-transition-timing-function: ease-in;
+                transition-timing-function: ease-in;
+            }
+
+            60% {
+                -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+                transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+                opacity: 1;
+            }
+
+            80% {
+                -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+                transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            }
+
+            100% {
+                -webkit-transform: perspective(400px);
+                transform: perspective(400px);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<img src="../img/wx_share.jpg" style="display: none"/>
+<!--loading页-->
+<div class="loading">
+        <div class="load_wrapper">
+          <div class="load_inner" id="loadInner">
+              <div class="loading-logo"></div>
+              <div class="loading-num"><span id="loadPer"> 0%</span></div>
+          </div>
+        </div>
+</div>
+  <div class="frame" id="leafContainer"></div>
+<div class="swiper-container frame" id="pagesContainer">
+    <div class="frame hidden" id="coverPage">
+        <div class="content-bg">
+
+        </div>
+    </div>
+    <div class="cover-page2 frame" >
+        <div class="logo" id="logo"></div>
+        <div  id="musicPlayBtn">
+            <a class="music-btn  btn on"></a>
+        </div>
+    </div>
+    <div class="frame " id="bottomFrame">
+
+        <div class="bt-box ">
+            <div class="bt-frames" data-prefix="bt_">
+            </div>
+            <div class="bt-bt"></div>
+        </div>
+        <div class="arrow-slideup"><i></i></div>
+    </div>
+    <div class="swiper-wrapper" id="pageSwiper">
+        <div class="swiper-slide page page1">
+            <div class="flower1 abs">
+
+            </div>
+            <div class="top-banger abs">
+                       <div class="item1"></div>
+                <div class="item2"></div>
+                <div class="item3"></div>
+            </div>
+            <div class="top-banger abs top-banger2">
+                <div class="item1"></div>
+                <div class="item2"></div>
+                <div class="item3"></div>
+            </div>
+            <div class="text abs giftshow">
+
+            </div>
+            <div class="banger-box abs">
+                <ul class="gift-list ">
+                    <li class="item1"><div class="frame"></div></li>
+                    <li class="item2"><div class="frame"></div></li>
+                    <li class="item3"><div class="frame"></div></li>
+                    <li class="item4"><div class="frame"></div></li>
+                    <li class="item5"><div class="frame"></div></li>
+                    <li class="item6"><div class="frame"></div></li>
+                </ul>
+                <div class="spring-banger abs">
+                        <div class="flame-box">
+                            <div class="flame1"></div>
+                            <div class="flame2"></div>
+                            <div class="flames flames1"></div>
+                            <div class="flames flames2"></div>
+                        </div>
+                </div>
+                <div class="spring-gift abs"></div>
+            </div>
+            <div class="flower2 abs"></div>
+            <div class="flower3 abs"></div>
+        </div>
+        <div class="swiper-slide page page3 page31">
+            <div class="gift-frames-box">
+                <div class="bg"><div class="frame"></div></div>
+                <div class="gift-frames frame"></div>
+            </div>
+
+            <div class="content-box">
+                <div class="slide-tips">
+                    <div class="hand"></div>
+                </div>
+                <div class="title"></div>
+                <div class="swiper-container"  style="height: 700px">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <ul class="item-list">
+                                <li class="w50"><a class="btn" onclick="openModal(0)">
+                                    <div class="item-box">
+                                        <img src="../img/p3_item1.png"/>
+                                    </div>
+                                    <div class="pd-text">(平装沙琪玛)礼箱装</div>
+                                    <div class="see-pd"></div>
+                                </a></li>
+                                <li class="w50"><a class="btn" onclick="openModal(1)">
+                                    <div class="item-box">
+                                        <img src="../img/p3_item2.png"/>
+                                    </div>
+                                    <div class="pd-text">糖醇沙琪玛礼箱</div>
+                                    <div class="see-pd"></div>
+                                </a></li>
+                                <li class="w50"><a class="btn" onclick="openModal(2)">
+                                    <div class="item-box">
+                                        <img src="../img/p3_item3.png"/>
+                                    </div>
+                                    <div class="pd-text">磨堡蛋糕彩箱</div>
+                                    <div class="see-pd"></div>
+                                </a></li>
+                                <li class="w50"><a class="btn" onclick="openModal(3)">
+                                    <div class="item-box">
+                                        <img src="../img/p3_item4.png"/>
+                                    </div>
+                                    <div class="pd-text">综合味卷心酥彩箱</div>
+                                    <div class="see-pd"></div>
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide page page3 page32">
+            <div class="content-box">
+                <div class="slide-tips">
+                    <div class="hand"></div>
+                </div>
+                <div class="title"></div>
+                <div class="swiper-container"  style="height: 700px">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><ul class="item-list">
+                            <li class="w50"><a class="btn" onclick="openModal(4)">
+                                <div class="item-box">
+                                    <img src="../img/p3_item5.png"/>
+                                </div>
+                                <div class="pd-text">岩板烧饼点礼盒</div>
+                                <div class="see-pd"></div>
+                            </a></li>
+                            <li class="w50"><a class="btn" onclick="openModal(5)">
+                                <div class="item-box">
+                                    <img src="../img/p3_item6.png"/>
+                                </div>
+                                <div class="pd-text">麦谷乐</div>
+                                <div class="see-pd"></div>
+                            </a></li>
+                            <li class="w50"><a class="btn" onclick="openModal(6)">
+                                <div class="item-box">
+                                    <img src="../img/p3_item7.png"/>
+                                </div>
+                                <div class="pd-text">饼点大礼盒</div>
+                                <div class="see-pd"></div>
+                            </a></li>
+                            <li class="w50"><a class="btn" onclick="openModal(7)">
+                                <div class="item-box extra-item">
+                                    <img src="../img/p3_item8.png"/>
+                                </div>
+                                <div class="pd-text">饼点大礼包</div>
+                                <div class="see-pd"></div>
+                            </a></li>
+                        </ul></div>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide page page2">
+            <div class="content-box">
+                <div class="time"></div>
+                <div class="address"></div>
+                 <div class="map">
+                     <div class="frame map-inner">
+                         <ul class="frame">
+                             <li class="xian"></li>
+                             <li class="kunming"></li>
+                             <li class="changshan"></li>
+                             <li  class="foshan"></li>
+                             <li class="guangzhou"></li>
+                             <li  class="wuhan"></li>
+                             <li  class="hefei"></li>
+                             <li  class="nanjing"></li>
+
+                         </ul>
+                     </div>
+                 </div>
+                <ul class="address-list">
+                    <li><label><i class="f"></i>广州</label>
+                    <div class="dt">
+                        太和兴和批市、东旺食品<br/>批市、
+                        新中南五金批市
+                    </div></li>
+                    <li><label><i class="f"></i>佛山</label>
+                        <div class="dt">
+                            佛山综合批市、大沥批市
+                        </div></li>
+                    <li><label><i class="f"></i>昆明</label>
+                        <div class="dt">
+                            新广丰批市
+                        </div></li>
+                    <li><label><i class="f"></i>西安</label>
+                        <div class="dt">
+                            丰庆路批市
+                        </div></li>
+                    <li><label><i class="f"></i>长沙</label>
+                        <div class="dt">
+                            高桥批市
+                        </div></li>
+                    <li><label><i class="f"></i>南京</label>
+                        <div class="dt">
+                           众彩物流
+                        </div></li>
+                    <li><label><i class="f"></i>合肥</label>
+                        <div class="dt">
+                           长江批发市场
+                        </div></li>
+                    <li><label><i class="f"></i>武汉</label>
+                        <div class="dt">
+                            汉正街批发
+                        </div></li>
+                </ul>
+            </div>
+        </div>
+        <div class="swiper-slide page page2 page22">
+            <div class="content-box">
+                <div class="p22-title"></div>
+                <ul class="role-list">
+                    <li>
+                        <div class="classtd">一次性购买20盒(或袋)<span class="highlight zeng-frame">送1</span>盒(平沙沙琪玛)糖醇礼箱</div>
+                    </li>
+                    <li>
+                        <div class="classtd">一次性购买60盒(或袋)<span class="highlight zeng-frame">送5</span>盒(平沙沙琪玛)糖醇礼箱</div>
+                    </li>
+                    <li>
+                        <div class="classtd">一次性购买100盒(或袋)<span class="highlight zeng-frame">送10</span>盒(平沙沙琪玛)糖醇礼箱</div>
+                    </li>
+                </ul>
+                <div class="glow-box zeng-frame">
+                    <div class="bg"></div>
+                    <img src="../img/saqima.png"/>
+                </div>
+                <p class="tip">
+                    任意购买1盒，赠送玻璃糖罐1个<br/>
+                    （赠品有限，送完即止）
+                </p>
+                <div class="bottle"></div>
+            </div>
+
+        </div>
+        <div class="swiper-slide page page2 page23">
+            <div class="content-box">
+            <div class="p23-title"></div>
+            <ul class="pd-list">
+                <li>
+                    <div class="ico-lantern">1</div>
+                    <span>果仁曲奇</span>
+                    <div class="img-box">
+                        <img src="../img/chi_1.png">
+                    </div>
+                </li>
+                <li>
+                    <div class="ico-lantern">2</div>
+                    <span>布格蛋糕</span>
+                    <div class="img-box">
+
+                    <img src="../img/chi_2.png">
+                        </div>
+                </li>
+                <li>
+                <div class="ico-lantern">3</div>
+                <span>麦谷力
+
+</span>
+                    <div class="img-box">
+
+                    <img src="../img/chi_3.png">
+                        </div>
+            </li>
+                <li>
+                    <div class="ico-lantern">4</div>
+                    <span>朱古力豆
+
+</span>
+                    <div class="img-box">
+
+                    <img src="../img/chi_4.png">
+                        </div>
+                </li>
+                <li>
+                    <div class="ico-lantern">5</div>
+                    <span>糖醇沙琪玛
+</span>
+                    <div class="img-box">
+
+                    <img src="../img/chi_5.png">
+                        </div>
+                </li>
+            </ul>
+        </div>
+
+        </div>
+
+
+        <div class="swiper-slide page page4">
+            <div class="text"></div>
+            <div class="cloud-box">
+                <div class="cloud1"></div>
+                <div class="cloud2"></div>
+                <div class="cloud3"></div>
+            </div>
+            <div class="monkey">
+                <div class="bg"><div class="frame"></div></div>
+
+                <div class="frame monkey-frame"></div>
+                <div class="wukong"></div>
+            </div>
+            <a class="btn btn-share"></a>
+        </div>
+    </div>
+</div>
+<div id="pdModal" class="modal frame">
+   <div class="modal-wrap">
+       <a  class='btn' id="modalCloseBtn"></a>
+       <div class="modal-content">
+           <div class="modal-body">
+               <div  id="modalCnt">
+               </div>
+               <a class="btn btn-share" id="shareBtn"></a>
+           </div>
+       </div>
+   </div>
+</div>
+<div class="sharePage">
+    <div class="shareTip"></div>
+</div>
+<script id="modalItemTpl" type="text/template">
+    <div class="pd-column">
+        <img src="../img/item_text<%=item.serial%>.png"/>
+    </div>
+<div class="pd-detail-box">
+    <div class="img-box <%if(item.serial==8){%>extra<%}%>"><img src="<%=item.imgSrc%>"/></div>
+    <div class="pd-text">
+        <%=item.title%>
+    </div>
+    <div class="detail-box">
+        <div class="features">
+            <%for(var i= 0,l=item.features.length;i<l;i++){%>
+            <span class="inline"><%=item.features[i]%></span>
+            <%}%>
+        </div>
+        <div class="pd-detail">
+            <div><span>规格：</span><%=item.size%></div>
+            <div class="clearfix"><span class="pull-left">内容物：</span><span class="classtd"><%=item.content%></span></div>
+            <div><span>建议零售价：</span><%=item.prize%></div>
+        </div>
+    </div>
+</div>
+</script>
+<script >
+/*    window.onerror=function(err){
+        alert(err)
+    }*/
+document.addEventListener("touchmove",function(e){
+    e.preventDefault();
+})
+    var basePath="../";
+
+
+    var uploadUrl="http://10.4.1.76/temp/bluebird/index/index";
+    var collectShareUrl="../php/main.php?a=share";
+    var visitUrl='../php/main.php?a=visit'
+    var app={
+    }
+    var shareInfo={
+        title:'徐福记传统渠道路演',
+        link:"http://yadi-ad.cn/projects/hfcroadshow/html",
+        imgUrl:location.href.replace("html/h5.html","img/wx_share.jpg"),
+        desc:'洋洋喜气迎新年，福禄寿星进门来'
+    }
+    var jssdkURL="../php/main.php?a=wechatsign&url="+encodeURIComponent(window.location.href.split("#")[0]);
+
+</script>
+
+<!--<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>-->
+<!--<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
+<!-- build:js ../js/lib.js -->
+<!--<script type="text/javascript" src="../js/zepto.min.js"></script>
+<script type="text/javascript" src="../js/zepto.fx.js"></script>
+<script type="text/javascript" src="../js/zepto.data.js"></script>
+<script type="text/javascript" src="../js/fastclick.js"></script>
+<script  type="text/javascript" src="../js/getWXSDK.js"></script>
+<script src="../js/swiper-3.2.7.min.js"></script>
+<script src="../js/swiper.animate.min.js"></script>
+<script  type="text/javascript"  src="../js/other.js"></script>-->
+
+<!-- endbuild -->
+<!--<script  type="text/javascript"  src="../js/main.js"></script>-->
+<script>
+    function addWinLoadFc(loadFc){
+        if(window.onload){
+            var oldFc=window.onload;
+            window.onload=function(){
+                oldFc();
+                loadFc();
+            }
+        }else{
+            window.onload=loadFc;
+        }
+    }
+    var loadedTimes=0;
+
+    var products=[
+        {
+            tribute:" 旗开得胜",
+            title:"(平装沙琪玛)礼箱装(蛋酥)",
+            features:["新鲜材料",'美味口感','全家分享'],
+            size:"1.68KG*1箱",
+            content:"蛋酥味沙琪玛",
+            prizeO:"",
+            prize:"59元"
+        }  , {
+            tribute:"双喜临门",
+            title:"糖醇沙琪玛礼箱",
+            features:["降低糖分","养生食材","送礼佳品"],
+            size:"880G*4箱",
+            content:"混合口味，且配透明内袋（枸杞红枣+老姜原味）",
+            prizeO:"",
+            prize:"39.9元"
+        }
+        , {
+            tribute:"步步高升",
+            title:"磨堡蛋糕彩箱",
+            features:["用料上乘","真材实料","口感美味"],
+            size:"800G/盒*4小箱",
+            content:"布格蛋糕",
+            prizeO:"",
+            prize:"55元"
+        }
+        , {
+            tribute:"财源滚滚",
+            title:"综合味卷心酥彩箱",
+            features:["两种口味","酥脆外皮","醇滑内心"],
+            size:"（105G*9包）*1盒/箱",
+            content:"105草莓味5包，<br/>105奶油味4包",
+            prizeO:"",
+            prize:"55元"
+        }  , {
+            tribute:"红红火火",
+            title:"岩板烧饼点礼盒",
+            features:["畅销饼点","酥脆可口","百吃不厌"],
+            size:"400克/盒，每箱8盒",
+            content:"小丸煎饼(黑芝麻)、<br/>胡麻煎卷等5种特色饼点",
+            prizeO:"",
+            prize:"35元"
+        }  , {
+            title:"麦谷乐",
+            tribute:"五谷丰登",
+            features:["特色饼点","多重口味","精致包装"],
+            size:"400克/盒，每箱8盒",
+            content:"麦古力、燕麦卷<br/>等八种特色饼点",
+            prizeO:"",
+            prize:"35元"
+        },
+        {
+            tribute:"合家欢乐",
+            title:"饼点大礼盒",
+            features:["传统工艺 ","八种精选","包装喜庆"],
+            size:"550克/盒，每箱3盒",
+            content:"芝麻煎卷、小丸煎饼<br/>(黑芝麻)等8种特色饼点",
+            prizeO:"",
+            prize:"39.9元"
+        },{
+            title:"饼点大礼包",
+            tribute:"八星报喜",
+            features:["传统工艺 ","八种精选","包装喜庆"],
+            size:"550克/包，每箱12包",
+            content:"芝麻煎卷、小丸煎饼<br/>(黑芝麻)等8种特色饼点",
+            prizeO:"",
+            prize:"39.9元"
+        }
+    ]
+    //预加载loading函数
+    function loadFramesFun() {
+        var allFrames = [    '../img/arrow_up.png',
+            '../img/bian1.png',
+            '../img/item_bg.png',
+            '../img/bian2.png',
+            '../img/bian3.png',
+            '../img/btn_close.png',
+            '../img/btn_see_pd.png',
+            '../img/btn_share.png',
+            '../img/bt_bt.png',
+            '../img/bt_frames/bt_1.png',
+//            '../img/chi_1.png',
+//            '../img/chi_2.png',
+//            '../img/chi_3.png',
+//            '../img/chi_4.png',
+//            '../img/chi_5.png',
+            '../img/cloud1.png',
+            '../img/cloud2.png',
+            '../img/cloud3.png',
+            '../img/gg_frames/gg_1.png',
+            '../img/gg_frames/gg_10.png',
+            '../img/gg_frames/gg_2.png',
+            '../img/gg_frames/gg_3.png',
+            '../img/gg_frames/gg_4.png',
+            '../img/gg_frames/gg_5.png',
+            '../img/gg_frames/gg_6.png',
+            '../img/gg_frames/gg_7.png',
+            '../img/gg_frames/gg_8.png',
+            '../img/gg_frames/gg_9.png',
+            '../img/gift1.png',
+            '../img/gift2.png',
+            '../img/gift3.png',
+            '../img/gift4.png',
+            '../img/gift5.png',
+            '../img/gift6.png',
+            '../img/glow.png',
+            '../img/h5_bg.jpg',
+            '../img/item_ico.png',
+            '../img/item_text1.png',
+            '../img/item_text2.png',
+            '../img/item_text3.png',
+            '../img/item_text4.png',
+            '../img/item_text5.png',
+            '../img/item_text6.png',
+            '../img/item_text7.png',
+            '../img/item_text8.png',
+            '../img/liuliping.png',
+            '../img/logo.png',
+//            '../img/modal_bg.png',
+            '../img/modl_item_bg.png',
+//            '../img/monkey_frame1.png',
+            '../img/p1_anim_firecracker.png',
+            '../img/p1_big_gift.png',
+            '../img/p1_firecracker.png',
+            '../img/p1_flame1.png',
+            '../img/p1_flame2.png',
+            '../img/p1_flames.png',
+            '../img/p1_flower1.png',
+            '../img/p1_flower2.png',
+            '../img/p1_flower3.png',
+            '../img/p1_text.png',
+            '../img/p22_title.png',
+            '../img/p23_title.png',
+            '../img/p2_address.png',
+            '../img/p2_box_bg.png',
+            '../img/p2_flower.png',
+            '../img/p2_label.png',
+            '../img/p2_map.png',
+            '../img/p2_point.png',
+            '../img/p2_text.png',
+            '../img/p2_time.png',
+            '../img/p3_item1.png',
+            '../img/p3_item2.png',
+            '../img/p3_item3.png',
+            '../img/p3_item4.png',
+            '../img/p3_item5.png',
+            '../img/p3_item6.png',
+            '../img/p3_item7.png',
+            '../img/p3_item8.png',
+            '../img/p3_item_bg.png',
+            '../img/p3_map.png',
+            '../img/p3_map_mask.png',
+            '../img/p3_title.png',
+            '../img/p4_text.png',
+            '../img/pd_column.png',
+            '../img/pd_feature.png',
+            '../img/saqima.png',
+            '../img/shareTip.png',
+            '../img/sun_shine.png',
+            '../img/wukong.png',
+            '../img/wx_share.jpg'
+        ];
+        var loaded = 0;
+        var isloaded=false;
+        var loadedLen=0
+        var $loadPer=document.getElementById("loadPer");
+        var imgPer = 100/allFrames.length;
+        for (var i = 0, j = allFrames.length; i < j; i++) {
+            var img = new Image;
+            img.onload = update;
+            img.src = allFrames[i];
+        }
+        function update() {
+            loadedLen++;
+            loaded = Math.min(100, (imgPer + loaded));
+            $loadPer.innerHTML=Math.floor(loaded)+"%";
+            console.log(loaded)
+            if(loadedLen==allFrames.length){
+                //initStage();
+                $loadPer.innerHTML="100%";
+                loadedTimes++;
+                checkLoaded();
+            }
+        }
+    }
+     var bottomImgArr=[
+         '../img/bt_frames/bt_10.png',
+         '../img/bt_frames/bt_11.png',
+         '../img/bt_frames/bt_12.png',
+         '../img/bt_frames/bt_13.png',
+         '../img/bt_frames/bt_14.png',
+         '../img/bt_frames/bt_15.png',
+         '../img/bt_frames/bt_16.png',
+         '../img/bt_frames/bt_17.png',
+         '../img/bt_frames/bt_18.png',
+         '../img/bt_frames/bt_19.png',
+         '../img/bt_frames/bt_2.png',
+         '../img/bt_frames/bt_20.png',
+         '../img/bt_frames/bt_21.png',
+         '../img/bt_frames/bt_22.png',
+         '../img/bt_frames/bt_23.png',
+         '../img/bt_frames/bt_24.png',
+         '../img/bt_frames/bt_25.png',
+         '../img/bt_frames/bt_26.png',
+         '../img/bt_frames/bt_27.png',
+         '../img/bt_frames/bt_28.png',
+         '../img/bt_frames/bt_29.png',
+         '../img/bt_frames/bt_3.png',
+         '../img/bt_frames/bt_30.png',
+         '../img/bt_frames/bt_31.png',
+         '../img/bt_frames/bt_32.png',
+         '../img/bt_frames/bt_33.png',
+         '../img/bt_frames/bt_34.png',
+         '../img/bt_frames/bt_35.png',
+         '../img/bt_frames/bt_36.png',
+         '../img/bt_frames/bt_37.png',
+         '../img/bt_frames/bt_38.png',
+         '../img/bt_frames/bt_39.png',
+         '../img/bt_frames/bt_4.png',
+         '../img/bt_frames/bt_40.png',
+         '../img/bt_frames/bt_41.png',
+         '../img/bt_frames/bt_42.png',
+         '../img/bt_frames/bt_43.png',
+         '../img/bt_frames/bt_44.png',
+         '../img/bt_frames/bt_45.png',
+         '../img/bt_frames/bt_46.png',
+         '../img/bt_frames/bt_47.png',
+         '../img/bt_frames/bt_48.png',
+         '../img/bt_frames/bt_49.png',
+         '../img/bt_frames/bt_5.png',
+         '../img/bt_frames/bt_50.png',
+         '../img/bt_frames/bt_51.png',
+         '../img/bt_frames/bt_52.png',
+         '../img/bt_frames/bt_6.png',
+         '../img/bt_frames/bt_7.png',
+         '../img/bt_frames/bt_8.png',
+         '../img/bt_frames/bt_9.png']
+//    initStage();
+
+    function checkLoaded() {
+        if(loadedTimes==5){
+            $(".loading").addClass("fade")
+            setTimeout(function(){
+                $(".loading").remove();
+            },1000)
+            h5Init();
+            var     loadedLen=0
+            for (var i = 0, j = bottomImgArr.length; i < j; i++) {
+                var img = new Image;
+                img.onload = updateB;
+                img.src = bottomImgArr[i];
+            }
+            function updateB() {
+                loadedLen++;
+                if(loadedLen==bottomImgArr.length){
+                    //initStage();
+                    pagesBtFrame[0].start();
+                }
+            }
+        }
+    }
+
+    function loadScript(src,cb){
+        var script=document.createElement("script");
+        script.src= src;
+        script.type = "text/javascript";
+        script.onload=function(){
+            loadedTimes++;
+            if(cb)cb();
+        }
+        document.head.appendChild(script)
+    }
+    window.onload=function(){
+        //预加载load图
+        loadFramesFun();
+        var layzBox=document.getElementById("layzBox");
+        var link=document.createElement("link");
+        link.href= "../css/style-promo.css";
+        link.rel = "stylesheet";
+        document.head.appendChild(link);
+        link.onload=function(){
+            loadedTimes++;
+            checkLoaded();
+        }
+        loadScript("http://res.wx.qq.com/open/js/jweixin-1.0.0.js",
+//                loadScript("../js/wx.js",
+                        function(){
+                checkLoaded();
+                loadScript("../js/lib.js",function(){
+                    checkLoaded();
+                    loadScript("../js/main.js",function(){
+                        checkLoaded();
+                    })
+                })
+        })
+    }
+</script>
+<div id="layzBox"></div>
+<div style="display: none">
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?e4de0849a78b0dda704993da06931a35";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+</div>
+</body>
+</html>

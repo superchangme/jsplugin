@@ -1309,9 +1309,10 @@ webpsupport(function (webpa) {
             setTimeout(function(){
                 var $hePage=$(".he-page");
                $('.loading').addClass("out");
+
                 if($hePage.length){
                     $hePage.addClass("in")
-                    setTimeout(function(){
+                    $(document).swipeUp(function(){
                         $('.screen').eq(0).addClass("active")
                         $(document.documentElement).addClass("auto")
                         $hePage.removeClass("in");
@@ -1323,7 +1324,7 @@ webpsupport(function (webpa) {
                         Game.init();
                         indexInit();
                         document.body.scrollTop=0;
-                    },3600)
+                    })
                 }else{
                     $('.screen').eq(0).addClass("active")
                     $(document.documentElement).addClass("auto")

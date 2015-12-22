@@ -1,233 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-	<meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />
-    <meta name="format-detection" content="telephone=no">
-    <meta content="no-cache" http-equiv="Cache-Control">
-    <meta content="no-cache" http-equiv="Pragma">
-    <link rel="stylesheet" href="../css/swiper-3.2.7.min.css">
-    <link rel="stylesheet" href="../css/style-promo.css">
-    <title></title>
-    <style>
-        *{
-            margin: 0;
-        box-sizing: border-box;
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>送礼精选-徐福记</title>
+    <script>
+        var scaleFactor=localStorage.getItem("pageScale");
+        if(scaleFactor&&scaleFactor<1&&scaleFactor>0.3){
+            document.write('<meta name="viewport" id="eqMobileViewport" content="initial-scale='+scaleFactor+',maximum-scale='+scaleFactor+',user-scalable=no" />')
+        }else{
+            localStorage.removeItem("pageScale");
+            scaleFactor=null;
+            document.write('<meta name="viewport" id="eqMobileViewport" content="width=device-width,user-scalable=no" />');
         }
-        html, body {
-            height: 100%;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            overflow: hidden;
-            position: relative;
-            background-color: #d82823;
-        }
-        body{
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: url(../img/p0_bg.png);
-            background-size:cover ;
-        }
-        .loading{
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background-color: #f0f0f0;
-        }
-        .loading.fade{
-            opacity: 0;
-            transition:1s;
-            -webkit-transition:1s;
-        }
-        .load_inner{
-            position: relative;
-            transform: translate3d(100%,0,0);
-            -webkit-transform:translate3d(100%,0,0);;
-            width: 61%;
-        }
-        .loading-num{
-            position: absolute;
-            left: 64px;
-            top: -21px;
-            width: 100%;
-            text-align: left;
-            color: #5a5a5a;
-            font-size: 16px;
-            white-space: nowrap;
-        }
-        .load_car{
-            background: url(../img/p0_car.png);
-            width: 121.5px;
-            height: 38px;
-            background-size:100% ;
-        }
-        .load_wrapper{
-            position: absolute;
-            width: 100%;
-            top:50%;
-            left:50%;
-            -webkit-transform:translate3d(-50%,-50%,0);
-            transform:translate3d(-50%,-50%,0);
-        }
-         .loading-num img{
-               vertical-align: middle;
-             margin-right: 5px;;
-         }
-    </style>
+    </script>
 </head>
 <body>
-<img src="../img/wx_share.jpg" style="display: none"/>
-<!--loading页-->
-<div class="loading">
-        <div class="load_wrapper">
-          <div class="load_inner" id="loadInner">
-              <div class="load_car"></div>
-              <div class="loading-num">Now Loading...<span id="loadPer"> 0%</span></div>
-          </div>
-        </div>
-</div>
-<div class="swiper-container frame" id="pagesContainer">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">Slide 1</div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">
-            <div class="swiper-container" id="productsContainer" style="height: 400px">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">pd 1</div>
-                    <div class="swiper-slide">pd 2</div>
-                    <div class="swiper-slide">pd 3</div>
-                    <div class="swiper-slide">pd 4</div>
-                </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-        <div class="swiper-slide">Slide 4</div>
-        <div class="swiper-slide">Slide 5</div>
-    </div>
-</div>
-<script >
-/*    window.onerror=function(err){
-        alert(err)
-    }*/
-document.addEventListener("touchmove",function(e){
-    e.preventDefault();
-})
-var basePath="../";
-    var link=document.createElement("link");
-    link.href= "../css/style-promo.css";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
 
-    var uploadUrl="http://10.4.1.76/temp/bluebird/index/index";
-    var collectShareUrl="../php/main.php?a=share";
-    var visitUrl='../php/main.php?a=visit'
-    var app={
-        newsId:"22",
-        audioSrc:"",
-        text:"测试2,一男子汤母通过不同用户名在各大婚恋网站上结识异性，并依靠有“泡妞神器”之称的蓝鸟，在三个月内和八位异性先后确立了情侣关系。本以为可以继续共享齐人之福，然而他在国庆黄金周期间在某一景点游玩时，意外地遇上这八位女友。景点人潮汹涌，费大鹏逃跑不遂，惨遭围殴。事后，他哭着表示：都是蓝鸟的锅，这车太酷炫，把女生迷得不要不要的，她们与我交往完全是为了接近我的车。最重要的是，国庆千万不要去景点。",
-        picTimeArr:["96"],
-        picUrlArr:[]
-    }
-</script>
-<!--<script  type="text/javascript"  src="http://wximg.gtimg.com/wxp/libs/wxmoment/0.0.3/wxmoment.min.js"></script>-->
-<!--<script  type="text/javascript"  src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
-<!-- build:js ../js/lib.js -->
-<script type="text/javascript" src="../js/zepto.min.js"></script>
-<script type="text/javascript" src="../js/zepto.fx.js"></script>
-<script type="text/javascript" src="../js/zepto.data.js"></script>
-<script type="text/javascript" src="../js/fastclick.js"></script>
-<script  type="text/javascript" src="../js/getWXSDK.js"></script>
-<script src="../js/swiper-3.2.7.min.js"></script>
-<script src="../js/swiper.animate.min.js"></script>
-<script  type="text/javascript"  src="../js/other.js"></script>
-
-<!-- endbuild -->
-<script  type="text/javascript"  src="../js/main.js"></script>
-<script>
-    //预加载load图
-    loadFramesFun();
-    //预加载loading函数
-    function loadFramesFun() {
-        var allFrames = [
-        ];
-        var loaded = 0;
-        var isloaded=false;
-        var $loadPer=$("#loadPer");
-        var imgPer = 100/allFrames.length;
-        for (var i = 0, j = allFrames.length; i < j; i++) {
-            var img = new Image;
-            img.onload = update;
-            img.src = allFrames[i];
-        }
-        function update() {
-            loaded = Math.min(100, (imgPer + loaded));
-            $loadPer.html(Math.floor(loaded)+"%");
-            if(parseInt(loaded)==100){
-                initStage();
-            }
-        }
-    }
-
-    initStage();
-
-    function initStage() {
-        $(".loading").addClass("fade")
-        setTimeout(function(){
-            $(".loading").remove();
-        },1000)
-    }
-
-    var pageSwiper = new Swiper('#pagesContainer', {
-        direction: 'vertical',
-        observer:true,
-        mousewheelControl: true,
-        onSlideChangeStart:function(){
-           // $tipArrow.show();
-        },
-        onInit: function (swiper) {
-            swiperAnimateCache(swiper);
-            swiperAnimate(swiper);
-        },
-        onSlideChangeEnd: function (swiper) {
-            swiperAnimate(swiper);
-        },
-        onTransitionEnd: function (swiper) {
-            swiperAnimate(swiper);
-        },
-        onReachEnd:function(){
-            setTimeout(function(){
-               // $tipArrow.hide();
-            },30)
-        }
-    });
-    var productsSwiper= new Swiper('#productsContainer', {
-        direction: 'horizontal',
-        observer:true,
-        mousewheelControl: true,
-        onSlideChangeStart:function(){
-           /// $tipArrow.show();
-        },
-        onInit: function (swiper) {
-            swiperAnimateCache(swiper);
-            swiperAnimate(swiper);
-        },
-        onSlideChangeEnd: function (swiper) {
-            swiperAnimate(swiper);
-        },
-        onTransitionEnd: function (swiper) {
-            swiperAnimate(swiper);
-        },
-        onReachEnd:function(){
-            setTimeout(function(){
-             //   $tipArrow.hide();
-            },30)
-        }
-    });
-</script>
 </body>
+<script>
+    function resetMeta(){
+        var g=window.innerWidth,h=window.innerHeight,k;
+        (g/h)>=320/504?k=h/1008:k=g/640;
+        //alert(window.innerHeight+'-'+window.innerWidth)
+        document.getElementById("eqMobileViewport").setAttribute("content","initial-scale="+k+",maximum-scale="+k+",user-scalable=no")
+        localStorage.setItem("pageScale",k);
+        //alert(k);
+        /*   setTimeout(function(){
+         alert(window.innerHeight+'-'+window.innerWidth)
+         })*/
+    }
+    window.onload=function(){
+        resetMeta();
+        window.location.href="h5.html";
+    }
+</script>
 </html>

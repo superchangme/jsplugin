@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            overflow: hidden;
+            height: 100%;
+            /**/
+            position: relative;
+        }
+        #mask{
+            position: absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            display: none;
+            z-index: 99999;
+            height: 100%;
+            background: url(1.png);
+            background-size: cover;
+
+        }
+    </style>
+</head>
+<body>
+
+<div id="mask"></div>
+</body>
+<script src="jquery-2.1.4.js" ></script>
+<!--<script src="../vendor/tom.Lib.js"></script>-->
+<script src="jquery.eraser.js"></script>
+<!--<script type='text/javascript' src='http://ajax.useso.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=3.4.2'></script>
+<script src="../vendor/jquery.eraser.js"></script>-->
+<script>
+    var imgFolder=""
+    //var imgFolder="";
+    $("body").eraser({
+        bgColor:"rgba(0,0,0,0.3)",
+        imgList:[
+
+            {
+                imgSrc:imgFolder+"image.jpg",
+                backgroundSize:"cover"
+            },
+            {
+                imgSrc:"1.png",
+                backgroundSize:""
+            } ,
+            {
+                imgSrc:imgFolder+"go.jpg",
+                bgPos: {left: "center", top: 60}
+            },
+            {
+                imgSrc:imgFolder+"go.jpg",
+                bgPos: {left: "center", top: 350},
+                bgScale:2
+            },
+        ]
+        ,percent:0.5,radius:15,
+        success:function(eraser){
+             console.log(eraser)
+            alert('成功了哈哈哈')
+        }
+    })
+</script>
+</html>

@@ -37,11 +37,10 @@
 </body>
 <script src="../vendor/require.js"></script>
 <script src="../vendor/main.js"></script>
-<script src="../vendor/testDefine.js"></script>
 <script>
 
-    require(["Zepto","jquery.eraser","tomLib","testDf"],function($,a,tLib,test){
-        console.log(test)
+    require(["jquery","jquery.eraser","tomLib"],function($,a,tLib){
+
         console.log(tLib.getParams(["c","a","d","b"]))
         var img=new Image,resultCanvas=$("#resultCanvas"),ctx=resultCanvas[0].getContext("2d"),heartWidth=300;
         img.src="../source/img/chick_bg.png";
@@ -60,7 +59,6 @@
              ctx.drawImage(img,heartWidth/2,0);*/
 //            $("#drawCanvas2")[0].getContext("2d").putImageData(getCanvasImgData($("#drawCanvas")[0]),0,0)
             console.log(checkSimilarity($("#drawCanvas")[0],$("#drawCanvas2")[0]))
-            return
             var myrun=run();
             function run(){
                 var total=100,filled=0,per;

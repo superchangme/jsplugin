@@ -13,10 +13,10 @@ else
 //mysqli_query();
 $mysqli->query("SET NAMES utf8");
 
-function saveShareInfo()
+function saveShareInfo($action='share')
 {
 	global $mysqli;
-	$sql="insert into ".TABLE_PREFIX."data values(null,'".session_id()."',now())";
+	$sql="insert into ".TABLE_PREFIX."data(`id`,`openid`) values(null,'".session_id()."',now())";
 	$mysqli->query($sql);
 	$id=$mysqli->insert_id;
 	$mysqli->close();

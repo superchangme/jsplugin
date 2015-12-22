@@ -473,7 +473,7 @@ webpsupport(function (webpa) {
 
     function checkLoaded(){
         if(loadedTimes==2){
-            //$('.loading').remove();
+            $('.loading').remove();
             $(document.documentElement).addClass("auto")
             $('.screen').eq(0).addClass('active in');
             app.init();

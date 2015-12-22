@@ -14,7 +14,14 @@ if(isset($_GET['a']))
 if($action=='share')
 {
 //TODO fetch wechat info
-	$id=saveShareInfo(); //conn.php
+	$id=saveData('share'); //conn.php
+	echo $id;
+//end
+}
+if($action=='visit')
+{
+//TODO fetch wechat info
+	$id=saveData(); //conn.php
 	echo $id;
 //end
 }

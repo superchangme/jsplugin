@@ -309,6 +309,10 @@
 }
 .topPer(@top:0){
   top:percentage(@top/@pageHeight);
+  margin-top:45px;
+}
+.topPx(@top:0,@parent:0){
+  top:0px + @top - @parent;
 }
 .frame {
   position: absolute;
